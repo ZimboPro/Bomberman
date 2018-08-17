@@ -5,18 +5,19 @@ project(Bomberman)
 include(FetchContent)
 
 FetchContent_Declare(
-    engine
-    URL https://github.com/ZimboPro/GameEngine.git
+    sfml
+    URL https://www.sfml-dev.org/files/SFML-2.4.2-sources.zip
 )
 
-FetchContent_GetProperties(engine)
+FetchContent_GetProperties(sfml)
 
-if(NOT engine_POPULATED)
-    FetchContent_Populate(engine)
-    add_subdirectory(${engine_SOURCE_DIR} ${engine_BINARY_DIR})
+if(NOT sfml_POPULATED)
+    FetchContent_Populate(sfml)
+    set(BUILD_SHARED_LIBS TRUE)
+    add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
 endif()
 
-include_directories(${engine_SOURCE_DIR}/include)
+include_directories(${sfml_SOURCE_DIR}/include)
 include_directories(include)
 
 add_executable(
@@ -24,4 +25,4 @@ add_executable(
     src/main.hpp
 )
 
-target_link_libraries(bomberman GameEngine)
+target_link_libraries(bomberman sfml-graphics sfml-system sfml-window sfml-audio)
