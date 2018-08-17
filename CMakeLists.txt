@@ -1,4 +1,4 @@
-cmake_minimum_required(3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
 project(Bomberman)
 
@@ -22,7 +22,8 @@ include_directories(include)
 
 add_executable(
     bomberman
-    src/main.hpp
+    src/main.cpp
+    src/Game.cpp
 )
 
 target_link_libraries(bomberman sfml-graphics sfml-system sfml-window sfml-audio)
