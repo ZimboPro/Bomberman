@@ -24,6 +24,6 @@ add_executable(
     bomberman
     src/main.cpp
     src/Game.cpp
-)
+        src/SplashScreen.cpp src/MainMenu.cpp)
 
 target_link_libraries(bomberman sfml-graphics sfml-system sfml-window sfml-audio)
