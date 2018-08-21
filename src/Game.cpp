@@ -9,55 +9,85 @@
 
 void Game::start()
 {
-    if (_gameState != Uninitialized)
-        return;
+	if (_gameState != Uninitialized)
+		return;
 
-    _window.create(sf::VideoMode(1024, 768), "Test");
-    _gameState = Game::ShowingSplash;
+	_window.create(sf::VideoMode(1024, 768), "Test");
+	_gameState = Game::ShowingSplash;
 
-    while (!isExiting())
-    {
-        gameLoop();
-    }
+	while (!isExiting())
+	{
+		gameLoop();
+	}
 
-    _window.close();
+	_window.close();
 }
 
 bool Game::isExiting()
 {
-    if (_gameState == Game::Exiting)
-        return true;
-    return false;
+	if (_gameState == Game::Exiting)
+		return true;
+	return false;
 }
 
 void Game::gameLoop()
 {
-    sf::Event event;
-    SplashScreen splash;
-    MainMenu menu;
+	switch (_gameState)
+	{
+		case Game::Playing:
+			playGame();
+			break;
+		case Game::ShowingSplash:
+			showSplashScreen();
+			break;
+		case Game::Paused:
+			break;
+		case Game::ShowingMenu:
+			showMenu();
+			break;
+		case Game::Exiting:
+			break;
+		default:
+			break;
+	}
+}
 
-    while(_window.pollEvent(event))
-    {
-        switch(_gameState)
-        {
-        	case Game::Playing:
-        		_window.clear(sf::Color::Magenta);
-        		_window.display();
-        		if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
-        			_gameState = Game::Exiting;
-        		break;
-			case Game::ShowingSplash:
-				splash.show(_window);
-				_gameState = Game::ShowingMenu;
-				break;
-			case Game::Paused:break;
-			case Game::ShowingMenu:
-				menu.show((_window));
-				_gameState = Game::Playing;
-			case Game::Exiting:break;
-			default:break;
+void Game::showSplashScreen()
+{
+	SplashScreen splash;
+	splash.show(_window);
+	_gameState = Game::ShowingMenu;
+}
+
+void Game::showMenu()
+{
+	MainMenu menu;
+	int selection = menu.show(_window);
+
+	if (selection == MainMenu::Exit)
+		_gameState = Game::Exiting;
+	else if (selection == MainMenu::Play)
+		_gameState = Game::Playing;
+}
+
+void Game::playGame()
+{
+	sf::Event event;
+
+	while(_gameState == Game::Playing)
+	{
+		while (_window.pollEvent(event))
+		{
+			_window.clear(sf::Color::Magenta);
+			_window.display();
+
+			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+			{
+				_gameState = Game::Exiting;
+			}
 		}
-    }
+	}
+	return ;
 }
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
