@@ -3,6 +3,7 @@
 //
 
 #include "MainMenu.hpp"
+#include <iostream>
 
 
 MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
@@ -43,7 +44,11 @@ MainMenu::MenuResult  MainMenu::handleClick(int x, int y)
 	{
 		if (y >= menuItem.rect.top && y <= (menuItem.rect.top + menuItem.rect.height))
 			if (x >= menuItem.rect.left && y <= (menuItem.rect.left + menuItem.rect.width))
+			{
+				std::cout << "Returning form handleClick" << std::endl;
+
 				return menuItem.action;
+			}
 	}
 }
 
@@ -51,14 +56,20 @@ MainMenu::MenuResult MainMenu::getMenuResponse(sf::RenderWindow &window)
 {
 	sf::Event event;
 
-	while(window.pollEvent(event))
+	while(window.isOpen())
 	{
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		while (window.pollEvent(event))
 		{
-			sf::Vector2i position = sf::Mouse::getPosition();
-			return(handleClick(position.x, position.y));
+			switch (event.type)
+			{
+				case sf::Event::Closed:
+					return MenuResult::Exit;
+				case sf::Event::MouseButtonPressed:
+					if (event.mouseButton.button == sf::Mouse::Left)
+						return handleClick(event.mouseButton.x, event.mouseButton.y);
+				default:
+					break;
+			}
 		}
-		if (event.type == sf::Event::Closed)
-			return MenuResult::Exit;
 	}
 }

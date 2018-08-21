@@ -3,6 +3,7 @@
 //
 
 #include <MainMenu.hpp>
+#include <iostream>
 #include "Game.hpp"
 #include "SplashScreen.hpp"
 
