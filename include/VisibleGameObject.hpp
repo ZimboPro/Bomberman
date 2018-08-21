@@ -5,6 +5,9 @@
 #ifndef BOMBERMAN_VISIBLEGAMEOBJECT_HPP
 #define BOMBERMAN_VISIBLEGAMEOBJECT_HPP
 
+#include <string>
+#include <SFML/Window.hpp>
+
 class VisibleGameObject
 {
 public:
