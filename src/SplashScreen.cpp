@@ -18,11 +18,14 @@ void SplashScreen::show(sf::RenderWindow &window)
 	window.display();
 
 	sf::Event event;
-	while(window.pollEvent(event))
+	while(window.isOpen())
 	{
-		if(event.type == sf::Event::EventType::KeyPressed ||
-			event.type == sf::Event::EventType::MouseButtonPressed ||
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::EventType::KeyPressed ||
+				event.type == sf::Event::EventType::MouseButtonPressed ||
 				event.type == sf::Event::EventType::Closed)
-			return ;
+				return;
+		}
 	}
 }

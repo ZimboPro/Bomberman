@@ -16,17 +16,17 @@ MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
 
 	MenuItem playButton;
 	playButton.rect.top = 145;
-	playButton.rect.height = playButton.rect.top + 380;
+	playButton.rect.height = 235;
 	playButton.rect.left = 0;
-	playButton.rect.width = playButton.rect.left + 1023;
+	playButton.rect.width = 1023;
 	playButton.action = MainMenu::Play;
 
 
 	MenuItem exitButton;
-	exitButton.rect.top = 0;
-	exitButton.rect.height = exitButton.rect.top + 1023;
-	exitButton.rect.left = 380;
-	exitButton.rect.width= exitButton.rect.left + 560;
+	exitButton.rect.top = playButton.rect.top + playButton.rect.height + 5;
+	exitButton.rect.height = 177;
+	exitButton.rect.left = 0;
+	exitButton.rect.width = 1023;
 	exitButton.action = MainMenu::Exit;
 
 	_menuItems.push_back(playButton);
@@ -43,10 +43,8 @@ MainMenu::MenuResult  MainMenu::handleClick(int x, int y)
 	for(auto menuItem : _menuItems)
 	{
 		if (y >= menuItem.rect.top && y <= (menuItem.rect.top + menuItem.rect.height))
-			if (x >= menuItem.rect.left && y <= (menuItem.rect.left + menuItem.rect.width))
+			if (x >= menuItem.rect.left && x <= (menuItem.rect.left + menuItem.rect.width))
 			{
-				std::cout << "Returning form handleClick" << std::endl;
-
 				return menuItem.action;
 			}
 	}
