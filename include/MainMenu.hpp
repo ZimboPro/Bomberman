@@ -20,7 +20,7 @@ public:
 		MenuResult action;
 	};
 
-MenuResult show(sf::RenderWindow & window);
+	MenuResult show(sf::RenderWindow & window);
 
 private:
 	MenuResult getMenuResponse(sf::RenderWindow & window);

@@ -7,6 +7,7 @@
 
 #include <string>
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 class VisibleGameObject
 {
@@ -15,13 +16,13 @@ public:
 	virtual ~VisibleGameObject();
 
 	virtual void Load(std::string fileName);
-	virtual void Draw(sf::Window & window);
+	virtual void Draw(sf::RenderWindow & window);
 
 	virtual void setPosition(int x, int y);
 
 private:
-	sf::Sprite _sprite;
-	sf::texture _texture;
+	sf::CircleShape _sprite;
+	sf::Texture _texture;
 	std::string _filename;
 	bool _isLoaded;
 };

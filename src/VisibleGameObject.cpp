@@ -9,13 +9,37 @@ VisibleGameObject::VisibleGameObject()
 	this->_isLoaded = false;
 }
 
-virtual ~VisibleGameObject() {}
+VisibleGameObject::~VisibleGameObject() {}
 
-virtual void Load(std::string fileName)
+void VisibleGameObject::Load(std::string type)
 {
-
+	if (type.compare("player") == 0)
+	{
+		this->_sprite.setPointCount(3);
+		this->_sprite.setRadius(20);
+		//set origin
+	}
+	else if (type.compare("wall") == 0)
+	{
+		this->_sprite.setPointCount(4);
+		this->_sprite.setRadius(30);
+		//set origin
+	}
+	this->_isLoaded = true;
 }
 
-virtual void Draw(sf::Window & window);
+void VisibleGameObject::Draw(sf::RenderWindow & window)
+{
+	if(this->_isLoaded)
+	{
+		window.draw(_sprite);
+	}
+}
 
-virtual void setPosition(int x, int y);
+void VisibleGameObject::setPosition(int x, int y)
+{
+	if(this->_isLoaded)
+	{
+		_sprite.setPosition(x, y);
+	}
+}

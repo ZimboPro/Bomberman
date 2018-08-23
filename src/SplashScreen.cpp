@@ -6,7 +6,7 @@
 #include "SplashScreen.hpp"
 #include "Game.hpp"
 
-void SplashScreen::show(sf::RenderWindow &window)
+void SplashScreen::show(sf::RenderWindow & window)
 {
 	sf::Texture texture;
 	if(!texture.loadFromFile("../assets/Splashscreen.png"))
