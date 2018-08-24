@@ -12,6 +12,15 @@ class Player: public VisibleGameObject
 public:
 	~Player();
 	Player();
+
+	void Update(float & timeElapsed);
+	void Draw(sf::RenderWindow & window);
+
+	float getVelocity() const;
+
+private:
+	float _velocity;
+	float _maxVelocity;
 };
 
 

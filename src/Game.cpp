@@ -30,6 +30,11 @@ void Game::start()
 	_window.close();
 }
 
+sf::Vector2u Game::getWindowSize()
+{
+	return _window.getSize();
+}
+
 bool Game::isExiting()
 {
 	if (_gameState == Game::Exiting)
@@ -80,24 +85,43 @@ void Game::showMenu()
 void Game::playGame()
 {
 	sf::Event event;
+	sf::Clock clock;
 
 	while(_gameState == Game::Playing)
 	{
-		while (_window.pollEvent(event))
-		{
-			_window.clear(sf::Color::Magenta);
-			_gameObjectManager.drawAll(_window);
-			_window.display();
+		_window.clear(sf::Color::Magenta);
+		_gameObjectManager.drawAll(_window);
+		_window.display();
 
-			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+		_gameObjectManager.updateAll(clock.getElapsedTime().asSeconds());
+		clock.restart();
+
+		if(_window.pollEvent(event))
+		{
+			if(event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
 			{
+//				_gameState = Game::ShowingMenu;
 				_gameState = Game::Exiting;
+			}
+
+			if(event.type == sf::Event::KeyPressed)
+			{
+				_keyPress = event.key.code;
 			}
 		}
 	}
 	return ;
 }
 
+int Game::getInput()
+{
+	return _keyPress;
+}
+
+
 Game::eGameState Game::_gameState = Game::Uninitialized;
 sf::RenderWindow Game::_window;
 GameObjectManager Game::_gameObjectManager;
+int Game::_keyPress = 0;
+int Game::_screenWidth = 0;
+int Game::_screenHeight = 0;

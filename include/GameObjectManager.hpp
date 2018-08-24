@@ -18,11 +18,10 @@ public:
 	int getObjectCount() const;
 	VisibleGameObject * get(const std::string & name) const;
 	void drawAll(sf::RenderWindow & window);
+	void updateAll(float elapsedTime);
 
 private:
 	std::map<std::string, VisibleGameObject*> _gameObjects;
-
-	//TODO remove implementation of GameObjectDeallocator to cpp
 	struct GameObjectDeallocator
 	{
 		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;

@@ -12,6 +12,8 @@ class Game
 {
 public:
     static void start();
+	static int getInput();
+	static sf::Vector2u getWindowSize();
 
 private:
     static bool isExiting();
@@ -26,6 +28,9 @@ private:
     static eGameState _gameState;
     static sf::RenderWindow _window;
     static GameObjectManager _gameObjectManager;
+    static int _keyPress;
+    static int _screenWidth;
+    static int _screenHeight;
 };
 
 #endif //BOMBERMAN_GAME_HPP

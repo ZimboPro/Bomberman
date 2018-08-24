@@ -44,7 +44,7 @@ void VisibleGameObject::setPosition(int x, int y)
 	}
 }
 
-void VisibleGameObject::Update(float elapsedTime)
+void VisibleGameObject::Update(float & elapsedTime)
 {
 
 }

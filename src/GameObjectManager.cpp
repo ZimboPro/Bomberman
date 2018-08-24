@@ -2,6 +2,7 @@
 // Created by Patrick RUSSELL on 2018/08/24.
 //
 
+#include <iostream>
 #include "GameObjectManager.hpp"
 
 GameObjectManager::GameObjectManager() = default;
@@ -41,10 +42,20 @@ VisibleGameObject * GameObjectManager::get(const std::string & name) const
 
 void GameObjectManager::drawAll(sf::RenderWindow & window)
 {
-	std::map<std::string, VisibleGameObject *>::const_iterator iter = _gameObjects.begin();
+	auto iter = _gameObjects.begin();
 	while(iter != _gameObjects.end())
 	{
 		iter->second->Draw(window);
+		iter++;
+	}
+}
+
+void GameObjectManager::updateAll(float elapsedTime)
+{
+	auto iter = _gameObjects.begin();
+	while(iter != _gameObjects.end())
+	{
+		iter->second->Update(elapsedTime);
 		iter++;
 	}
 }
