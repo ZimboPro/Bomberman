@@ -13,13 +13,13 @@ VisibleGameObject::~VisibleGameObject() {}
 
 void VisibleGameObject::Load(std::string type)
 {
-	if (type.compare("player") == 0)
+	if (type == "player")
 	{
 		this->_sprite.setPointCount(3);
 		this->_sprite.setRadius(20);
 		//set origin
 	}
-	else if (type.compare("wall") == 0)
+	else if (type == "wall")
 	{
 		this->_sprite.setPointCount(4);
 		this->_sprite.setRadius(30);
@@ -42,4 +42,28 @@ void VisibleGameObject::setPosition(int x, int y)
 	{
 		_sprite.setPosition(x, y);
 	}
+}
+
+void VisibleGameObject::Update(float elapsedTime)
+{
+
+}
+
+sf::Vector2f VisibleGameObject::getPosition() const
+{
+	if(_isLoaded)
+	{
+		return _sprite.getPosition();
+	}
+	return sf::Vector2f();
+}
+
+sf::CircleShape & VisibleGameObject::getSprite()
+{
+	return _sprite;
+}
+
+bool VisibleGameObject::isLoaded() const
+{
+	return _isLoaded;
 }

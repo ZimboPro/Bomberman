@@ -4,8 +4,7 @@
 
 #include "GameObjectManager.hpp"
 
-
-GameObjectManager::GameObjectManager() {}
+GameObjectManager::GameObjectManager() = default;
 
 GameObjectManager::~GameObjectManager()
 {
@@ -19,7 +18,7 @@ void GameObjectManager::add(std::string name, VisibleGameObject * gameObject)
 
 void GameObjectManager::remove(const std::string & name)
 {
-	std::map<std::string, VisibleGameObject *>::iterator result = _gameObjects.find(name);
+	auto result = _gameObjects.find(name);
 	if(result != _gameObjects.end())
 	{
 		delete result->second;
@@ -34,10 +33,10 @@ int GameObjectManager::getObjectCount() const
 
 VisibleGameObject * GameObjectManager::get(const std::string & name) const
 {
-	std::map<std::string, VisibleGameObject *>::const_iterator result = _gameObjects.find(name);
+	auto result = _gameObjects.find(name);
 	if (result != _gameObjects.end())
 		return result->second;
-	return NULL;
+	return nullptr;
 }
 
 void GameObjectManager::drawAll(sf::RenderWindow & window)
@@ -54,13 +53,3 @@ void GameObjectManager::GameObjectDeallocator::operator()(const std::pair<std::s
 {
 	delete p.second;
 }
-
-/*
-struct GameObjectDeallocator
-{
-	void operator()(const std::pair<std::string, VisibleGameObject *> & p) const
-	{
-		delete p.second;
-	}
-};
-*/

@@ -16,7 +16,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f16740f0-d3b6-476d-b9af-2e1526452051" name="Default" comment="" />
+    <list default="true" id="f16740f0-d3b6-476d-b9af-2e1526452051" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/include/VisibleGameObject.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/VisibleGameObject.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjectManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjectManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VisibleGameObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VisibleGameObject.cpp" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,44 +35,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Game.cpp">
+      <file leaf-file-name="VisibleGameObject.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/VisibleGameObject.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="330">
+              <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
               <folding>
-                <element signature="e#52#71#0" expanded="true" />
+                <element signature="e#133#150#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameObjectManager.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GameObjectManager.cpp">
+      <file leaf-file-name="VisibleGameObject.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/VisibleGameObject.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="1" selection-start-column="1" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Game.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/Game.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
-              <folding>
-                <element signature="e#107#135#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameObjectManager.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/GameObjectManager.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+            <state relative-caret-position="416">
+              <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -82,21 +65,21 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main.cpp" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/include/SplashScreen.hpp" />
         <option value="$PROJECT_DIR$/src/MainMenu.cpp" />
         <option value="$PROJECT_DIR$/include/VisiableGameObject.hpp" />
         <option value="$PROJECT_DIR$/include/MainMenu.hpp" />
         <option value="$PROJECT_DIR$/src/SplashScreen.cpp" />
-        <option value="$PROJECT_DIR$/src/VisibleGameObject.cpp" />
         <option value="$PROJECT_DIR$/include/Player.hpp" />
-        <option value="$PROJECT_DIR$/include/VisibleGameObject.hpp" />
         <option value="$PROJECT_DIR$/src/Player.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/GameObjectManager.cpp" />
         <option value="$PROJECT_DIR$/include/GameObjectManager.hpp" />
         <option value="$PROJECT_DIR$/include/Game.hpp" />
         <option value="$PROJECT_DIR$/src/Game.cpp" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/GameObjectManager.cpp" />
+        <option value="$PROJECT_DIR$/include/VisibleGameObject.hpp" />
+        <option value="$PROJECT_DIR$/src/VisibleGameObject.cpp" />
       </list>
     </option>
   </component>
@@ -210,15 +193,16 @@
       <workItem from="1535009590408" duration="3244000" />
       <workItem from="1535024298542" duration="711000" />
       <workItem from="1535091750140" duration="3515000" />
-      <workItem from="1535098019306" duration="725000" />
+      <workItem from="1535098019306" duration="2111000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31378000" />
+    <option name="totallyTimeSpent" value="32764000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Key Promoter X" order="3" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.54527366" visible="true" weight="0.12992546" />
@@ -226,10 +210,10 @@
       <window_info anchor="bottom" id="Messages" order="7" weight="0.39104477" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.23681591" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2845771" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2845771" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.48258707" />
       <window_info id="Structure" order="1" sideWeight="0.45472637" side_tool="true" weight="0.122470714" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.26865673" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.360199" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.42189056" />
       <window_info id="Favorites" order="2" sideWeight="0.45472637" side_tool="true" weight="0.122470714" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -253,16 +237,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/include/Game.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
-          <folding>
-            <element signature="e#107#135#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Player.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -432,13 +406,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/Game.h" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/BomberMan.hpp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -522,13 +489,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/VisibleGameObject.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6345">
@@ -550,16 +510,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/VisibleGameObject.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding>
-            <element signature="e#133#150#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3510" />
@@ -578,17 +528,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameObjectManager.cpp">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
+        <state relative-caret-position="369">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/GameObjectManager.hpp">
+    <entry file="file://$PROJECT_DIR$/src/GameObjectManager.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+        <state relative-caret-position="810">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
@@ -602,6 +552,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/include/GameObjectManager.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="10" selection-start-column="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -609,6 +573,23 @@
           <folding>
             <element signature="e#52#71#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/VisibleGameObject.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+          <folding>
+            <element signature="e#133#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/VisibleGameObject.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
         </state>
       </provider>
     </entry>
