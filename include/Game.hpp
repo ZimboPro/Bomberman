@@ -6,7 +6,7 @@
 #define BOMBERMAN_GAME_HPP
 
 #include <SFML/Graphics.hpp>
-#include "Player.hpp"
+#include "GameObjectManager.hpp"
 
 class Game
 {
@@ -25,7 +25,7 @@ private:
 
     static eGameState _gameState;
     static sf::RenderWindow _window;
-    static Player _player;
+    static GameObjectManager _gameObjectManager;
 };
 
 #endif //BOMBERMAN_GAME_HPP

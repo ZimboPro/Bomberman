@@ -26,9 +26,6 @@ private:
 	struct GameObjectDeallocator
 	{
 		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;
-//		{
-//			delete p.second;
-//		}
 	};
 
 };

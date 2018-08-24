@@ -7,6 +7,7 @@
 #include "Game.hpp"
 #include "MainMenu.hpp"
 #include "SplashScreen.hpp"
+#include "Player.hpp"
 
 void Game::start()
 {
@@ -16,9 +17,11 @@ void Game::start()
 	_window.create(sf::VideoMode(1024, 768), "Test");
 	_gameState = Game::Playing;
 
-	_player.Load("player");
-	_player.setPosition(1024 / 2, 758 / 2);
+	Player * player = new Player();
+	player->Load("player");
+	player->setPosition(1024 / 2, 758 / 2);
 
+	_gameObjectManager.add("player", player);
 	while (!isExiting())
 	{
 		gameLoop();
@@ -83,7 +86,7 @@ void Game::playGame()
 		while (_window.pollEvent(event))
 		{
 			_window.clear(sf::Color::Magenta);
-			_player.Draw(_window);
+			_gameObjectManager.drawAll(_window);
 			_window.display();
 
 			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
@@ -97,4 +100,4 @@ void Game::playGame()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 sf::RenderWindow Game::_window;
-Player Game::_player;
+GameObjectManager Game::_gameObjectManager;
