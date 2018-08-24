@@ -23,8 +23,12 @@ public:
 	virtual sf::Vector2f getPosition() const;
 	virtual bool isLoaded() const;
 
+	virtual float getWidth();
+	virtual float getHeight();
+	virtual sf::Rect<float> getBoundingRect();
+
 protected:
-	sf::CircleShape & getSprite();
+	virtual sf::CircleShape & getSprite();
 
 private:
 	sf::CircleShape _sprite;

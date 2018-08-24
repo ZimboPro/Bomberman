@@ -67,3 +67,25 @@ bool VisibleGameObject::isLoaded() const
 {
 	return _isLoaded;
 }
+
+float VisibleGameObject::getWidth()
+{
+	return _sprite.getRadius() * 2;
+}
+
+float VisibleGameObject::getHeight()
+{
+	return _sprite.getRadius() * 2;
+}
+
+sf::Rect<float> VisibleGameObject::getBoundingRect()
+{
+	sf::Vector2f pos = _sprite.getPosition();
+
+	return sf::Rect<float>(
+			pos.x - _sprite.getRadius(),
+			pos.y - _sprite.getRadius(),
+			_sprite.getRadius() * 2,
+			_sprite.getRadius() * 2
+			);
+}
