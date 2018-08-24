@@ -34,13 +34,13 @@ int GameObjectManager::getObjectCount() const
 
 VisibleGameObject * GameObjectManager::get(const std::string & name) const
 {
-	std::map<std::string, VisibleGameObject *>::iterator result = _gameObjects.find(name);
+	std::map<std::string, VisibleGameObject *>::const_iterator result = _gameObjects.find(name);
 	if (result != _gameObjects.end())
 		return result->second;
 	return NULL;
 }
 
-void GameObjectManager::drawAll(sf::renderWindow & window)
+void GameObjectManager::drawAll(sf::RenderWindow & window)
 {
 	std::map<std::string, VisibleGameObject *>::const_iterator iter = _gameObjects.begin();
 	while(iter != _gameObjects.end())
@@ -50,4 +50,17 @@ void GameObjectManager::drawAll(sf::renderWindow & window)
 	}
 }
 
+void GameObjectManager::GameObjectDeallocator::operator()(const std::pair<std::string, VisibleGameObject *> & p) const
+{
+	delete p.second;
+}
 
+/*
+struct GameObjectDeallocator
+{
+	void operator()(const std::pair<std::string, VisibleGameObject *> & p) const
+	{
+		delete p.second;
+	}
+};
+*/

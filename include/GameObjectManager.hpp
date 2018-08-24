@@ -17,7 +17,7 @@ public:
 	void remove(const std::string & name);
 	int getObjectCount() const;
 	VisibleGameObject * get(const std::string & name) const;
-	void drawAll(sf::renderWindow & window);
+	void drawAll(sf::RenderWindow & window);
 
 private:
 	std::map<std::string, VisibleGameObject*> _gameObjects;
@@ -25,10 +25,10 @@ private:
 	//TODO remove implementation of GameObjectDeallocator to cpp
 	struct GameObjectDeallocator
 	{
-		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const
-		{
-			delete p.second;
-		}
+		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;
+//		{
+//			delete p.second;
+//		}
 	};
 
 };
