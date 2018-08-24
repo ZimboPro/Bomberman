@@ -100,10 +100,8 @@ void Game::playGame()
 		{
 			if(event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
 			{
-//				_gameState = Game::ShowingMenu;
 				_gameState = Game::Exiting;
 			}
-
 			if(event.type == sf::Event::KeyPressed)
 			{
 				_keyPress = event.key.code;
@@ -123,5 +121,3 @@ Game::eGameState Game::_gameState = Game::Uninitialized;
 sf::RenderWindow Game::_window;
 GameObjectManager Game::_gameObjectManager;
 int Game::_keyPress = 0;
-int Game::_screenWidth = 0;
-int Game::_screenHeight = 0;

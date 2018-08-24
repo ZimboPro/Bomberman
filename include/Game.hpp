@@ -29,8 +29,6 @@ private:
     static sf::RenderWindow _window;
     static GameObjectManager _gameObjectManager;
     static int _keyPress;
-    static int _screenWidth;
-    static int _screenHeight;
 };
 
 #endif //BOMBERMAN_GAME_HPP
