@@ -5,13 +5,7 @@
 
 int main()
 {
-	//Game::start();
-	SFMLSoundProvider sound;
-
-	sound.playSong("../assets/sounds/background_music/level_one.wav", false);
-	sound.playSound("../assets/sounds/gameplay/death.wav");
-
-	while(true) {}
+	Game::start();
 
 	return 0;
 }

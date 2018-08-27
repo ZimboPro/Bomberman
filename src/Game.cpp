@@ -8,6 +8,8 @@
 #include "MainMenu.hpp"
 #include "SplashScreen.hpp"
 #include "Player.hpp"
+#include "SFMLSoundProvider.hpp"
+#include "ServiceLocator.hpp"
 
 void Game::start()
 {
@@ -22,6 +24,10 @@ void Game::start()
 	player->setPosition(1024 / 2, 758 / 2);
 
 	_gameObjectManager.add("player", player);
+
+	SFMLSoundProvider soundProvider;
+	ServiceLocator::RegisterServiceLocator(&soundProvider);
+
 	while (!isExiting())
 	{
 		gameLoop();

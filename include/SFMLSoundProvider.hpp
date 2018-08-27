@@ -21,6 +21,7 @@ public:
 	bool isSongPlaying() const;
 
 private:
+	static const int MAX_SOUND_CHANNELS= 5;
 	sf::SoundBuffer _soundBuffer;
 	sf::Sound _sound;
 	sf::Music _music;
