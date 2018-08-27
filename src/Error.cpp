@@ -1,5 +1,23 @@
 #include "Error.hpp"
 
+
+Error::AssetError::AssetError(std::string const & str) { e_msg = str; }
+
+Error::AssetError::AssetError() { e_msg = "Asset Error"; }
+
+Error::AssetError::~AssetError() {}
+
+Error::AssetError::AssetError(AssetError const & rhs) { this->e_msg = rhs.e_msg; }
+
+Error::AssetError & Error::AssetError::AssetError::operator=(AssetError const & rhs) {
+	this->e_msg = rhs.e_msg;
+	return *this;
+}
+
+const char* Error::AssetError::what() const throw() { return e_msg.c_str(); }
+
+
+
 Error::InitError::InitError(std::string const & str) { e_msg = str; }
 
 Error::InitError::InitError() { e_msg = "Error Initialising library"; }

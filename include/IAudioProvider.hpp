@@ -5,6 +5,8 @@
 #ifndef BOMBERMAN_IAUDIOPROVIDER_HPP
 #define BOMBERMAN_IAUDIOPROVIDER_HPP
 
+#include <string>
+
 class IAudioProvider
 {
 public:
