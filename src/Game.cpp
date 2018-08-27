@@ -53,6 +53,7 @@ void Game::gameLoop()
 	switch (_gameState)
 	{
 		case Game::Playing:
+			ServiceLocator::getAudio()->playSong(../)
 			playGame();
 			break;
 		case Game::ShowingSplash:

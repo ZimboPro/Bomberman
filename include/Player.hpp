@@ -23,5 +23,4 @@ private:
 	float _maxVelocity;
 };
 
-
 #endif //BOMBERMAN_PLAYER_HPP

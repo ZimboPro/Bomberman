@@ -2,53 +2,97 @@
 // Created by Patrick RUSSELL on 2018/08/27.
 //
 
+#include "Error.hpp"
 #include "SFMLSoundProvider.hpp"
 
-SFMLSoundProvider::SFMLSoundProvider()
+SFMLSoundProvider::SFMLSoundProvider(): _currentSongName("")
 {
-	_sound.setVolume(100.0f);
 }
 
 void SFMLSoundProvider::playSound(std::string fileName)
 {
-	if(_soundBuffer.getDuration().asMilliseconds() == 0)
+	int availChannel = -1;
+
+	for(int i = 0; i < MAX_SOUND_CHANNELS; i++)
 	{
-		_soundBuffer.loadFromFile(fileName);
+		if (_currentSounds[i].getStatus() == sf::Sound::Playing)
+		{
+			availChannel = i;
+			break ;
+		}
 	}
-	if(_sound.getStatus() == sf::SoundSource::Status::Playing)
+	if(availChannel != -1)
 	{
-		_sound.stop();
+		try
+		{
+			_currentSounds[availChannel] = _soundFileCache.getSound(fileName);
+			_currentSounds[availChannel].play();
+		}
+		catch (std::exception & e)
+		{
+			std::stderr << e.what() << std::endl;
+		}
 	}
-	_sound.setBuffer(_soundBuffer);
-	_sound.play();
 }
 
 void SFMLSoundProvider::playSong(std::string fileName, bool looping)
 {
-	if(!_music.openFromFile(fileName))
+	sf::Music * currentSong;
+
+	try
+	{
+		currentSong = _soundFileCache.getSong(fileName);
+	}
+	catch (std::exception & e)
+	{
+		std::stderr << e.what() << std::endl;
 		return ;
-	_music.setLoop(looping);
-	_music.play();
+	}
+
+	if(_currentSongName != "")
+	{
+		try
+		{
+			sf::Music * priorSong = _soundFileCache.getSong(fileName);
+			if(priorSong->getStatus() != sf::Sound::Stopped)
+				priorSong->stop();
+		}
+		catch (std::exception & e)
+		{
+			std::stderr << e.what() << std::endl;
+		}
+	}
+	_currentSongName = fileName;
+	currentSong->setLoop(looping);
+	currentSong->play();
 }
 
 void SFMLSoundProvider::stopAllSounds()
 {
-	if (_sound.getStatus() == sf::SoundSource::Status::Playing)
-		_sound.stop();
-	if(_music.getStatus() == sf::SoundSource::Status::Playing)
-		_music.stop();
+	for(int i = 0; i < MAX_SOUND_CHANNELS; i++)
+	{
+		_currentSounds[i].stop();
+	}
+	if(_currentSongName != "")
+	{
+		sf::Music * currentSong = _soundFileCache.getSong(_currentSongName);
+		if(currentSong->getStatus() == sf::Sound::Playing)
+			currentSong->stop();
+	}
 }
 
 bool SFMLSoundProvider::isSoundPlaying() const
 {
-	if(_sound.getStatus() == sf::SoundSource::Status::Playing)
-		return true;
+	for(int i = 0; i < MAX_SOUND_CHANNELS; i++)
+		if(_currentSounds[i].getStatus() == sf::Sound::Playing)
+			return true;
+
 	return false;
 }
 
 bool SFMLSoundProvider::isSongPlaying() const
 {
-	if(_sound.getStatus() == sf::SoundSource::Status::Playing)
-		return true;
+	if(_currentSongName != "")
+		return _soundFileCache.getSong(_currentSongName).getStatus() == sf::Sound::Playing;
 	return false;
 }
