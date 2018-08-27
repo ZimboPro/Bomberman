@@ -46,7 +46,6 @@ void VisibleGameObject::setPosition(int x, int y)
 
 void VisibleGameObject::Update(float & elapsedTime)
 {
-
 }
 
 sf::Vector2f VisibleGameObject::getPosition() const
