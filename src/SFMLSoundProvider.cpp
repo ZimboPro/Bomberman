@@ -2,6 +2,7 @@
 // Created by Patrick RUSSELL on 2018/08/27.
 //
 
+#include <iostream>
 #include "Error.hpp"
 #include "SFMLSoundProvider.hpp"
 
@@ -15,7 +16,7 @@ void SFMLSoundProvider::playSound(std::string fileName)
 
 	for(int i = 0; i < MAX_SOUND_CHANNELS; i++)
 	{
-		if (_currentSounds[i].getStatus() == sf::Sound::Playing)
+		if (_currentSounds[i].getStatus() != sf::Sound::Playing)
 		{
 			availChannel = i;
 			break ;
@@ -26,13 +27,16 @@ void SFMLSoundProvider::playSound(std::string fileName)
 		try
 		{
 			_currentSounds[availChannel] = _soundFileCache.getSound(fileName);
+			_currentSounds[availChannel].setVolume(100);
 			_currentSounds[availChannel].play();
 		}
 		catch (std::exception & e)
 		{
-			std::stderr << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}
+	if(availChannel == -1)
+		std::cout << "No chanel found" << std::endl;
 }
 
 void SFMLSoundProvider::playSong(std::string fileName, bool looping)
@@ -45,7 +49,7 @@ void SFMLSoundProvider::playSong(std::string fileName, bool looping)
 	}
 	catch (std::exception & e)
 	{
-		std::stderr << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 		return ;
 	}
 
@@ -59,7 +63,7 @@ void SFMLSoundProvider::playSong(std::string fileName, bool looping)
 		}
 		catch (std::exception & e)
 		{
-			std::stderr << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	_currentSongName = fileName;
@@ -81,18 +85,17 @@ void SFMLSoundProvider::stopAllSounds()
 	}
 }
 
-bool SFMLSoundProvider::isSoundPlaying() const
+bool SFMLSoundProvider::isSoundPlaying()
 {
 	for(int i = 0; i < MAX_SOUND_CHANNELS; i++)
 		if(_currentSounds[i].getStatus() == sf::Sound::Playing)
 			return true;
-
 	return false;
 }
 
-bool SFMLSoundProvider::isSongPlaying() const
+bool SFMLSoundProvider::isSongPlaying()
 {
-	if(_currentSongName != "")
-		return _soundFileCache.getSong(_currentSongName).getStatus() == sf::Sound::Playing;
+	if(_currentSongName != "" && _soundFileCache.getSong(_currentSongName)->getStatus() == sf::Sound::Playing)
+		return true;
 	return false;
 }

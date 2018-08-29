@@ -6,6 +6,7 @@
 #define BOMBERMAN_SFMLSOUNDPROVIDER_HPP
 
 #include "IAudioProvider.hpp"
+#include "SoundFileCache.hpp"
 #include <SFML/Audio.hpp>
 
 class SFMLSoundProvider: public IAudioProvider
@@ -17,11 +18,11 @@ public:
 	void playSong(std::string fileName, bool looping);
 	void stopAllSounds();
 
-	bool isSoundPlaying() const;
-	bool isSongPlaying() const;
+	bool isSoundPlaying();
+	bool isSongPlaying();
 
 private:
-	static const int MAX_SOUND_CHANNELS= 5;
+	static const int MAX_SOUND_CHANNELS= 10;
 
 	SoundFileCache _soundFileCache;
 	sf::Sound _currentSounds[MAX_SOUND_CHANNELS];

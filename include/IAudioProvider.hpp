@@ -15,8 +15,8 @@ public:
 	virtual void playSong(std::string fileName, bool looping) = 0;
 	virtual void stopAllSounds() = 0;
 
-	virtual bool isSoundPlaying() const = 0;
-	virtual bool isSongPlaying() const = 0;
+	virtual bool isSoundPlaying() = 0;
+	virtual bool isSongPlaying() = 0;
 };
 
 #endif //BOMBERMAN_IAUDIOPROVIDER_HPP

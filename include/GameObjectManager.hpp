@@ -6,6 +6,7 @@
 #define BOMBERMAN_GAMEOBJECTMANAGER_HPP
 
 #include "VisibleGameObject.hpp"
+#include <SFML/Audio.hpp>
 
 class GameObjectManager
 {

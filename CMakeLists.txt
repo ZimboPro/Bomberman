@@ -33,6 +33,7 @@ add_executable(
         src/GameObjectManager.cpp
         src/Error.cpp
         src/SFMLSoundProvider.cpp
-        src/ServiceLocator.cpp)
+        src/ServiceLocator.cpp
+        src/SoundFileCache.cpp)
 
 target_link_libraries(bomberman sfml-graphics sfml-system sfml-window sfml-audio)

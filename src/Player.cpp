@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Game.hpp"
+#include "ServiceLocator.hpp"
 
 Player::Player(): _velocity(0), _maxVelocity(600.0f)
 {

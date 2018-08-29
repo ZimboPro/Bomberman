@@ -53,7 +53,7 @@ void Game::gameLoop()
 	switch (_gameState)
 	{
 		case Game::Playing:
-			ServiceLocator::getAudio()->playSong(../)
+//			ServiceLocator::getAudio()->playSong("../assets/sounds/background_music/background_menu.wav", true);
 			playGame();
 			break;
 		case Game::ShowingSplash:
@@ -111,6 +111,7 @@ void Game::playGame()
 			}
 			if(event.type == sf::Event::KeyPressed)
 			{
+				ServiceLocator::getAudio()->playSound("../assets/sounds/gameplay/eath.wav");
 				_keyPress = event.key.code;
 			}
 		}
