@@ -7,19 +7,18 @@ project(Bomberman)
 include(FetchContent)
 
 FetchContent_Declare(
-    sfml
-    URL https://www.sfml-dev.org/files/SFML-2.4.2-sources.zip
+    graphics
+    GIT_REPOSITORY https://github.com/ZimboPro/glfw_test.git
 )
 
-FetchContent_GetProperties(sfml)
+FetchContent_GetProperties(graphics)
 
-if(NOT sfml_POPULATED)
-    FetchContent_Populate(sfml)
+if(NOT graphics_POPULATED)
+    FetchContent_Populate(graphics)
     set(BUILD_SHARED_LIBS TRUE)
-    add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
+    add_subdirectory(${graphics_SOURCE_DIR} ${graphics_BINARY_DIR})
 endif()
 
-include_directories(${sfml_SOURCE_DIR}/include)
 include_directories(include)
 
 add_executable(
@@ -36,4 +35,4 @@ add_executable(
         src/ServiceLocator.cpp
         src/SoundFileCache.cpp)
 
-target_link_libraries(bomberman sfml-graphics sfml-system sfml-window sfml-audio)
+target_link_libraries(bomberman graphics) 
