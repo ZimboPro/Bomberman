@@ -10,11 +10,15 @@
 #include "Player.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
+#include "Map.hpp"
 
 void Game::start()
 {
 	if (_gameState != Uninitialized)
 		return;
+
+	if (Map::[y][x] == '0')
+		generateEnemy();
 
 	_window.create(sf::VideoMode(1024, 768), "Test");
 	_gameState = Game::Playing;
