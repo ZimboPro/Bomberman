@@ -98,7 +98,6 @@ void Game::playGame()
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
 	Model * model = new Model("../assets/objects/mario_walking_1.obj");
-	player->setShader(shader);
 	player->setModel(model);
 
 	//set view

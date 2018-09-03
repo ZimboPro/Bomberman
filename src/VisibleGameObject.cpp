@@ -5,42 +5,37 @@
 #include "VisibleGameObject.hpp"
 
 VisibleGameObject::VisibleGameObject():
-		_shader(NULL), _model(NULL), _isLoaded(false) {}
+		 _model(NULL), _isLoaded(false) {}
 
 VisibleGameObject::VisibleGameObject(Model *model, Shaders *shader, float y, float x, bool collidable = true):
-		_model(model), _shader(shader), _isLoaded(true), _isCollidable(collidable)
+		_model(model), _isLoaded(true), _isCollidable(collidable)
 {
 	_position.x = x;
 	_position.y = y;
+	_position.z = 0;
 }
 
 VisibleGameObject::~VisibleGameObject()
 {
 }
 
-void VisibleGameObject::setShader(Shaders *shader)
-{
-	this->_shader = shader;
-	if (_model && _shader)
-		_isLoaded = true;
-}
 
 void VisibleGameObject::setModel(Model *model)
 {
 	this->_model = model;
-	if (_model && _shader)
+	if (_model)
 		_isLoaded = true;
 }
 
-void VisibleGameObject::Draw()
+void VisibleGameObject::Draw(Shaders & shader)
 {
 	if(this->_isLoaded)
 	{
-		_model->Draw(*_shader);
+		_model->DrawAt(shader, _position.x, _position.y, _position.z);
 	}
 }
 
-glm::vec2 VisibleGameObject::getPosition()
+glm::vec3 VisibleGameObject::getPosition()
 {
 	return _position;
 }
@@ -50,10 +45,11 @@ Model * VisibleGameObject::getModel()
 	return _model;
 }
 
-void VisibleGameObject::setPosition(int y, int x)
+void VisibleGameObject::setPosition(float x, float y, float z)
 {
 	_position.x = x;
 	_position.y = y;
+	_position.z = z;
 }
 
 void VisibleGameObject::Update(float & elapsedTime)

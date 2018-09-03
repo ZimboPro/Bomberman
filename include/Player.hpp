@@ -14,7 +14,6 @@ public:
 	Player();
 
 	void Update(float & timeElapsed);
-	void Draw();
 
 	float getVelocity() const;
 

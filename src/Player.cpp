@@ -14,10 +14,6 @@ Player::Player(): _velocity(0), _maxVelocity(600.0f)
 
 Player::~Player() {}
 
-void Player::Draw()
-{
-	VisibleGameObject::Draw();
-}
 
 float Player::getVelocity() const
 {
