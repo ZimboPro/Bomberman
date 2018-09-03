@@ -5,9 +5,10 @@
 #ifndef BOMBERMAN_VISIBLEGAMEOBJECT_HPP
 #define BOMBERMAN_VISIBLEGAMEOBJECT_HPP
 
+#include <Window.hpp>
+#include "Models.hpp"
+#include "Shaders.hpp"
 #include <string>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 
 class VisibleGameObject
 {
@@ -15,26 +16,28 @@ public:
 	VisibleGameObject();
 	virtual ~VisibleGameObject();
 
+	VisibleGameObject(Shaders *shader, Model *model, float x, float y);
 	virtual void Load(std::string fileName);
-	virtual void Draw(sf::RenderWindow & window);
+	virtual void Draw();
 	virtual void Update(float & elapsedTime);
 
+	virtual void setShader(Shader *shader);
+	virtual void setModel(Model *model);
+
 	virtual void setPosition(int x, int y);
-	virtual sf::Vector2f getPosition() const;
 	virtual bool isLoaded() const;
 
 	virtual float getWidth();
 	virtual float getHeight();
-	virtual sf::Rect<float> getBoundingRect();
 
 protected:
-	virtual sf::CircleShape & getSprite();
 
 private:
-	sf::CircleShape _sprite;
-	sf::Texture _texture;
-	std::string _filename;
+	Model *_model;
+	Shaders *_shader;
 	bool _isLoaded;
+	float _x;
+	float _y;
 };
 
 #endif //BOMBERMAN_VISIABLEGAMEOBJECT_HPP

@@ -5,7 +5,7 @@
 #ifndef BOMBERMAN_GAME_HPP
 #define BOMBERMAN_GAME_HPP
 
-#include <SFML/Graphics.hpp>
+#include <Window.hpp>
 #include "GameObjectManager.hpp"
 
 class Game
@@ -13,20 +13,19 @@ class Game
 public:
     static void start();
 	static int getInput();
-	static sf::Vector2u getWindowSize();
 
 private:
     static bool isExiting();
     static void gameLoop();
-	static void showSplashScreen();
-	static void showMenu();
+//	static void showSplashScreen();
+//	static void showMenu();
 	static void playGame();
 
     enum eGameState { Uninitialized, ShowingSplash, Paused,
             ShowingMenu, Playing, Exiting };
 
     static eGameState _gameState;
-    static sf::RenderWindow _window;
+    static Window _window;
     static GameObjectManager _gameObjectManager;
     static int _keyPress;
 };

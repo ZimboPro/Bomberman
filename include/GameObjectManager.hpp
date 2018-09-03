@@ -6,7 +6,7 @@
 #define BOMBERMAN_GAMEOBJECTMANAGER_HPP
 
 #include "VisibleGameObject.hpp"
-#include <SFML/Audio.hpp>
+#include <map>
 
 class GameObjectManager
 {
@@ -18,7 +18,7 @@ public:
 	void remove(const std::string & name);
 	int getObjectCount() const;
 	VisibleGameObject * get(const std::string & name) const;
-	void drawAll(sf::RenderWindow & window);
+	void drawAll();
 	void updateAll(float elapsedTime);
 
 private:

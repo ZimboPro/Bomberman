@@ -12,15 +12,13 @@ Player::Player(): _velocity(0), _maxVelocity(600.0f)
 {
 	Load("player");
 	assert(isLoaded());
-
-	getSprite().setOrigin(getSprite().getRadius(), getSprite().getRadius());
 }
 
 Player::~Player() {}
 
-void Player::Draw(sf::RenderWindow & window)
+void Player::Draw()
 {
-	VisibleGameObject::Draw(window);
+	VisibleGameObject::Draw();
 }
 
 float Player::getVelocity() const

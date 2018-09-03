@@ -40,14 +40,14 @@ VisibleGameObject * GameObjectManager::get(const std::string & name) const
 	return nullptr;
 }
 
-void GameObjectManager::drawAll(sf::RenderWindow & window)
+void GameObjectManager::drawAll()
 {
-	auto iter = _gameObjects.begin();
-	while(iter != _gameObjects.end())
-	{
-		iter->second->Draw(window);
-		iter++;
-	}
+//	auto iter = _gameObjects.begin();
+//	while(iter != _gameObjects.end())
+//	{
+//		iter->second->Draw(window);
+//		iter++;
+//	}
 }
 
 void GameObjectManager::updateAll(float elapsedTime)

@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif(APPLE)
 
 project(Bomberman)
 
@@ -25,10 +30,10 @@ add_executable(
     bomberman
         src/main.cpp
         src/Game.cpp
-        src/SplashScreen.cpp
-        src/MainMenu.cpp
-        src/VisibleGameObject.cpp
-        src/Player.cpp
+#        src/SplashScreen.cpp
+#        src/MainMenu.cpp
+#        src/VisibleGameObject.cpp
+#        src/Player.cpp
         src/GameObjectManager.cpp
         src/Error.cpp
         src/SFMLSoundProvider.cpp

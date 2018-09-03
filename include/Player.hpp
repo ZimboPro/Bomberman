@@ -14,7 +14,7 @@ public:
 	Player();
 
 	void Update(float & timeElapsed);
-	void Draw(sf::RenderWindow & window);
+	void Draw();
 
 	float getVelocity() const;
 
