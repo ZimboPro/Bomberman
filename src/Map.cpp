@@ -22,3 +22,13 @@ void Map::levelUp()
 {
 	_currentWorkingLevel++;
 }
+
+int Map::mapHeight()
+{
+	return _map.size();
+}
+
+int Map::mapWidth()
+{
+	return _map[0].size();
+}

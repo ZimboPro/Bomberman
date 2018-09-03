@@ -10,15 +10,17 @@
 class Map
 {
 public:
-	Map();
-	~Map();
+	static Map();
+	static ~Map();
 
-	char operator[](int i);
-	int getLevel();
-	void levelUp();
+	static char at(int x, int y);
+	static int getLevel();
+	static void levelUp();
+	static int mapWidth();
+	static int mapHeight();
 
 private:
-	std::vector<std::vector<char>> _map = {
+	static std::vector<std::vector<char>> _map = {
 			{'1', '1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
 			{'1', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 			{'1', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
@@ -37,7 +39,7 @@ private:
 			{'1', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 			{'1', '1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
 			};
-	int _currentWorkingLevel;
+	static int _currentWorkingLevel;
 };
 
 

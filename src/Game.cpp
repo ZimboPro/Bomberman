@@ -91,7 +91,6 @@ void Game::gameLoop()
 
 void Game::playGame()
 {
-//	sf::Event event;
 	sf::Clock clock;
 
 	Shaders * shader = new Shaders("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
@@ -115,7 +114,6 @@ void Game::playGame()
 		if(_window.isKeyPressed(GLFW_KEY_ESCAPE) || _window.closed())
 			_gameState = Game::Exiting;
 	}
-
 	return ;
 }
 
