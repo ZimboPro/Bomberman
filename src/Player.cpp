@@ -10,7 +10,6 @@
 
 Player::Player(): _velocity(0), _maxVelocity(600.0f)
 {
-	assert(isLoaded());
 }
 
 Player::~Player() {}

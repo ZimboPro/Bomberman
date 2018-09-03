@@ -45,6 +45,11 @@ glm::vec2 VisibleGameObject::getPosition()
 	return _position;
 }
 
+Model * VisibleGameObject::getModel()
+{
+	return _model;
+}
+
 void VisibleGameObject::setPosition(int y, int x)
 {
 	_position.x = x;

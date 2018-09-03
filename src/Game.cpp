@@ -12,7 +12,8 @@
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
 #include "Map.hpp"
-#include "VisibleGameObject.hpp"
+#include "Player.hpp"
+#include "Camera.hpp"
 
 void Game::start()
 {
@@ -21,10 +22,8 @@ void Game::start()
 
 	_gameState = Game::Playing;
 
-//	Player * player = new Player();
-//	player->Load("player");
-//	player->setPosition(_window.Width() / 2, _window.Height() / 2);
-//	player->setPosition(0, 0);
+
+
 
 //	_gameObjectManager.add("player", player);
 
@@ -87,15 +86,45 @@ void Game::gameLoop()
 //		_gameState = Game::Playing;
 //}
 
+
+
 void Game::playGame()
 {
 //	sf::Event event;
 	sf::Clock clock;
 
+	Player * player = new Player();
+	Shaders * shader = new Shaders("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
+			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
+
+	Model * model = new Model("../assets/objects/mario_walking_1.obj");
+	player->setShader(shader);
+	player->setModel(model);
+
+	//set view
+	//NOTE:: all drawings can only be done after setting the camera
+
+	// set position of the light for shading
+
+	_camera.LookAt(glm::vec3(0));
+	//if same model but different position and rotation
+
+	// because it has a set position and this instance of model is only drawn once it can be set here
+
+	model->Scale(0.2f);
 	while(_gameState == Game::Playing)
 	{
 		_window.clear(0.5f, 0.5f, 0.5f);
 //		_gameObjectManager.drawAll(_window);
+		_camera.SetShaderView(*shader, _window.Width(), _window.Height());
+
+		shader->setVec3("light", glm::vec3(-30, 30, 30));
+
+		model->DrawAt(*shader, 10, 10, 0, 45);
+		model->DrawAt(*shader, 0, 0, 0, 45);
+		model->DrawAt(*shader, 10, 0, 0, 90);
+		model->DrawAt(*shader, 0, 10, 0, 0);
+	//	player->Draw();
 		_window.update();
 
 		_gameObjectManager.updateAll(clock.getElapsedTime().asSeconds());
@@ -103,8 +132,8 @@ void Game::playGame()
 
 		if(_window.isKeyPressed(GLFW_KEY_ESCAPE) || _window.closed())
 			_gameState = Game::Exiting;
-
 	}
+
 	return ;
 }
 
@@ -117,3 +146,4 @@ Game::eGameState Game::_gameState = Game::Uninitialized;
 GameObjectManager Game::_gameObjectManager;
 Window Game::_window("Bomberman", 1024, 768);
 int Game::_keyPress = 0;
+Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));

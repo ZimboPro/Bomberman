@@ -30,6 +30,7 @@ public:
 	virtual glm::vec2 getPosition();
 
 protected:
+	Model * getModel();
 
 private:
 	Model *_model;

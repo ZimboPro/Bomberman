@@ -7,6 +7,7 @@
 
 #include <Window.hpp>
 #include "GameObjectManager.hpp"
+#include "Camera.hpp"
 
 class Game
 {
@@ -28,6 +29,7 @@ private:
     static Window _window;
     static GameObjectManager _gameObjectManager;
     static int _keyPress;
+    static Camera _camera;
 };
 
 #endif //BOMBERMAN_GAME_HPP
