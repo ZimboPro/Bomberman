@@ -98,17 +98,10 @@ void Game::playGame()
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
 	Model * model = new Model("../assets/objects/mario_walking_1.obj");
+
 	player->setModel(model);
 
-	//set view
-	//NOTE:: all drawings can only be done after setting the camera
-
-	// set position of the light for shading
-
 	_camera.LookAt(glm::vec3(0));
-	//if same model but different position and rotation
-
-	// because it has a set position and this instance of model is only drawn once it can be set here
 
 	model->Scale(0.2f);
 	while(_gameState == Game::Playing)
@@ -123,6 +116,8 @@ void Game::playGame()
 		model->DrawAt(*shader, 0, 0, 0, 45);
 		model->DrawAt(*shader, 10, 0, 0, 90);
 		model->DrawAt(*shader, 0, 10, 0, 0);
+		player->setPosition(10, 20, 5);
+		player->Draw(*shader);
 	//	player->Draw();
 		_window.update();
 

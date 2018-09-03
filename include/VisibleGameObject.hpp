@@ -35,6 +35,7 @@ private:
 	Model *_model;
 	bool _isLoaded;
 	glm::vec3 _position;
+	int _direction;
 	bool _isCollidable;
 };
 
