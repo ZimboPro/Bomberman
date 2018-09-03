@@ -4,7 +4,21 @@
 
 #include "Map.hpp"
 
-std::vector<char> Map::operator[](int i)
+Map(): _currentWorkingLevel(0) {}
+
+~Map();
+
+char Map::at(int x, int y)
 {
-	return _map[_currentWorkingLevel][i];
+	return _map[y][x];
+}
+
+int Map::getLevel()
+{
+	return _currentWorkingLevel;
+}
+
+void Map::levelUp()
+{
+	_currentWorkingLevel++;
 }

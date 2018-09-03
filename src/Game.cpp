@@ -22,10 +22,11 @@ void Game::start()
 
 	_gameState = Game::Playing;
 
-
-
-
-//	_gameObjectManager.add("player", player);
+	Player * player = new Player();
+	Model * model = new Model("../assets/objects/mario_walking_1.obj");
+	model->Scale(0.2f);
+	player->setModel(model);
+	_gameObjectManager.add("player", player);
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -93,32 +94,19 @@ void Game::playGame()
 //	sf::Event event;
 	sf::Clock clock;
 
-	Player * player = new Player();
 	Shaders * shader = new Shaders("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
-	Model * model = new Model("../assets/objects/mario_walking_1.obj");
-
-	player->setModel(model);
-
 	_camera.LookAt(glm::vec3(0));
 
-	model->Scale(0.2f);
 	while(_gameState == Game::Playing)
 	{
 		_window.clear(0.5f, 0.5f, 0.5f);
-//		_gameObjectManager.drawAll(_window);
 		_camera.SetShaderView(*shader, _window.Width(), _window.Height());
 
 		shader->setVec3("light", glm::vec3(-30, 30, 30));
+		_gameObjectManager.drawAll(*shader);
 
-		model->DrawAt(*shader, 10, 10, 0, 45);
-		model->DrawAt(*shader, 0, 0, 0, 45);
-		model->DrawAt(*shader, 10, 0, 0, 90);
-		model->DrawAt(*shader, 0, 10, 0, 0);
-		player->setPosition(10, 20, 5);
-		player->Draw(*shader);
-	//	player->Draw();
 		_window.update();
 
 		_gameObjectManager.updateAll(clock.getElapsedTime().asSeconds());

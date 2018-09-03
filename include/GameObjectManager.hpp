@@ -7,6 +7,7 @@
 
 #include "VisibleGameObject.hpp"
 #include <map>
+#include "Shaders.hpp"
 
 class GameObjectManager
 {
@@ -18,7 +19,7 @@ public:
 	void remove(const std::string & name);
 	int getObjectCount() const;
 	VisibleGameObject * get(const std::string & name) const;
-	void drawAll();
+	void drawAll(Shaders & shader);
 	void updateAll(float elapsedTime);
 
 private:
@@ -27,7 +28,6 @@ private:
 	{
 		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;
 	};
-
 };
 
 #endif //BOMBERMAN_GAMEOBJECTMANAGER_HPP
