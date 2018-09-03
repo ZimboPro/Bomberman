@@ -16,15 +16,14 @@ public:
 	VisibleGameObject();
 	virtual ~VisibleGameObject();
 
-	VisibleGameObject(Shaders *shader, Model *model, float x, float y);
-	virtual void Load(std::string fileName);
+	VisibleGameObject(Shaders *shader, Model *model, float y, float x);
 	virtual void Draw();
 	virtual void Update(float & elapsedTime);
 
-	virtual void setShader(Shader *shader);
+	virtual void setShader(Shaders *shader);
 	virtual void setModel(Model *model);
 
-	virtual void setPosition(int x, int y);
+	virtual void setPosition(int y, int x);
 	virtual bool isLoaded() const;
 
 	virtual float getWidth();

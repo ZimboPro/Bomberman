@@ -12,6 +12,7 @@
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
 #include "Map.hpp"
+#include "VisibleGameObject.hpp"
 
 void Game::start()
 {

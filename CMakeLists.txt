@@ -32,7 +32,7 @@ add_executable(
         src/Game.cpp
 #        src/SplashScreen.cpp
 #        src/MainMenu.cpp
-#        src/VisibleGameObject.cpp
+        src/VisibleGameObject.cpp
 #        src/Player.cpp
         src/GameObjectManager.cpp
         src/Error.cpp

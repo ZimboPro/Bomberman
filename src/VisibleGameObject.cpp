@@ -6,16 +6,16 @@
 #include "VisibleGameObject.hpp"
 
 VisibleGameObject::VisibleGameObject():
-		_shader(null), _model(null), _isLoaded(false) {}
+		_shader(NULL), _model(NULL), _isLoaded(false) {}
 
 VisibleGameObject::VisibleGameObject(Shaders *shader, Model *model, float y, float x):
-		_shader(shader), _model(model), _isLoaded(true) {}
+		_shader(shader), _model(model), _isLoaded(true), _y(y), _x(x) {}
 
 VisibleGameObject::~VisibleGameObject()
 {
 }
 
-void VisibleGameObject::setShader(Shader *shader)
+void VisibleGameObject::setShader(Shaders *shader)
 {
 	this->_shader = shader;
 	if (_model && _shader)
@@ -36,21 +36,15 @@ void VisibleGameObject::Draw()
 	}
 }
 
-void VisibleGameObject::setPosition(int x, int y)
+void VisibleGameObject::setPosition(int y, int x)
 {
-	if(this->_isLoaded)
-	{
-	}
+	_x = x;
+	_y = y;
 }
 
 void VisibleGameObject::Update(float & elapsedTime)
 {
 }
-
-//sf::CircleShape & VisibleGameObject::getSprite()
-//{
-//	return _sprite;
-//}
 
 bool VisibleGameObject::isLoaded() const
 {
@@ -59,23 +53,9 @@ bool VisibleGameObject::isLoaded() const
 
 float VisibleGameObject::getWidth()
 {
-//	return _sprite.getRadius() * 2;
 }
 
 float VisibleGameObject::getHeight()
 {
-//	return _sprite.getRadius() * 2;
 }
 
-sf::Rect<float> VisibleGameObject::getBoundingRect()
-{
-	sf::Vector2f pos = _sprite.getPosition();
-	glm::vec3 ble()
-
-	return sf::Rect<float>(
-			pos.x - _sprite.getRadius(),
-			pos.y - _sprite.getRadius(),
-			_sprite.getRadius() * 2,
-			_sprite.getRadius() * 2
-			);
-}
