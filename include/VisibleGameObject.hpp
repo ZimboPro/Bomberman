@@ -5,6 +5,7 @@
 #ifndef BOMBERMAN_VISIBLEGAMEOBJECT_HPP
 #define BOMBERMAN_VISIBLEGAMEOBJECT_HPP
 
+#include <glm/vec2.hpp>
 #include <Window.hpp>
 #include "Models.hpp"
 #include "Shaders.hpp"
@@ -16,7 +17,7 @@ public:
 	VisibleGameObject();
 	virtual ~VisibleGameObject();
 
-	VisibleGameObject(Shaders *shader, Model *model, float y, float x);
+	VisibleGameObject(Model *model, Shaders *shader, float y, float x, bool collidable);
 	virtual void Draw();
 	virtual void Update(float & elapsedTime);
 
@@ -26,8 +27,7 @@ public:
 	virtual void setPosition(int y, int x);
 	virtual bool isLoaded() const;
 
-	virtual float getWidth();
-	virtual float getHeight();
+	virtual glm::vec2 getPosition();
 
 protected:
 
@@ -35,8 +35,8 @@ private:
 	Model *_model;
 	Shaders *_shader;
 	bool _isLoaded;
-	float _x;
-	float _y;
+	glm::vec2 _position;
+	bool _isCollidable;
 };
 
 #endif //BOMBERMAN_VISIABLEGAMEOBJECT_HPP

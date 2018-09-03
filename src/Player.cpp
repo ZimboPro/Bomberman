@@ -10,7 +10,6 @@
 
 Player::Player(): _velocity(0), _maxVelocity(600.0f)
 {
-	Load("player");
 	assert(isLoaded());
 }
 
@@ -28,30 +27,30 @@ float Player::getVelocity() const
 
 void Player::Update(float & timeElapsed)
 {
-	if (Game::getInput() == sf::Keyboard::Left)
-	{
-		_velocity -= 3.0f;
-	}
-	else if (Game::getInput() == sf::Keyboard::Right)
-	{
-		_velocity += 3.0f;
-	}
-	else if (Game::getInput() == sf::Keyboard::Down)
-	{
-		_velocity = 0.0f;
-	}
-
-	if (_velocity > _maxVelocity)
-		_velocity = _maxVelocity;
-	else if (_velocity < -_maxVelocity)
-		_velocity = -_maxVelocity;
-
-	sf::Vector2f pos = this->getPosition();
-
-	if(pos.x < getSprite().getRadius() || pos.x > Game::getWindowSize().x)
-	{
-		_velocity = -_velocity;
-	}
-
-	getSprite().move(_velocity * timeElapsed, 0);
+//	if (Game::getInput() == sf::Keyboard::Left)
+//	{
+//		_velocity -= 3.0f;
+//	}
+//	else if (Game::getInput() == sf::Keyboard::Right)
+//	{
+//		_velocity += 3.0f;
+//	}
+//	else if (Game::getInput() == sf::Keyboard::Down)
+//	{
+//		_velocity = 0.0f;
+//	}
+//
+//	if (_velocity > _maxVelocity)
+//		_velocity = _maxVelocity;
+//	else if (_velocity < -_maxVelocity)
+//		_velocity = -_maxVelocity;
+//
+//	sf::Vector2f pos = this->getPosition();
+//
+//	if(pos.x < getSprite().getRadius() || pos.x > Game::getWindowSize().x)
+//	{
+//		_velocity = -_velocity;
+//	}
+//
+//	getSprite().move(_velocity * timeElapsed, 0);
 }
