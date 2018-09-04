@@ -33,21 +33,28 @@ std::vector<std::vector<VisibleGameObject *>> * ObjectFactory::genStaticObjects(
 	auto result = new std::vector<std::vector<VisibleGameObject * >>;
 
 	for (int y = 0; y < Map::mapHeight(); y++)
+	{
+		auto innerResult = new std::vector<VisibleGameObject * >;
+
 		for (int x = 0; x < Map::mapWidth(); x++)
 		{
 			switch (Map::at(x, y))
 			{
 				case grass:
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 				case unbreakableBlocks:
+					innerResult.push_back(new Block(*_unBreakableBlock, x, y, false));
 					break;
 				case breakableBlocks:
+					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
 					break;
 				default:
 					break;
 			}
 		}
-
+		result.push_back(innerResult);
+	}
 	return result;
 }
 

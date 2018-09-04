@@ -17,7 +17,7 @@ public:
 	VisibleGameObject();
 	virtual ~VisibleGameObject();
 
-	VisibleGameObject(Model *model, float x, float y, bool collidable);
+	VisibleGameObject(Model *model, float x, float y, bool collidable, bool isBreakable);
 	virtual void Draw(Shaders & shader);
 	virtual void Update(float & elapsedTime);
 
@@ -25,8 +25,10 @@ public:
 
 	virtual void setPosition(float x, float y, float z);
 	virtual bool isLoaded() const;
+	virtual bool isBreakable() const;
 
 	virtual glm::vec3 getPosition();
+
 
 protected:
 	Model * getModel();
@@ -37,6 +39,7 @@ private:
 	glm::vec3 _position;
 	int _direction;
 	bool _isCollidable;
+	bool _isBreakable;
 };
 
 #endif //BOMBERMAN_VISIABLEGAMEOBJECT_HPP
