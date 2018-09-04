@@ -10,12 +10,22 @@
 class ObjectFactory
 {
 public:
+	ObjectFactory();
+	~ObjectFactory();
 	enum objectTypes {grass = '0', unbreakableBlocks,
 			breakableBlocks, player, enemy1, enemy2,
 		powerBlock, healthBlock};
 	std::vector<std::vector<VisibleGameObject *>> * genStaticObjects();
 	std::list<*VisibleGameObjects> * genDynamicAndPickUpObjects();
 
+private:
+	Model *_player;
+	Model *_unbreakableBlock;
+	Model *_breakableBlock;
+	Model *_goomba;
+	Model *_koopaTroopa;
+	Model *_powerBlock;
+	Model *_healthBlock;
 };
 
 
