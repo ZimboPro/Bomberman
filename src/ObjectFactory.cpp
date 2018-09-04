@@ -26,7 +26,6 @@ ObjectFactory::ObjectFactory()
 	_powerBlock = new Model("assets/objects/brick_block.png");
 	_healthBlock = new Model("assets/objects/brick_block.png");
 
-
 }
 
 std::vector<std::vector<VisibleGameObject *>> * ObjectFactory::genStaticObjects()

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "GameObjectManager.hpp"
+#include "ObjectFactory.hpp"
 
 GameObjectManager::GameObjectManager() = default;
 
