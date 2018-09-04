@@ -32,6 +32,8 @@ add_executable(
         src/Game.cpp
 #        src/SplashScreen.cpp
 #        src/MainMenu.cpp
+        src/Block.cpp
+        src/Grass.cpp
         src/VisibleGameObject.cpp
         src/Player.cpp
         src/GameObjectManager.cpp

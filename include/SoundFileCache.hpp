@@ -5,7 +5,7 @@
 #ifndef BOMBERMAN_SOUNDFILECACHE_HPP
 #define BOMBERMAN_SOUNDFILECACHE_HPP
 
-#include <SFMl/Audio.hpp>
+#include <SFML/Audio.hpp>
 #include <map>
 
 class SoundFileCache {

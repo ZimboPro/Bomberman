@@ -17,7 +17,7 @@ public:
 	VisibleGameObject();
 	virtual ~VisibleGameObject();
 
-	VisibleGameObject(Model *model, float x, float y, bool collidable);
+	VisibleGameObject(Model *model, float x, float y, bool collidable, bool isBreakable);
 	virtual void Draw(Shaders & shader);
 	virtual void Update(float & elapsedTime);
 
