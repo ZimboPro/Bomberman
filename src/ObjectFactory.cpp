@@ -7,8 +7,10 @@
 
 std::vector<std::vector<VisibleGameObject *>> * ObjectFactory::genStaticObjects()
 {
+	auto result = new std::vector<std::vector<VisibleGameObject * >>;
+
 	for (int y = 0; y < Map::mapHeight(); y++)
-		for (int x = 0; x < Map::mapHeight(); x++)
+		for (int x = 0; x < Map::mapWidth(); x++)
 		{
 			switch (Map::at(x, y))
 			{
@@ -18,6 +20,24 @@ std::vector<std::vector<VisibleGameObject *>> * ObjectFactory::genStaticObjects(
 					break;
 				case breakableBlocks:
 					break;
+				default:
+					break;
+			}
+		}
+
+	return result;
+}
+
+
+std::list<*VisibleGameObjects> * ObjectFactory::genDynamicAndPickUpObjects()
+{
+	auto result  = new std::list<VisibleGameObject *>;
+
+	for (int y = 0; y < Map::mapHeight(); y++)
+		for (int x = 0; x < Map::mapWidth(); x++)
+		{
+			switch (Map::at(x, y))
+			{
 				case player:
 					break;
 				case goomba:
@@ -27,26 +47,6 @@ std::vector<std::vector<VisibleGameObject *>> * ObjectFactory::genStaticObjects(
 				case powerBlock:
 					break;
 				case healthBlock:
-					break;
-				default:
-					break;
-			}
-		}
-}
-
-std::list<*VisibleGameObjects> * ObjectFactory::genDynamicObjects()
-{
-	std::list * staticObjects = new std::list;
-	for (int y = 0; y < Map::mapHeight(); y++)
-		for (int x = 0; x < Map::mapHeight(); x++)
-		{
-			switch (Map::at(x, y))
-			{
-				case player:
-					break;
-				case goomba:
-					break;
-				case koopaTroopa:
 					break;
 				default:
 					break;

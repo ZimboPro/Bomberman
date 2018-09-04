@@ -13,6 +13,8 @@ public:
 	~Player();
 	Player();
 
+	Player(Model *model, float x, float y);
+
 	void Update(float & timeElapsed);
 
 	float getVelocity() const;

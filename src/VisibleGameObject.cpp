@@ -7,7 +7,7 @@
 VisibleGameObject::VisibleGameObject():
 		 _model(NULL), _isLoaded(false) {}
 
-VisibleGameObject::VisibleGameObject(Model *model, Shaders *shader, float y, float x, bool collidable = true):
+VisibleGameObject::VisibleGameObject(Model *model, float x, float y, bool collidable = true):
 		_model(model), _isLoaded(true), _isCollidable(collidable)
 {
 	_position.x = x;

@@ -14,7 +14,7 @@ public:
 			breakableBlocks, player, enemy1, enemy2,
 		powerBlock, healthBlock};
 	std::vector<std::vector<VisibleGameObject *>> * genStaticObjects();
-	std::list<*VisibleGameObjects> * genDynamicObjects();
+	std::list<*VisibleGameObjects> * genDynamicAndPickUpObjects();
 
 };
 
