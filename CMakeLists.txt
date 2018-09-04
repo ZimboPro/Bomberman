@@ -40,6 +40,8 @@ add_executable(
         src/Error.cpp
         src/SFMLSoundProvider.cpp
         src/ServiceLocator.cpp
-        src/SoundFileCache.cpp)
+        src/SoundFileCache.cpp
+        src/Map.cpp
+        src/ObjectFactory.cpp)
 
 target_link_libraries(bomberman graphics) 

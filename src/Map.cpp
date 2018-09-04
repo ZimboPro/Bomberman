@@ -4,9 +4,9 @@
 
 #include "Map.hpp"
 
-Map(): _currentWorkingLevel(0) {}
+Map::Map() {}
 
-~Map();
+Map::~Map() {}
 
 char Map::at(int x, int y)
 {
@@ -32,7 +32,6 @@ int Map::mapWidth()
 {
 	return _map[0].size();
 }
-
 std::vector<std::vector<char>> Map::_map = {
 			{'1', '1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
 			{'1', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
