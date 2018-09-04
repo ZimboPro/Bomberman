@@ -7,8 +7,8 @@
 VisibleGameObject::VisibleGameObject():
 		 _model(NULL), _isLoaded(false) {}
 
-VisibleGameObject::VisibleGameObject(Model *model, float x, float y, bool collidable = true):
-		_model(model), _isLoaded(true), _isCollidable(collidable), _isBreakable(false)
+VisibleGameObject::VisibleGameObject(Model *model, float x, float y, bool collidable = true, bool isBreakable = false):
+		_model(model), _isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable)
 {
 	_position.x = x;
 	_position.y = y;

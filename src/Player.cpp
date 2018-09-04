@@ -14,7 +14,7 @@ Player::Player(): _velocity(0), _maxVelocity(600.0f)
 
 Player::Player(Model *model, float x, float y): _velocity(0), _maxVelocity(600.0f)
 {
-	VisibleGameObject::VisibleGameObject(model, x, y, true);
+	VisibleGameObject::VisibleGameObject(model, x, y, true, false);
 }
 
 Player::~Player() {}
