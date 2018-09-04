@@ -18,15 +18,13 @@ ObjectFactory::~ObjectFactory()
 
 ObjectFactory::ObjectFactory()
 {
-	_player = new Model("../assets/objects/mario_walking_1.png");
-	_unbreakableBlock = new Model("assets/objects/iron_block.png");
-	_breakableBlock = new Model("assets/objects/brick_block.png");
-	_goomba = new Model("assets/objects/goomba.obj");
-	_koopaTroopa = new Model("assets/objects/koopa_troopa.obj");
-	_powerBlock = new Model("assets/objects/brick_block.png");
-	_healthBlock = new Model("assets/objects/brick_block.png");
-
-
+	_player = new Model("../assets/objects/mario_walking_1.obj");
+	_unbreakableBlock = new Model("../assets/objects/iron_block.obj");
+	_breakableBlock = new Model("../assets/objects/brick_block.obj");
+	_goomba = new Model("../assets/objects/goomba.obj");
+	_koopaTroopa = new Model("../assets/objects/koopa_troopa.obj");
+	_powerBlock = new Model("../assets/objects/power_up.obj");
+	_healthBlock = new Model("../assets/objects/heart.obj");
 }
 
 std::vector<std::vector<VisibleGameObject *>> * ObjectFactory::genStaticObjects()
