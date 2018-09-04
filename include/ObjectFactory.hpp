@@ -17,7 +17,7 @@ public:
 	enum objectTypes {grass = '0', unbreakableBlocks,
 			breakableBlocks, player, goomba, koopaTroopa,
 		powerBlock, healthBlock};
-	std::vector<std::vector<VisibleGameObject *>> * genStaticObjects();
+	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
 	std::list<VisibleGameObject *> * genDynamicAndPickUpObjects();
 
 private:
@@ -28,6 +28,7 @@ private:
 	Model *_koopaTroopa;
 	Model *_powerBlock;
 	Model *_healthBlock;
+	Model *_grass;
 };
 
 
