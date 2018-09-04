@@ -8,7 +8,7 @@ VisibleGameObject::VisibleGameObject():
 		 _model(NULL), _isLoaded(false) {}
 
 VisibleGameObject::VisibleGameObject(Model *model, float x, float y, bool collidable = true):
-		_model(model), _isLoaded(true), _isCollidable(collidable)
+		_model(model), _isLoaded(true), _isCollidable(collidable), _isBreakable(false)
 {
 	_position.x = x;
 	_position.y = y;
@@ -20,14 +20,14 @@ VisibleGameObject::~VisibleGameObject()
 }
 
 
-void VisibleGameObject::setModel(Model *model)
+void	VisibleGameObject::setModel(Model *model)
 {
 	this->_model = model;
 	if (_model)
 		_isLoaded = true;
 }
 
-void VisibleGameObject::Draw(Shaders & shader)
+void	VisibleGameObject::Draw(Shaders & shader)
 {
 	if(this->_isLoaded)
 	{
@@ -45,18 +45,23 @@ Model * VisibleGameObject::getModel()
 	return _model;
 }
 
-void VisibleGameObject::setPosition(float x, float y, float z)
+void	VisibleGameObject::setPosition(float x, float y, float z)
 {
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
 }
 
-void VisibleGameObject::Update(float & elapsedTime)
+void	VisibleGameObject::Update(float & elapsedTime)
 {
 }
 
-bool VisibleGameObject::isLoaded() const
+bool	VisibleGameObject::isLoaded() const
 {
 	return _isLoaded;
+}
+
+bool	VisibleGameObject::isBreakable() const
+{
+	return _isBreakable;
 }
