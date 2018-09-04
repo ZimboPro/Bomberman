@@ -3,7 +3,7 @@
 //
 
 #include "ObjectFactory.hpp"
-#include "Map"
+#include "Map.hpp"
 
 ObjectFactory::~ObjectFactory()
 {
@@ -53,9 +53,9 @@ std::vector<std::vector<VisibleGameObject *>> * ObjectFactory::genStaticObjects(
 }
 
 
-std::list<*VisibleGameObjects> * ObjectFactory::genDynamicAndPickUpObjects()
+std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 {
-	auto result  = new std::list<VisibleGameObject *>;
+	auto result = new std::list<VisibleGameObject *>;
 
 	for (int y = 0; y < Map::mapHeight(); y++)
 		for (int x = 0; x < Map::mapWidth(); x++)
@@ -77,5 +77,5 @@ std::list<*VisibleGameObjects> * ObjectFactory::genDynamicAndPickUpObjects()
 			}
 		}
 
-	return staticObjects;
+	return result;
 }
