@@ -5,7 +5,7 @@
 #include <iostream>
 #include <Error.hpp>
 #include <Player.hpp>
-#include <ModelTexture.hpp>
+#include <Model_Texture.hpp>
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
@@ -87,7 +87,7 @@ void Game::gameLoop()
 
 void Game::playGame()
 {
-	ModelTexture * texture = new ModelTexture("../assets/objects/mario_walking_2.obj");
+	Model_Texture * texture = new Model_Texture("../assets/objects/mario_walking_2.obj");
 
 	Player * player = new Player(*texture, 0, 0);
 	player->setScale(0.2f);
