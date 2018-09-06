@@ -28,6 +28,8 @@ void Game::start()
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
 
+
+	loadKeys();
 	while (!isExiting())
 	{
 		gameLoop();
@@ -114,7 +116,7 @@ void Game::playGame()
 		_gameObjectManager.updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 
-		if(_window.isKeyPressed(GLFW_KEY_ESCAPE) || _window.closed())
+		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
 			_gameState = Game::Exiting;
 	}
 	return ;
@@ -125,8 +127,39 @@ int Game::getInput()
 	return _keyPress;
 }
 
+int Game::getKeyConfigured(eKeys key)
+{
+	return _keyConfiguration[key];
+}
+
+bool Game::setKeyConfigured(eKeys key, int keycode)
+{
+	std::map<eKeys, int>::iterator it;
+
+	for ( it = _keyConfiguration.begin(); it != _keyConfiguration.end(); it++ )
+	{
+		if (it->second == keycode)
+			return false;
+	}
+
+	_keyConfiguration[key] = keycode;
+	return true;
+}
+
+void Game::loadKeys()
+{
+	_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;
+	_keyConfiguration[eKeys::Down] = GLFW_KEY_DOWN;
+	_keyConfiguration[eKeys::Left] = GLFW_KEY_LEFT;
+	_keyConfiguration[eKeys::Right] = GLFW_KEY_RIGHT;
+	_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
+	_keyConfiguration[eKeys::Pause] = GLFW_KEY_SPACE;
+	_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
+}
+
 Game::eGameState Game::_gameState = Game::Uninitialized;
 GameObjectManager Game::_gameObjectManager;
 Window Game::_window("Bomberman", 1024, 768);
 int Game::_keyPress = 0;
 Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
+std::map<eKeys, int> Game::_keyConfiguration;
