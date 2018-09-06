@@ -90,7 +90,7 @@ void Game::playGame()
 	ModelTexture * texture = new ModelTexture("../assets/objects/mario_walking_2.obj");
 
 	Player * player = new Player(*texture, 0, 0);
-	player->getModelSprite().Scale(0.2f);
+	player->setScale(0.2f);
 
 	_gameObjectManager.add("player", player);
 

@@ -48,7 +48,7 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 			switch (Map::at(x, y))
 			{
 				case grass:
-					innerResult.push_back(new Grass(*_grass, x, y, false));
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 				case unbreakableBlocks:
 					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));

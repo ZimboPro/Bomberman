@@ -24,6 +24,7 @@ public:
 	virtual void setPosition(float x, float y, float z);
 	virtual bool isLoaded() const;
 	virtual bool isBreakable() const;
+	virtual void setScale(float scale);
 
 	virtual glm::vec3 getPosition();
 
