@@ -6,7 +6,10 @@
 #include "GameObjectManager.hpp"
 #include "ObjectFactory.hpp"
 
-GameObjectManager::GameObjectManager() = default;
+GameObjectManager::GameObjectManager()
+{
+	//_staticObjects = _factory.genStaticObjects();
+}
 
 GameObjectManager::~GameObjectManager()
 {
@@ -49,6 +52,11 @@ void GameObjectManager::drawAll(Shaders & shader)
 		iter->second->Draw(shader);
 		iter++;
 	}
+/*
+	for(int y = 0; y < _staticObjects.size(); y++)
+		for(int x = 0; x < _staticObjects[y].size(); x++)
+			_staticObjects[y][x]->Draw(shader);
+*/
 }
 
 void GameObjectManager::updateAll(float elapsedTime)

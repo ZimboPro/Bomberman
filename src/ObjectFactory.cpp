@@ -21,15 +21,22 @@ ObjectFactory::~ObjectFactory()
 
 ObjectFactory::ObjectFactory()
 {
-	_player = new Model("../assets/objects/mario_walking_1.png");
-	_unbreakableBlock = new Model("assets/objects/iron_block.png");
-	_breakableBlock = new Model("assets/objects/brick_block.png");
-	_goomba = new Model("assets/objects/goomba.obj");
-	_koopaTroopa = new Model("assets/objects/koopa_troopa.obj");
-	_powerBlock = new Model("assets/objects/brick_block.png");
-	_healthBlock = new Model("assets/objects/brick_block.png");
-	_grass = new Model("assets/objects/grass_block_light.obj");
-
+	_player = new Model("../assets/objects/mario_walking_1.obj");
+	_player->Scale(0.2f);
+	_unbreakableBlock = new Model("../assets/objects/iron_block.obj");
+	_unbreakableBlock->Scale(0.2f);
+	_breakableBlock = new Model("../assets/objects/brick_block.obj");
+	_breakableBlock->Scale(0.2f);
+	_goomba = new Model("../assets/objects/goomba.obj");
+	_goomba->Scale(0.2f);
+	_koopaTroopa = new Model("../assets/objects/koopa_troopa.obj");
+	_koopaTroopa->Scale(0.2f);
+	_powerBlock = new Model("../assets/objects/brick_block.obj");
+	_powerBlock->Scale(0.2f);
+	_healthBlock = new Model("../assets/objects/brick_block.obj");
+	_healthBlock->Scale(0.2f);
+	_grass = new Model("../assets/objects/grass_block_light.obj");
+	_grass->Scale(0.2f);
 }
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()

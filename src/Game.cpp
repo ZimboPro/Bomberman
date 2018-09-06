@@ -23,7 +23,7 @@ void Game::start()
 	_gameState = Game::Playing;
 
 	Player * player = new Player();
-	Model * model = new Model("../assets/objects/mario_walking_1.obj");
+	Model * model = new Model("../assets/objects/mario_walking_2.obj");
 	model->Scale(0.2f);
 	player->setModel(model);
 	_gameObjectManager.add("player", player);

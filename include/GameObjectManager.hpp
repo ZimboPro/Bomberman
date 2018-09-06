@@ -8,6 +8,7 @@
 #include "VisibleGameObject.hpp"
 #include <map>
 #include "Shaders.hpp"
+#include "ObjectFactory.hpp"
 
 class GameObjectManager
 {
@@ -28,6 +29,8 @@ private:
 	{
 		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;
 	};
+	std::vector<std::vector<VisibleGameObject *>> _staticObjects;
+	ObjectFactory _factory;
 };
 
 #endif //BOMBERMAN_GAMEOBJECTMANAGER_HPP
