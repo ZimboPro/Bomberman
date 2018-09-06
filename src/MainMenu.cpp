@@ -4,38 +4,83 @@
 
 #include "MainMenu.hpp"
 #include <iostream>
+#include <Shaders.hpp>
+#include <Game.hpp>
 
-
-MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
+MainMenu::MainMenu()
 {
-	sf::Texture texture;
-	if(!texture.loadFromFile("../assets/mainmenu.png"))
-		return MainMenu::Exit;
+	this->_textures.emplace_back(new ModelTexture("../assets/buttons/start.obj"));
+	this->_textures.emplace_back(new ModelTexture("../assets/buttons/option.obj"));
+	this->_textures.emplace_back(new ModelTexture("../assets/buttons/quit.obj"));
+	
+	MenuItem start;
+	MenuItem options;
+	MenuItem quit;
+	
+	ModelSprite *temp = new ModelSprite(*this->_textures[0]);
+	temp->Scale(0.02);
+	temp->Position(0.5, 0.01);
+	start.button = temp;
+	start.action = MenuResult::Play;
 
-	sf::Sprite sprite(texture);
+	temp = new ModelSprite(*this->_textures[1]);
+	temp->Scale(0.02);
+	temp->Position(0.5, 0.11);
+	options.button = temp;
+	options.action = MenuResult::Settings;
 
-	MenuItem playButton;
-	playButton.rect.top = 145;
-	playButton.rect.height = 235;
-	playButton.rect.left = 0;
-	playButton.rect.width = 1023;
-	playButton.action = MainMenu::Play;
+	temp = new ModelSprite(*this->_textures[2]);
+	temp->Scale(0.02);
+	temp->Position(0.5, 0.21);
+	quit.button = temp;
+	quit.action = MenuResult::Exit;
+	
+	this->_menuItems.push_back(start);
+	this->_menuItems.push_back(options);
+	this->_menuItems.push_back(quit);
 
+	this->_selected = MenuResult::Play;
+}
 
-	MenuItem exitButton;
-	exitButton.rect.top = playButton.rect.top + playButton.rect.height + 5;
-	exitButton.rect.height = 177;
-	exitButton.rect.left = 0;
-	exitButton.rect.width = 1023;
-	exitButton.action = MainMenu::Exit;
+MainMenu::~MainMenu()
+{
+	for (size_t i = 0; i < this->_textures.size(); i++)
+		delete this->_textures[i];
+	this->_textures.clear();
 
-	_menuItems.push_back(playButton);
-	_menuItems.push_back(exitButton);
+	for (size_t i = 0; i < this->_menuItems.size(); i++)
+		delete this->_menuItems[i].button;
+	this->_textures.clear();
+}
 
-	window.draw(sprite);
-	window.display();
-
-	return (getMenuResponse(window));
+MainMenu::MenuResult MainMenu::show(Shaders & shader, Shaders & brightShader)
+{
+	while (true)
+	{
+		shader.use();
+		shader.setMat4("projection", Game::_window.Projection());
+		shader.setMat4("view", glm::mat4());
+		for (size_t i = 0; i < this->_menuItems.size(); i++)
+		{
+			if (this->_menuItems[i].action != this->_selected)
+				this->_menuItems[i].button->Draw(shader);
+		}
+		brightShader.use();
+		brightShader.setMat4("projection", Game::_window.Projection());
+		brightShader.setMat4("view", glm::mat4());
+		for (size_t i = 0; i < this->_menuItems.size(); i++)
+		{
+			if (this->_menuItems[i].action == this->_selected)
+				this->_menuItems[i].button->Draw(brightShader);
+		}
+		if (Game::_window.isKeyPressed(GLFW_KEY_UP))
+			this->_selected = (this->_selected - 1) < 0 ? MenuResult::Play : this->_selected - 1;
+		if (Game::_window.isKeyPressed(GLFW_KEY_DOWN))
+			this->_selected = (this->_selected + 1) >= MenuResult.size() ? MenuResult::Exit : this->_selected + 1;
+		if (Game::_window.isKeyPressed(GLFW_KEY_ENTER))
+			break;
+	}
+	return this->_selected;
 }
 
 MainMenu::MenuResult  MainMenu::handleClick(int x, int y)

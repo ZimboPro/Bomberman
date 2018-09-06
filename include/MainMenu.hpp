@@ -5,27 +5,35 @@
 #ifndef BOMBERMAN_MAINMENU_HPP
 #define BOMBERMAN_MAINMENU_HPP
 
-#include <SFML/Graphics.hpp>
+#include <ModelSprite.hpp>
+#include <ModelTexture.hpp>
 #include <list>
+#include <vector>
+
+class Shaders;
 
 class MainMenu {
 
 public:
-	enum MenuResult { Nothing, Exit, Play };
+	enum MenuResult {Play, Settings, Exit };
 
 	struct MenuItem
 	{
 	public:
-		sf::Rect<int> rect;
+		ModelSprite *button;
 		MenuResult action;
 	};
 
-	MenuResult show(sf::RenderWindow & window);
+	MainMenu();
+	~MainMenu();
+
+	MenuResult show(Shaders & shader, Shaders & brightShader);
 
 private:
-	MenuResult getMenuResponse(sf::RenderWindow & window);
-	MenuResult handleClick(int x, int y);
+	MenuResult getMenuResponse();
 	std::list<MenuItem> _menuItems;
+	MenuResult _selected;
+	std::vector<ModelTexture *> _textures;
 };
 
 
