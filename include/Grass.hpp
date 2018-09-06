@@ -8,7 +8,7 @@ class Grass: public VisibleGameObject
     public:
 
         Grass();
-        Grass(ModelTexture & texture, float x, float y, bool isBreakable);
+        Grass(ModelTexture & texture, float x, float y);
         ~Grass();
 };
 

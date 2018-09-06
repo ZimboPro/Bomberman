@@ -5,9 +5,8 @@ Grass::Grass()
 
 }
 
-Grass::Grass(ModelTexture & texture, float x, float y, bool isBreakable)
+Grass::Grass(ModelTexture & texture, float x, float y ): VisibleGameObject(texture, x, y, false, false)
 {
-    VisibleGameObject::VisibleGameObject(texture, x, y, true, false);
 }
 
 Grass::~Grass()

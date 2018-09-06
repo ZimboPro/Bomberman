@@ -5,9 +5,8 @@ Block::Block()
 
 }
 
-Block::Block(ModelTexture & texture, float x, float y, bool isBreakable)
+Block::Block(ModelTexture & texture, float x, float y, bool isBreakable): VisibleGameObject(texture, x, y, true, isBreakable)
 {
-    VisibleGameObject::VisibleGameObject(texture, x, y, true, isBreakable);
 }
 
 Block::~Block()
