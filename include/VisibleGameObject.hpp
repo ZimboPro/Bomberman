@@ -7,7 +7,7 @@
 
 #include <glm/vec3.hpp>
 #include <Window.hpp>
-#include "Models.hpp"
+#include "ModelSprite.hpp"
 #include "Shaders.hpp"
 #include <string>
 
@@ -17,11 +17,9 @@ public:
 	VisibleGameObject();
 	virtual ~VisibleGameObject();
 
-	VisibleGameObject(Model *model, float x, float y, bool collidable, bool isBreakable);
+	VisibleGameObject(ModelTexture & texture, float x, float y, bool collidable, bool isBreakable);
 	virtual void Draw(Shaders & shader);
 	virtual void Update(float & elapsedTime);
-
-	virtual void setModel(Model *model);
 
 	virtual void setPosition(float x, float y, float z);
 	virtual bool isLoaded() const;
@@ -29,14 +27,11 @@ public:
 
 	virtual glm::vec3 getPosition();
 
-
-protected:
-	Model * getModel();
+	ModelSprite getModelSprite();
 
 private:
-	Model *_model;
+	ModelSprite _model;
 	bool _isLoaded;
-	glm::vec3 _position;
 	int _direction;
 	bool _isCollidable;
 	bool _isBreakable;

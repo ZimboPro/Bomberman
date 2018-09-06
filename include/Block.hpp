@@ -8,7 +8,7 @@ class Block: public VisibleGameObject
     public:
 
         Block();
-        Block(Model *model, float x, float y, bool isBreakable);
+        Block(ModelTexture & texture, float x, float y, bool isBreakable);
         ~Block();
 };
 

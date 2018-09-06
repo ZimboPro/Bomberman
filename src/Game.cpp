@@ -5,6 +5,7 @@
 #include <iostream>
 #include <Error.hpp>
 #include <Player.hpp>
+#include <ModelTexture.hpp>
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
@@ -22,15 +23,10 @@ void Game::start()
 
 	_gameState = Game::Playing;
 
-	Player * player = new Player();
-	Model * model = new Model("../assets/objects/mario_walking_2.obj");
-	model->Scale(0.2f);
-	player->setModel(model);
-	_gameObjectManager.add("player", player);
+
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
-
 
 	while (!isExiting())
 	{
@@ -91,9 +87,16 @@ void Game::gameLoop()
 
 void Game::playGame()
 {
+	ModelTexture * texture = new ModelTexture("../assets/objects/mario_walking_2.obj");
+
+	Player * player = new Player(*texture, 0, 0);
+	player->getModelSprite().Scale(0.2f);
+
+	_gameObjectManager.add("player", player);
+
 	sf::Clock clock;
 
-	Shaders * shader = new Shaders("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
+	Shaders shader("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
 	_camera.LookAt(glm::vec3(0));
@@ -101,10 +104,10 @@ void Game::playGame()
 	while(_gameState == Game::Playing)
 	{
 		_window.clear(0.5f, 0.5f, 0.5f);
-		_camera.SetShaderView(*shader, _window.Width(), _window.Height());
+		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
-		shader->setVec3("light", glm::vec3(-30, 30, 30));
-		_gameObjectManager.drawAll(*shader);
+		shader.setVec3("light", glm::vec3(-30, 30, 30));
+		_gameObjectManager.drawAll(shader);
 
 		_window.update();
 

@@ -5,51 +5,41 @@
 #include "VisibleGameObject.hpp"
 
 VisibleGameObject::VisibleGameObject():
-		 _model(NULL), _isLoaded(false) {}
+		 _isLoaded(false) {}
 
-VisibleGameObject::VisibleGameObject(Model *model, float x, float y, bool collidable = true, bool isBreakable = false):
-		_model(model), _isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable)
+VisibleGameObject::VisibleGameObject(ModelTexture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
+		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable)
 {
-	_position.x = x;
-	_position.y = y;
-	_position.z = 0;
+	_model.LoadModelTexture(texture);
+	_model.Position(x, y);
 }
 
 VisibleGameObject::~VisibleGameObject()
 {
 }
 
-
-void	VisibleGameObject::setModel(Model *model)
-{
-	this->_model = model;
-	if (_model)
-		_isLoaded = true;
-}
-
 void	VisibleGameObject::Draw(Shaders & shader)
 {
-	if(this->_isLoaded)
+	if(_model.IsLoaded())
 	{
-		_model->DrawAt(shader, _position.x, _position.y, _position.z);
+		std::cout << "Drawing" << std::endl;
+		_model.Draw(shader);
 	}
 }
 
 glm::vec3 VisibleGameObject::getPosition()
 {
-	return _position;
+	return _model.GetPostion();
 }
 
-Model * VisibleGameObject::getModel()
+ModelSprite VisibleGameObject::getModelSprite()
 {
 	return _model;
 }
 
 void	VisibleGameObject::setPosition(float x, float y, float z)
 {
-	_position.x = x;
-	_position.y = y;
-	_position.z = z;
+	_model.Position(x, y, z);
 }
 
 void	VisibleGameObject::Update(float & elapsedTime)
