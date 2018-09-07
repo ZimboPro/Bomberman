@@ -8,7 +8,7 @@
 
 GameObjectManager::GameObjectManager()
 {
-	_factory.initModelTextures();
+	//_factory.initModelTextures();
 	//_staticObjects = _factory.genStaticObjects();
 }
 
@@ -32,6 +32,12 @@ void GameObjectManager::remove(const std::string & name)
 	}
 }
 
+void GameObjectManager::init()
+{
+	_factory.initModelTextures();
+	_staticObjects = _factory.genStaticObjects();
+}
+
 int GameObjectManager::getObjectCount() const
 {
 	return _gameObjects.size();
@@ -53,11 +59,11 @@ void GameObjectManager::drawAll(Shaders & shader)
 		iter->second->Draw(shader);
 		iter++;
 	}
-/*
+
 	for(int y = 0; y < _staticObjects.size(); y++)
 		for(int x = 0; x < _staticObjects[y].size(); x++)
 			_staticObjects[y][x]->Draw(shader);
-*/
+
 }
 
 void GameObjectManager::updateAll(float elapsedTime)

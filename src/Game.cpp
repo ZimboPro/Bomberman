@@ -22,15 +22,20 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	_gameState = Game::ShowingMenu;
+	_gameObjectManager.init();
 
+	_gameState = Game::Playing;
 
-	//Model_Texture * texture = new Model_Texture("../assets/pickups/heart.obj");
+	std::cout << "Game Start" << std::endl;
+	Map::printMap();
+	std::cout << "Game Start" << std::endl;
 
-	//Player * player = new Player(*texture, 0, 0);
-	//player->setScale(0.2f);
-
-	//_gameObjectManager.add("player", player);
+//	Model_Texture * texture = new Model_Texture("../assets/pickups/heart.obj");
+//
+//	Player * player = new Player(*texture, 0, 0);
+//	player->setScale(0.2f);
+//
+//	_gameObjectManager.add("player", player);
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);

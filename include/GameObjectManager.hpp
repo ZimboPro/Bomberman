@@ -22,6 +22,7 @@ public:
 	VisibleGameObject * get(const std::string & name) const;
 	void drawAll(Shaders & shader);
 	void updateAll(float elapsedTime);
+	void init();
 
 private:
 	std::map<std::string, VisibleGameObject*> _gameObjects;
