@@ -6,6 +6,7 @@
 #include <Block.hpp>
 #include "ObjectFactory.hpp"
 #include "Map.hpp"
+#include "Game.hpp"
 
 ObjectFactory::~ObjectFactory()
 {
@@ -25,7 +26,7 @@ ObjectFactory::ObjectFactory()
 
 void ObjectFactory::initModelTextures()
 {
-	_player = new Model_Texture("../assets/objects/mario_walking_1.obj");
+	_player = new Model_Texture("../assets/pickups/heart.obj");
 	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
 	_breakableBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_goomba = new Model_Texture("../assets/objects/goomba.obj");
