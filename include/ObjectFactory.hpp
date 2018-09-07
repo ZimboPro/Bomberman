@@ -20,7 +20,7 @@ public:
 		powerBlock, healthBlock};
 	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
 	std::list<VisibleGameObject *> * genDynamicAndPickUpObjects();
-	void initModel_Textures();
+	void initModelTextures();
 
 private:
 	Model_Texture * _player;

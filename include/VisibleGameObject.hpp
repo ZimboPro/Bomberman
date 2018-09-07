@@ -24,10 +24,11 @@ public:
 	virtual void setPosition(float x, float y, float z);
 	virtual bool isLoaded() const;
 	virtual bool isBreakable() const;
+	virtual void setScale(float scale);
 
 	virtual glm::vec3 getPosition();
 
-	Model_Sprite getModel_Sprite();
+	Model_Sprite getModelSprite();
 
 private:
 	Model_Sprite _model;

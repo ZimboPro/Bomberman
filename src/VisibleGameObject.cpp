@@ -12,6 +12,12 @@ VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, 
 {
 	_model.LoadModel_Texture(texture);
 	_model.Position(x, y);
+//	_model.Scale(0.2f);
+}
+
+void VisibleGameObject::setScale(float scale)
+{
+	_model.Scale(scale);
 }
 
 VisibleGameObject::~VisibleGameObject()
@@ -29,7 +35,7 @@ glm::vec3 VisibleGameObject::getPosition()
 	return _model.GetPostion();
 }
 
-Model_Sprite VisibleGameObject::getModel_Sprite()
+Model_Sprite VisibleGameObject::getModelSprite()
 {
 	return _model;
 }

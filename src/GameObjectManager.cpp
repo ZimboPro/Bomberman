@@ -8,7 +8,7 @@
 
 GameObjectManager::GameObjectManager()
 {
-//	_factory.initModel_Textures();
+	_factory.initModelTextures();
 	//_staticObjects = _factory.genStaticObjects();
 }
 

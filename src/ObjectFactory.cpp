@@ -23,7 +23,7 @@ ObjectFactory::ObjectFactory()
 {
 }
 
-void ObjectFactory::initModel_Textures()
+void ObjectFactory::initModelTextures()
 {
 	_player = new Model_Texture("../assets/objects/mario_walking_1.obj");
 	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
@@ -48,7 +48,7 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 			switch (Map::at(x, y))
 			{
 				case grass:
-					innerResult.push_back(new Grass(*_grass, x, y, false));
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 				case unbreakableBlocks:
 					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));

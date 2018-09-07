@@ -3,7 +3,6 @@
 //
 
 #include <cassert>
-#include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
