@@ -13,7 +13,7 @@ public:
 	~Player();
 	Player();
 
-	Player(ModelTexture & texture, float x, float y);
+	Player(Model_Texture & texture, float x, float y);
 
 	void Update(float & timeElapsed);
 

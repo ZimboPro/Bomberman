@@ -23,16 +23,16 @@ ObjectFactory::ObjectFactory()
 {
 }
 
-void ObjectFactory::initModelTextures()
+void ObjectFactory::initModel_Textures()
 {
-	_player = new ModelTexture("../assets/objects/mario_walking_1.obj");
-	_unbreakableBlock = new ModelTexture("../assets/objects/iron_block.obj");
-	_breakableBlock = new ModelTexture("../assets/objects/brick_block.obj");
-	_goomba = new ModelTexture("../assets/objects/goomba.obj");
-	_koopaTroopa = new ModelTexture("../assets/objects/koopa_troopa.obj");
-	_powerBlock = new ModelTexture("../assets/objects/brick_block.obj");
-	_healthBlock = new ModelTexture("../assets/objects/brick_block.obj");
-	_grass = new ModelTexture("../assets/objects/grass_block_light.obj");
+	_player = new Model_Texture("../assets/objects/mario_walking_1.obj");
+	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
+	_breakableBlock = new Model_Texture("../assets/objects/brick_block.obj");
+	_goomba = new Model_Texture("../assets/objects/goomba.obj");
+	_koopaTroopa = new Model_Texture("../assets/objects/koopa_troopa.obj");
+	_powerBlock = new Model_Texture("../assets/objects/brick_block.obj");
+	_healthBlock = new Model_Texture("../assets/objects/brick_block.obj");
+	_grass = new Model_Texture("../assets/objects/grass_block_light.obj");
 }
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()

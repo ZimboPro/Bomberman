@@ -7,7 +7,7 @@
 
 #include <list>
 #include "VisibleGameObject.hpp"
-#include "ModelTexture.hpp"
+#include "Model_Texture.hpp"
 
 
 class ObjectFactory
@@ -20,17 +20,17 @@ public:
 		powerBlock, healthBlock};
 	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
 	std::list<VisibleGameObject *> * genDynamicAndPickUpObjects();
-	void initModelTextures();
+	void initModel_Textures();
 
 private:
-	ModelTexture * _player;
-	ModelTexture * _unbreakableBlock;
-	ModelTexture * _breakableBlock;
-	ModelTexture * _goomba;
-	ModelTexture * _koopaTroopa;
-	ModelTexture * _powerBlock;
-	ModelTexture * _healthBlock;
-	ModelTexture * _grass;
+	Model_Texture * _player;
+	Model_Texture * _unbreakableBlock;
+	Model_Texture * _breakableBlock;
+	Model_Texture * _goomba;
+	Model_Texture * _koopaTroopa;
+	Model_Texture * _powerBlock;
+	Model_Texture * _healthBlock;
+	Model_Texture * _grass;
 };
 
 

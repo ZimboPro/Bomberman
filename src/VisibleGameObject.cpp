@@ -7,10 +7,10 @@
 VisibleGameObject::VisibleGameObject():
 		 _isLoaded(false) {}
 
-VisibleGameObject::VisibleGameObject(ModelTexture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
+VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
 		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable)
 {
-	_model.LoadModelTexture(texture);
+	_model.LoadModel_Texture(texture);
 	_model.Position(x, y);
 }
 
@@ -21,10 +21,7 @@ VisibleGameObject::~VisibleGameObject()
 void	VisibleGameObject::Draw(Shaders & shader)
 {
 	if(_model.IsLoaded())
-	{
-		std::cout << "Drawing" << std::endl;
 		_model.Draw(shader);
-	}
 }
 
 glm::vec3 VisibleGameObject::getPosition()
@@ -32,7 +29,7 @@ glm::vec3 VisibleGameObject::getPosition()
 	return _model.GetPostion();
 }
 
-ModelSprite VisibleGameObject::getModelSprite()
+Model_Sprite VisibleGameObject::getModel_Sprite()
 {
 	return _model;
 }

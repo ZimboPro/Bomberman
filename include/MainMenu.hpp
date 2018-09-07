@@ -5,8 +5,8 @@
 #ifndef BOMBERMAN_MAINMENU_HPP
 #define BOMBERMAN_MAINMENU_HPP
 
-#include <ModelSprite.hpp>
-#include <ModelTexture.hpp>
+#include <Model_Sprite.hpp>
+#include <Model_Texture.hpp>
 #include <list>
 #include <vector>
 
@@ -20,7 +20,7 @@ public:
 	struct MenuItem
 	{
 	public:
-		ModelSprite *button;
+		Model_Sprite *button;
 		MenuResult action;
 	};
 
@@ -33,7 +33,7 @@ private:
 	MenuResult getMenuResponse();
 	std::list<MenuItem> _menuItems;
 	MenuResult _selected;
-	std::vector<ModelTexture *> _textures;
+	std::vector<Model_Texture *> _textures;
 };
 
 
