@@ -158,8 +158,8 @@ void Game::loadKeys()
 }
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
-GameObjectManager Game::_gameObjectManager;
 Window Game::_window("Bomberman", 1024, 768);
+GameObjectManager Game::_gameObjectManager;
 int Game::_keyPress = 0;
 Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
