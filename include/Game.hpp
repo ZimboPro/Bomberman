@@ -15,15 +15,16 @@ class Game
 {
 public:
     static void start();
-	static int getInput();
     static int getKeyConfigured(eKeys key);
     static bool setKeyConfigured(eKeys key, int keycode);
+    static Window _window;
+    static eKeys keyPressed();
 
 private:
     static bool isExiting();
     static void gameLoop();
 //	static void showSplashScreen();
-//	static void showMenu();
+	static void showMenu();
 	static void playGame();
     static void loadKeys();
 
@@ -31,7 +32,6 @@ private:
             ShowingMenu, Playing, Exiting };
 
     static eGameState _gameState;
-    static Window _window;
     static GameObjectManager _gameObjectManager;
     static int _keyPress;
     static Camera _camera;
