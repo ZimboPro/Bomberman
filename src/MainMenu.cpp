@@ -9,27 +9,27 @@
 
 MainMenu::MainMenu()
 {
-	this->_textures.emplace_back(new ModelTexture("../assets/buttons/start.obj"));
-	this->_textures.emplace_back(new ModelTexture("../assets/buttons/option.obj"));
-	this->_textures.emplace_back(new ModelTexture("../assets/buttons/quit.obj"));
+	this->_textures.emplace_back(new Model_Texture("../assets/buttons/start.obj"));
+	this->_textures.emplace_back(new Model_Texture("../assets/buttons/option.obj"));
+	this->_textures.emplace_back(new Model_Texture("../assets/buttons/quit.obj"));
 	
 	MenuItem start;
 	MenuItem options;
 	MenuItem quit;
 	
-	ModelSprite *temp = new ModelSprite(*this->_textures[0]);
+	Model_Sprite *temp = new Model_Sprite(*this->_textures[0]);
 	temp->Scale(0.02);
 	temp->Position(0.5, 0.01);
 	start.button = temp;
 	start.action = MenuResult::Play;
 
-	temp = new ModelSprite(*this->_textures[1]);
+	temp = new Model_Sprite(*this->_textures[1]);
 	temp->Scale(0.02);
 	temp->Position(0.5, 0.11);
 	options.button = temp;
 	options.action = MenuResult::Settings;
 
-	temp = new ModelSprite(*this->_textures[2]);
+	temp = new Model_Sprite(*this->_textures[2]);
 	temp->Scale(0.02);
 	temp->Position(0.5, 0.21);
 	quit.button = temp;

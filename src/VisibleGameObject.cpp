@@ -27,10 +27,7 @@ VisibleGameObject::~VisibleGameObject()
 void	VisibleGameObject::Draw(Shaders & shader)
 {
 	if(_model.IsLoaded())
-	{
-		std::cout << "Drawing" << std::endl;
 		_model.Draw(shader);
-	}
 }
 
 glm::vec3 VisibleGameObject::getPosition()
