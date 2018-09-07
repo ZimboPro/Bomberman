@@ -6,6 +6,7 @@
 #include <Error.hpp>
 #include <Player.hpp>
 #include <Model_Texture.hpp>
+#include <Shaders.hpp>
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
@@ -21,7 +22,7 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	_gameState = Game::Playing;
+	_gameState = Game::ShowingMenu;
 
 
 	//Model_Texture * texture = new Model_Texture("../assets/pickups/heart.obj");
@@ -64,7 +65,7 @@ void Game::gameLoop()
 		case Game::Paused:
 			break;
 		case Game::ShowingMenu:
-//			showMenu();
+			showMenu();
 			break;
 		case Game::Exiting:
 			break;
@@ -80,16 +81,18 @@ void Game::gameLoop()
 //	_gameState = Game::ShowingMenu;
 //}
 
-//void Game::showMenu()
-//{
-//	MainMenu menu;
-//	int selection = menu.show(_window);
-//
-//	if (selection == MainMenu::Exit)
-//		_gameState = Game::Exiting;
-//	else if (selection == MainMenu::Play)
-//		_gameState = Game::Playing;
-//}
+void Game::showMenu()
+{
+	MainMenu menu;
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	int selection = static_cast<int>(menu.show(shader, brightShader));
+
+	if (selection == static_cast<int>(MainMenu::Exit))
+		_gameState = Game::Exiting;
+	else if (selection == MainMenu::Play)
+		_gameState = Game::Playing;
+}
 
 
 
@@ -122,11 +125,6 @@ void Game::playGame()
 	return ;
 }
 
-int Game::getInput()
-{
-	return _keyPress;
-}
-
 int Game::getKeyConfigured(eKeys key)
 {
 	return _keyConfiguration[key];
@@ -155,6 +153,18 @@ void Game::loadKeys()
 	_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
 	_keyConfiguration[eKeys::Pause] = GLFW_KEY_SPACE;
 	_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
+}
+
+eKeys Game::keyPressed()
+{
+	std::map<eKeys, int>::iterator it;
+
+	for ( it = _keyConfiguration.begin(); it != _keyConfiguration.end(); it++ )
+	{
+		if (_window.isKeyTyped(it->second))
+			return it->first;
+	}
+	return eKeys::Undefined;
 }
 
 Game::eGameState Game::_gameState = Game::Uninitialized;

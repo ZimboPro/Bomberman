@@ -9,7 +9,8 @@ enum eKeys
     Right,
     Select,
     Pause,
-    Escape
+    Escape,
+    Undefined
 };
 
 #endif

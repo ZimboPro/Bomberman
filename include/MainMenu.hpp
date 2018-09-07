@@ -9,8 +9,7 @@
 #include <Model_Texture.hpp>
 #include <list>
 #include <vector>
-
-class Shaders;
+#include <Shaders.hpp>
 
 class MainMenu {
 
@@ -30,8 +29,9 @@ public:
 	MenuResult show(Shaders & shader, Shaders & brightShader);
 
 private:
-	MenuResult getMenuResponse();
-	std::list<MenuItem> _menuItems;
+	void loadMenu();
+	void deleteMenu();
+	std::vector<MenuItem> _menuItems;
 	MenuResult _selected;
 	std::vector<Model_Texture *> _textures;
 };
