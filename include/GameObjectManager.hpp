@@ -31,6 +31,7 @@ private:
 		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;
 	};
 	std::vector<std::vector<VisibleGameObject *>> _staticObjects;
+	std::list<VisibleGameObject *> *_dynamicObjects;
 	ObjectFactory _factory;
 };
 

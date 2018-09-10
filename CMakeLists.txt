@@ -45,6 +45,7 @@ add_executable(
         src/ObjectFactory.cpp
         src/Goomba.cpp
         src/KoopaTroopa.cpp
-        src/PowerBlock.cpp)
+        src/PowerBlock.cpp
+        src/HealthBlock.cpp)
 
 target_link_libraries(bomberman graphics) 

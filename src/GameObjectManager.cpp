@@ -34,6 +34,7 @@ void GameObjectManager::init()
 {
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
+	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 }
 
 int GameObjectManager::getObjectCount() const
@@ -59,10 +60,18 @@ void GameObjectManager::drawAll(Shaders & shader)
 	}
 
 	for(int y = 0; y < _staticObjects.size(); y++)
-		for(int x = 0; x < _staticObjects[y].size(); x++)
+	{
+		for (int x = 0; x < _staticObjects[y].size(); x++)
 		{
 			_staticObjects[y][x]->Draw(shader);
 		}
+	}
+
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		(*iter)->Draw(shader);
+	}
+
 
 }
 

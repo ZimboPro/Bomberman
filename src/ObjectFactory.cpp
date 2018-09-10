@@ -7,6 +7,8 @@
 #include <Player.hpp>
 #include <Goomba.hpp>
 #include <KoopaTroopa.hpp>
+#include <PowerBlock.hpp>
+#include "HealthBlock.hpp"
 #include "ObjectFactory.hpp"
 #include "Map.hpp"
 #include "Game.hpp"
@@ -29,7 +31,7 @@ ObjectFactory::ObjectFactory()
 
 void ObjectFactory::initModelTextures()
 {
-	_player = new Model_Texture("../assets/pickups/heart.obj");
+	_player = new Model_Texture("../assets/objects/mario_walking_1.obj");
 	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
 	_breakableBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_goomba = new Model_Texture("../assets/objects/goomba.obj");
@@ -37,6 +39,8 @@ void ObjectFactory::initModelTextures()
 	_powerBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_healthBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_grass = new Model_Texture("../assets/objects/grass_block_light.obj");
+//	_grass = new Model_Texture("../assets/objects/grass/grass_block_light.obj");
+//	_grass = new Model_Texture("../assets/new_grass/untitled.obj");
 }
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
@@ -101,8 +105,10 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 					result->push_back(new KoopaTroopa(*_koopaTroopa, x, y));
 					break;
 				case powerBlock:
+					result->push_back(new PowerBlock(*_koopaTroopa, x, y));
 					break;
 				case healthBlock:
+					result->push_back(new HealthBlock(*_koopaTroopa, x, y));
 					break;
 				default:
 					break;
