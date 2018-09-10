@@ -10,6 +10,7 @@
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
+#include "OptionsMenu.hpp"
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
@@ -33,6 +34,8 @@ void Game::start()
 	loadKeys();
 	while (!isExiting())
 	{
+		_window.clear(0.5f, 0.5f, 0.5f);
+		_window.update();
 		gameLoop();
 	}
 
@@ -63,6 +66,9 @@ void Game::gameLoop()
 			break;
 		case Game::Exiting:
 			break;
+		case Game::ShowingOptions:
+			showOptions();
+			break;
 		default:
 			break;
 	}
@@ -80,14 +86,29 @@ void Game::showMenu()
 	MainMenu menu;
 	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
-	int selection = static_cast<int>(menu.show(shader, brightShader));
+	
+	int selection = menu.show(shader, brightShader);
 
-	if (selection == static_cast<int>(MainMenu::Exit))
+	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
 		_gameState = Game::Playing;
+	else if (selection == MainMenu::Settings)
+		_gameState = Game::ShowingOptions;
 }
 
+void Game::showOptions()
+{
+	OptionsMenu menu;
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == OptionsMenu::Back)
+		_gameState = Game::ShowingMenu;
+	else
+		_gameState = Game::Exiting;
+}
 
 
 void Game::playGame()

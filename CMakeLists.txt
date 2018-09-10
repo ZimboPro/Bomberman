@@ -1,12 +1,5 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
-
-if (APPLE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-endif(APPLE)
-
 project(Bomberman)
 
 include(FetchContent)
@@ -23,6 +16,13 @@ if(NOT graphics_POPULATED)
     set(BUILD_SHARED_LIBS TRUE)
     add_subdirectory(${graphics_SOURCE_DIR} ${graphics_BINARY_DIR})
 endif()
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif(APPLE)
 
 include_directories(include)
 
@@ -42,6 +42,10 @@ add_executable(
         src/ServiceLocator.cpp
         src/SoundFileCache.cpp
         src/Map.cpp
-        src/ObjectFactory.cpp)
+        src/ObjectFactory.cpp
+        src/OptionsMenu.cpp
+)
+
+add_dependencies(bomberman graphics)
 
 target_link_libraries(bomberman graphics) 

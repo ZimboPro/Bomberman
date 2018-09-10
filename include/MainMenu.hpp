@@ -7,33 +7,33 @@
 
 #include <Model_Sprite.hpp>
 #include <Model_Texture.hpp>
-#include <list>
 #include <vector>
-#include <Shaders.hpp>
+#include "IMenu.hpp"
 
-class MainMenu {
-
-public:
-	enum MenuResult {Play, Settings, Exit };
-
-	struct MenuItem
-	{
+class MainMenu : public IMenu
+{
 	public:
-		Model_Sprite *button;
-		MenuResult action;
-	};
+		enum MenuResult {Play, Settings, Exit };
 
-	MainMenu();
-	~MainMenu();
+		struct MenuItem
+		{
+		public:
+			Model_Sprite *button;
+			MenuResult action;
+		};
 
-	MenuResult show(Shaders & shader, Shaders & brightShader);
+		MainMenu();
+		virtual ~MainMenu();
 
-private:
-	void loadMenu();
-	void deleteMenu();
-	std::vector<MenuItem> _menuItems;
-	MenuResult _selected;
-	std::vector<Model_Texture *> _textures;
+		virtual int show(Shaders & shader, Shaders & brightShader);
+
+	private:
+		void loadMenu();
+		void deleteMenu();
+		void moveOnScreen(Shaders & shader);
+		void moveOffScreen(Shaders & shader);
+		std::vector<MenuItem> _menuItems;
+		MenuResult _selected;
 };
 
 

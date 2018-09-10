@@ -25,11 +25,12 @@ private:
     static void gameLoop();
 //	static void showSplashScreen();
 	static void showMenu();
+    static void showOptions();
 	static void playGame();
     static void loadKeys();
 
     enum eGameState { Uninitialized, ShowingSplash, Paused,
-            ShowingMenu, Playing, Exiting };
+            ShowingMenu, ShowingOptions, Playing, Exiting };
 
     static eGameState _gameState;
     static GameObjectManager _gameObjectManager;
