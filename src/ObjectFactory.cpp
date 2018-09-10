@@ -40,7 +40,6 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 {
 	std::vector<std::vector<VisibleGameObject * >> result;
 
-	float scaleFactor = 2;
 	for (size_t y = 0; y < Map::height(); y++)
 	{
 		std::vector<VisibleGameObject * > innerResult;
@@ -50,29 +49,27 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 			switch (Map::at(x, y))
 			{
 				case grass:
-					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 				case unbreakableBlocks:
-					innerResult.push_back(new Block(*_unbreakableBlock, x * scaleFactor, y * scaleFactor, false));
+					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
 					break;
 				case breakableBlocks:
-					innerResult.push_back(new Block(*_breakableBlock, x * scaleFactor, y * scaleFactor, true));
+					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
 					break;
 				case player:
-					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 				case goomba:
-					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 				case koopaTroopa:
-					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 				case powerBlock:
-					innerResult.push_back(new Block(*_breakableBlock, x * scaleFactor, y * scaleFactor, true));
+					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
 					break;
 				case healthBlock:
-					innerResult.push_back(new Block(*_breakableBlock, x * scaleFactor, y * scaleFactor, true));
-					break;
 				default:
 					break;
 			}

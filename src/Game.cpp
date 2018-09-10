@@ -26,13 +26,6 @@ void Game::start()
 
 	_gameState = Game::Playing;
 
-//	Model_Texture * texture = new Model_Texture("../assets/pickups/heart.obj");
-//
-//	Player * player = new Player(*texture, 0, 0);
-//	player->setScale(0.2f);
-//
-//	_gameObjectManager.add("player", player);
-
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
 

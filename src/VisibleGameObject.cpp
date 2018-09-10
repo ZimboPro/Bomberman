@@ -12,7 +12,7 @@ VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, 
 {
 	_model.LoadModel_Texture(texture);
 	_model.Position(x, y);
-	_model.Scale(0.067f);
+	_model.Scale(0.031f);
 }
 
 void VisibleGameObject::setScale(float scale)
