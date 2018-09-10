@@ -30,8 +30,9 @@ public:
 
 	Model_Sprite getModelSprite();
 
-private:
+protected:
 	Model_Sprite _model;
+private:
 	bool _isLoaded;
 	int _direction;
 	bool _isCollidable;

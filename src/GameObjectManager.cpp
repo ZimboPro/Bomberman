@@ -8,8 +8,6 @@
 
 GameObjectManager::GameObjectManager()
 {
-	//_factory.initModelTextures();
-	//_staticObjects = _factory.genStaticObjects();
 }
 
 GameObjectManager::~GameObjectManager()
@@ -62,7 +60,9 @@ void GameObjectManager::drawAll(Shaders & shader)
 
 	for(int y = 0; y < _staticObjects.size(); y++)
 		for(int x = 0; x < _staticObjects[y].size(); x++)
+		{
 			_staticObjects[y][x]->Draw(shader);
+		}
 
 }
 

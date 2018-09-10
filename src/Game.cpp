@@ -26,10 +26,6 @@ void Game::start()
 
 	_gameState = Game::Playing;
 
-	std::cout << "Game Start" << std::endl;
-	Map::printMap();
-	std::cout << "Game Start" << std::endl;
-
 //	Model_Texture * texture = new Model_Texture("../assets/pickups/heart.obj");
 //
 //	Player * player = new Player(*texture, 0, 0);
@@ -98,7 +94,6 @@ void Game::showMenu()
 	else if (selection == MainMenu::Play)
 		_gameState = Game::Playing;
 }
-
 
 
 void Game::playGame()

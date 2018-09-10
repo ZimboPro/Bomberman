@@ -26,7 +26,7 @@ ObjectFactory::ObjectFactory()
 
 void ObjectFactory::initModelTextures()
 {
-/*	_player = new Model_Texture("../assets/pickups/heart.obj");
+	_player = new Model_Texture("../assets/pickups/heart.obj");
 	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
 	_breakableBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_goomba = new Model_Texture("../assets/objects/goomba.obj");
@@ -34,42 +34,46 @@ void ObjectFactory::initModelTextures()
 	_powerBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_healthBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_grass = new Model_Texture("../assets/objects/grass_block_light.obj");
-  */
-	_player = new Model_Texture("../assets/pickups/heart.obj");
-    _unbreakableBlock = new Model_Texture("../assets/pickups/power_up.obj");
-    _breakableBlock = new Model_Texture("../assets/pickups/heart.obj");
-    _goomba = new Model_Texture("../assets/pickups/heart.obj");
-    _koopaTroopa = new Model_Texture("../assets/pickups/heart.obj");
-    _powerBlock = new Model_Texture("../assets/pickups/heart.obj");
-    _healthBlock = new Model_Texture("../assets/pickups/heart.obj");
-    _grass = new Model_Texture("../assets/pickups/heart.obj");
 }
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 {
 	std::vector<std::vector<VisibleGameObject * >> result;
 
+	float scaleFactor = 2;
 	for (size_t y = 0; y < Map::height(); y++)
 	{
 		std::vector<VisibleGameObject * > innerResult;
-		std::cout << "Row " << y << std::endl;
 
 		for (size_t x = 0; x < Map::width(); x++)
 		{
-			std::cout << Map::at(x, y);
 			switch (Map::at(x, y))
 			{
 				case grass:
-					innerResult.push_back(new Grass(*_grass, x, y));
+					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
 					break;
 				case unbreakableBlocks:
-					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
+					innerResult.push_back(new Block(*_unbreakableBlock, x * scaleFactor, y * scaleFactor, false));
 					break;
 				case breakableBlocks:
-					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
+					innerResult.push_back(new Block(*_breakableBlock, x * scaleFactor, y * scaleFactor, true));
+					break;
+				case player:
+					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
+					break;
+				case goomba:
+					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
+					break;
+				case koopaTroopa:
+					innerResult.push_back(new Grass(*_grass, x * scaleFactor, y * scaleFactor));
+					break;
+				case powerBlock:
+					innerResult.push_back(new Block(*_breakableBlock, x * scaleFactor, y * scaleFactor, true));
+					break;
+				case healthBlock:
+					innerResult.push_back(new Block(*_breakableBlock, x * scaleFactor, y * scaleFactor, true));
 					break;
 				default:
-					std::cout << "Default " << std::endl;
 					break;
 			}
 		}
@@ -101,6 +105,5 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 					break;
 			}
 		}
-
 	return result;
 }

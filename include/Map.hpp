@@ -21,8 +21,8 @@ public:
 	static void printMap();
 
 private:
-	static std::vector<std::vector<char>> _map;
 	static int _currentWorkingLevel;
+	static std::vector<std::vector<std::vector<char>>> _map;
 };
 
 
