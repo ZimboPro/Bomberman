@@ -42,6 +42,9 @@ add_executable(
         src/ServiceLocator.cpp
         src/SoundFileCache.cpp
         src/Map.cpp
-        src/ObjectFactory.cpp)
+        src/ObjectFactory.cpp
+        src/Goomba.cpp
+        src/KoopaTroopa.cpp
+        src/PowerBlock.cpp)
 
 target_link_libraries(bomberman graphics) 

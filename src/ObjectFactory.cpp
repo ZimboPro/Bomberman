@@ -4,6 +4,9 @@
 
 #include <Grass.hpp>
 #include <Block.hpp>
+#include <Player.hpp>
+#include <Goomba.hpp>
+#include <KoopaTroopa.hpp>
 #include "ObjectFactory.hpp"
 #include "Map.hpp"
 #include "Game.hpp"
@@ -89,10 +92,13 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 			switch (Map::at(x, y))
 			{
 				case player:
+					result->push_back(new Player(*_player, x, y));
 					break;
-				case goomba:
+			case goomba:
+					result->push_back(new Goomba(*_goomba, x, y));
 					break;
 				case koopaTroopa:
+					result->push_back(new KoopaTroopa(*_koopaTroopa, x, y));
 					break;
 				case powerBlock:
 					break;
