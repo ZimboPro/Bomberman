@@ -52,13 +52,6 @@ VisibleGameObject * GameObjectManager::get(const std::string & name) const
 
 void GameObjectManager::drawAll(Shaders & shader)
 {
-	auto iter = _gameObjects.begin();
-	while(iter != _gameObjects.end())
-	{
-		iter->second->Draw(shader);
-		iter++;
-	}
-
 	for(int y = 0; y < _staticObjects.size(); y++)
 	{
 		for (int x = 0; x < _staticObjects[y].size(); x++)
@@ -71,17 +64,13 @@ void GameObjectManager::drawAll(Shaders & shader)
 	{
 		(*iter)->Draw(shader);
 	}
-
-
 }
 
 void GameObjectManager::updateAll(float elapsedTime)
 {
-	auto iter = _gameObjects.begin();
-	while(iter != _gameObjects.end())
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
-		iter->second->Update(elapsedTime);
-		iter++;
+		(*iter)->Update(elapsedTime);
 	}
 }
 

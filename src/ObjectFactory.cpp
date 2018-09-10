@@ -39,8 +39,6 @@ void ObjectFactory::initModelTextures()
 	_powerBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_healthBlock = new Model_Texture("../assets/objects/brick_block.obj");
 	_grass = new Model_Texture("../assets/objects/grass_block_light.obj");
-//	_grass = new Model_Texture("../assets/objects/grass/grass_block_light.obj");
-//	_grass = new Model_Texture("../assets/new_grass/untitled.obj");
 }
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
@@ -55,29 +53,12 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 		{
 			switch (Map::at(x, y))
 			{
-				case grass:
-					innerResult.push_back(new Grass(*_grass, x, y));
-					break;
-				case unbreakableBlocks:
-					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
-					break;
 				case breakableBlocks:
 					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
-					break;
-				case player:
 					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
-				case goomba:
-					innerResult.push_back(new Grass(*_grass, x, y));
-					break;
-				case koopaTroopa:
-					innerResult.push_back(new Grass(*_grass, x, y));
-					break;
-				case powerBlock:
-					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
-					break;
-				case healthBlock:
 				default:
+					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 			}
 		}
@@ -95,10 +76,13 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 		{
 			switch (Map::at(x, y))
 			{
+				case unbreakableBlocks:
+					result->push_back(new Block(*_unbreakableBlock, x, y, false));
+					break;
 				case player:
 					result->push_back(new Player(*_player, x, y));
 					break;
-			case goomba:
+				case goomba:
 					result->push_back(new Goomba(*_goomba, x, y));
 					break;
 				case koopaTroopa:

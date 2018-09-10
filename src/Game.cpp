@@ -91,7 +91,6 @@ void Game::showMenu()
 
 void Game::playGame()
 {
-
 	sf::Clock clock;
 
 	Shaders shader("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
@@ -164,5 +163,5 @@ Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
 GameObjectManager Game::_gameObjectManager;
 int Game::_keyPress = 0;
-Camera Game::_camera(glm::vec3(20.0f, 20.0f, 20.0f));
+Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
