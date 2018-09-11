@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <Shaders.hpp>
+#include <Juicy.hpp>
 #include "MainMenu.hpp"
 #include "Game.hpp"
 
@@ -17,7 +18,7 @@ MainMenu::~MainMenu()
 
 int MainMenu::show(Shaders & shader, Shaders & brightShader)
 {
-	moveOnScreen(shader);
+	moveOnScreen(shader, (Game::_window.Width() >> 1));
 	glm::mat4 projection = Game::_window.Projection();
 	while (true)
 	{
@@ -54,7 +55,7 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 
 		Game::_window.update();
 	}
-	moveOffScreen(shader);
+	moveOnScreen(shader, -20.0f);
 	deleteMenu();
 	return static_cast<int>(this->_selected);
 }
@@ -97,17 +98,13 @@ void MainMenu::deleteMenu()
 	this->_menuItems.clear();
 }
 
-inline float MoveBy(float start, float end, float weighting)
+void MainMenu::moveOnScreen(Shaders & shader, float end)
 {
-	return (end - start) * weighting;
-}
-
-void MainMenu::moveOnScreen(Shaders & shader)
-{
-	float x = -40.0f;
+	float x = this->_menuItems[0].button->GetPosition().x;
 	glm::mat4 projection = Game::_window.Projection();
 	float weighting = 0.05f;
-	while (0.05f < (Game::_window.Width() >> 1) - x)
+	glm::vec3 temp(end, 0, -20);
+	while (0.05f < abs(end - x))
 	{
 		Game::_window.clear(0.5f, 0.5f, 0.5f);
 		shader.use();
@@ -116,33 +113,11 @@ void MainMenu::moveOnScreen(Shaders & shader)
 		shader.setVec3("light", glm::vec3(30, 30, 30));
 		for (size_t i = 0; i < this->_menuItems.size(); i++)
 		{
-			this->_menuItems[i].button->Move(MoveBy(x , (Game::_window.Width() >> 1), weighting), 0);
+			temp.y = this->_menuItems[i].button->GetPosition().y;
+			Juicy::Tweening(*this->_menuItems[i].button, temp, weighting);
 			this->_menuItems[i].button->Draw(shader);
 		}
-		x += MoveBy(x , (Game::_window.Width() >> 1), weighting);
-		Game::_window.update();
-	}
-}
-
-void MainMenu::moveOffScreen(Shaders & shader)
-{
-	float x = (Game::_window.Width() >> 1);
-	glm::mat4 projection = Game::_window.Projection();
-	float weighting = 0.01f;
-	float end = -(Game::_window.Width() >> 1);
-	while (x - end > 0.05f)
-	{
-		Game::_window.clear(0.5f, 0.5f, 0.5f);
-		shader.use();
-		shader.setMat4("projection", projection);
-		shader.setMat4("view", glm::mat4());
-		shader.setVec3("light", glm::vec3(30, 30, 30));
-		for (size_t i = 0; i < this->_menuItems.size(); i++)
-		{
-			this->_menuItems[i].button->Move(MoveBy(x , end, weighting), 0);
-			this->_menuItems[i].button->Draw(shader);
-		}
-		x += MoveBy(x , end, weighting);
+		x = this->_menuItems[0].button->GetPosition().x;
 		Game::_window.update();
 	}
 }

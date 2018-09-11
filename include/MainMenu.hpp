@@ -30,8 +30,7 @@ class MainMenu : public IMenu
 	private:
 		void loadMenu();
 		void deleteMenu();
-		void moveOnScreen(Shaders & shader);
-		void moveOffScreen(Shaders & shader);
+		void moveOnScreen(Shaders & shader, float end);
 		std::vector<MenuItem> _menuItems;
 		MenuResult _selected;
 };

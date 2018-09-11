@@ -23,6 +23,7 @@ class OptionsMenu : public IMenu
     private:
         void loadModels();
         void deleteMenu();
+        void moveOnScreen(Shaders & shader, float end);
         std::vector<OptionsAction> _action;
         Options _selected;
         

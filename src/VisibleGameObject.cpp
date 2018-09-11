@@ -32,7 +32,7 @@ void	VisibleGameObject::Draw(Shaders & shader)
 
 glm::vec3 VisibleGameObject::getPosition()
 {
-	return _model.GetPostion();
+	return _model.GetPosition();
 }
 
 Model_Sprite VisibleGameObject::getModelSprite()
