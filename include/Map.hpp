@@ -6,7 +6,7 @@
 #define BOMBERMAN_MAP_HPP
 
 #include <vector>
-#include "Map_Gen/Levels.hpp"
+#include "../Map_Gen/Levels.hpp"
 
 class Map
 {

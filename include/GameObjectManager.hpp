@@ -23,6 +23,7 @@ public:
 	void drawAll(Shaders & shader);
 	void updateAll(float elapsedTime);
 	void init();
+	void clearLevel();
 
 private:
 	std::map<std::string, VisibleGameObject*> _gameObjects;

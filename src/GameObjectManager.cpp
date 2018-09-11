@@ -87,3 +87,9 @@ void GameObjectManager::GameObjectDeallocator::operator()(const std::pair<std::s
 {
 	delete p.second;
 }
+
+void GameObjectManager::clearLevel()
+{
+	_staticObjects.clear();
+	_dynamicObjects->clear();
+}

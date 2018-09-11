@@ -47,8 +47,8 @@ add_executable(
         src/KoopaTroopa.cpp
         src/PowerBlock.cpp
 		src/HealthBlock.cpp
-		src/Map_Gen/MapError.cpp
-		src/Map_Gen/Levels.cpp
+		Map_Gen/MapError.cpp
+		Map_Gen/Levels.cpp
 		)
 
 target_link_libraries(bomberman graphics) 
