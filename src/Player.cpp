@@ -29,7 +29,6 @@ void Player::Update(float & timeElapsed)
 //Game::keyPressed() == eKeys::Up
 	if ( Game::_window.isKeyPressed(GLFW_KEY_UP))
 	{
-//		_model.Position(curPosition.x, curPosition.y - displacement);
 		_model.Move(0 - displacement, 0);
 	}
 	else if (Game::_window.isKeyPressed(GLFW_KEY_DOWN))
