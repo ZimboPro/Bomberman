@@ -8,6 +8,8 @@
 #include <list>
 #include "VisibleGameObject.hpp"
 #include "Model_Texture.hpp"
+#include "../src/Map_Gen/Levels.hpp"
+
 
 
 class ObjectFactory
@@ -32,6 +34,5 @@ private:
 	Model_Texture * _healthBlock;
 	Model_Texture * _grass;
 };
-
 
 #endif //BOMBERMAN_OBJECTFACTORY_HPP

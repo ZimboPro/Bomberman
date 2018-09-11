@@ -23,7 +23,6 @@ void Game::start()
 		throw Error::CreateWindowError("Failed to initialize window");
 
 	_gameObjectManager.init();
-
 	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;

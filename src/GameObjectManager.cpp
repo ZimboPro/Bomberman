@@ -71,8 +71,6 @@ void GameObjectManager::drawAll(Shaders & shader)
 	{
 		(*iter)->Draw(shader);
 	}
-
-
 }
 
 void GameObjectManager::updateAll(float elapsedTime)

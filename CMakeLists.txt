@@ -46,6 +46,9 @@ add_executable(
         src/Goomba.cpp
         src/KoopaTroopa.cpp
         src/PowerBlock.cpp
-        src/HealthBlock.cpp)
+		src/HealthBlock.cpp
+		src/Map_Gen/MapError.cpp
+		src/Map_Gen/Levels.cpp
+		)
 
 target_link_libraries(bomberman graphics) 
