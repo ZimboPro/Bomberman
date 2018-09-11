@@ -20,6 +20,7 @@ public:
 	static size_t width();
 	static size_t height();
 	static void printMap();
+	static void readInRandomMap(int seed);
 
 private:
 	static int _currentWorkingLevel;

@@ -31,14 +31,14 @@ ObjectFactory::ObjectFactory()
 
 void ObjectFactory::initModelTextures()
 {
-	_player = new Model_Texture("../assets/objects/Player/mario_walking_1.obj");
-	_unbreakableBlock = new Model_Texture("../assets/objects/Enviroment/iron_block.obj");
-	_breakableBlock = new Model_Texture("../assets/objects/Enviroment/brick_block.obj");
-	_goomba = new Model_Texture("../assets/objects/goomba/goomba.obj");
-	_koopaTroopa = new Model_Texture("../assets/objects/Koopa/koopa_troopa.obj");
-	_powerBlock = new Model_Texture("../assets/objects/Enviroment/brick_block.obj");
-	_healthBlock = new Model_Texture("../assets/objects/Enviroment/brick_block.obj");
-	_grass = new Model_Texture("../assets/objects/Enviroment/grass_block_light.obj");
+	_player = new Model_Texture("../assets/objects/mario_walking_1.obj");
+	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
+	_breakableBlock = new Model_Texture("../assets/objects/brick_block.obj");
+	_goomba = new Model_Texture("../assets/objects/goomba.obj");
+	_koopaTroopa = new Model_Texture("../assets/objects/koopa_troopa.obj");
+	_powerBlock = new Model_Texture("../assets/objects/brick_block.obj");
+	_healthBlock = new Model_Texture("../assets/objects/brick_block.obj");
+	_grass = new Model_Texture("../assets/objects/grass_block_light.obj");
 //	_grass = new Model_Texture("../assets/objects/grass/grass_block_light.obj");
 //	_grass = new Model_Texture("../assets/new_grass/untitled.obj");
 }
@@ -46,6 +46,10 @@ void ObjectFactory::initModelTextures()
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 {
 	std::vector<std::vector<VisibleGameObject * >> result;
+	Map::readInRandomMap(0);
+	std::cout << "Printing Map" << std::endl;
+	Map::printMap();
+	std::cout << "Printing Map" << std::endl;
 
 	for (size_t y = 0; y < Map::height(); y++)
 	{
