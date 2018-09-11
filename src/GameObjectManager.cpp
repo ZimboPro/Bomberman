@@ -5,6 +5,7 @@
 #include <iostream>
 #include "GameObjectManager.hpp"
 #include "ObjectFactory.hpp"
+#include "Map.hpp"
 
 GameObjectManager::GameObjectManager()
 {
@@ -32,6 +33,7 @@ void GameObjectManager::remove(const std::string & name)
 
 void GameObjectManager::init()
 {
+	Map::readInRandomMap(0);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
