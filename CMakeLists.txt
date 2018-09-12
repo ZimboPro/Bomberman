@@ -26,6 +26,15 @@ endif(APPLE)
 
 include_directories(include)
 
+# unzip folder
+set(UNZIP FALSE)
+if (${UNZIP})
+    execute_process(
+        COMMAND unzip package.zip -d ${CMAKE_BINARY_DIR}/assets
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        )
+endif()
+
 add_executable(
     bomberman
         src/main.cpp

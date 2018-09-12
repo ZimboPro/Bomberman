@@ -28,7 +28,7 @@ void Game::start()
 
 	_gameObjectManager.init();
 
-	_gameState = Game::Playing;
+	_gameState = Game::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -37,10 +37,6 @@ void Game::start()
 	loadKeys();
 	while (!isExiting())
 	{
-		// _loadingScreen.display();
-		// usleep(50000);
-		// if (keyPressed() == eKeys::Escape)
-		// 	break;
 		gameLoop();
 	}
 
@@ -182,6 +178,18 @@ eKeys Game::keyPressed()
 
 	for ( it = _keyConfiguration.begin(); it != _keyConfiguration.end(); it++ )
 	{
+		if (_window.isKeyPressed(it->second))
+			return it->first;
+	}
+	return eKeys::Undefined;
+}
+
+eKeys Game::keyTyped()
+{
+	std::map<eKeys, int>::iterator it;
+
+	for ( it = _keyConfiguration.begin(); it != _keyConfiguration.end(); it++ )
+	{
 		if (_window.isKeyTyped(it->second))
 			return it->first;
 	}
@@ -195,4 +203,3 @@ int Game::_keyPress = 0;
 Camera Game::_camera(glm::vec3(20.0f, 20.0f, 20.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
-IMenu * Game::_menu;

@@ -7,7 +7,7 @@
 #include <Player.hpp>
 #include <Goomba.hpp>
 #include <KoopaTroopa.hpp>
-#include <PowerBlock.hpp>
+#include <powerBlock.hpp>
 #include "HealthBlock.hpp"
 #include "ObjectFactory.hpp"
 #include "Map.hpp"

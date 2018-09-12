@@ -22,6 +22,7 @@ public:
     static Window _window;
     static LoadingScreen _loadingScreen;
     static eKeys keyPressed();
+    static eKeys keyTyped();
 
 private:
     static bool isExiting();
@@ -40,7 +41,6 @@ private:
     static int _keyPress;
     static Camera _camera;
     static std::map<eKeys, int> _keyConfiguration;
-    static IMenu * _menu;
 };
 
 #endif //BOMBERMAN_GAME_HPP

@@ -2,7 +2,8 @@
 // Created by Patrick RUSSELL on 2018/09/10.
 //
 
-#include "PowerBlock.hpp"#include "Game.hpp"
+#include "PowerBlock.hpp"
+#include "Game.hpp"
 #include "ServiceLocator.hpp"
 
 PowerBlock::PowerBlock(): _velocity(0), _maxVelocity(600.0f)
