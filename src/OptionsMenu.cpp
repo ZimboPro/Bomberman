@@ -58,30 +58,38 @@ void OptionsMenu::loadModels()
 {   
     this->_selected = Options::WindowSize;
 
+	Game::_loadingScreen.reset();
+	Game::_loadingScreen.display();
     OptionsAction size;
     size.button = new Model_Sprite("../assets/buttons/screen_resolution.obj");
     this->_action.emplace_back(size);
 
+	Game::_loadingScreen.display();
     OptionsAction mode;
     mode.button = new Model_Sprite("../assets/buttons/start.obj");
     this->_action.emplace_back(mode);
 
+	Game::_loadingScreen.display();
     OptionsAction keys;
     keys.button = new Model_Sprite("../assets/buttons/keybind.obj");
     this->_action.emplace_back(keys);
 
+	Game::_loadingScreen.display();
     OptionsAction sound;
     sound.button = new Model_Sprite("../assets/buttons/sound.obj");
     this->_action.emplace_back(sound);
 
+	Game::_loadingScreen.display();
     OptionsAction volume;
     volume.button = new Model_Sprite("../assets/buttons/start.obj");
     this->_action.emplace_back(volume);
 
+	Game::_loadingScreen.display();
     OptionsAction music;
     music.button = new Model_Sprite("../assets/buttons/start.obj");
     this->_action.emplace_back(music);
 
+	Game::_loadingScreen.display();
     OptionsAction back;
     back.button = new Model_Sprite("../assets/buttons/back.obj");
     this->_action.emplace_back(back);

@@ -7,6 +7,9 @@
 #include <Player.hpp>
 #include <Model_Texture.hpp>
 #include <Shaders.hpp>
+#include <atomic>
+#include <thread>
+#include <chrono>
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
@@ -34,8 +37,10 @@ void Game::start()
 	loadKeys();
 	while (!isExiting())
 	{
-		_window.clear(0.5f, 0.5f, 0.5f);
-		_window.update();
+		// _loadingScreen.display();
+		// usleep(50000);
+		// if (keyPressed() == eKeys::Escape)
+		// 	break;
 		gameLoop();
 	}
 
@@ -84,6 +89,7 @@ void Game::gameLoop()
 void Game::showMenu()
 {
 	MainMenu menu;
+
 	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
 	
@@ -100,6 +106,7 @@ void Game::showMenu()
 void Game::showOptions()
 {
 	OptionsMenu menu;
+
 	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
 	
@@ -193,3 +200,5 @@ Window Game::_window("Bomberman", 1024, 768);
 GameObjectManager Game::_gameObjectManager;
 Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
+LoadingScreen Game::_loadingScreen;
+IMenu * Game::_menu;

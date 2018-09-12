@@ -65,25 +65,30 @@ void MainMenu::loadMenu()
 	MenuItem start;
 	MenuItem options;
 	MenuItem quit;
-	
+
+	Game::_loadingScreen.reset();
+	Game::_loadingScreen.display();
 	Model_Sprite *temp = new Model_Sprite("../assets/buttons/start.obj");
 	temp->Position(-20, -20, (Game::_window.Height() << 1) / 3);
 	temp->Scale(10);
 	start.button = temp;
 	start.action = MenuResult::Play;
 
+	Game::_loadingScreen.display();
 	temp = new Model_Sprite("../assets/buttons/option.obj");
 	temp->Position(-20, -20, (Game::_window.Height() >> 1));
 	temp->Scale(10);
 	options.button = temp;
 	options.action = MenuResult::Settings;
 
+	Game::_loadingScreen.display();
 	temp = new Model_Sprite("../assets/buttons/quit.obj");
 	temp->Position(-20, -20, (Game::_window.Height()) / 3);
 	temp->Scale(10);
 	quit.button = temp;
 	quit.action = MenuResult::Exit;
 	
+	Game::_loadingScreen.display();
 	this->_menuItems.push_back(start);
 	this->_menuItems.push_back(options);
 	this->_menuItems.push_back(quit);

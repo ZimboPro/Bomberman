@@ -6,10 +6,12 @@
 #define BOMBERMAN_GAME_HPP
 
 #include <Window.hpp>
+#include <map>
 #include "GameObjectManager.hpp"
 #include "Camera.hpp"
-#include <map>
 #include "eKeys.hpp"
+#include "LoadingScreen.hpp"
+#include "IMenu.hpp"
 
 class Game
 {
@@ -18,6 +20,7 @@ public:
     static int getKeyConfigured(eKeys key);
     static bool setKeyConfigured(eKeys key, int keycode);
     static Window _window;
+    static LoadingScreen _loadingScreen;
     static eKeys keyPressed();
 
 private:
@@ -37,6 +40,7 @@ private:
     static int _keyPress;
     static Camera _camera;
     static std::map<eKeys, int> _keyConfiguration;
+    static IMenu * _menu;
 };
 
 #endif //BOMBERMAN_GAME_HPP

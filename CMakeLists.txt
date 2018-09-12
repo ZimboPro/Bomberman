@@ -44,8 +44,17 @@ add_executable(
         src/Map.cpp
         src/ObjectFactory.cpp
         src/OptionsMenu.cpp
+        src/LoadingScreen.cpp
 )
 
 add_dependencies(bomberman graphics)
+
+if (APPLE)
+    find_library(pthread REQUIRED)
+    target_link_libraries(bomberman ${pthread_LIBRARIES})
+elseif(UNIX AND NOT APPLE)
+    find_library(pthreads REQUIRED)
+    target_link_libraries(bomberman ${pthreads_LIBRARIES})
+endif()
 
 target_link_libraries(bomberman graphics) 
