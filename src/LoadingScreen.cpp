@@ -5,7 +5,6 @@ LoadingScreen::LoadingScreen()
 {
     this->_shader = new Shaders("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
     this->_model = 0;
-    this->_proj = Game::_window.Projection();
     this->_light = glm::vec3(30);
     loadModels();
 }
@@ -25,6 +24,7 @@ void LoadingScreen::reset()
 
 void LoadingScreen::display()
 {
+    this->_proj = Game::_window.Projection();
     Game::_window.clear();
     this->_shader->use();
     this->_shader->setMat4("projection", this->_proj);

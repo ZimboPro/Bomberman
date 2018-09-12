@@ -1,5 +1,6 @@
 #include <Shaders.hpp>
 #include <Juicy.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "OptionsMenu.hpp"
 #include "Game.hpp"
 
@@ -61,45 +62,75 @@ void OptionsMenu::loadModels()
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
     OptionsAction size;
-    size.button = new Model_Sprite("../assets/buttons/screen_resolution.obj");
+    size.button = new Model_Sprite("../assets/options_menu/window_size.obj");
     this->_action.emplace_back(size);
 
 	Game::_loadingScreen.display();
     OptionsAction mode;
-    mode.button = new Model_Sprite("../assets/buttons/start.obj");
+    mode.button = new Model_Sprite("../assets/options_menu/fullscreen.obj");
     this->_action.emplace_back(mode);
 
 	Game::_loadingScreen.display();
     OptionsAction keys;
-    keys.button = new Model_Sprite("../assets/buttons/keybind.obj");
+    keys.button = new Model_Sprite("../assets/options_menu/keybind.obj");
     this->_action.emplace_back(keys);
 
 	Game::_loadingScreen.display();
     OptionsAction sound;
-    sound.button = new Model_Sprite("../assets/buttons/sound.obj");
+    sound.button = new Model_Sprite("../assets/options_menu/sound.obj");
     this->_action.emplace_back(sound);
 
 	Game::_loadingScreen.display();
     OptionsAction volume;
-    volume.button = new Model_Sprite("../assets/buttons/start.obj");
+    volume.button = new Model_Sprite("../assets/options_menu/volume.obj");
     this->_action.emplace_back(volume);
 
 	Game::_loadingScreen.display();
     OptionsAction music;
-    music.button = new Model_Sprite("../assets/buttons/start.obj");
+    music.button = new Model_Sprite("../assets/options_menu/music.obj");
     this->_action.emplace_back(music);
 
 	Game::_loadingScreen.display();
     OptionsAction back;
-    back.button = new Model_Sprite("../assets/buttons/back.obj");
+    back.button = new Model_Sprite("../assets/options_menu/back_options.obj");
     this->_action.emplace_back(back);
 
     for (size_t i = 0; i < this->_action.size(); i++)
     {
         this->_action[i].action = static_cast<Options>(i);
         this->_action[i].button->Position(-40.0f, -20.0f, (((Game::_window.Height() >> 3) * (this->_action.size() - i)) - (Game::_window.Height() >> 4)));
-        this->_action[i].button->Scale(10);
+        this->_action[i].button->Scale(7);
     }
+}
+
+void OptionsMenu::loadOptions()
+{
+	this->_options.emplace_back(new Model_Sprite("../assets/options_menu/1920x1080.obj"));
+	this->_options.emplace_back(new Model_Sprite("../assets/options_menu/1280x720.obj"));
+	this->_options.emplace_back(new Model_Sprite("../assets/options_menu/800x600.obj"));
+	this->_options.emplace_back(new Model_Sprite("../assets/options_menu/off.obj"));
+	this->_options.emplace_back(new Model_Sprite("../assets/options_menu/on.obj"));
+
+	for (size_t i = 0; i < this->_options.size(); i++)
+		this->_options[i]->Scale(7);
+
+	this->_groups.emplace_back(new ModelGroup());
+	this->_groups.emplace_back(new ModelGroup());
+	this->_groups.emplace_back(new ModelGroup());
+	this->_groups.emplace_back(new ModelGroup());
+
+	this->_groups[0]->_models.push_back(this->_options[0]);
+	this->_groups[0]->_models.push_back(this->_options[1]);
+	this->_groups[0]->_models.push_back(this->_options[2]);
+
+	this->_groups[1]->_models.push_back(this->_options[3]);
+	this->_groups[1]->_models.push_back(this->_options[4]);
+
+	this->_groups[2]->_models.push_back(this->_options[3]);
+	this->_groups[2]->_models.push_back(this->_options[4]);
+
+	this->_groups[3]->_models.push_back(this->_options[3]);
+	this->_groups[4]->_models.push_back(this->_options[4]);
 }
 
 void OptionsMenu::deleteMenu()
@@ -111,11 +142,10 @@ void OptionsMenu::deleteMenu()
 
 void OptionsMenu::moveOnScreen(Shaders & shader, float end)
 {
-	float x = this->_action[0].button->GetPosition().x;
 	glm::mat4 projection = Game::_window.Projection();
 	float weighting = 0.05f;
-	glm::vec3 temp(end, 0, -20);
-	while (0.05f < abs(end - x))
+	glm::vec3 temp(end, this->_action[0].button->GetPosition().y, -60.0f);
+	while (0.1f < glm::distance(temp, this->_action[0].button->GetPosition()))
 	{
 		Game::_window.clear(0.5f, 0.5f, 0.5f);
 		shader.use();
@@ -126,9 +156,10 @@ void OptionsMenu::moveOnScreen(Shaders & shader, float end)
 		{
 			temp.y = this->_action[i].button->GetPosition().y;
 			Juicy::Tweening(*this->_action[i].button, temp, weighting);
+			Juicy::TweeingRotation(*this->_action[i].button, 10.0f, weighting);
 			this->_action[i].button->Draw(shader);
 		}
-		x = this->_action[0].button->GetPosition().x;
+		temp.y = this->_action[0].button->GetPosition().y;
 		Game::_window.update();
 	}
 }

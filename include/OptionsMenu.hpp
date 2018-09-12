@@ -3,6 +3,7 @@
 
 #include <Model_Sprite.hpp>
 #include <Model_Texture.hpp>
+#include <ModelGroup.hpp>
 #include <vector>
 #include "IMenu.hpp"
 
@@ -22,10 +23,13 @@ class OptionsMenu : public IMenu
     
     private:
         void loadModels();
+        void loadOptions();
         void deleteMenu();
         void moveOnScreen(Shaders & shader, float end);
         std::vector<OptionsAction> _action;
         Options _selected;
+        std::vector<Model_Sprite *> _options;
+        std::vector<ModelGroup *> _groups;
         
 };
 #endif

@@ -112,7 +112,7 @@ void MainMenu::moveOnScreen(Shaders & shader, float end)
 {
 	glm::mat4 projection = Game::_window.Projection();
 	float weighting = 0.05f;
-	glm::vec3 temp(end, 0.0f, -60.0f);
+	glm::vec3 temp(end, this->_menuItems[0].button->GetPosition().y, -60.0f);
 	while (0.1f < glm::distance(temp, this->_menuItems[0].button->GetPosition()))
 	{
 		Game::_window.clear(0.5f, 0.5f, 0.5f);
@@ -128,6 +128,6 @@ void MainMenu::moveOnScreen(Shaders & shader, float end)
 			this->_menuItems[i].button->Draw(shader);
 		}
 		Game::_window.update();
-		std::cout << glm::distance(temp, this->_menuItems[0].button->GetPosition()) << std::endl;
+		temp.y = this->_menuItems[0].button->GetPosition().y;
 	}
 }

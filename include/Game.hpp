@@ -12,6 +12,16 @@
 #include "eKeys.hpp"
 #include "LoadingScreen.hpp"
 #include "IMenu.hpp"
+#include "eScreen.hpp"
+
+struct Settings
+{
+    eScreen size;
+    bool fullscreen;
+    bool sound;
+    int volume;
+    bool music;
+};
 
 class Game
 {
@@ -23,6 +33,7 @@ public:
     static LoadingScreen _loadingScreen;
     static eKeys keyPressed();
     static eKeys keyTyped();
+    static Settings _settings;
 
 private:
     static bool isExiting();
