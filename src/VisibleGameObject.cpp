@@ -58,3 +58,8 @@ bool	VisibleGameObject::isBreakable() const
 {
 	return _isBreakable;
 }
+
+objectTypes	VisibleGameObject::getType()
+{
+	return _type;
+}
