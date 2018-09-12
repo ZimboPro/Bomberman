@@ -20,7 +20,7 @@ public:
 	float getVelocity() const;
 
 private:
-	float _velocity;
+	float _speed;
 	float _maxVelocity;
 };
 

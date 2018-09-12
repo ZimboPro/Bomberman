@@ -9,7 +9,6 @@
 #include "VisibleGameObject.hpp"
 #include "Model_Texture.hpp"
 
-
 class ObjectFactory
 {
 public:
@@ -20,6 +19,7 @@ public:
 		powerBlock, healthBlock};
 	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
 	std::list<VisibleGameObject *> * genDynamicAndPickUpObjects();
+	std::list<VisibleGameObject *> * genGrass();
 	void initModelTextures();
 
 private:

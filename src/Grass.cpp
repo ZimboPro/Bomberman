@@ -12,5 +12,4 @@ Grass::Grass(Model_Texture & texture, float x, float y ): VisibleGameObject(text
 
 Grass::~Grass()
 {
-
 }
