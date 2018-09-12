@@ -28,7 +28,7 @@ void Game::start()
 
 	_gameObjectManager.init();
 
-	_gameState = Game::ShowingMenu;
+	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
