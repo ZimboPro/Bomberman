@@ -45,16 +45,11 @@ add_executable(
         src/ObjectFactory.cpp
         src/OptionsMenu.cpp
         src/LoadingScreen.cpp
+        src/Goomba.cpp
+        src/KoopaTroopa.cpp
+        src/PowerBlock.cpp
+        src/HealthBlock.cpp
 )
 
 add_dependencies(bomberman graphics)
-
-if (APPLE)
-    find_library(pthread REQUIRED)
-    target_link_libraries(bomberman ${pthread_LIBRARIES})
-elseif(UNIX AND NOT APPLE)
-    find_library(pthreads REQUIRED)
-    target_link_libraries(bomberman ${pthreads_LIBRARIES})
-endif()
-
 target_link_libraries(bomberman graphics) 

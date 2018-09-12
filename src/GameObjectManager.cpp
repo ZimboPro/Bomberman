@@ -8,8 +8,6 @@
 
 GameObjectManager::GameObjectManager()
 {
-	_factory.initModelTextures();
-	//_staticObjects = _factory.genStaticObjects();
 }
 
 GameObjectManager::~GameObjectManager()
@@ -30,6 +28,13 @@ void GameObjectManager::remove(const std::string & name)
 		delete result->second;
 		_gameObjects.erase(result);
 	}
+}
+
+void GameObjectManager::init()
+{
+	_factory.initModelTextures();
+	_staticObjects = _factory.genStaticObjects();
+	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 }
 
 int GameObjectManager::getObjectCount() const
@@ -53,11 +58,21 @@ void GameObjectManager::drawAll(Shaders & shader)
 		iter->second->Draw(shader);
 		iter++;
 	}
-/*
+
 	for(int y = 0; y < _staticObjects.size(); y++)
-		for(int x = 0; x < _staticObjects[y].size(); x++)
+	{
+		for (int x = 0; x < _staticObjects[y].size(); x++)
+		{
 			_staticObjects[y][x]->Draw(shader);
-*/
+		}
+	}
+
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		(*iter)->Draw(shader);
+	}
+
+
 }
 
 void GameObjectManager::updateAll(float elapsedTime)

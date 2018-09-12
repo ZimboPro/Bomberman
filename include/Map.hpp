@@ -16,12 +16,13 @@ public:
 	static char at(int x, int y);
 	static int getLevel();
 	static void levelUp();
-	static int mapWidth();
-	static int mapHeight();
+	static size_t width();
+	static size_t height();
+	static void printMap();
 
 private:
-	static std::vector<std::vector<char>> _map;
 	static int _currentWorkingLevel;
+	static std::vector<std::vector<std::vector<char>>> _map;
 };
 
 

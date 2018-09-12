@@ -22,6 +22,7 @@ public:
 	VisibleGameObject * get(const std::string & name) const;
 	void drawAll(Shaders & shader);
 	void updateAll(float elapsedTime);
+	void init();
 
 private:
 	std::map<std::string, VisibleGameObject*> _gameObjects;
@@ -30,6 +31,7 @@ private:
 		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;
 	};
 	std::vector<std::vector<VisibleGameObject *>> _staticObjects;
+	std::list<VisibleGameObject *> *_dynamicObjects;
 	ObjectFactory _factory;
 };
 

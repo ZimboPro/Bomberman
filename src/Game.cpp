@@ -26,9 +26,9 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	_gameState = Game::ShowingMenu;
+	_gameObjectManager.init();
 
-
+	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -117,15 +117,8 @@ void Game::showOptions()
 		_gameState = Game::Exiting;
 }
 
-
 void Game::playGame()
 {
-	Model_Texture * texture = new Model_Texture("../assets/objects/mario_walking_2.obj");
-
-	Player * player = new Player(*texture, 0, 0);
-	player->setScale(0.2f);
-
-	_gameObjectManager.add("player", player);
 
 	sf::Clock clock;
 
@@ -198,7 +191,8 @@ eKeys Game::keyPressed()
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
 GameObjectManager Game::_gameObjectManager;
-Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
+int Game::_keyPress = 0;
+Camera Game::_camera(glm::vec3(20.0f, 20.0f, 20.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 IMenu * Game::_menu;

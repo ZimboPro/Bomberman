@@ -1,7 +1,6 @@
 #include <iostream>
+#include "Map.hpp"
 #include "Game.hpp"
-#include "SFMLSoundProvider.hpp"
-#include "ServiceLocator.hpp"
 
 
 int main()
