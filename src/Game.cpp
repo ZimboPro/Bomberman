@@ -26,7 +26,7 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	_gameObjectManager.init();
+	GameObjectManager::init();
 
 	_gameState = Game::Playing;
 
@@ -128,11 +128,11 @@ void Game::playGame()
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
-		_gameObjectManager.drawAll(shader);
+		GameObjectManager::drawAll(shader);
 
 		_window.update();
 
-		_gameObjectManager.updateAll(clock.getElapsedTime().asSeconds());
+		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
@@ -197,7 +197,6 @@ eKeys Game::keyTyped()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-GameObjectManager Game::_gameObjectManager;
 int Game::_keyPress = 0;
 Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
 std::map<eKeys, int> Game::_keyConfiguration;

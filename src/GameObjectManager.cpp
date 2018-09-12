@@ -12,22 +12,6 @@ GameObjectManager::GameObjectManager()
 
 GameObjectManager::~GameObjectManager()
 {
-	std::for_each(_gameObjects.begin(), _gameObjects.end(), GameObjectDeallocator());
-}
-
-void GameObjectManager::add(std::string name, VisibleGameObject * gameObject)
-{
-	_gameObjects.insert(std::make_pair(name, gameObject));
-}
-
-void GameObjectManager::remove(const std::string & name)
-{
-	auto result = _gameObjects.find(name);
-	if(result != _gameObjects.end())
-	{
-		delete result->second;
-		_gameObjects.erase(result);
-	}
 }
 
 void GameObjectManager::init()
@@ -36,19 +20,6 @@ void GameObjectManager::init()
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
-}
-
-int GameObjectManager::getObjectCount() const
-{
-	return _gameObjects.size();
-}
-
-VisibleGameObject * GameObjectManager::get(const std::string & name) const
-{
-	auto result = _gameObjects.find(name);
-	if (result != _gameObjects.end())
-		return result->second;
-	return nullptr;
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -78,7 +49,7 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
-void GameObjectManager::GameObjectDeallocator::operator()(const std::pair<std::string, VisibleGameObject *> & p) const
-{
-	delete p.second;
-}
+std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
+std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
+std::list<VisibleGameObject *> *GameObjectManager::_grass;
+ObjectFactory GameObjectManager::_factory;

@@ -37,7 +37,6 @@ private:
             ShowingMenu, ShowingOptions, Playing, Exiting };
 
     static eGameState _gameState;
-    static GameObjectManager _gameObjectManager;
     static int _keyPress;
     static Camera _camera;
     static std::map<eKeys, int> _keyConfiguration;
