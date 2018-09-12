@@ -49,6 +49,25 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
+objectTypes GameObjectManager::collidesWith(objectTypes type, int x, int y)
+{
+	if (_staticObjects[y][x]->isLoaded())
+	{
+		if (_staticObjects[y][x]->isBreakable())
+			return objectTypes::breakableBlocks;
+		else if (!_staticObjects[y][x]->isBreakable())
+			return objectTypes::unbreakableBlocks;
+	}
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		int objX = static_cast<int>((*iter)->getPosition().x);
+		int objY = static_cast<int>((*iter)->getPosition().z);
+
+		if(x == objX && y == objY && type != (*iter)->getType())
+			return (*iter)->getType();
+	}
+}
+
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
 std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
 std::list<VisibleGameObject *> *GameObjectManager::_grass;

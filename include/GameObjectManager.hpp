@@ -9,6 +9,7 @@
 #include <map>
 #include "Shaders.hpp"
 #include "ObjectFactory.hpp"
+#include "eObjectTypes.hpp"
 
 class GameObjectManager
 {
@@ -19,6 +20,7 @@ public:
 	static void drawAll(Shaders & shader);
 	static void updateAll(float elapsedTime);
 	static void init();
+	static objectTypes collidesWith(objectTypes type, int x, int y);
 
 private:
 	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;

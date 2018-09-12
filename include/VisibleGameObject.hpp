@@ -9,6 +9,7 @@
 #include <Window.hpp>
 #include "Model_Sprite.hpp"
 #include "Shaders.hpp"
+#include "eObjectTypes.hpp"
 #include <string>
 
 class VisibleGameObject
@@ -25,6 +26,7 @@ public:
 	virtual bool isLoaded() const;
 	virtual bool isBreakable() const;
 	virtual void setScale(float scale);
+	virtual objectTypes getType();
 
 	virtual glm::vec3 getPosition();
 
@@ -32,6 +34,7 @@ public:
 
 protected:
 	Model_Sprite _model;
+	objectTypes _type;
 private:
 	bool _isLoaded;
 	int _direction;

@@ -10,6 +10,7 @@
 
 Player::Player(): _speed(0), _maxVelocity(600.0f)
 {
+	_type = player;
 }
 
 Player::Player(Model_Texture & texture, float x, float y): _speed(2.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)

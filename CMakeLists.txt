@@ -58,7 +58,7 @@ add_executable(
         src/KoopaTroopa.cpp
         src/PowerBlock.cpp
         src/HealthBlock.cpp
-)
+        include/eObjectTypes.hpp)
 
 add_dependencies(bomberman graphics)
 target_link_libraries(bomberman graphics) 

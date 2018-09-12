@@ -8,15 +8,13 @@
 #include <list>
 #include "VisibleGameObject.hpp"
 #include "Model_Texture.hpp"
+#include "eObjectTypes.hpp"
 
 class ObjectFactory
 {
 public:
 	ObjectFactory();
 	~ObjectFactory();
-	enum objectTypes {grass = '0', unbreakableBlocks,
-			breakableBlocks, player, goomba, koopaTroopa,
-		powerBlock, healthBlock};
 	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
 	std::list<VisibleGameObject *> * genDynamicAndPickUpObjects();
 	std::list<VisibleGameObject *> * genGrass();
