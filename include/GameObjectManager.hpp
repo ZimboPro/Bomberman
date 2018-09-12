@@ -32,6 +32,7 @@ private:
 	};
 	std::vector<std::vector<VisibleGameObject *>> _staticObjects;
 	std::list<VisibleGameObject *> *_dynamicObjects;
+	std::list<VisibleGameObject *> *_grass;
 	ObjectFactory _factory;
 };
 

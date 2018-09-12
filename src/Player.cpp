@@ -21,8 +21,6 @@ Player::~Player() {}
 
 void Player::Update(float & timeElapsed)
 {
-	glm::vec3 curPosition = _model.GetPostion();
-
 	float displacement = timeElapsed * _speed;
 //	std::cout << "Displacement: " << displacement << std::endl;
 //	std::cout << "elapsed time: " << timeElapsed << std::endl;
