@@ -31,6 +31,7 @@ ObjectFactory::ObjectFactory()
 
 void ObjectFactory::initModelTextures()
 {
+	//todo display loading screen
 	_player = new Model_Texture("../assets/objects/mario_walking_1.obj");
 	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
 	_breakableBlock = new Model_Texture("../assets/objects/brick_block.obj");
@@ -55,15 +56,28 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 			{
 				case breakableBlocks:
 					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
-					innerResult.push_back(new Grass(*_grass, x, y));
+					break;
+				case unbreakableBlocks:
+					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
 					break;
 				default:
-					innerResult.push_back(new Grass(*_grass, x, y));
 					break;
 			}
 		}
 		result.push_back(innerResult);
 	}
+	return result;
+}
+
+std::list<VisibleGameObject *> * ObjectFactory::genGrass()
+{
+	auto result = new std::list<VisibleGameObject *>;
+
+	for (int y = 0; y < Map::height(); y++)
+		for (int x = 0; x < Map::width(); x++)
+		{
+			result->push_back(new Grass(*_grass, x, y));
+		}
 	return result;
 }
 
@@ -76,9 +90,6 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 		{
 			switch (Map::at(x, y))
 			{
-				case unbreakableBlocks:
-					result->push_back(new Block(*_unbreakableBlock, x, y, false));
-					break;
 				case player:
 					result->push_back(new Player(*_player, x, y));
 					break;
@@ -89,10 +100,10 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 					result->push_back(new KoopaTroopa(*_koopaTroopa, x, y));
 					break;
 				case powerBlock:
-					result->push_back(new PowerBlock(*_koopaTroopa, x, y));
+					result->push_back(new PowerBlock(*_powerBlock, x, y));
 					break;
 				case healthBlock:
-					result->push_back(new HealthBlock(*_koopaTroopa, x, y));
+					result->push_back(new HealthBlock(*_healthBlock, x, y));
 					break;
 				default:
 					break;

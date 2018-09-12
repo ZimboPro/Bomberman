@@ -35,6 +35,7 @@ void GameObjectManager::init()
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
+	_grass = _factory.genGrass();
 }
 
 int GameObjectManager::getObjectCount() const
@@ -53,11 +54,14 @@ VisibleGameObject * GameObjectManager::get(const std::string & name) const
 void GameObjectManager::drawAll(Shaders & shader)
 {
 	for(int y = 0; y < _staticObjects.size(); y++)
-	{
 		for (int x = 0; x < _staticObjects[y].size(); x++)
 		{
 			_staticObjects[y][x]->Draw(shader);
 		}
+
+	for (auto iter = _grass->begin(); iter != _grass->end(); iter++)
+	{
+		(*iter)->Draw(shader);
 	}
 
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
