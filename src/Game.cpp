@@ -7,9 +7,13 @@
 #include <Player.hpp>
 #include <Model_Texture.hpp>
 #include <Shaders.hpp>
+#include <atomic>
+#include <thread>
+#include <chrono>
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
+#include "OptionsMenu.hpp"
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
@@ -33,6 +37,10 @@ void Game::start()
 	loadKeys();
 	while (!isExiting())
 	{
+		// _loadingScreen.display();
+		// usleep(50000);
+		// if (keyPressed() == eKeys::Escape)
+		// 	break;
 		gameLoop();
 	}
 
@@ -63,6 +71,9 @@ void Game::gameLoop()
 			break;
 		case Game::Exiting:
 			break;
+		case Game::ShowingOptions:
+			showOptions();
+			break;
 		default:
 			break;
 	}
@@ -78,16 +89,33 @@ void Game::gameLoop()
 void Game::showMenu()
 {
 	MainMenu menu;
+
 	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
-	int selection = static_cast<int>(menu.show(shader, brightShader));
+	
+	int selection = menu.show(shader, brightShader);
 
-	if (selection == static_cast<int>(MainMenu::Exit))
+	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
 		_gameState = Game::Playing;
+	else if (selection == MainMenu::Settings)
+		_gameState = Game::ShowingOptions;
 }
 
+void Game::showOptions()
+{
+	OptionsMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == OptionsMenu::Back)
+		_gameState = Game::ShowingMenu;
+	else
+		_gameState = Game::Exiting;
+}
 
 void Game::playGame()
 {
@@ -165,3 +193,5 @@ GameObjectManager Game::_gameObjectManager;
 int Game::_keyPress = 0;
 Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
+LoadingScreen Game::_loadingScreen;
+IMenu * Game::_menu;
