@@ -36,13 +36,13 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 			if (this->_action[i].action == this->_selected)
 				this->_action[i].button->DrawScaledBy(shader, 1.1f);
 		}
-		if (Game::keyPressed() ==  eKeys::Up)
+		if (Game::keyTyped() ==  eKeys::Up)
 			this->_selected = ((this->_selected - 1) < 0) ? Options::WindowSize : static_cast<Options>(this->_selected - 1);
-		if (Game::keyPressed() == eKeys::Down)
+		if (Game::keyTyped() == eKeys::Down)
 			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::Back : static_cast<Options>(this->_selected + 1);
-		if (Game::keyPressed() == eKeys::Select)
+		if (Game::keyTyped() == eKeys::Select)
 			break;
-		if (Game::keyPressed() == eKeys::Escape)
+		if (Game::keyTyped() == eKeys::Escape)
 		{
 			this->_selected = Options::Back;
 			break;

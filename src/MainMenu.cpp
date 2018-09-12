@@ -5,12 +5,14 @@
 #include <iostream>
 #include <Shaders.hpp>
 #include <Juicy.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "MainMenu.hpp"
 #include "Game.hpp"
 
 MainMenu::MainMenu()
 {
 	loadMenu();
+
 }
 
 MainMenu::~MainMenu()
@@ -41,13 +43,13 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 			if (this->_menuItems[i].action == this->_selected)
 				this->_menuItems[i].button->DrawScaledBy(shader, 1.1f);
 		}
-		if (Game::keyPressed() ==  eKeys::Up)
+		if (Game::keyTyped() ==  eKeys::Up)
 			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Play : static_cast<MenuResult>(this->_selected - 1);
-		if (Game::keyPressed() == eKeys::Down)
+		if (Game::keyTyped() == eKeys::Down)
 			this->_selected = ((this->_selected + 1) > MenuResult::Exit) ? MenuResult::Exit : static_cast<MenuResult>(this->_selected + 1);
-		if (Game::keyPressed() == eKeys::Select)
+		if (Game::keyTyped() == eKeys::Select)
 			break;
-		if (Game::_window.closed() || Game::keyPressed() == eKeys::Escape)
+		if (Game::_window.closed() || Game::keyTyped() == eKeys::Escape)
 		{
 			this->_selected = MenuResult::Exit;
 			break;
@@ -71,6 +73,7 @@ void MainMenu::loadMenu()
 	Model_Sprite *temp = new Model_Sprite("../assets/buttons/start.obj");
 	temp->Position(-20, -20, (Game::_window.Height() << 1) / 3);
 	temp->Scale(10);
+	temp->Rotate(15, glm::vec3(1, 0, 0));
 	start.button = temp;
 	start.action = MenuResult::Play;
 
@@ -78,6 +81,7 @@ void MainMenu::loadMenu()
 	temp = new Model_Sprite("../assets/buttons/option.obj");
 	temp->Position(-20, -20, (Game::_window.Height() >> 1));
 	temp->Scale(10);
+	temp->Rotate(15, glm::vec3(0, 1, 0));
 	options.button = temp;
 	options.action = MenuResult::Settings;
 
@@ -85,6 +89,7 @@ void MainMenu::loadMenu()
 	temp = new Model_Sprite("../assets/buttons/quit.obj");
 	temp->Position(-20, -20, (Game::_window.Height()) / 3);
 	temp->Scale(10);
+	temp->Rotate(15, glm::vec3(0, 1, 0));
 	quit.button = temp;
 	quit.action = MenuResult::Exit;
 	
@@ -105,11 +110,10 @@ void MainMenu::deleteMenu()
 
 void MainMenu::moveOnScreen(Shaders & shader, float end)
 {
-	float x = this->_menuItems[0].button->GetPosition().x;
 	glm::mat4 projection = Game::_window.Projection();
 	float weighting = 0.05f;
-	glm::vec3 temp(end, 0, -20);
-	while (0.05f < abs(end - x))
+	glm::vec3 temp(end, 0.0f, -60.0f);
+	while (0.1f < glm::distance(temp, this->_menuItems[0].button->GetPosition()))
 	{
 		Game::_window.clear(0.5f, 0.5f, 0.5f);
 		shader.use();
@@ -120,9 +124,10 @@ void MainMenu::moveOnScreen(Shaders & shader, float end)
 		{
 			temp.y = this->_menuItems[i].button->GetPosition().y;
 			Juicy::Tweening(*this->_menuItems[i].button, temp, weighting);
+			Juicy::TweeingRotation(*this->_menuItems[i].button, 15.0f, weighting);
 			this->_menuItems[i].button->Draw(shader);
 		}
-		x = this->_menuItems[0].button->GetPosition().x;
 		Game::_window.update();
+		std::cout << glm::distance(temp, this->_menuItems[0].button->GetPosition()) << std::endl;
 	}
 }
