@@ -23,17 +23,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f16740f0-d3b6-476d-b9af-2e1526452051" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/include/BoundingBox.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/BoundingBox.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/Game.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/Game.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Block.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/Block.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/GameObjectManager.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/GameObjectManager.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/eObjectTypes.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/eObjectTypes.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjectManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjectManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Map.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Map.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Goomba.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/Goomba.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Grass.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/Grass.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/HealthBlock.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/HealthBlock.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/KoopaTroopa.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/KoopaTroopa.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ObjectFactory.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/ObjectFactory.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Player.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/Player.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/VisibleGameObject.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/VisibleGameObject.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/powerBlock.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/game_elements/powerBlock.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/Block.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Goomba.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/Goomba.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Grass.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/Grass.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HealthBlock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/HealthBlock.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KoopaTroopa.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/KoopaTroopa.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectFactory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VisibleGameObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VisibleGameObject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/Player.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VisibleGameObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/VisibleGameObject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/powerBlock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_elements/powerBlock.cpp" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,57 +59,12 @@
     <favorites_list name="Bomberman" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameObjectManager.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GameObjectManager.cpp">
+    <leaf>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="95" column="4" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="4" />
-              <folding>
-                <element signature="e#52#71#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Player.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="32" column="55" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="55" />
-              <folding>
-                <element signature="e#52#70#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ObjectFactory.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ObjectFactory.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="63" column="64" selection-start-line="63" selection-start-column="64" selection-end-line="63" selection-end-column="64" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Block.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Block.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="43" lean-forward="true" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Map.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Map.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="56" column="63" selection-start-line="56" selection-start-column="63" selection-end-line="56" selection-end-column="63" />
+            <state relative-caret-position="301">
+              <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -143,7 +111,6 @@
         <option value="$PROJECT_DIR$/include/PowerBlock.hpp" />
         <option value="$PROJECT_DIR$/src/PowerBlock.cpp" />
         <option value="$PROJECT_DIR$/src/HealthBlock.hpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/assets/new_new_grass/grass.mtl" />
         <option value="$PROJECT_DIR$/src/Grass.cpp" />
         <option value="$PROJECT_DIR$/include/ObjectFactory.hpp" />
@@ -156,7 +123,6 @@
         <option value="$PROJECT_DIR$/include/VisibleGameObject.hpp" />
         <option value="$PROJECT_DIR$/src/Game.cpp" />
         <option value="$PROJECT_DIR$/include/eObjectTypes.hpp" />
-        <option value="$PROJECT_DIR$/include/Game.hpp" />
         <option value="$PROJECT_DIR$/src/VisibleGameObject.cpp" />
         <option value="$PROJECT_DIR$/src/Block.cpp" />
         <option value="$PROJECT_DIR$/include/BoundingBox.hpp" />
@@ -165,6 +131,8 @@
         <option value="$PROJECT_DIR$/src/ObjectFactory.cpp" />
         <option value="$PROJECT_DIR$/src/GameObjectManager.cpp" />
         <option value="$PROJECT_DIR$/src/Player.cpp" />
+        <option value="$PROJECT_DIR$/include/Game.hpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -204,42 +172,12 @@
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="Bomberman" type="cbb8eebc:String" user="Bomberman" />
-              <item name="assets" type="cbb8eebc:String" user="assets" />
+              <item name="include" type="cbb8eebc:String" user="include" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="Bomberman" type="cbb8eebc:String" user="Bomberman" />
               <item name="src" type="cbb8eebc:String" user="src" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="/" type="cbb8eebc:String" user="/" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="/" type="cbb8eebc:String" user="/" />
-              <item name="goinfre" type="cbb8eebc:String" user="goinfre" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="/" type="cbb8eebc:String" user="/" />
-              <item name="goinfre" type="cbb8eebc:String" user="goinfre" />
-              <item name="prussell" type="cbb8eebc:String" user="prussell" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="/" type="cbb8eebc:String" user="/" />
-              <item name="goinfre" type="cbb8eebc:String" user="goinfre" />
-              <item name="prussell" type="cbb8eebc:String" user="prussell" />
-              <item name="projects" type="cbb8eebc:String" user="projects" />
             </path>
           </expand>
           <select />
@@ -285,6 +223,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/game_elements" />
+      <recent name="$PROJECT_DIR$/include/game_elements" />
       <recent name="$PROJECT_DIR$/include" />
     </key>
   </component>
@@ -374,11 +314,13 @@
       <workItem from="1536759667250" duration="637000" />
       <workItem from="1536760349455" duration="1246000" />
       <workItem from="1536821278441" duration="11927000" />
+      <workItem from="1536842454577" duration="37000" />
+      <workItem from="1536842534401" duration="786000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160531000" />
+    <option name="totallyTimeSpent" value="161679000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -387,7 +329,7 @@
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5427632" visible="true" weight="0.17083333" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.49319068" />
-      <window_info anchor="bottom" id="CMake" order="7" weight="0.520428" />
+      <window_info anchor="bottom" id="CMake" order="7" weight="0.4951362" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.4241245" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3004975" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34727627" />
@@ -488,35 +430,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Goomba.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/Goomba.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Grass.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/Grass.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/powerBlock.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/powerBlock.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/HealthBlock.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/HealthBlock.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/KoopaTroopa.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/KoopaTroopa.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" selection-start-line="22" selection-end-line="22" />
@@ -543,17 +485,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Grass.cpp">
+    <entry file="file://$PROJECT_DIR$/src/game_elements/Grass.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -564,13 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/ObjectFactory.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/eKeys.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -578,7 +506,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Goomba.cpp">
+    <entry file="file://$PROJECT_DIR$/src/game_elements/Goomba.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
@@ -588,21 +516,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/KoopaTroopa.cpp">
+    <entry file="file://$PROJECT_DIR$/src/game_elements/KoopaTroopa.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/powerBlock.cpp">
+    <entry file="file://$PROJECT_DIR$/src/game_elements/powerBlock.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HealthBlock.cpp">
+    <entry file="file://$PROJECT_DIR$/src/game_elements/HealthBlock.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
@@ -628,7 +556,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Block.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/Block.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
@@ -649,13 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Game.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/eObjectTypes.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -663,24 +584,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/VisibleGameObject.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/VisibleGameObject.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="615">
           <caret line="41" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="e#133#156#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Player.hpp">
+    <entry file="file://$PROJECT_DIR$/include/game_elements/Player.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/VisibleGameObject.cpp">
+    <entry file="file://$PROJECT_DIR$/src/game_elements/VisibleGameObject.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
@@ -705,53 +623,62 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="53" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
-          <folding>
-            <element signature="e#133#165#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Map.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="56" column="63" selection-start-line="56" selection-start-column="63" selection-end-line="56" selection-end-column="63" />
+        <state relative-caret-position="373">
+          <caret line="57" column="63" selection-start-line="57" selection-start-column="63" selection-end-line="57" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Block.cpp">
+    <entry file="file://$PROJECT_DIR$/src/game_elements/Block.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="43" lean-forward="true" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="465">
+          <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ObjectFactory.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="63" column="64" selection-start-line="63" selection-start-column="64" selection-end-line="63" selection-end-column="64" />
+        <state relative-caret-position="474">
+          <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game_elements/Player.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="45" column="18" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameObjectManager.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="95" column="4" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="4" />
-          <folding>
-            <element signature="e#52#71#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="562">
+          <caret line="100" column="4" selection-start-line="100" selection-start-column="4" selection-end-line="100" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Player.cpp">
+    <entry file="file://$PROJECT_DIR$/include/Game.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="32" column="55" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="55" />
-          <folding>
-            <element signature="e#52#70#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/ObjectFactory.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,5 @@
 #include <Error.hpp>
-#include "Block.hpp"
+#include "game_elements/Block.hpp"
 
 Block::Block()
 {

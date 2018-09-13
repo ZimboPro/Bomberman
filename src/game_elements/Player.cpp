@@ -4,7 +4,7 @@
 
 #include <cassert>
 #include <Error.hpp>
-#include "Player.hpp"
+#include "game_elements/Player.hpp"
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
 #include "eKeys.hpp"

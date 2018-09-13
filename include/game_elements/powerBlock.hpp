@@ -5,7 +5,7 @@
 #ifndef BOMBERMAN_POWERBLOCK_HPP
 #define BOMBERMAN_POWERBLOCK_HPP
 
-#include <VisibleGameObject.hpp>
+#include <game_elements/VisibleGameObject.hpp>
 
 class PowerBlock: public VisibleGameObject {
 public:

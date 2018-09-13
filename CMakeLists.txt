@@ -41,10 +41,10 @@ add_executable(
         src/Game.cpp
 #        src/SplashScreen.cpp
         src/MainMenu.cpp
-        src/Block.cpp
-        src/Grass.cpp
-        src/VisibleGameObject.cpp
-        src/Player.cpp
+        src/game_elements/Block.cpp
+        src/game_elements/Grass.cpp
+        src/game_elements/VisibleGameObject.cpp
+        src/game_elements/Player.cpp
         src/GameObjectManager.cpp
         src/Error.cpp
         src/SFMLSoundProvider.cpp
@@ -54,11 +54,11 @@ add_executable(
         src/ObjectFactory.cpp
         src/OptionsMenu.cpp
         src/LoadingScreen.cpp
-        src/Goomba.cpp
-        src/KoopaTroopa.cpp
-        src/PowerBlock.cpp
-        src/HealthBlock.cpp
-        include/eObjectTypes.hpp include/BoundingBox.hpp)
+        src/game_elements/Goomba.cpp
+        src/game_elements/KoopaTroopa.cpp
+        src/game_elements/powerBlock.cpp
+        src/game_elements/HealthBlock.cpp
+        )
 
 add_dependencies(bomberman graphics)
 find_package(Boost REQUIRED COMPONENTS system serialization)

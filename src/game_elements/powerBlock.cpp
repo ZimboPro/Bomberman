@@ -2,7 +2,7 @@
 // Created by Patrick RUSSELL on 2018/09/10.
 //
 
-#include "PowerBlock.hpp"
+#include "game_elements/powerBlock.hpp"
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
 

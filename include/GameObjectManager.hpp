@@ -5,7 +5,7 @@
 #ifndef BOMBERMAN_GAMEOBJECTMANAGER_HPP
 #define BOMBERMAN_GAMEOBJECTMANAGER_HPP
 
-#include "VisibleGameObject.hpp"
+#include "game_elements/VisibleGameObject.hpp"
 #include <map>
 #include "Shaders.hpp"
 #include "ObjectFactory.hpp"

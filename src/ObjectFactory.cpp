@@ -2,13 +2,13 @@
 // Created by Patrick RUSSELL on 2018/09/03.
 //
 
-#include <Grass.hpp>
-#include <Block.hpp>
-#include <Player.hpp>
-#include <Goomba.hpp>
-#include <KoopaTroopa.hpp>
-#include <powerBlock.hpp>
-#include "HealthBlock.hpp"
+#include <game_elements/Grass.hpp>
+#include <game_elements/Block.hpp>
+#include <game_elements/Player.hpp>
+#include <game_elements/Goomba.hpp>
+#include <game_elements/KoopaTroopa.hpp>
+#include <game_elements/powerBlock.hpp>
+#include "game_elements/HealthBlock.hpp"
 #include "ObjectFactory.hpp"
 #include "Map.hpp"
 #include "Game.hpp"

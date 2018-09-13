@@ -5,7 +5,7 @@
 #ifndef BOMBERMAN_HEALTHBLOCK_HPP
 #define BOMBERMAN_HEALTHBLOCK_HPP
 
-#include "VisibleGameObject.hpp"
+#include "game_elements/VisibleGameObject.hpp"
 
 class HealthBlock: public VisibleGameObject {
 public:

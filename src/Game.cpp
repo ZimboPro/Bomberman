@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <Error.hpp>
-#include <Player.hpp>
+#include <game_elements/Player.hpp>
 #include <Model_Texture.hpp>
 #include <Shaders.hpp>
 #include <atomic>
@@ -18,7 +18,7 @@
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
 #include "Map.hpp"
-#include "Player.hpp"
+#include "game_elements/Player.hpp"
 #include "Camera.hpp"
 
 void Game::start()

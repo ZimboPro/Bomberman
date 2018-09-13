@@ -6,7 +6,7 @@
 #define BOMBERMAN_OBJECTFACTORY_HPP
 
 #include <list>
-#include "VisibleGameObject.hpp"
+#include "game_elements/VisibleGameObject.hpp"
 #include "Model_Texture.hpp"
 #include "eObjectTypes.hpp"
 

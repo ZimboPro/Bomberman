@@ -1,4 +1,4 @@
-#include "Grass.hpp"
+#include "game_elements/Grass.hpp"
 
 Grass::Grass()
 {

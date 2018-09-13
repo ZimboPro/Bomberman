@@ -2,7 +2,7 @@
 // Created by Patrick RUSSELL on 2018/09/10.
 //
 
-#include "HealthBlock.hpp"
+#include "game_elements/HealthBlock.hpp"
 #include "Game.hpp"
 
 #include "ServiceLocator.hpp"

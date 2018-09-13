@@ -1,29 +1,29 @@
 //
 // Created by Patrick RUSSELL on 2018/09/10.
 //
-#include "KoopaTroopa.hpp"
-#include "Game.hpp"
 
+#include "game_elements/Goomba.hpp"
+#include "Game.hpp"
 #include "ServiceLocator.hpp"
 
-KoopaTroopa::KoopaTroopa(): _velocity(0), _maxVelocity(600.0f)
+Goomba::Goomba(): _velocity(0), _maxVelocity(600.0f)
 {
-	_type = koopaTroopa;
+	_type = goomba;
 }
 
-KoopaTroopa::KoopaTroopa(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
+Goomba::Goomba(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
 }
 
-KoopaTroopa::~KoopaTroopa() {}
+Goomba::~Goomba() {}
 
 
-float KoopaTroopa::getVelocity() const
+float Goomba::getVelocity() const
 {
 	return _velocity;
 }
 
-void KoopaTroopa::Update(float & timeElapsed)
+void Goomba::Update(float & timeElapsed)
 {
 //	if (Game::getInput() == sf::Keyboard::Left)
 //	{
