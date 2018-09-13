@@ -89,33 +89,34 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 	return false;
 }
 
+void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
+{
+	if (type == bomb)
+		_dynamicObjects->push_back(_factory.newBomb(x, y));
+}
+
 objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 {
-	std::cout << box.x1 << " " << box.x2  << " "<< box.y1  << " "<< box.y2  << " "<< std::endl;
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
-		std::cout << "Found Static Object1" << std::endl;
 		if (_staticObjects[box.y1][box.x1]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y1][box.x2]->isLoaded())
 	{
-		std::cout << "Found Static Object2" << std::endl;
 		if (_staticObjects[box.y2][box.x2]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y2][box.x1]->isLoaded())
 	{
-		std::cout << "Found Static Object3" << std::endl;
 		if (_staticObjects[box.y2][box.x1]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y2][box.x2]->isLoaded())
 	{
-		std::cout << "Found Static Object4" << std::endl;
 		if (_staticObjects[box.y2][box.x2]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;

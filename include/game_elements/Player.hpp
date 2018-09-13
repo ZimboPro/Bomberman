@@ -17,6 +17,7 @@ public:
 
 	void Update(float & timeElapsed);
 	BoundingBox getBoundingBox();
+	void dropBomb();
 
 	float getVelocity() const;
 

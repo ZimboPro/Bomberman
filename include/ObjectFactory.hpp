@@ -18,6 +18,7 @@ public:
 	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
 	std::list<VisibleGameObject *> * genDynamicAndPickUpObjects();
 	std::list<VisibleGameObject *> * genGrass();
+	VisibleGameObject * newBomb(float x, float y);
 	void initModelTextures();
 
 private:
@@ -29,6 +30,7 @@ private:
 	Model_Texture * _powerBlock;
 	Model_Texture * _healthBlock;
 	Model_Texture * _grass;
+	Model_Texture * _bomb;
 };
 
 

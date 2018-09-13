@@ -12,6 +12,7 @@
 #include "ObjectFactory.hpp"
 #include "Map.hpp"
 #include "Game.hpp"
+#include "game_elements/Bomb.hpp"
 
 ObjectFactory::~ObjectFactory()
 {
@@ -40,7 +41,14 @@ void ObjectFactory::initModelTextures()
 	_powerBlock = new Model_Texture("../../Assets/game_models/power_up.obj");
 	_healthBlock = new Model_Texture("../../Assets/game_models/heart.obj");
 	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
+	_bomb = new Model_Texture("../../Assets/game_models/bomb_carry.obj");
 }
+
+VisibleGameObject * ObjectFactory::newBomb(float x, float y)
+{
+	return new Bomb(*_bomb, x, y);
+}
+
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 {

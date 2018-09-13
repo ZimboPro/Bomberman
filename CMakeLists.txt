@@ -58,7 +58,7 @@ add_executable(
         src/game_elements/KoopaTroopa.cpp
         src/game_elements/powerBlock.cpp
         src/game_elements/HealthBlock.cpp
-        )
+        src/game_elements/Bomb.cpp)
 
 add_dependencies(bomberman graphics)
 find_package(Boost REQUIRED COMPONENTS system serialization)

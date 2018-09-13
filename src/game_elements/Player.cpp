@@ -36,7 +36,18 @@ BoundingBox Player::getBoundingBox()
 	return _box;
 }
 
-
+void Player::dropBomb()
+{
+	glm::vec3 pos = _model.GetPosition();
+	if (_direction == 270)
+		GameObjectManager::addDynamicObject(bomb, pos.x - 0.6, pos.z);
+	else if (_direction == 90)
+		GameObjectManager::addDynamicObject(bomb, pos.x + 0.6, pos.z);
+	else if (_direction == 0)
+		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z + 0.6);
+	else if (_direction == 180)
+		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z - 0.6);
+}
 
 void Player::Update(float & timeElapsed)
 {
@@ -90,5 +101,7 @@ void Player::Update(float & timeElapsed)
 			if(GameObjectManager::collidesWith(box) == grass)
 		_model.Move(0 , 0 - displacement);
 	}
+	else if (Game::keyPressed() == eKeys::Select)
+		dropBomb();
 	Game::_camera.LookAt(_model.GetPosition());
 }
