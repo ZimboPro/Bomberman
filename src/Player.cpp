@@ -3,6 +3,7 @@
 //
 
 #include <cassert>
+#include <Error.hpp>
 #include "Player.hpp"
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
@@ -19,30 +20,59 @@ Player::Player(Model_Texture & texture, float x, float y): _speed(2.0f), _maxVel
 
 Player::~Player() {}
 
+BoundingBox Player::getBoundingBox()
+{
+	if (!isLoaded())
+		throw Error::AssetError("Player object not loaded");
+
+	_box.x1 = static_cast<float>(_model.GetPosition().x - 0.010);
+	_box.x2 = _box.x1 + 0.1f;
+
+	_box.y1 = static_cast<float>(_model.GetPosition().z - 0.010);
+	_box.y2 = _box.y1 + 0.1f;
+
+	return _box;
+}
 
 void Player::Update(float & timeElapsed)
 {
 	float displacement = timeElapsed * _speed;
 	glm::vec3 pos = _model.GetPosition();
-//	std::cout << "Player x " << pos.x << " y " << pos.z << " " << std::endl;
-//	std::cout << "Displacement: " << displacement << std::endl;
-//	std::cout << "elapsed time: " << timeElapsed << std::endl;
-//Game::keyPressed() == eKeys::Up
+
 	if (Game::keyPressed() == eKeys::Up)
 	{
-
-		_model.Move(0 - displacement, 0);
+		if (_direction != 270) {
+			_model.Rotate(270);
+			_direction = 270;
+		}
+		if(GameObjectManager::collidesWith(*this, pos.x - displacement, pos.z) == grass)
+			_model.Move(0 - displacement, 0);
 	}
 	else if (Game::keyPressed() == eKeys::Down)
 	{
+		if (_direction != 90) {
+			_model.Rotate(90);
+			_direction = 90;
+		}
+		if(GameObjectManager::collidesWith(*this, pos.x + displacement, pos.z) == grass)
 		_model.Move(0 + displacement, 0);
 	}
 	else if (Game::keyPressed() == eKeys::Left)
 	{
+		if (_direction != 0) {
+			_model.Rotate(0);
+			_direction = 0;
+		}
+		if(GameObjectManager::collidesWith(*this, pos.x,  pos.z + displacement) == grass)
 		_model.Move(0 , 0 + displacement);
 	}
 	else if (Game::keyPressed() == eKeys::Right)
 	{
+		if (_direction != 180) {
+			_model.Rotate(180);
+			_direction = 180;
+		}
+		if(GameObjectManager::collidesWith(*this, pos.x, pos.z - displacement) == grass)
 		_model.Move(0 , 0 - displacement);
 	}
 }

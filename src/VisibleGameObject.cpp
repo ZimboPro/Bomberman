@@ -13,7 +13,11 @@ VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, 
 	_model.LoadModel_Texture(texture);
 	_model.Position(x, y);
 	_model.Scale(0.032f);
+	_direction = 0;
 }
+
+BoundingBox VisibleGameObject::getBoundingBox()
+{}
 
 void VisibleGameObject::setScale(float scale)
 {

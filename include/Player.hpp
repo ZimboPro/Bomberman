@@ -16,6 +16,7 @@ public:
 	Player(Model_Texture & texture, float x, float y);
 
 	void Update(float & timeElapsed);
+	BoundingBox getBoundingBox();
 
 	float getVelocity() const;
 

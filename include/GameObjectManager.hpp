@@ -20,7 +20,8 @@ public:
 	static void drawAll(Shaders & shader);
 	static void updateAll(float elapsedTime);
 	static void init();
-	static objectTypes collidesWith(objectTypes type, int x, int y);
+	static objectTypes collidesWith(VisibleGameObject & type, int x, int y);
+	static bool intersects(BoundingBox obj1, BoundingBox obj2);
 
 private:
 	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;

@@ -10,6 +10,7 @@
 #include "Model_Sprite.hpp"
 #include "Shaders.hpp"
 #include "eObjectTypes.hpp"
+#include "BoundingBox.hpp"
 #include <string>
 
 class VisibleGameObject
@@ -27,6 +28,7 @@ public:
 	virtual bool isBreakable() const;
 	virtual void setScale(float scale);
 	virtual objectTypes getType();
+	virtual BoundingBox getBoundingBox();
 
 	virtual glm::vec3 getPosition();
 
@@ -35,9 +37,11 @@ public:
 protected:
 	Model_Sprite _model;
 	objectTypes _type;
+	float _direction;
+	BoundingBox _box;
+
 private:
 	bool _isLoaded;
-	int _direction;
 	bool _isCollidable;
 	bool _isBreakable;
 };

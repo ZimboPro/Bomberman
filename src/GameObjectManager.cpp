@@ -5,6 +5,7 @@
 #include <iostream>
 #include "GameObjectManager.hpp"
 #include "ObjectFactory.hpp"
+#include <glm/vec4.hpp>
 
 GameObjectManager::GameObjectManager()
 {
@@ -24,8 +25,8 @@ void GameObjectManager::init()
 
 void GameObjectManager::drawAll(Shaders & shader)
 {
-	for(int y = 0; y < _staticObjects.size(); y++)
-		for (int x = 0; x < _staticObjects[y].size(); x++)
+	for(size_t y = 0; y < _staticObjects.size(); y++)
+		for (size_t x = 0; x < _staticObjects[y].size(); x++)
 		{
 			_staticObjects[y][x]->Draw(shader);
 		}
@@ -49,23 +50,56 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
-objectTypes GameObjectManager::collidesWith(objectTypes type, int x, int y)
+bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 {
+	float x1 = obj1.x1;
+	float maxX1 = obj1.x2;
+	float y1 = obj1.y1;
+	float maxY1 = obj1.y2;
+	std::cout << x1 << std::endl;
+
+	float x2 = obj2.x1;
+	float maxX2 = obj2.x2;
+	float y2 = obj2.y1;
+	float maxY2 = obj2.y2;
+
+	std::cout << x2 << std::endl;
+	if (x2 >= x1 && x2 <= maxX1 && y2 >= y1 && y2 <= maxY1)
+		return true;
+
+	if (maxX2 >= x1 && maxX2 <= maxX1 && y2 >= y1 && y2 <= maxY1)
+		return true;
+	
+	if (x1 >= x2 && x1 <= maxX2 && y1 >= y2 && y1 <= maxY2)
+		return true;
+
+	if (maxX1 >= x2 && maxX1 <= maxX2 && y1 >= y2 && y1 <= maxY2)
+		return true;
+
+	return false;
+}
+objectTypes GameObjectManager::collidesWith(VisibleGameObject & dynamicObj, int x, int y)
+{
+	std::cout << "Checking x: " << x << " y: " << y << std::endl;
 	if (_staticObjects[y][x]->isLoaded())
 	{
-		if (_staticObjects[y][x]->isBreakable())
-			return objectTypes::breakableBlocks;
-		else if (!_staticObjects[y][x]->isBreakable())
+		std::cout << "Found Static Object" << std::endl;
+//		if (intersects(_staticObjects[y][x]->getBoundingBox(), dynamicObj.getBoundingBox()))
+//		{
+			if (_staticObjects[y][x]->isBreakable())
+				return objectTypes::breakableBlocks;
 			return objectTypes::unbreakableBlocks;
+//		}
 	}
-	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
-	{
-		int objX = static_cast<int>((*iter)->getPosition().x);
-		int objY = static_cast<int>((*iter)->getPosition().z);
-
-		if(x == objX && y == objY && type != (*iter)->getType())
-			return (*iter)->getType();
-	}
+//	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+//	{
+//		int objX = static_cast<int>((*iter)->getPosition().x);
+//		int objY = static_cast<int>((*iter)->getPosition().z);
+//
+//		if(x == objX && y == objY && type.getType() != (*iter)->getType())
+//			return (*iter)->getType();
+//	}
+	return grass;
 }
 
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;

@@ -61,6 +61,7 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
 					break;
 				default:
+					innerResult.push_back(new VisibleGameObject);
 					break;
 			}
 		}
@@ -73,8 +74,8 @@ std::list<VisibleGameObject *> * ObjectFactory::genGrass()
 {
 	auto result = new std::list<VisibleGameObject *>;
 
-	for (int y = 0; y < Map::height(); y++)
-		for (int x = 0; x < Map::width(); x++)
+	for (size_t y = 0; y < Map::height(); y++)
+		for (size_t x = 0; x < Map::width(); x++)
 		{
 			result->push_back(new Grass(*_grass, x, y));
 		}
@@ -85,8 +86,8 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 {
 	auto result = new std::list<VisibleGameObject *>;
 
-	for (int y = 0; y < Map::height(); y++)
-		for (int x = 0; x < Map::width(); x++)
+	for (size_t y = 0; y < Map::height(); y++)
+		for (size_t x = 0; x < Map::width(); x++)
 		{
 			switch (Map::at(x, y))
 			{
