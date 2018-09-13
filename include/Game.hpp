@@ -23,6 +23,7 @@ public:
     static LoadingScreen _loadingScreen;
     static eKeys keyPressed();
     static eKeys keyTyped();
+	static Camera _camera;
 
 private:
     static bool isExiting();
@@ -38,7 +39,6 @@ private:
 
     static eGameState _gameState;
     static int _keyPress;
-    static Camera _camera;
     static std::map<eKeys, int> _keyConfiguration;
 };
 

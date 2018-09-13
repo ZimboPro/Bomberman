@@ -14,7 +14,7 @@ Player::Player(): _speed(0), _maxVelocity(600.0f)
 	_type = player;
 }
 
-Player::Player(Model_Texture & texture, float x, float y): _speed(2.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
+Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
 }
 
@@ -25,19 +25,26 @@ BoundingBox Player::getBoundingBox()
 	if (!isLoaded())
 		throw Error::AssetError("Player object not loaded");
 
-	_box.x1 = static_cast<float>(_model.GetPosition().x - 0.010);
-	_box.x2 = _box.x1 + 0.1f;
+	float modelSize = 0.6f;
 
-	_box.y1 = static_cast<float>(_model.GetPosition().z - 0.010);
-	_box.y2 = _box.y1 + 0.1f;
+	_box.x1 = static_cast<float>(_model.GetPosition().x);
+	_box.x2 = static_cast<float>(_model.GetPosition().x + modelSize);
+
+	_box.y1 = static_cast<float>(_model.GetPosition().z);
+	_box.y2 = static_cast<float>(_model.GetPosition().z + modelSize);
 
 	return _box;
 }
+
+
 
 void Player::Update(float & timeElapsed)
 {
 	float displacement = timeElapsed * _speed;
 	glm::vec3 pos = _model.GetPosition();
+	BoundingBox box = this->getBoundingBox();
+	float moveToX;
+	float moveToY;
 
 	if (Game::keyPressed() == eKeys::Up)
 	{
@@ -45,7 +52,9 @@ void Player::Update(float & timeElapsed)
 			_model.Rotate(270);
 			_direction = 270;
 		}
-		if(GameObjectManager::collidesWith(*this, pos.x - displacement, pos.z) == grass)
+		box.x1 -= displacement;
+		box.x2 -= displacement;
+		if(GameObjectManager::collidesWith(box) == grass)
 			_model.Move(0 - displacement, 0);
 	}
 	else if (Game::keyPressed() == eKeys::Down)
@@ -54,7 +63,9 @@ void Player::Update(float & timeElapsed)
 			_model.Rotate(90);
 			_direction = 90;
 		}
-		if(GameObjectManager::collidesWith(*this, pos.x + displacement, pos.z) == grass)
+		box.x1 += displacement + 0.2;
+		box.x2 += displacement + 0.2;
+			if(GameObjectManager::collidesWith(box) == grass)
 		_model.Move(0 + displacement, 0);
 	}
 	else if (Game::keyPressed() == eKeys::Left)
@@ -63,7 +74,9 @@ void Player::Update(float & timeElapsed)
 			_model.Rotate(0);
 			_direction = 0;
 		}
-		if(GameObjectManager::collidesWith(*this, pos.x,  pos.z + displacement) == grass)
+		box.y1 += displacement + 0.2;
+		box.y2 += displacement + 0.2;
+			if(GameObjectManager::collidesWith(box) == grass)
 		_model.Move(0 , 0 + displacement);
 	}
 	else if (Game::keyPressed() == eKeys::Right)
@@ -72,7 +85,10 @@ void Player::Update(float & timeElapsed)
 			_model.Rotate(180);
 			_direction = 180;
 		}
-		if(GameObjectManager::collidesWith(*this, pos.x, pos.z - displacement) == grass)
+		box.y1 -= displacement;
+		box.y2 -= displacement;
+			if(GameObjectManager::collidesWith(box) == grass)
 		_model.Move(0 , 0 - displacement);
 	}
+	Game::_camera.LookAt(_model.GetPosition());
 }

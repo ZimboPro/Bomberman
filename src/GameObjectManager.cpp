@@ -6,6 +6,7 @@
 #include "GameObjectManager.hpp"
 #include "ObjectFactory.hpp"
 #include <glm/vec4.hpp>
+#include <Map.hpp>
 
 GameObjectManager::GameObjectManager()
 {
@@ -21,6 +22,15 @@ void GameObjectManager::init()
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
+	std::cout << "=================================" << std::endl;
+	Map::printMap();
+	std::cout << "=================================" << std::endl;
+
+	for(size_t y = 0; y < _staticObjects.size(); y++) {
+		for (size_t x = 0; x < _staticObjects[0].size(); x++)
+			std::cout << (char)_staticObjects[y][x]->getType();
+		std::cout << std::endl;
+	}
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -78,19 +88,39 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 
 	return false;
 }
-objectTypes GameObjectManager::collidesWith(VisibleGameObject & dynamicObj, int x, int y)
+
+objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 {
-	std::cout << "Checking x: " << x << " y: " << y << std::endl;
-	if (_staticObjects[y][x]->isLoaded())
+	std::cout << box.x1 << " " << box.x2  << " "<< box.y1  << " "<< box.y2  << " "<< std::endl;
+	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
-		std::cout << "Found Static Object" << std::endl;
-//		if (intersects(_staticObjects[y][x]->getBoundingBox(), dynamicObj.getBoundingBox()))
-//		{
-			if (_staticObjects[y][x]->isBreakable())
-				return objectTypes::breakableBlocks;
-			return objectTypes::unbreakableBlocks;
-//		}
+		std::cout << "Found Static Object1" << std::endl;
+		if (_staticObjects[box.y1][box.x1]->isBreakable())
+			return objectTypes::breakableBlocks;
+		return objectTypes::unbreakableBlocks;
 	}
+	else if (_staticObjects[box.y1][box.x2]->isLoaded())
+	{
+		std::cout << "Found Static Object2" << std::endl;
+		if (_staticObjects[box.y2][box.x2]->isBreakable())
+			return objectTypes::breakableBlocks;
+		return objectTypes::unbreakableBlocks;
+	}
+	else if (_staticObjects[box.y2][box.x1]->isLoaded())
+	{
+		std::cout << "Found Static Object3" << std::endl;
+		if (_staticObjects[box.y2][box.x1]->isBreakable())
+			return objectTypes::breakableBlocks;
+		return objectTypes::unbreakableBlocks;
+	}
+	else if (_staticObjects[box.y2][box.x2]->isLoaded())
+	{
+		std::cout << "Found Static Object4" << std::endl;
+		if (_staticObjects[box.y2][box.x2]->isBreakable())
+			return objectTypes::breakableBlocks;
+		return objectTypes::unbreakableBlocks;
+	}
+
 //	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 //	{
 //		int objX = static_cast<int>((*iter)->getPosition().x);

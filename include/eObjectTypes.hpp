@@ -8,13 +8,13 @@
 enum objectTypes
 {
 	grass = '0',
-	unbreakableBlocks,
-	breakableBlocks,
-	player,
-	goomba,
-	koopaTroopa,
-	powerBlock,
-	healthBlock
+	unbreakableBlocks = '1',
+	breakableBlocks = '2',
+	player = '3',
+	goomba = '4',
+	koopaTroopa = '5',
+	powerBlock = '6',
+	healthBlock = '7'
 };
 
 #endif //BOMBERMAN_EOBJECTTYPES_HPP

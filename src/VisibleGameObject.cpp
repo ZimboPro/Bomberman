@@ -5,7 +5,9 @@
 #include "VisibleGameObject.hpp"
 
 VisibleGameObject::VisibleGameObject():
-		 _isLoaded(false) {}
+		 _isLoaded(false) {
+	_type = grass;
+}
 
 VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
 		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable)

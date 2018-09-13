@@ -8,7 +8,7 @@
 typedef struct BoundingBox
 {
 public:
-	double x1;
+	float x1;
 	float x2;
 	float y1;
 	float y2;

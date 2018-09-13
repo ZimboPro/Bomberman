@@ -20,7 +20,8 @@ public:
 	static void drawAll(Shaders & shader);
 	static void updateAll(float elapsedTime);
 	static void init();
-	static objectTypes collidesWith(VisibleGameObject & type, int x, int y);
+//	static objectTypes collidesWith(VisibleGameObject & type, int x, int y);
+	static objectTypes collidesWith(BoundingBox & box);
 	static bool intersects(BoundingBox obj1, BoundingBox obj2);
 
 private:
@@ -28,6 +29,7 @@ private:
 	static std::list<VisibleGameObject *> *_dynamicObjects;
 	static std::list<VisibleGameObject *> *_grass;
 	static ObjectFactory _factory;
+
 };
 
 #endif //BOMBERMAN_GAMEOBJECTMANAGER_HPP

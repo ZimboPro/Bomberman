@@ -19,11 +19,11 @@ BoundingBox Block::getBoundingBox()
 		throw Error::AssetError("Block Object Not Loaded");
 
 	BoundingBox box;
-	box.x1 = _model.GetPosition().x - 0.32;
-	box.x2 = box.x1 + 0.32;
+	box.x1 = _model.GetPosition().x - 0.82;
+	box.x2 = box.x1 + 0.82;
 
-	box.y1 = _model.GetPosition().z - 0.32;
-	box.y2 = box.y1 + 0.32;
+	box.y1 = _model.GetPosition().z - 0.82;
+	box.y2 = box.y1 + 0.82;
 
 	return box;
 }
