@@ -12,6 +12,17 @@
 #include "eKeys.hpp"
 #include "LoadingScreen.hpp"
 #include "IMenu.hpp"
+#include "eScreen.hpp"
+#include "eVolume.hpp"
+
+struct Settings
+{
+    eScreen size;
+    bool fullscreen;
+    bool sound;
+    eVolume volume;
+    bool music;
+};
 
 class Game
 {
@@ -24,6 +35,7 @@ public:
     static eKeys keyPressed();
     static eKeys keyTyped();
 	static Camera _camera;
+    static Settings _settings;
 
 private:
     static bool isExiting();

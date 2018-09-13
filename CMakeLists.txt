@@ -24,8 +24,6 @@ if (APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif(APPLE)
 
-include_directories(include)
-
 # unzip folder
 set(UNZIP FALSE)
 if (${UNZIP})
@@ -34,6 +32,8 @@ if (${UNZIP})
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
         )
 endif()
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_executable(
     bomberman
@@ -61,4 +61,6 @@ add_executable(
         include/eObjectTypes.hpp include/BoundingBox.hpp)
 
 add_dependencies(bomberman graphics)
-target_link_libraries(bomberman graphics) 
+find_package(Boost REQUIRED COMPONENTS system serialization)
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(bomberman graphics ${Boost_LIBRARIES}) 
