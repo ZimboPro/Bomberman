@@ -1,12 +1,5 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
-
-if (APPLE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-endif(APPLE)
-
 project(Bomberman)
 
 include(FetchContent)
@@ -24,7 +17,23 @@ if(NOT graphics_POPULATED)
     add_subdirectory(${graphics_SOURCE_DIR} ${graphics_BINARY_DIR})
 endif()
 
-include_directories(include)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif(APPLE)
+
+# unzip folder
+set(UNZIP FALSE)
+if (${UNZIP})
+    execute_process(
+        COMMAND unzip package.zip -d ${CMAKE_BINARY_DIR}/assets
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        )
+endif()
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_executable(
     bomberman
@@ -43,12 +52,22 @@ add_executable(
         src/SoundFileCache.cpp
         src/Map.cpp
         src/ObjectFactory.cpp
+        src/OptionsMenu.cpp
+        src/LoadingScreen.cpp
         src/Goomba.cpp
         src/KoopaTroopa.cpp
         src/PowerBlock.cpp
+<<<<<<< HEAD
 		src/HealthBlock.cpp
 		Map_Gen/MapError.cpp
 		Map_Gen/Levels.cpp
 		)
+=======
+        src/HealthBlock.cpp
+)
+>>>>>>> master
 
-target_link_libraries(bomberman graphics) 
+add_dependencies(bomberman graphics)
+find_package(Boost REQUIRED COMPONENTS system serialization)
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(bomberman graphics ${Boost_LIBRARIES}) 

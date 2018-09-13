@@ -6,49 +6,42 @@
 #include "Player.hpp"
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
+#include "eKeys.hpp"
 
-Player::Player(): _velocity(0), _maxVelocity(600.0f)
+Player::Player(): _speed(0), _maxVelocity(600.0f)
 {
 }
 
-Player::Player(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
+Player::Player(Model_Texture & texture, float x, float y): _speed(2.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
 }
 
 Player::~Player() {}
 
 
-float Player::getVelocity() const
-{
-	return _velocity;
-}
-
 void Player::Update(float & timeElapsed)
 {
-//	if (Game::getInput() == sf::Keyboard::Left)
-//	{
-//		_velocity -= 3.0f;
-//	}
-//	else if (Game::getInput() == sf::Keyboard::Right)
-//	{
-//		_velocity += 3.0f;
-//	}
-//	else if (Game::getInput() == sf::Keyboard::Down)
-//	{
-//		_velocity = 0.0f;
-//	}
-//
-//	if (_velocity > _maxVelocity)
-//		_velocity = _maxVelocity;
-//	else if (_velocity < -_maxVelocity)
-//		_velocity = -_maxVelocity;
-//
-//	sf::Vector2f pos = this->getPosition();
-//
-//	if(pos.x < getSprite().getRadius() || pos.x > Game::getWindowSize().x)
-//	{
-//		_velocity = -_velocity;
-//	}
-//
-//	getSprite().move(_velocity * timeElapsed, 0);
+	float displacement = timeElapsed * _speed;
+	glm::vec3 pos = _model.GetPosition();
+//	std::cout << "Player x " << pos.x << " y " << pos.z << " " << std::endl;
+//	std::cout << "Displacement: " << displacement << std::endl;
+//	std::cout << "elapsed time: " << timeElapsed << std::endl;
+//Game::keyPressed() == eKeys::Up
+	if (Game::keyPressed() == eKeys::Up)
+	{
+
+		_model.Move(0 - displacement, 0);
+	}
+	else if (Game::keyPressed() == eKeys::Down)
+	{
+		_model.Move(0 + displacement, 0);
+	}
+	else if (Game::keyPressed() == eKeys::Left)
+	{
+		_model.Move(0 , 0 + displacement);
+	}
+	else if (Game::keyPressed() == eKeys::Right)
+	{
+		_model.Move(0 , 0 - displacement);
+	}
 }

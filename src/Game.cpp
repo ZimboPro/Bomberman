@@ -7,9 +7,13 @@
 #include <Player.hpp>
 #include <Model_Texture.hpp>
 #include <Shaders.hpp>
+#include <atomic>
+#include <thread>
+#include <chrono>
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
+#include "OptionsMenu.hpp"
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
@@ -22,7 +26,8 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	_gameObjectManager.init();
+	GameObjectManager::init();
+
 	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
@@ -62,6 +67,9 @@ void Game::gameLoop()
 			break;
 		case Game::Exiting:
 			break;
+		case Game::ShowingOptions:
+			showOptions();
+			break;
 		default:
 			break;
 	}
@@ -77,20 +85,36 @@ void Game::gameLoop()
 void Game::showMenu()
 {
 	MainMenu menu;
+
 	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
-	int selection = static_cast<int>(menu.show(shader, brightShader));
+	
+	int selection = menu.show(shader, brightShader);
 
-	if (selection == static_cast<int>(MainMenu::Exit))
+	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
 		_gameState = Game::Playing;
+	else if (selection == MainMenu::Settings)
+		_gameState = Game::ShowingOptions;
 }
 
+void Game::showOptions()
+{
+	OptionsMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == OptionsMenu::Back)
+		_gameState = Game::ShowingMenu;
+	else
+		_gameState = Game::Exiting;
+}
 
 void Game::playGame()
 {
-
 	sf::Clock clock;
 
 	Shaders shader("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
@@ -104,11 +128,11 @@ void Game::playGame()
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
-		_gameObjectManager.drawAll(shader);
+		GameObjectManager::drawAll(shader);
 
 		_window.update();
 
-		_gameObjectManager.updateAll(clock.getElapsedTime().asSeconds());
+		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
@@ -153,6 +177,18 @@ eKeys Game::keyPressed()
 
 	for ( it = _keyConfiguration.begin(); it != _keyConfiguration.end(); it++ )
 	{
+		if (_window.isKeyPressed(it->second))
+			return it->first;
+	}
+	return eKeys::Undefined;
+}
+
+eKeys Game::keyTyped()
+{
+	std::map<eKeys, int>::iterator it;
+
+	for ( it = _keyConfiguration.begin(); it != _keyConfiguration.end(); it++ )
+	{
 		if (_window.isKeyTyped(it->second))
 			return it->first;
 	}
@@ -161,7 +197,7 @@ eKeys Game::keyPressed()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-GameObjectManager Game::_gameObjectManager;
 int Game::_keyPress = 0;
-Camera Game::_camera(glm::vec3(20.0f, 20.0f, 20.0f));
+Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
+LoadingScreen Game::_loadingScreen;

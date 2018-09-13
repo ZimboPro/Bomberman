@@ -16,24 +16,16 @@ public:
 	GameObjectManager();
 	~GameObjectManager();
 
-	void add(std::string name, VisibleGameObject * gameObject);
-	void remove(const std::string & name);
-	int getObjectCount() const;
-	VisibleGameObject * get(const std::string & name) const;
-	void drawAll(Shaders & shader);
-	void updateAll(float elapsedTime);
-	void init();
-	void clearLevel();
+	static void drawAll(Shaders & shader);
+	static void updateAll(float elapsedTime);
+	static void init();
+	static void clearLevel();
 
 private:
-	std::map<std::string, VisibleGameObject*> _gameObjects;
-	struct GameObjectDeallocator
-	{
-		void operator()(const std::pair<std::string, VisibleGameObject *> & p) const;
-	};
-	std::vector<std::vector<VisibleGameObject *>> _staticObjects;
-	std::list<VisibleGameObject *> *_dynamicObjects;
-	ObjectFactory _factory;
+	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
+	static std::list<VisibleGameObject *> *_dynamicObjects;
+	static std::list<VisibleGameObject *> *_grass;
+	static ObjectFactory _factory;
 };
 
 #endif //BOMBERMAN_GAMEOBJECTMANAGER_HPP

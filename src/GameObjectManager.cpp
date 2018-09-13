@@ -13,22 +13,6 @@ GameObjectManager::GameObjectManager()
 
 GameObjectManager::~GameObjectManager()
 {
-	std::for_each(_gameObjects.begin(), _gameObjects.end(), GameObjectDeallocator());
-}
-
-void GameObjectManager::add(std::string name, VisibleGameObject * gameObject)
-{
-	_gameObjects.insert(std::make_pair(name, gameObject));
-}
-
-void GameObjectManager::remove(const std::string & name)
-{
-	auto result = _gameObjects.find(name);
-	if(result != _gameObjects.end())
-	{
-		delete result->second;
-		_gameObjects.erase(result);
-	}
 }
 
 void GameObjectManager::init()
@@ -37,36 +21,20 @@ void GameObjectManager::init()
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
-}
-
-int GameObjectManager::getObjectCount() const
-{
-	return _gameObjects.size();
-}
-
-VisibleGameObject * GameObjectManager::get(const std::string & name) const
-{
-	auto result = _gameObjects.find(name);
-	if (result != _gameObjects.end())
-		return result->second;
-	return nullptr;
+	_grass = _factory.genGrass();
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
 {
-	auto iter = _gameObjects.begin();
-	while(iter != _gameObjects.end())
-	{
-		iter->second->Draw(shader);
-		iter++;
-	}
-
 	for(int y = 0; y < _staticObjects.size(); y++)
-	{
 		for (int x = 0; x < _staticObjects[y].size(); x++)
 		{
 			_staticObjects[y][x]->Draw(shader);
 		}
+
+	for (auto iter = _grass->begin(); iter != _grass->end(); iter++)
+	{
+		(*iter)->Draw(shader);
 	}
 
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
@@ -77,14 +45,13 @@ void GameObjectManager::drawAll(Shaders & shader)
 
 void GameObjectManager::updateAll(float elapsedTime)
 {
-	auto iter = _gameObjects.begin();
-	while(iter != _gameObjects.end())
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
-		iter->second->Update(elapsedTime);
-		iter++;
+		(*iter)->Update(elapsedTime);
 	}
 }
 
+<<<<<<< HEAD
 void GameObjectManager::GameObjectDeallocator::operator()(const std::pair<std::string, VisibleGameObject *> & p) const
 {
 	delete p.second;
@@ -95,3 +62,9 @@ void GameObjectManager::clearLevel()
 	_staticObjects.clear();
 	_dynamicObjects->clear();
 }
+=======
+std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
+std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
+std::list<VisibleGameObject *> *GameObjectManager::_grass;
+ObjectFactory GameObjectManager::_factory;
+>>>>>>> master
