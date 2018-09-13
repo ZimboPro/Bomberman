@@ -13,13 +13,14 @@
 #include "LoadingScreen.hpp"
 #include "IMenu.hpp"
 #include "eScreen.hpp"
+#include "eVolume.hpp"
 
 struct Settings
 {
     eScreen size;
     bool fullscreen;
     bool sound;
-    int volume;
+    eVolume volume;
     bool music;
 };
 

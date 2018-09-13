@@ -24,7 +24,7 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 	glm::mat4 projection = Game::_window.Projection();
 	while (true)
 	{
-		Game::_window.clear(0.5f, 0.5f, 0.5f);
+		Game::_window.clear(0.2588f, 0.7961f, 0.8196f);
 		shader.use();
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", glm::mat4());
@@ -115,7 +115,7 @@ void MainMenu::moveOnScreen(Shaders & shader, float end)
 	glm::vec3 temp(end, this->_menuItems[0].button->GetPosition().y, -60.0f);
 	while (0.1f < glm::distance(temp, this->_menuItems[0].button->GetPosition()))
 	{
-		Game::_window.clear(0.5f, 0.5f, 0.5f);
+		Game::_window.clear(0.2588f, 0.7961f, 0.8196f);
 		shader.use();
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", glm::mat4());
