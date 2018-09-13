@@ -51,7 +51,6 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
-<<<<<<< HEAD
 void GameObjectManager::GameObjectDeallocator::operator()(const std::pair<std::string, VisibleGameObject *> & p) const
 {
 	delete p.second;
@@ -62,9 +61,7 @@ void GameObjectManager::clearLevel()
 	_staticObjects.clear();
 	_dynamicObjects->clear();
 }
-=======
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
 std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
 std::list<VisibleGameObject *> *GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
->>>>>>> master

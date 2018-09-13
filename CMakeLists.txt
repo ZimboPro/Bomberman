@@ -57,15 +57,8 @@ add_executable(
         src/Goomba.cpp
         src/KoopaTroopa.cpp
         src/PowerBlock.cpp
-<<<<<<< HEAD
-		src/HealthBlock.cpp
-		Map_Gen/MapError.cpp
-		Map_Gen/Levels.cpp
-		)
-=======
         src/HealthBlock.cpp
 )
->>>>>>> master
 
 add_dependencies(bomberman graphics)
 find_package(Boost REQUIRED COMPONENTS system serialization)
