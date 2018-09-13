@@ -22,22 +22,25 @@ Player::~Player() {}
 void Player::Update(float & timeElapsed)
 {
 	float displacement = timeElapsed * _speed;
+	glm::vec3 pos = _model.GetPosition();
+//	std::cout << "Player x " << pos.x << " y " << pos.z << " " << std::endl;
 //	std::cout << "Displacement: " << displacement << std::endl;
 //	std::cout << "elapsed time: " << timeElapsed << std::endl;
 //Game::keyPressed() == eKeys::Up
-	if ( Game::_window.isKeyPressed(GLFW_KEY_UP))
+	if (Game::keyPressed() == eKeys::Up)
 	{
+
 		_model.Move(0 - displacement, 0);
 	}
-	else if (Game::_window.isKeyPressed(GLFW_KEY_DOWN))
+	else if (Game::keyPressed() == eKeys::Down)
 	{
 		_model.Move(0 + displacement, 0);
 	}
-	else if (Game::_window.isKeyPressed(GLFW_KEY_LEFT))
+	else if (Game::keyPressed() == eKeys::Left)
 	{
 		_model.Move(0 , 0 + displacement);
 	}
-	else if (Game::_window.isKeyPressed(GLFW_KEY_RIGHT))
+	else if (Game::keyPressed() == eKeys::Right)
 	{
 		_model.Move(0 , 0 - displacement);
 	}
