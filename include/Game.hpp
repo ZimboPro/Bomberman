@@ -37,6 +37,9 @@ public:
 	static Camera _camera;
     static Settings _settings;
 
+    static void save();
+    static void load();
+
 private:
     static bool isExiting();
     static void gameLoop();
@@ -52,6 +55,8 @@ private:
     static eGameState _gameState;
     static int _keyPress;
     static std::map<eKeys, int> _keyConfiguration;
+
+    
 };
 
 #endif //BOMBERMAN_GAME_HPP

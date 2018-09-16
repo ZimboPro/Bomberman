@@ -10,6 +10,8 @@ enum eKeys
     Select,
     Pause,
     Escape,
+    Save,
+    Load,
     Undefined
 };
 

@@ -135,10 +135,30 @@ void Game::playGame()
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 
+		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
+		{
+			save();
+		}
+		if (_window.isKeyPressed(getKeyConfigured(eKeys::Load)))
+		{
+			load();
+		}
+
+
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
 			_gameState = Game::Exiting;
 	}
 	return ;
+}
+
+void Game::save()
+{
+
+}
+
+void Game::load()
+{
+
 }
 
 int Game::getKeyConfigured(eKeys key)
@@ -169,6 +189,12 @@ void Game::loadKeys()
 	_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
 	_keyConfiguration[eKeys::Pause] = GLFW_KEY_SPACE;
 	_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
+
+	//Assigning save and load to 'q' and 'w' buttons
+
+	_keyConfiguration[eKeys::Save] = GLFW_KEY_Q;
+	_keyConfiguration[eKeys::Load] = GLFW_KEY_W;
+
 }
 
 eKeys Game::keyPressed()
