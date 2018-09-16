@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <Error.hpp>
-#include <Player.hpp>
+#include <game_elements/Player.hpp>
 #include <Model_Texture.hpp>
 #include <Shaders.hpp>
 #include <atomic>
@@ -18,7 +18,7 @@
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
 #include "Map.hpp"
-#include "Player.hpp"
+#include "game_elements/Player.hpp"
 #include "Camera.hpp"
 
 void Game::start()
@@ -198,6 +198,7 @@ eKeys Game::keyTyped()
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
 int Game::_keyPress = 0;
-Camera Game::_camera(glm::vec3(30.0f, 30.0f, 30.0f));
+Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
+Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};

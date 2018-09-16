@@ -2,13 +2,13 @@
 // Created by Patrick RUSSELL on 2018/09/03.
 //
 
-#include <Grass.hpp>
-#include <Block.hpp>
-#include <Player.hpp>
-#include <Goomba.hpp>
-#include <KoopaTroopa.hpp>
-#include <powerBlock.hpp>
-#include "HealthBlock.hpp"
+#include <game_elements/Grass.hpp>
+#include <game_elements/Block.hpp>
+#include <game_elements/Player.hpp>
+#include <game_elements/Goomba.hpp>
+#include <game_elements/KoopaTroopa.hpp>
+#include <game_elements/powerBlock.hpp>
+#include "game_elements/HealthBlock.hpp"
 #include "ObjectFactory.hpp"
 #include "Game.hpp"
 #include "Map.hpp"
@@ -32,14 +32,14 @@ ObjectFactory::ObjectFactory()
 void ObjectFactory::initModelTextures()
 {
 	//todo display loading screen
-	_player = new Model_Texture("../assets/objects/mario_walking_1.obj");
-	_unbreakableBlock = new Model_Texture("../assets/objects/iron_block.obj");
-	_breakableBlock = new Model_Texture("../assets/objects/brick_block.obj");
-	_goomba = new Model_Texture("../assets/objects/goomba.obj");
-	_koopaTroopa = new Model_Texture("../assets/objects/koopa_troopa.obj");
-	_powerBlock = new Model_Texture("../assets/objects/brick_block.obj");
-	_healthBlock = new Model_Texture("../assets/objects/brick_block.obj");
-	_grass = new Model_Texture("../assets/objects/grass_block_light.obj");
+	_player = new Model_Texture("../../Assets/game_models/mario_walking_1.obj");
+	_unbreakableBlock = new Model_Texture("../../Assets/game_models/iron_block.obj");
+	_breakableBlock = new Model_Texture("../../Assets/game_models/brick_block.obj");
+	_goomba = new Model_Texture("../../Assets/game_models/goomba.obj");
+	_koopaTroopa = new Model_Texture("../../Assets/game_models/koopa_troopa.obj");
+	_powerBlock = new Model_Texture("../../Assets/game_models/power_up.obj");
+	_healthBlock = new Model_Texture("../../Assets/game_models/heart.obj");
+	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
 }
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
@@ -63,6 +63,7 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
 					break;
 				default:
+					innerResult.push_back(new VisibleGameObject);
 					break;
 			}
 		}
@@ -75,8 +76,8 @@ std::list<VisibleGameObject *> * ObjectFactory::genGrass()
 {
 	auto result = new std::list<VisibleGameObject *>;
 
-	for (int y = 0; y < Map::height(); y++)
-		for (int x = 0; x < Map::width(); x++)
+	for (size_t y = 0; y < Map::height(); y++)
+		for (size_t x = 0; x < Map::width(); x++)
 		{
 			result->push_back(new Grass(*_grass, x, y));
 		}
@@ -87,8 +88,8 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 {
 	auto result = new std::list<VisibleGameObject *>;
 
-	for (int y = 0; y < Map::height(); y++)
-		for (int x = 0; x < Map::width(); x++)
+	for (size_t y = 0; y < Map::height(); y++)
+		for (size_t x = 0; x < Map::width(); x++)
 		{
 			switch (Map::at(x, y))
 			{

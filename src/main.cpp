@@ -13,6 +13,10 @@ int main()
 	{
 		std::cerr << e.what() << std::endl;
 	}
+	catch (std::logic_error & e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 
 	return 0;
 }
