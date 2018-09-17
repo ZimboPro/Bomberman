@@ -33,6 +33,8 @@ class OptionsMenu : public IMenu
         void addModels(int index, int start, int end);
         void loadTexture(char * path);
         void drawSettings(Shaders & shader);
+        void drawSelectedSetting(Shaders & shader);
+        void drawNotSelectedSetting(Shaders & shader);
         void setGroupPositions(int groupIndex, int heightIndex);
 
         std::vector<OptionsAction> _action;
