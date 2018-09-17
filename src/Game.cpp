@@ -26,9 +26,9 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	GameObjectManager::init();
+	//GameObjectManager::init();
 
-	_gameState = Game::Playing;
+	_gameState = Game::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
