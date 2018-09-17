@@ -137,13 +137,16 @@ void Game::playGame()
 
 		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
 		{
+			std::cout << "Q is pressed to save game\n";
 			save();
+			_gameState = Game::Exiting;
 		}
 		if (_window.isKeyPressed(getKeyConfigured(eKeys::Load)))
 		{
+			std::cout << "W is pressed to load game\n";
 			load();
+			_gameState = Game::Exiting;
 		}
-
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
 			_gameState = Game::Exiting;
@@ -153,7 +156,24 @@ void Game::playGame()
 
 void Game::save()
 {
+	int width = Map::width();
+	int	height = Map::height();
+	std::vector<std::vector<char> > saveMap(height, std::vector<char>(width, '0'));
 
+	std::cout << "======================================================\n";
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			if (Map::at(x, y) == '1' || Map::at(x, y) == '2')
+			{
+				saveMap[y][x] = Map::at(x, y);
+			}
+			std::cout << saveMap[y][x];
+		}
+		std::cout << '\n';
+	}
+	std::cout << "======================================================\n";
 }
 
 void Game::load()
@@ -194,7 +214,6 @@ void Game::loadKeys()
 
 	_keyConfiguration[eKeys::Save] = GLFW_KEY_Q;
 	_keyConfiguration[eKeys::Load] = GLFW_KEY_W;
-
 }
 
 eKeys Game::keyPressed()
@@ -228,3 +247,4 @@ Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
+std::vector<std::vector<char> > Game::_savedMap;

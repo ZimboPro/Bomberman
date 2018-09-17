@@ -27,11 +27,13 @@ void GameObjectManager::init()
 	Map::printMap();
 	std::cout << "=================================" << std::endl;
 
-	for(size_t y = 0; y < _staticObjects.size(); y++) {
-		for (size_t x = 0; x < _staticObjects[0].size(); x++)
-			std::cout << (char)_staticObjects[y][x]->getType();
-		std::cout << std::endl;
-	}
+	// for(size_t y = 0; y < _staticObjects.size(); y++) {
+	// 	for (size_t x = 0; x < _staticObjects[0].size(); x++)
+	// 		std::cout << (char)_staticObjects[y][x]->getType();
+	// 	std::cout << std::endl;
+	// }
+	// std::cout << "=================================" << std::endl;
+
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -98,31 +100,31 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 
 objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 {
-	std::cout << box.x1 << " " << box.x2  << " "<< box.y1  << " "<< box.y2  << " "<< std::endl;
+	// std::cout << box.x1 << " " << box.x2  << " "<< box.y1  << " "<< box.y2  << " "<< std::endl;
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
-		std::cout << "Found Static Object1" << std::endl;
+		// std::cout << "Found Static Object1" << std::endl;
 		if (_staticObjects[box.y1][box.x1]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y1][box.x2]->isLoaded())
 	{
-		std::cout << "Found Static Object2" << std::endl;
+		// std::cout << "Found Static Object2" << std::endl;
 		if (_staticObjects[box.y2][box.x2]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y2][box.x1]->isLoaded())
 	{
-		std::cout << "Found Static Object3" << std::endl;
+		// std::cout << "Found Static Object3" << std::endl;
 		if (_staticObjects[box.y2][box.x1]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y2][box.x2]->isLoaded())
 	{
-		std::cout << "Found Static Object4" << std::endl;
+		// std::cout << "Found Static Object4" << std::endl;
 		if (_staticObjects[box.y2][box.x2]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;

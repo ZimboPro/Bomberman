@@ -45,8 +45,8 @@ void ObjectFactory::initModelTextures()
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 {
 	std::vector<std::vector<VisibleGameObject * >> result;
-	std::cout << "Printing Map" << std::endl;
-	Map::printMap();
+	// std::cout << "Printing Map" << std::endl;
+	// Map::printMap();
 
 	for (size_t y = 0; y < Map::height(); y++)
 	{

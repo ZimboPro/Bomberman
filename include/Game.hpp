@@ -14,6 +14,7 @@
 #include "IMenu.hpp"
 #include "eScreen.hpp"
 #include "eVolume.hpp"
+#include "Map.hpp"
 
 struct Settings
 {
@@ -55,8 +56,8 @@ private:
     static eGameState _gameState;
     static int _keyPress;
     static std::map<eKeys, int> _keyConfiguration;
-
-    
+    static std::vector<std::vector<char> >  _savedMap;
+    // static Map  _map;
 };
 
 #endif //BOMBERMAN_GAME_HPP
