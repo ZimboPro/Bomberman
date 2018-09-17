@@ -90,13 +90,13 @@ void OptionsMenu::loadModels()
 {   
     this->_selected = Options::WindowSize;
 	Game::_loadingScreen.reset();
-    loadActions("../assets/options_menu/window_size.obj");
-    loadActions("../assets/options_menu/fullscreen.obj");
-    loadActions("../assets/options_menu/keybind.obj");
-    loadActions("../assets/options_menu/sound.obj");
-    loadActions("../assets/options_menu/volume.obj");
-    loadActions("../assets/options_menu/music.obj");
-    loadActions("../assets/options_menu/back_options.obj");
+    loadActions("../../Assets/options_menu/window_size.obj");
+    loadActions("../../Assets/options_menu/fullscreen.obj");
+    loadActions("../../Assets/options_menu/keybind.obj");
+    loadActions("../../Assets/options_menu/sound.obj");
+    loadActions("../../Assets/options_menu/volume.obj");
+    loadActions("../../Assets/options_menu/music.obj");
+    loadActions("../../Assets/options_menu/back_options.obj");
     for (size_t i = 0; i < this->_action.size(); i++)
     {
         this->_action[i].action = static_cast<Options>(i);
@@ -108,17 +108,17 @@ void OptionsMenu::loadModels()
 
 void OptionsMenu::loadOptions()
 {
-	loadTexture("../assets/options_menu/1920x1080.obj");
-	loadTexture("../assets/options_menu/1080x720.obj");
-	loadTexture("../assets/options_menu/800x600.obj");
-	loadTexture("../assets/options_menu/off.obj");
-	loadTexture("../assets/options_menu/on.obj");
-	loadTexture("../assets/options_menu/volume_0.obj");
-	loadTexture("../assets/options_menu/volume_1.obj");
-	loadTexture("../assets/options_menu/volume_2.obj");
-	loadTexture("../assets/options_menu/volume_3.obj");
-	loadTexture("../assets/options_menu/volume_4.obj");
-	loadTexture("../assets/options_menu/volume_5.obj");
+	loadTexture("../../Assets/options_menu/1920x1080.obj");
+	loadTexture("../../Assets/options_menu/1080x720.obj");
+	loadTexture("../../Assets/options_menu/800x600.obj");
+	loadTexture("../../Assets/options_menu/off.obj");
+	loadTexture("../../Assets/options_menu/on.obj");
+	loadTexture("../../Assets/options_menu/volume_0.obj");
+	loadTexture("../../Assets/options_menu/volume_1.obj");
+	loadTexture("../../Assets/options_menu/volume_2.obj");
+	loadTexture("../../Assets/options_menu/volume_3.obj");
+	loadTexture("../../Assets/options_menu/volume_4.obj");
+	loadTexture("../../Assets/options_menu/volume_5.obj");
 	
 
 	for (int i = 0; i < 5; i++)

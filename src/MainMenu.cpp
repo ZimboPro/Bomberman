@@ -70,7 +70,7 @@ void MainMenu::loadMenu()
 
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
-	Model_Sprite *temp = new Model_Sprite("../assets/buttons/start.obj");
+	Model_Sprite *temp = new Model_Sprite("../../Assets/buttons/start.obj");
 	temp->Position(-20, -20, (Game::_window.Height() << 1) / 3);
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(1, 0, 0));
@@ -78,7 +78,7 @@ void MainMenu::loadMenu()
 	start.action = MenuResult::Play;
 
 	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../assets/buttons/option.obj");
+	temp = new Model_Sprite("../../Assets/buttons/option.obj");
 	temp->Position(-20, -20, (Game::_window.Height() >> 1));
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(0, 1, 0));
@@ -86,7 +86,7 @@ void MainMenu::loadMenu()
 	options.action = MenuResult::Settings;
 
 	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../assets/buttons/quit.obj");
+	temp = new Model_Sprite("../../Assets/buttons/quit.obj");
 	temp->Position(-20, -20, (Game::_window.Height()) / 3);
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(0, 1, 0));

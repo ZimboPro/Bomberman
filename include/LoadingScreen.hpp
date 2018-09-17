@@ -13,10 +13,10 @@ class LoadingScreen
 
         void display();
         void reset();
+        void loadModels();
 
     private:
         Shaders * _shader;
-        void loadModels();
         std::vector<Model_Sprite *> _models;
         size_t _model;
         glm::mat4 _proj;
