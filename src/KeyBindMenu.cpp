@@ -112,7 +112,10 @@ void KeyBindMenu::drawNotSelectedSetting(Shaders & shader)
 void KeyBindMenu::changeSettings()
 {
 	if (this->_selected == Options::WASD)
+	{
 		Game::_KeyBind = !Game::_KeyBind;
+		Game::loadKeys();
+	}
 }
 
 void KeyBindMenu::loadActions(char * path)

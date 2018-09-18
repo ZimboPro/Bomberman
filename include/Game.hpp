@@ -30,6 +30,7 @@ public:
     static void start();
     static int getKeyConfigured(eKeys key);
     static bool setKeyConfigured(eKeys key, int keycode);
+    static void loadKeys();
     static Window _window;
     static LoadingScreen _loadingScreen;
     static eKeys keyPressed();
@@ -45,7 +46,6 @@ private:
 	static void showMenu();
     static void showOptions();
 	static void playGame();
-    static void loadKeys();
 
     enum eGameState { Uninitialized, ShowingSplash, Paused,
             ShowingMenu, ShowingOptions, Playing, Exiting };
