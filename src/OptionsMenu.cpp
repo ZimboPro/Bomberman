@@ -35,9 +35,9 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 		}
 		drawSelectedSetting(brightShader);
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? Options::WindowSize : static_cast<Options>(this->_selected - 1);
+			this->_selected = ((this->_selected - 1) < 0) ? Options::Back : static_cast<Options>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::Back : static_cast<Options>(this->_selected + 1);
+			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::WindowSize : static_cast<Options>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
 			if (this->_selected == Options::Keys) 

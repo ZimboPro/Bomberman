@@ -44,9 +44,9 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 				this->_menuItems[i].button->DrawScaledBy(shader, 1.1f);
 		}
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Play : static_cast<MenuResult>(this->_selected - 1);
+			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Exit : static_cast<MenuResult>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > MenuResult::Exit) ? MenuResult::Exit : static_cast<MenuResult>(this->_selected + 1);
+			this->_selected = ((this->_selected + 1) > MenuResult::Exit) ? MenuResult::Play : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 			break;
 		if (Game::_window.closed() || Game::keyTyped() == eKeys::Escape)

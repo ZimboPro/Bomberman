@@ -51,9 +51,9 @@ int KeyBindMenu::show(Shaders & shader, Shaders & brightShader)
 		}
 		drawSelectedSetting(brightShader);
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? Options::WASD : static_cast<Options>(0);
+			this->_selected = ((this->_selected - 1) < 0) ? Options::Back : static_cast<Options>(0);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::Back : static_cast<Options>(3);
+			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::WASD : static_cast<Options>(3);
 		if (Game::keyTyped() == eKeys::Select)
 		{
 			if (this->_selected == Options::Back)
