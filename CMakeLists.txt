@@ -58,6 +58,7 @@ add_executable(
         src/game_elements/KoopaTroopa.cpp
         src/game_elements/powerBlock.cpp
         src/game_elements/HealthBlock.cpp
+        src/KeyBindMenu.cpp
         )
 
 add_dependencies(bomberman graphics)

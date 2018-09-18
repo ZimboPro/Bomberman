@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "OptionsMenu.hpp"
 #include "Game.hpp"
+#include "KeyBindMenu.hpp"
 
 OptionsMenu::OptionsMenu()
 {
@@ -39,10 +40,13 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::Back : static_cast<Options>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
-			if (this->_selected == Options::Back || this->_selected == Options::Keys)
+			if (this->_selected == Options::Keys) 
+			{
+				showKeyBindMenu();
+			}				
+			if (this->_selected == Options::Back)
 				break;
-			else
-				changeSettings();
+			changeSettings();			
 		}
 		if (Game::keyTyped() == eKeys::Escape)
 		{
@@ -54,6 +58,16 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 	moveOnScreen(shader, -((Game::_window.Width() >> 1) + 40.0f));
 	deleteMenu();
 	return static_cast<int>(this->_selected);
+}
+
+void OptionsMenu::showKeyBindMenu()
+{
+	KeyBindMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
 }
 
 void OptionsMenu::drawSettings(Shaders & shader)

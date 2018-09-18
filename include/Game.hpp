@@ -36,6 +36,7 @@ public:
     static eKeys keyTyped();
 	static Camera _camera;
     static Settings _settings;
+    static bool _KeyBind;
 
 private:
     static bool isExiting();

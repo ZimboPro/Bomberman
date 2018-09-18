@@ -21,13 +21,15 @@
 #include "game_elements/Player.hpp"
 #include "Camera.hpp"
 
+bool Game::_KeyBind = false;
+
 void Game::start()
 {
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
 	//GameObjectManager::init();
-
+	_loadingScreen.loadModels();
 	_gameState = Game::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
@@ -109,8 +111,6 @@ void Game::showOptions()
 	int selection = menu.show(shader, brightShader);
 	if (selection == OptionsMenu::Back)
 		_gameState = Game::ShowingMenu;
-	else
-		_gameState = Game::Exiting;
 }
 
 void Game::playGame()
