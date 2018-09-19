@@ -18,22 +18,20 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(1);
+	Map::readInRandomMap(0);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
-	std::cout << "=================================" << std::endl;
-	Map::printMap();
-	std::cout << "=================================" << std::endl;
+	// std::cout << "=================================" << std::endl;
+	// Map::printMap();
+	// std::cout << "=================================" << std::endl;
 
 	// for(size_t y = 0; y < _staticObjects.size(); y++) {
 	// 	for (size_t x = 0; x < _staticObjects[0].size(); x++)
 	// 		std::cout << (char)_staticObjects[y][x]->getType();
 	// 	std::cout << std::endl;
 	// }
-	// std::cout << "=================================" << std::endl;
-
 }
 
 void GameObjectManager::drawAll(Shaders & shader)

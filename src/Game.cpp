@@ -17,9 +17,9 @@
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
+#include "Camera.hpp"
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
-#include "Camera.hpp"
 #include "map_generation/Levels.hpp"
 
 void Game::start()
@@ -30,12 +30,11 @@ void Game::start()
 	// _loadingScreen.loadModels();
 	// _gameState = Game::ShowingSplash;
 
-	 _gameState = Game::Playing;
+	_gameState = Game::Playing;
 	GameObjectManager::init();
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
-
 
 	loadKeys();
 	while (!isExiting())
