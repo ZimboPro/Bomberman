@@ -13,6 +13,8 @@ class SFMLSoundProvider: public IAudioProvider
 {
 public:
 	SFMLSoundProvider();
+	SFMLSoundProvider(SFMLSoundProvider const & src);
+	~SFMLSoundProvider();
 
 	void playSound(std::string fileName);
 	void playSong(std::string fileName, bool looping);

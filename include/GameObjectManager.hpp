@@ -15,6 +15,7 @@ class GameObjectManager
 {
 public:
 	GameObjectManager();
+	GameObjectManager(GameObjectManager const & src);
 	~GameObjectManager();
 
 	static void drawAll(Shaders & shader);

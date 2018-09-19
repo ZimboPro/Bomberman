@@ -9,12 +9,15 @@
 
 class ServiceLocator
 {
-public:
-	static IAudioProvider * getAudio();
-	static void RegisterServiceLocator(IAudioProvider *provider);
+	public:
+		ServiceLocator();
+		ServiceLocator(ServiceLocator const & src);
+		~ServiceLocator();
+		static IAudioProvider * getAudio();
+		static void RegisterServiceLocator(IAudioProvider *provider);
 
-private:
-	static IAudioProvider * _audioProvider;
+	private:
+		static IAudioProvider * _audioProvider;
 };
 
 #endif //BOMBERMAN_SERVICELOCATOR_HPP

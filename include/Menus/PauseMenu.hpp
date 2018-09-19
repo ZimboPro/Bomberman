@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   StartGameMenu.hpp                                  :+:      :+:    :+:   */
+/*   PauseMenu.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpauwels <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/19 07:00:34 by cpauwels          #+#    #+#             */
-/*   Updated: 2018/09/19 07:00:35 by cpauwels         ###   ########.fr       */
+/*   Created: 2018/09/19 08:24:27 by cpauwels          #+#    #+#             */
+/*   Updated: 2018/09/19 08:24:28 by cpauwels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STARTGAMEMENU_HPP
-# define STARTGAMEMENU_HPP
+#ifndef PAUSEMENU_HPP
+# define PAUSEMENU_HPP
 
 #include <Model_Sprite.hpp>
 #include <Model_Texture.hpp>
 #include <vector>
 #include "IMenu.hpp"
 
-class StartGameMenu : public IMenu
+class PauseMenu : public IMenu
 {
     public:
-        StartGameMenu();
-        StartGameMenu(StartGameMenu const & src);
-        ~StartGameMenu();
+        PauseMenu();
+        PauseMenu(PauseMenu const & src);
+        virtual ~PauseMenu();
 
-		enum MenuResult {Start, Load, Back };
+		enum MenuResult { Paused, Resume, Options, Back };
 
 		struct MenuItem
 		{
@@ -40,8 +40,10 @@ class StartGameMenu : public IMenu
 		void loadMenu();
 		void deleteMenu();
 		void moveOnScreen(Shaders & shader, float end);
+        void showOptionsMenu();
 		std::vector<MenuItem> _menuItems;
 		MenuResult _selected;
 };
 
 #endif
+

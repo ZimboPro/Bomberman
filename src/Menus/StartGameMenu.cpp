@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "StartGameMenu.hpp"
+#include "Menus/StartGameMenu.hpp"
 #include "Game.hpp"
 #include <Juicy.hpp>
 

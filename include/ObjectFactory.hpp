@@ -14,6 +14,7 @@ class ObjectFactory
 {
 public:
 	ObjectFactory();
+	ObjectFactory(ObjectFactory const & src);
 	~ObjectFactory();
 	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
 	std::list<VisibleGameObject *> * genDynamicAndPickUpObjects();

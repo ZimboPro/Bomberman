@@ -11,6 +11,7 @@ class Map
 {
 public:
 	Map();
+	Map(Map const & src);
 	~Map();
 
 	static char at(int x, int y);

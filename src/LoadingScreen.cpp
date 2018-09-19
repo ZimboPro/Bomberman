@@ -8,6 +8,11 @@ LoadingScreen::LoadingScreen()
     this->_light = glm::vec3(30);
 }
 
+LoadingScreen::LoadingScreen(LoadingScreen const & src)
+{
+    *this = src;
+}
+
 LoadingScreen::~LoadingScreen()
 {
     for (size_t i = 0; i < this->_models.size(); i++)

@@ -8,8 +8,11 @@
 #include <glm/vec4.hpp>
 #include <Map.hpp>
 
-GameObjectManager::GameObjectManager()
+GameObjectManager::GameObjectManager() {}
+
+GameObjectManager::GameObjectManager(GameObjectManager const & src) 
 {
+	*this = src;
 }
 
 GameObjectManager::~GameObjectManager()

@@ -1,9 +1,9 @@
 #include <Shaders.hpp>
 #include <Juicy.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "OptionsMenu.hpp"
+#include "Menus/OptionsMenu.hpp"
 #include "Game.hpp"
-#include "KeyBindMenu.hpp"
+#include "Menus/KeyBindMenu.hpp"
 
 OptionsMenu::OptionsMenu()
 {

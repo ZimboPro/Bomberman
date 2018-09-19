@@ -10,6 +10,11 @@
 
 SoundFileCache::SoundFileCache() {}
 
+SoundFileCache::SoundFileCache(SoundFileCache const & src) 
+{
+	*this = src;
+}
+
 SoundFileCache::~SoundFileCache()
 {
 	std::for_each(_sounds.begin(), _sounds.end(), SoundDeallocator());
