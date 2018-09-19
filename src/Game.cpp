@@ -78,6 +78,18 @@ void Game::gameLoop()
 	}
 }
 
+void Game::showStartGameMenu()
+{
+	StartGameMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == StartGameMenu::Back)
+		_gameState = Game::ShowingMenu;
+}
+
 void Game::showSplashScreen()
 {
 	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
