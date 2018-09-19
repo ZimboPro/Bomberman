@@ -27,8 +27,9 @@ void Game::start()
 		throw Error::CreateWindowError("Failed to initialize window");
 
 	//GameObjectManager::init();
+	_loadingScreen.loadModels();
 
-	_gameState = Game::ShowingMenu;
+	_gameState = Game::ShowingSplash;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -58,7 +59,7 @@ void Game::gameLoop()
 			playGame();
 			break;
 		case Game::ShowingSplash:
-//			showSplashScreen();
+			showSplashScreen();
 			break;
 		case Game::Paused:
 			break;
@@ -75,12 +76,14 @@ void Game::gameLoop()
 	}
 }
 
-//void Game::showSplashScreen()
-//{
-//	SplashScreen splash;
-//	splash.show(_window);
-//	_gameState = Game::ShowingMenu;
-//}
+void Game::showSplashScreen()
+{
+	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
+
+	SplashScreen splash;
+	splash.show(shader, "../assets/images/intro/");
+	_gameState = Game::ShowingMenu;
+}
 
 void Game::showMenu()
 {

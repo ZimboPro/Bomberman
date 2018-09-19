@@ -40,7 +40,7 @@ public:
 private:
     static bool isExiting();
     static void gameLoop();
-//	static void showSplashScreen();
+	static void showSplashScreen();
 	static void showMenu();
     static void showOptions();
 	static void playGame();

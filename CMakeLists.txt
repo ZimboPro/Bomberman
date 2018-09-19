@@ -39,7 +39,7 @@ add_executable(
     bomberman
         src/main.cpp
         src/Game.cpp
-#        src/SplashScreen.cpp
+        src/SplashScreen.cpp
         src/MainMenu.cpp
         src/game_elements/Block.cpp
         src/game_elements/Grass.cpp
