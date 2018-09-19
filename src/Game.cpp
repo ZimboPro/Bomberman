@@ -29,7 +29,8 @@ void Game::start()
 
 	//GameObjectManager::init();
 	_loadingScreen.loadModels();
-	_gameState = Game::ShowingMenu;
+
+	_gameState = Game::ShowingSplash;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -60,7 +61,7 @@ void Game::gameLoop()
 			showStartGameMenu();
 			break;
 		case Game::ShowingSplash:
-//			showSplashScreen();
+			showSplashScreen();
 			break;
 		case Game::Paused:
 			break;
@@ -77,24 +78,14 @@ void Game::gameLoop()
 	}
 }
 
-void Game::showStartGameMenu()
+void Game::showSplashScreen()
 {
-	StartGameMenu menu;
+	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
 
-	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
-	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
-	
-	int selection = menu.show(shader, brightShader);
-	if (selection == StartGameMenu::Back)
-		_gameState = Game::ShowingMenu;
+	SplashScreen splash;
+	splash.show(shader, "../assets/images/intro/");
+	_gameState = Game::ShowingMenu;
 }
-
-//void Game::showSplashScreen()
-//{
-//	SplashScreen splash;
-//	splash.show(_window);
-//	_gameState = Game::ShowingMenu;
-//}
 
 void Game::showMenu()
 {

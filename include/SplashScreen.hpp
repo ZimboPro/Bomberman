@@ -5,12 +5,22 @@
 #ifndef BOMBERMAN_SPLASHSCREEN_HPP
 #define BOMBERMAN_SPLASHSCREEN_HPP
 
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <TextureImages.hpp>
+#include <vector>
+
+class Shaders;
 
 class SplashScreen
 {
-public:
-	void show(sf::RenderWindow & window);
+	public:
+		SplashScreen();
+		~SplashScreen();
+		void show(Shaders & shader, std::string file);
+	private:
+		float _fps;
+		float _timePerFPS;
+		float _time;
+		// std::vector<TextureImages *> _images;
 };
 
 #endif //BOMBERMAN_SPLASHSCREEN_HPP

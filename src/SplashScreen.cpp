@@ -2,30 +2,47 @@
 // Created by Patrick RUSSELL on 2018/08/21.
 //
 
-#include <SFML/Graphics.hpp>
+#include <Shaders.hpp>
+#include <SpriteRender.hpp>
+#include <TextureImages.hpp>
 #include "SplashScreen.hpp"
 #include "Game.hpp"
+#include <chrono>
+#include <thread>
+#include <string>
 
-void SplashScreen::show(sf::RenderWindow & window)
+SplashScreen::SplashScreen()
+{}
+
+SplashScreen::~SplashScreen()
+{}
+
+void SplashScreen::show(Shaders & shader, std::string file)
 {
-	sf::Texture texture;
-	if(!texture.loadFromFile("../assets/Splashscreen.png"))
-		return ;
-
-	sf::Sprite sprite(texture);
-
-	window.draw(sprite);
-	window.display();
-
-	sf::Event event;
-	while(window.isOpen())
+	this->_fps = 13.0f;
+    this->_timePerFPS = 1.0f / this->_fps;
+    this->_time = 0.0f;
+	float currentTime;
+	SpriteRender render(shader);
+	std::string jpg(".jpg");
+	glm::vec2 pos(0, 0);
+	glm::vec2 size(Game::_window.Width(), Game::_window.Height());
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(Game::_window.Width()), 0.0f, static_cast<GLfloat>(Game::_window.Height()));
+	// float elapsed = glfwGetTime();
+	// int fps = 0;
+	TextureImages texture;
+	for (int i = 1; i < 238; i++)
 	{
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::EventType::KeyPressed ||
-				event.type == sf::Event::EventType::MouseButtonPressed ||
-				event.type == sf::Event::EventType::Closed)
-				return;
-		}
+		texture.Load(file + std::to_string(i) + jpg);
+		currentTime = glfwGetTime();
+		if (currentTime - this->_time < this->_timePerFPS)
+			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<signed int>((currentTime - this->_time) * 1000)));
+
+		Game::_window.clear();
+		shader.use();
+        shader.setMat4Ptr("projection", projection);
+		render.DrawSprite(texture, pos, size);
+		Game::_window.update();
+		this->_time = currentTime;
 	}
 }
