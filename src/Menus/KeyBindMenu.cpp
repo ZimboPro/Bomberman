@@ -86,18 +86,14 @@ void KeyBindMenu::showKeyBindMenu()
 void KeyBindMenu::drawSettings(Shaders & shader)
 {
 	this->_groups[0]->_models[Game::_KeyBind]->Draw(shader);
-	this->_groups[1]->_models[Game::_KeyBind]->Draw(shader);
-	this->_groups[2]->_models[Game::_KeyBind]->Draw(shader);
+	this->_groups[1]->_models[0]->Draw(shader);
+	this->_groups[2]->_models[0]->Draw(shader);
 }
 
 void KeyBindMenu::drawSelectedSetting(Shaders & shader)
 {
 	if (this->_selected == Options::WASD)
 		this->_groups[0]->_models[Game::_KeyBind]->DrawScaledBy(shader, 1.1f);
-	if (this->_selected == Options::Select)
-		this->_groups[1]->_models[Game::_KeyBind]->DrawScaledBy(shader, 1.1f);
-	if (this->_selected == Options::Bomb)
-		this->_groups[2]->_models[Game::_KeyBind]->DrawScaledBy(shader, 1.1f);
 }
 
 void KeyBindMenu::drawNotSelectedSetting(Shaders & shader)
@@ -105,9 +101,9 @@ void KeyBindMenu::drawNotSelectedSetting(Shaders & shader)
 	if (this->_selected != Options::WASD)
 		this->_groups[0]->_models[Game::_KeyBind]->Draw(shader);
 	if (this->_selected != Options::Select)
-		this->_groups[1]->_models[Game::_KeyBind]->Draw(shader);
+		this->_groups[1]->_models[0]->Draw(shader);
 	if (this->_selected != Options::Bomb)
-		this->_groups[2]->_models[Game::_KeyBind]->Draw(shader);
+		this->_groups[2]->_models[0]->Draw(shader);
 }
 
 void KeyBindMenu::changeSettings()
@@ -150,13 +146,15 @@ void KeyBindMenu::loadOptions()
 {
 	loadTexture("../../Assets/options_menu/off.obj");
 	loadTexture("../../Assets/options_menu/on.obj");
+	loadTexture("../../Assets/buttons/enter.obj");
+	loadTexture("../../Assets/buttons/space.obj");
 
 	for (int i = 0; i < 3; i++)
 		this->_groups.emplace_back(new ModelGroup());
 
 	addModels(0, 0, 1);
-	addModels(1, 0, 1);
-	addModels(2, 0, 1);
+	addModels(1, 2, 2);
+	addModels(2, 3, 3);
 
 	setOptionsPositions();
 }

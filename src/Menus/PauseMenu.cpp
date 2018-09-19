@@ -99,7 +99,7 @@ void PauseMenu::loadMenu()
 
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../../Assets/buttons/return.obj");
+	temp = new Model_Sprite("../../Assets/buttons/resume.obj");
 	temp->Position(-20, -20, (Game::_window.Height() / 5) * 3);
 	temp->Scale(8);
 	temp->Rotate(15, glm::vec3(1, 0, 0));

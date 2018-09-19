@@ -12,7 +12,6 @@
 
 #include "StartGameMenu.hpp"
 #include "Game.hpp"
-#include "PauseMenu.hpp"
 #include <Juicy.hpp>
 
 StartGameMenu::StartGameMenu()
@@ -59,8 +58,6 @@ int StartGameMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Start : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
-			if (_selected == MenuResult::Start)
-				showPauseMenu();
             if (_selected == MenuResult::Back)
                 break;
         }
@@ -69,16 +66,6 @@ int StartGameMenu::show(Shaders & shader, Shaders & brightShader)
 	moveOnScreen(shader, -20.0f);
 	deleteMenu();
 	return static_cast<int>(this->_selected);
-}
-
-void StartGameMenu::showPauseMenu()
-{
-	PauseMenu menu;
-
-	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
-	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
-	
-	int selection = menu.show(shader, brightShader);
 }
 
 void StartGameMenu::loadMenu()

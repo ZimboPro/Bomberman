@@ -174,15 +174,15 @@ bool Game::setKeyConfigured(eKeys key, int keycode)
 
 void Game::loadKeys()
 {
+	_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
+	_keyConfiguration[eKeys::Place] = GLFW_KEY_SPACE;
+	_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
 	if (Game::_KeyBind == false) 
 	{
 		_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;
 		_keyConfiguration[eKeys::Down] = GLFW_KEY_DOWN;
 		_keyConfiguration[eKeys::Left] = GLFW_KEY_LEFT;
 		_keyConfiguration[eKeys::Right] = GLFW_KEY_RIGHT;
-		_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
-		_keyConfiguration[eKeys::Pause] = GLFW_KEY_SPACE;
-		_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
 	}
 	else
 	{
@@ -190,9 +190,6 @@ void Game::loadKeys()
 		_keyConfiguration[eKeys::Down] = GLFW_KEY_S;
 		_keyConfiguration[eKeys::Left] = GLFW_KEY_A;
 		_keyConfiguration[eKeys::Right] = GLFW_KEY_D;
-		_keyConfiguration[eKeys::Select] = GLFW_KEY_SPACE;
-		_keyConfiguration[eKeys::Pause] = GLFW_KEY_ENTER;
-		_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
 	}
 }
 
