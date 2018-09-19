@@ -11,6 +11,11 @@ Goomba::Goomba(): _velocity(0), _maxVelocity(600.0f)
 	_type = goomba;
 }
 
+Goomba::Goomba(Goomba const & src)
+{
+	*this = src;
+}
+
 Goomba::Goomba(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
 }

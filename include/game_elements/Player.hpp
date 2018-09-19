@@ -10,8 +10,9 @@
 class Player: public VisibleGameObject
 {
 public:
-	~Player();
 	Player();
+	Player(Player const & src);
+	~Player();
 
 	Player(Model_Texture & texture, float x, float y);
 

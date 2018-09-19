@@ -5,6 +5,11 @@ Block::Block()
 {
 }
 
+Block::Block(Block const & src)
+{
+	*this = src;
+}
+
 Block::Block(Model_Texture & texture, float x, float y, bool isBreakable): VisibleGameObject(texture, x, y, true, isBreakable)
 {
 	if (isBreakable)

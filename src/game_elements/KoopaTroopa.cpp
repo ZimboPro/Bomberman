@@ -11,6 +11,11 @@ KoopaTroopa::KoopaTroopa(): _velocity(0), _maxVelocity(600.0f)
 	_type = koopaTroopa;
 }
 
+KoopaTroopa::KoopaTroopa(KoopaTroopa const & src)
+{
+	*this = src;
+}
+
 KoopaTroopa::KoopaTroopa(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
 }
