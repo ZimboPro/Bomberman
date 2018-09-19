@@ -20,6 +20,7 @@
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "Camera.hpp"
+#include "../Map_Gen/Levels.hpp"
 
 void Game::start()
 {
@@ -156,9 +157,12 @@ void Game::playGame()
 
 void Game::save()
 {
+	Levels lvl;
 	int width = Map::width();
 	int	height = Map::height();
+
 	std::vector<std::vector<char> > saveMap(height, std::vector<char>(width, '0'));
+	std::vector<std::vector<char> > loadedMap;
 
 	std::cout << "======================================================\n";
 	for (int y = 0; y < height; y++)
@@ -174,6 +178,23 @@ void Game::save()
 		std::cout << '\n';
 	}
 	std::cout << "======================================================\n";
+	std::cout << "Saving\n";
+	lvl.save(saveMap);
+	loadedMap = lvl.load();
+
+	std::cout << "loaded\n";
+		std::cout << "======================================================\n";
+
+	for (int i = 0; i < loadedMap.size(); i++)
+	{
+		for (int j = 0; j < loadedMap[i].size(); j++)
+		{
+			std::cout << loadedMap[i][j];
+		}
+		std::cout << '\n';
+	}
+		std::cout << "======================================================\n";
+
 }
 
 void Game::load()

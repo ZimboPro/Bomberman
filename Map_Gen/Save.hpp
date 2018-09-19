@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Map.hpp                                             :+:      :+:    :+:   */
+/*   Save.hpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mafernan   <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,34 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef		MAP_HPP
-# define	MAP_HPP
+#ifndef		SAVE_HPP
+# define	SAVE_HPP
 
 # include <vector>
 # include <boost/archive/text_oarchive.hpp>
 # include <boost/archive/text_iarchive.hpp>
 # include <boost/serialization/vector.hpp>
 
-class Map {
+class Save {
 	private:
-		std::vector<std::vector<char>> _map;
+		std::vector<std::vector<char>> _Save;
 		friend class boost::serialization::access;
 
 		template<class Archive>
 			void serialize(Archive & ar, const unsigned int version)
 			{
 				(void)version;
-				ar & _map;
+				ar & _Save;
 			}
 
 	public:
-		Map();
-		Map(Map const & src);
-		Map(std::vector<std::vector<char>> map);
-		~Map();
-		Map & operator=(Map const & src);
+		Save();
+		Save(Save const & src);
+		Save(std::vector<std::vector<char>> Save);
+		~Save();
+		Save & operator=(Save const & src);
 
-		std::vector<std::vector<char> >		getMap( void );
+		std::vector<std::vector<char> >		getSave( void );
 };
 
 #endif

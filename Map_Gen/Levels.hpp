@@ -17,6 +17,7 @@
 # include <fstream>
 # include <vector>
 # include "MapError.hpp"
+# include "Save.hpp"
 
 class Levels {
 	public:
@@ -27,10 +28,10 @@ class Levels {
 		Levels & operator=(Levels const & src);
 
 		std::vector<std::vector<char> >		makeMap( int seed );
-		// std::vector<std::vector<char> >		load( void );
+		std::vector<std::vector<char> >		load( void );
 		std::string							getDir( void );
 
-		// void			save(std::vector<std::vector<char> > map);
+		void			save(std::vector<std::vector<char> > map);
 		void			dimension(int width, int height);
 		void			difficulty( int lvl );
 		void			changeDir( std::string dir);

@@ -128,30 +128,30 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 }
 
 // save the map
-// void			Levels::save(std::vector<std::vector<char>> map)
-// {
-// 	const Map		temp(map);
-// 	// open file stream
-// 	std::ofstream ofs("save.data");
-// 	// create output archive object with stream
-// 	boost::archive::text_oarchive oa(ofs);
-// 	// write instance to archive
-// 	oa << temp;
-// }
+void			Levels::save(std::vector<std::vector<char>> map)
+{
+	const Save		temp(map);
+	// open file stream
+	std::ofstream ofs("save.data");
+	// create output archive object with stream
+	boost::archive::text_oarchive oa(ofs);
+	// write instance to archive
+	oa << temp;
+}
 
 // load the map
-// std::vector<std::vector<char> >			Levels::load( void )
-// {
-// 	Map		temp;
-// 	// open a read stream
-// 	std::ifstream ifs("save.data");
-// 	// create the read archive class with the stream
-// 	boost::archive::text_iarchive		ia(ifs);
-// 	// load the read archive to map
-// 	ia >> temp;
+std::vector<std::vector<char> >			Levels::load( void )
+{
+	Save	temp;
+	// open a read stream
+	std::ifstream ifs("save.data");
+	// create the read archive class with the stream
+	boost::archive::text_iarchive		ia(ifs);
+	// load the read archive to map
+	ia >> temp;
 
-// 	return (temp.getMap());
-// }
+	return (temp.getSave());
+}
 
 // toggle Debug
 void			Levels::debug( void )

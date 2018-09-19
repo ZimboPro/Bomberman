@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Map.cpp                                             :+:      :+:    :+:   */
+/*   Save.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mafernan   <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Map.hpp"
+#include "Save.hpp"
 
-Map::Map() {}
+Save::Save() {}
 
-Map::Map(std::vector<std::vector<char>> map) {
-	this->_map = map;
+Save::Save(std::vector<std::vector<char>> Save) {
+	this->_Save = Save;
 }
 
-Map::Map(Map const & src) {
+Save::Save(Save const & src) {
 	*this = src;	
 }
 
-Map::~Map() {}
+Save::~Save() {}
 
-Map & Map::operator=(Map const & src) {
+Save & Save::operator=(Save const & src) {
 	if (this != &src)
     {
 	*this = src;
@@ -32,7 +32,7 @@ Map & Map::operator=(Map const & src) {
 	return (*this);
 }
 
-std::vector<std::vector<char> >		Map::getMap( void )
+std::vector<std::vector<char> >		Save::getSave( void )
 {
-	return (this->_map);
+	return (this->_Save);
 }
