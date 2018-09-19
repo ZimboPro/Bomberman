@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Levels.hpp"
+#include "map_generation/Levels.hpp"
 
 Levels::Levels() {}
 

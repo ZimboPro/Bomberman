@@ -20,17 +20,18 @@
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "Camera.hpp"
-#include "../Map_Gen/Levels.hpp"
+#include "map_generation/Levels.hpp"
 
 void Game::start()
 {
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	//GameObjectManager::init();
-	_loadingScreen.loadModels();
+	// _loadingScreen.loadModels();
+	// _gameState = Game::ShowingSplash;
 
-	_gameState = Game::ShowingSplash;
+	 _gameState = Game::Playing;
+	GameObjectManager::init();
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);

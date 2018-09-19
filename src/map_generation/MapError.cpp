@@ -11,7 +11,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MapError.hpp"
+#include "map_generation/MapError.hpp"
 
 // invalid Dimension sizes
 MapError::InvalidSize::InvalidSize(const std::string & line)

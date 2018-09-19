@@ -8,7 +8,7 @@
 #include <list>
 #include "game_elements/VisibleGameObject.hpp"
 #include "Model_Texture.hpp"
-#include "../Map_Gen/Levels.hpp"
+#include "map_generation/Levels.hpp"
 
 #include "eObjectTypes.hpp"
 

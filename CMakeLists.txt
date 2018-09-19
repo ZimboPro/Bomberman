@@ -58,9 +58,9 @@ add_executable(
         src/game_elements/KoopaTroopa.cpp
         src/game_elements/powerBlock.cpp
         src/game_elements/HealthBlock.cpp
-        Map_Gen/Levels.cpp
-        Map_Gen/Save.cpp
-        Map_Gen/MapError.cpp
+        src/map_generation/Levels.cpp
+        src/map_generation/Save.cpp
+        src/map_generation/MapError.cpp
         )
 
 add_dependencies(bomberman graphics)
