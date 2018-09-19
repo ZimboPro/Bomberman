@@ -45,6 +45,7 @@ private:
 //	static void showSplashScreen();
 	static void showMenu();
     static void showOptions();
+    static void showStartGameMenu();
 	static void playGame();
 
     enum eGameState { Uninitialized, ShowingSplash, Paused,

@@ -69,6 +69,7 @@ int KeyBindMenu::show(Shaders & shader, Shaders & brightShader)
 	}
 	moveOnScreen(shader, -((Game::_window.Width() >> 1) + 40.0f));
 	deleteMenu();
+	Game::loadKeys();
 	return static_cast<int>(this->_selected);
 }
 
@@ -114,7 +115,6 @@ void KeyBindMenu::changeSettings()
 	if (this->_selected == Options::WASD)
 	{
 		Game::_KeyBind = !Game::_KeyBind;
-		Game::loadKeys();
 	}
 }
 

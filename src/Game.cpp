@@ -17,11 +17,10 @@
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
+#include "StartGameMenu.hpp"
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "Camera.hpp"
-
-bool Game::_KeyBind = false;
 
 void Game::start()
 {
@@ -57,7 +56,8 @@ void Game::gameLoop()
 	switch (_gameState)
 	{
 		case Game::Playing:
-			playGame();
+			// playGame();
+			showStartGameMenu();
 			break;
 		case Game::ShowingSplash:
 //			showSplashScreen();
@@ -75,6 +75,18 @@ void Game::gameLoop()
 		default:
 			break;
 	}
+}
+
+void Game::showStartGameMenu()
+{
+	StartGameMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == StartGameMenu::Back)
+		_gameState = Game::ShowingMenu;
 }
 
 //void Game::showSplashScreen()
@@ -215,3 +227,4 @@ Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
+bool Game::_KeyBind = false;
