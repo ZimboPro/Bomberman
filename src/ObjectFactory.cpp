@@ -16,6 +16,15 @@
 #include <string>
 #include <game_elements/Fire.hpp>
 
+ObjectFactory::ObjectFactory()
+{
+}
+
+ObjectFactory::ObjectFactory(ObjectFactory const & src)
+{
+	*this = src;
+}
+
 ObjectFactory::~ObjectFactory()
 {
 	delete _player;
@@ -26,10 +35,6 @@ ObjectFactory::~ObjectFactory()
 	delete _powerBlock;
 	delete _healthBlock;
 	delete _grass;
-}
-
-ObjectFactory::ObjectFactory()
-{
 }
 
 void ObjectFactory::initModelTextures()

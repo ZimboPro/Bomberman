@@ -14,7 +14,14 @@ Goomba::Goomba(): _speed(3)
 
 Goomba::Goomba(Model_Texture & texture, float x, float y): _speed(3), VisibleGameObject(texture, x, y, true, false)
 {
+	_type = goomba;
 }
+
+Goomba::Goomba(Goomba const & src)
+{
+	*this = src;
+}
+
 
 Goomba::~Goomba() {}
 

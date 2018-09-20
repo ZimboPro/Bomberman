@@ -9,8 +9,9 @@
 
 class PowerBlock: public VisibleGameObject {
 public:
-	~PowerBlock();
 	PowerBlock();
+	PowerBlock(PowerBlock const & src);
+	~PowerBlock();
 
 	PowerBlock(Model_Texture & texture, float x, float y);
 

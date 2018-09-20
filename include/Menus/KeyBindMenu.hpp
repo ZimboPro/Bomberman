@@ -24,7 +24,7 @@ class KeyBindMenu : public IMenu
     public:
         KeyBindMenu();
         KeyBindMenu(KeyBindMenu const & src);
-        ~KeyBindMenu();
+        virtual ~KeyBindMenu();
 
         enum Options { WASD, Select, Bomb, Back };
 

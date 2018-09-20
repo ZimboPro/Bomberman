@@ -23,9 +23,9 @@ class PauseMenu : public IMenu
     public:
         PauseMenu();
         PauseMenu(PauseMenu const & src);
-        ~PauseMenu();
+        virtual ~PauseMenu();
 
-		enum MenuResult { Paused, Resume, Options, Back };
+		enum MenuResult { Paused, Resume, Save, Options, Quit };
 
 		struct MenuItem
 		{

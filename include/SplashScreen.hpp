@@ -14,6 +14,7 @@ class SplashScreen
 {
 	public:
 		SplashScreen();
+		SplashScreen(SplashScreen const & src);
 		~SplashScreen();
 		void show(Shaders & shader, std::string file);
 	private:

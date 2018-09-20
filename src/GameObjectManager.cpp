@@ -10,8 +10,11 @@
 #include <memory>
 #include <game_elements/Bomb.hpp>
 
-GameObjectManager::GameObjectManager()
+GameObjectManager::GameObjectManager() {}
+
+GameObjectManager::GameObjectManager(GameObjectManager const & src) 
 {
+	*this = src;
 }
 
 GameObjectManager::~GameObjectManager()

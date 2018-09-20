@@ -11,6 +11,11 @@ PowerBlock::PowerBlock(): _velocity(0), _maxVelocity(600.0f)
 	_type = powerBlock;
 }
 
+PowerBlock::PowerBlock(PowerBlock const & src)
+{
+	*this = src;
+}
+
 PowerBlock::PowerBlock(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
 }

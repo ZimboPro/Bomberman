@@ -10,6 +10,13 @@ SFMLSoundProvider::SFMLSoundProvider(): _currentSongName("")
 {
 }
 
+SFMLSoundProvider::SFMLSoundProvider(SFMLSoundProvider const & src) 
+{
+	*this = src;
+}
+
+SFMLSoundProvider::~SFMLSoundProvider() {}
+
 void SFMLSoundProvider::playSound(std::string fileName)
 {
 	int availChannel = -1;

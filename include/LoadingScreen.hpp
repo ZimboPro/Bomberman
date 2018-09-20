@@ -9,6 +9,7 @@ class LoadingScreen
 {
     public:
         LoadingScreen();
+        LoadingScreen(LoadingScreen const & src);
         ~LoadingScreen();
 
         void display();

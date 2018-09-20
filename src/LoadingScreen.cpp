@@ -8,6 +8,11 @@ LoadingScreen::LoadingScreen()
     this->_light = glm::vec3(30);
 }
 
+LoadingScreen::LoadingScreen(LoadingScreen const & src)
+{
+    *this = src;
+}
+
 LoadingScreen::~LoadingScreen()
 {
     for (size_t i = 0; i < this->_models.size(); i++)
@@ -19,6 +24,12 @@ LoadingScreen::~LoadingScreen()
 void LoadingScreen::reset()
 {
     this->_model = 0;
+    for (size_t i = 0; i < this->_models.size(); i++)
+    {
+        this->_models[i]->Reset();
+        this->_models[i]->Position((Game::_window.Width() >> 1), -20.0f, (Game::_window.Height() >> 1));
+        this->_models[i]->Scale(10);
+    }
 }
 
 void LoadingScreen::display()
@@ -44,9 +55,4 @@ void LoadingScreen::loadModels()
     this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_6.obj"));
     this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_7.obj"));
     this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_8.obj"));
-    for (size_t i = 0; i < this->_models.size(); i++)
-    {
-        this->_models[i]->Position((Game::_window.Width() >> 1), -20.0f, (Game::_window.Height() >> 1));
-        this->_models[i]->Scale(10);
-    }
 }

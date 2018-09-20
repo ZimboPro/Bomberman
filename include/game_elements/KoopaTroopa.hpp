@@ -9,8 +9,9 @@
 
 class KoopaTroopa: public VisibleGameObject {
 public:
-	~KoopaTroopa();
 	KoopaTroopa();
+	KoopaTroopa(KoopaTroopa const & src);
+	~KoopaTroopa();
 
 	KoopaTroopa(Model_Texture & texture, float x, float y);
 
