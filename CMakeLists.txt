@@ -58,6 +58,7 @@ add_executable(
         src/game_elements/KoopaTroopa.cpp
         src/game_elements/powerBlock.cpp
         src/game_elements/HealthBlock.cpp
+        src/game_elements/Bomb.cpp
         src/Menus/KeyBindMenu.cpp
         src/Menus/StartGameMenu.cpp
         src/Menus/PauseMenu.cpp
