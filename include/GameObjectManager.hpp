@@ -29,7 +29,7 @@ public:
 private:
 	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
 	static std::list<VisibleGameObject *> *_dynamicObjects;
-	static std::list<VisibleGameObject *> *_grass;
+	static std::list<std::shared_ptr<VisibleGameObject>> *_grass;
 	static ObjectFactory _factory;
 
 };

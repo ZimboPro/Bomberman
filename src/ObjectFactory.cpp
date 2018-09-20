@@ -13,6 +13,7 @@
 #include "Map.hpp"
 #include "Game.hpp"
 #include "game_elements/Bomb.hpp"
+#include <string>
 
 ObjectFactory::~ObjectFactory()
 {
@@ -78,14 +79,16 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 	return result;
 }
 
-std::list<VisibleGameObject *> * ObjectFactory::genGrass()
+std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genGrass()
 {
-	auto result = new std::list<VisibleGameObject *>;
+	auto result = new std::list<std::shared_ptr<VisibleGameObject>>;
 
 	for (size_t y = 0; y < Map::height(); y++)
 		for (size_t x = 0; x < Map::width(); x++)
 		{
-			result->push_back(new Grass(*_grass, x, y));
+			VisibleGameObject *grass = new Grass(*_grass, x, y);
+			result->push_back(grass);
+//			result->push_back()
 		}
 	return result;
 }

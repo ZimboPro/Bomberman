@@ -7,6 +7,7 @@
 #include "ObjectFactory.hpp"
 #include <glm/vec4.hpp>
 #include <Map.hpp>
+#include <memory>
 
 GameObjectManager::GameObjectManager()
 {
@@ -139,5 +140,5 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
 std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
-std::list<VisibleGameObject *> *GameObjectManager::_grass;
+std::list<std::shared_ptr<VisibleGameObject>> *GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
