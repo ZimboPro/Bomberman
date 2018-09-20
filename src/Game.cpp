@@ -37,10 +37,10 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	//GameObjectManager::init();
+	GameObjectManager::init();
 	_loadingScreen.loadModels();
 
-	_gameState = Game::ShowingSplash;
+	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -161,7 +161,6 @@ void Game::playGame()
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
 	_camera.LookAt(glm::vec3(0));
-	GameObjectManager::init();
 
 	while(_gameState == Game::Playing)
 	{

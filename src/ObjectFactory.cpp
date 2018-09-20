@@ -35,6 +35,7 @@ ObjectFactory::~ObjectFactory()
 	delete _powerBlock;
 	delete _healthBlock;
 	delete _grass;
+	delete _fire;
 }
 
 void ObjectFactory::initModelTextures()
@@ -43,12 +44,13 @@ void ObjectFactory::initModelTextures()
 	_player = new Model_Texture("../../Assets/game_models/mario_walking_1.obj");
 	_unbreakableBlock = new Model_Texture("../../Assets/game_models/iron_block.obj");
 	_breakableBlock = new Model_Texture("../../Assets/game_models/brick_block.obj");
-	_goomba = new Model_Texture("../../Assets/game_models/goomba.obj");
-	_koopaTroopa = new Model_Texture("../../Assets/game_models/koopa_troopa.obj");
+	_goomba = new Model_Texture("../../Assets/game_models/goomba_1.obj");
+	_koopaTroopa = new Model_Texture("../../Assets/game_models/koopa_troopa_1.obj");
 	_powerBlock = new Model_Texture("../../Assets/game_models/power_up.obj");
 	_healthBlock = new Model_Texture("../../Assets/game_models/heart.obj");
 	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
 	_bomb = new Model_Texture("../../Assets/game_models/bomb_carry.obj");
+	_fire = new Model_Texture("../../Assets/game_models/fire.obj");
 }
 
 VisibleGameObject * ObjectFactory::newBomb(float x, float y)
