@@ -8,6 +8,7 @@
 #include <glm/vec4.hpp>
 #include <Map.hpp>
 #include <memory>
+#include <game_elements/Bomb.hpp>
 
 GameObjectManager::GameObjectManager()
 {
@@ -84,14 +85,17 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 {
 	if (type == bomb)
-		_dynamicObjects->push_back(_factory.newBomb(x, y));
+	{
+		std::shared_ptr<VisibleGameObject> bomb(_factory.newBomb(x, y));
+		_dynamicObjects->push_back(bomb);
+	}
 }
 
 void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
 {
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
-		if (bomb == (*iter))
+		if (bomb == (*iter).get())
 		{
 			_dynamicObjects->erase((iter));
 			return ;
@@ -139,6 +143,6 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 }
 
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
-std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
+std::list<std::shared_ptr<VisibleGameObject> > * GameObjectManager::_dynamicObjects;
 std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
