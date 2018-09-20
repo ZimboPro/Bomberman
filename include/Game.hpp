@@ -11,7 +11,7 @@
 #include "Camera.hpp"
 #include "eKeys.hpp"
 #include "LoadingScreen.hpp"
-#include "Menus/ IMenu.hpp"
+#include "Menus/IMenu.hpp"
 #include "eScreen.hpp"
 #include "eVolume.hpp"
 
@@ -52,7 +52,8 @@ class Game
         static void playGame();
 
         enum eGameState { Uninitialized, ShowingSplash, Paused,
-                ShowingMenu, ShowingOptions, Playing, Exiting };
+                ShowingMenu, ShowingOptions,ShowingStartGameMenu,
+                Playing, Exiting };
 
         static eGameState _gameState;
         static int _keyPress;

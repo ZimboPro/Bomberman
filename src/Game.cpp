@@ -39,7 +39,7 @@ void Game::start()
 	//GameObjectManager::init();
 	_loadingScreen.loadModels();
 
-	_gameState = Game::Playing;
+	_gameState = Game::ShowingSplash;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -122,7 +122,7 @@ void Game::showMenu()
 	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
-		_gameState = Game::Playing;
+		_gameState = Game::ShowingStartGameMenu;
 	else if (selection == MainMenu::Settings)
 		_gameState = Game::ShowingOptions;
 }
