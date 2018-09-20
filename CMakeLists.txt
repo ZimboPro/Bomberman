@@ -61,6 +61,7 @@ add_executable(
         src/Menus/KeyBindMenu.cpp
         src/Menus/StartGameMenu.cpp
         src/Menus/PauseMenu.cpp
+        src/Menus/LevelSelectMenu.cpp
         )
 
 add_dependencies(bomberman graphics)
