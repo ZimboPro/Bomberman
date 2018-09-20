@@ -140,14 +140,14 @@ void			Levels::fixMap(std::vector<std::vector<char> > map, int enemiesKilled)
 			{
 				if (enemiesKilled > 0)
 				{
-					this->_lastMap[y][x] == '0';
+					this->_lastMap[y][x] = '0';
 					enemiesKilled--;
 				}
 				else
-					this->_lastMap[y][x] == this->_lastMap[y][x];
+					this->_lastMap[y][x] = this->_lastMap[y][x];
 			}
 			else if (map[y][x] == '0' && this->_lastMap[y][x] != '3')
-				this->_lastMap[y][x] == '0';
+				this->_lastMap[y][x] = '0';
 		}
 	}
 }
