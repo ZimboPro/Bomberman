@@ -18,9 +18,11 @@ public:
 	BoundingBox getBoundingBox();
 
 	void Update(float & timeElapsed);
+	// void Delay(void);
 
 private:
 	float _speed;
+	int	_directionGen = rand() % 4 + 1;
 	
 };
 

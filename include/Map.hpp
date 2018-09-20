@@ -27,7 +27,6 @@ public:
 private:
 	static int _currentWorkingLevel;
 	static std::vector<std::vector<std::vector<char>>> _map;
-	// static Levels	_levels;
 };
 
 #endif //BOMBERMAN_MAP_HPP
