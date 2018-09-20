@@ -99,7 +99,7 @@ void Player::Update(float & timeElapsed)
 			if(GameObjectManager::collidesWith(box) == grass)
 		_model.Move(0 , 0 - displacement);
 	}
-	else if (Game::keyPressed() == eKeys::Select)
+	else if (Game::keyTyped() == eKeys::Select)
 		dropBomb();
 	Game::_camera.LookAt(_model.GetPosition());
 }
