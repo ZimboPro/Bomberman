@@ -6,7 +6,7 @@
 #include <Shaders.hpp>
 #include <Juicy.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "MainMenu.hpp"
+#include "Menus/MainMenu.hpp"
 #include "Game.hpp"
 
 MainMenu::MainMenu()

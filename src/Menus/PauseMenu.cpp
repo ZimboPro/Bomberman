@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PauseMenu.hpp"
+#include "Menus/PauseMenu.hpp"
 #include "Game.hpp"
-#include "OptionsMenu.hpp"
+#include "Menus/OptionsMenu.hpp"
 #include <Juicy.hpp>
 
 PauseMenu::PauseMenu()

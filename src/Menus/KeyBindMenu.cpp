@@ -14,7 +14,7 @@
 #include <Juicy.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.hpp"
-#include "KeyBindMenu.hpp"
+#include "Menus/KeyBindMenu.hpp"
 
 KeyBindMenu::KeyBindMenu() 
 {

@@ -12,12 +12,12 @@
 #include <chrono>
 
 #include "Game.hpp"
-#include "MainMenu.hpp"
-#include "OptionsMenu.hpp"
+#include "Menus/MainMenu.hpp"
+#include "Menus/OptionsMenu.hpp"
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
-#include "StartGameMenu.hpp"
+#include "Menus/StartGameMenu.hpp"
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "Camera.hpp"
