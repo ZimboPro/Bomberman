@@ -17,6 +17,7 @@
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
+#include "StartGameMenu.hpp"
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "Camera.hpp"
@@ -26,9 +27,10 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	GameObjectManager::init();
+	//GameObjectManager::init();
+	_loadingScreen.loadModels();
 
-	_gameState = Game::Playing;
+	_gameState = Game::ShowingSplash;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -55,10 +57,11 @@ void Game::gameLoop()
 	switch (_gameState)
 	{
 		case Game::Playing:
-			playGame();
+			// playGame();
+			showStartGameMenu();
 			break;
 		case Game::ShowingSplash:
-//			showSplashScreen();
+			showSplashScreen();
 			break;
 		case Game::Paused:
 			break;
@@ -75,12 +78,26 @@ void Game::gameLoop()
 	}
 }
 
-//void Game::showSplashScreen()
-//{
-//	SplashScreen splash;
-//	splash.show(_window);
-//	_gameState = Game::ShowingMenu;
-//}
+void Game::showStartGameMenu()
+{
+	StartGameMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == StartGameMenu::Back)
+		_gameState = Game::ShowingMenu;
+}
+
+void Game::showSplashScreen()
+{
+	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
+
+	SplashScreen splash;
+	splash.show(shader, "../assets/images/intro/");
+	_gameState = Game::ShowingMenu;
+}
 
 void Game::showMenu()
 {
@@ -109,8 +126,6 @@ void Game::showOptions()
 	int selection = menu.show(shader, brightShader);
 	if (selection == OptionsMenu::Back)
 		_gameState = Game::ShowingMenu;
-	else
-		_gameState = Game::Exiting;
 }
 
 void Game::playGame()
@@ -162,13 +177,23 @@ bool Game::setKeyConfigured(eKeys key, int keycode)
 
 void Game::loadKeys()
 {
-	_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;
-	_keyConfiguration[eKeys::Down] = GLFW_KEY_DOWN;
-	_keyConfiguration[eKeys::Left] = GLFW_KEY_LEFT;
-	_keyConfiguration[eKeys::Right] = GLFW_KEY_RIGHT;
 	_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
-	_keyConfiguration[eKeys::Pause] = GLFW_KEY_SPACE;
+	_keyConfiguration[eKeys::Place] = GLFW_KEY_SPACE;
 	_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
+	if (Game::_KeyBind == false) 
+	{
+		_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;
+		_keyConfiguration[eKeys::Down] = GLFW_KEY_DOWN;
+		_keyConfiguration[eKeys::Left] = GLFW_KEY_LEFT;
+		_keyConfiguration[eKeys::Right] = GLFW_KEY_RIGHT;
+	}
+	else
+	{
+		_keyConfiguration[eKeys::Up] = GLFW_KEY_W;
+		_keyConfiguration[eKeys::Down] = GLFW_KEY_S;
+		_keyConfiguration[eKeys::Left] = GLFW_KEY_A;
+		_keyConfiguration[eKeys::Right] = GLFW_KEY_D;
+	}
 }
 
 eKeys Game::keyPressed()
@@ -202,3 +227,4 @@ Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
+bool Game::_KeyBind = false;

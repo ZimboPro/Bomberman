@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "OptionsMenu.hpp"
 #include "Game.hpp"
+#include "KeyBindMenu.hpp"
 
 OptionsMenu::OptionsMenu()
 {
@@ -25,23 +26,27 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 			if (this->_action[i].action != this->_selected)
 				this->_action[i].button->Draw(shader);
 		}
-		drawSettings(shader);
+		drawNotSelectedSetting(shader);
 		setShader(brightShader, projection);
 		for (size_t i = 0; i < this->_action.size(); i++)
 		{
 			if (this->_action[i].action == this->_selected)
 				this->_action[i].button->DrawScaledBy(brightShader, 1.1f);
 		}
+		drawSelectedSetting(brightShader);
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? Options::WindowSize : static_cast<Options>(this->_selected - 1);
+			this->_selected = ((this->_selected - 1) < 0) ? Options::Back : static_cast<Options>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::Back : static_cast<Options>(this->_selected + 1);
+			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::WindowSize : static_cast<Options>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
-			if (this->_selected == Options::Back || this->_selected == Options::Keys)
+			if (this->_selected == Options::Keys) 
+			{
+				showKeyBindMenu();
+			}				
+			if (this->_selected == Options::Back)
 				break;
-			else
-				changeSettings();
+			changeSettings();			
 		}
 		if (Game::keyTyped() == eKeys::Escape)
 		{
@@ -55,6 +60,16 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 	return static_cast<int>(this->_selected);
 }
 
+void OptionsMenu::showKeyBindMenu()
+{
+	KeyBindMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+}
+
 void OptionsMenu::drawSettings(Shaders & shader)
 {
 	this->_groups[0]->_models[Game::_settings.size]->Draw(shader);
@@ -62,6 +77,34 @@ void OptionsMenu::drawSettings(Shaders & shader)
 	this->_groups[2]->_models[Game::_settings.sound]->Draw(shader);
 	this->_groups[3]->_models[Game::_settings.music]->Draw(shader);
 	this->_groups[4]->_models[Game::_settings.volume]->Draw(shader);
+}
+
+void OptionsMenu::drawSelectedSetting(Shaders & shader)
+{
+	if (this->_selected == Options::WindowSize)
+		this->_groups[0]->_models[Game::_settings.size]->DrawScaledBy(shader, 1.1f);
+	if (this->_selected == Options::WindowMode)
+		this->_groups[1]->_models[Game::_settings.fullscreen]->DrawScaledBy(shader, 1.1f);
+	if (this->_selected == Options::Sound)
+		this->_groups[2]->_models[Game::_settings.sound]->DrawScaledBy(shader, 1.1f);
+	if (this->_selected == Options::Music)
+		this->_groups[3]->_models[Game::_settings.music]->DrawScaledBy(shader, 1.1f);
+	if (this->_selected == Options::Volume)
+		this->_groups[4]->_models[Game::_settings.volume]->DrawScaledBy(shader, 1.1f);
+}
+
+void OptionsMenu::drawNotSelectedSetting(Shaders & shader)
+{
+	if (this->_selected != Options::WindowSize)
+		this->_groups[0]->_models[Game::_settings.size]->Draw(shader);
+	if (this->_selected != Options::WindowMode)
+		this->_groups[1]->_models[Game::_settings.fullscreen]->Draw(shader);
+	if (this->_selected != Options::Sound)
+		this->_groups[2]->_models[Game::_settings.sound]->Draw(shader);
+	if (this->_selected != Options::Music)
+		this->_groups[3]->_models[Game::_settings.music]->Draw(shader);
+	if (this->_selected != Options::Volume)
+		this->_groups[4]->_models[Game::_settings.volume]->Draw(shader);
 }
 
 void OptionsMenu::changeSettings()
@@ -90,13 +133,13 @@ void OptionsMenu::loadModels()
 {   
     this->_selected = Options::WindowSize;
 	Game::_loadingScreen.reset();
-    loadActions("../assets/options_menu/window_size.obj");
-    loadActions("../assets/options_menu/fullscreen.obj");
-    loadActions("../assets/options_menu/keybind.obj");
-    loadActions("../assets/options_menu/sound.obj");
-    loadActions("../assets/options_menu/volume.obj");
-    loadActions("../assets/options_menu/music.obj");
-    loadActions("../assets/options_menu/back_options.obj");
+    loadActions("../../Assets/options_menu/window_size.obj");
+    loadActions("../../Assets/options_menu/fullscreen.obj");
+    loadActions("../../Assets/options_menu/keybind.obj");
+    loadActions("../../Assets/options_menu/sound.obj");
+    loadActions("../../Assets/options_menu/volume.obj");
+    loadActions("../../Assets/options_menu/music.obj");
+    loadActions("../../Assets/options_menu/back_options.obj");
     for (size_t i = 0; i < this->_action.size(); i++)
     {
         this->_action[i].action = static_cast<Options>(i);
@@ -108,17 +151,17 @@ void OptionsMenu::loadModels()
 
 void OptionsMenu::loadOptions()
 {
-	loadTexture("../assets/options_menu/1920x1080.obj");
-	loadTexture("../assets/options_menu/1080x720.obj");
-	loadTexture("../assets/options_menu/800x600.obj");
-	loadTexture("../assets/options_menu/off.obj");
-	loadTexture("../assets/options_menu/on.obj");
-	loadTexture("../assets/options_menu/volume_0.obj");
-	loadTexture("../assets/options_menu/volume_1.obj");
-	loadTexture("../assets/options_menu/volume_2.obj");
-	loadTexture("../assets/options_menu/volume_3.obj");
-	loadTexture("../assets/options_menu/volume_4.obj");
-	loadTexture("../assets/options_menu/volume_5.obj");
+	loadTexture("../../Assets/options_menu/1920x1080.obj");
+	loadTexture("../../Assets/options_menu/1080x720.obj");
+	loadTexture("../../Assets/options_menu/800x600.obj");
+	loadTexture("../../Assets/options_menu/off.obj");
+	loadTexture("../../Assets/options_menu/on.obj");
+	loadTexture("../../Assets/options_menu/volume_0.obj");
+	loadTexture("../../Assets/options_menu/volume_1.obj");
+	loadTexture("../../Assets/options_menu/volume_2.obj");
+	loadTexture("../../Assets/options_menu/volume_3.obj");
+	loadTexture("../../Assets/options_menu/volume_4.obj");
+	loadTexture("../../Assets/options_menu/volume_5.obj");
 	
 
 	for (int i = 0; i < 5; i++)

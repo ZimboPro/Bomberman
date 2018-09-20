@@ -39,8 +39,8 @@ add_executable(
     bomberman
         src/main.cpp
         src/Game.cpp
-#        src/SplashScreen.cpp
-        src/MainMenu.cpp
+        src/SplashScreen.cpp
+        src/Menus/MainMenu.cpp
         src/game_elements/Block.cpp
         src/game_elements/Grass.cpp
         src/game_elements/VisibleGameObject.cpp
@@ -52,13 +52,17 @@ add_executable(
         src/SoundFileCache.cpp
         src/Map.cpp
         src/ObjectFactory.cpp
-        src/OptionsMenu.cpp
+        src/Menus/OptionsMenu.cpp
         src/LoadingScreen.cpp
         src/game_elements/Goomba.cpp
         src/game_elements/KoopaTroopa.cpp
         src/game_elements/powerBlock.cpp
         src/game_elements/HealthBlock.cpp
-        src/game_elements/Bomb.cpp)
+        src/game_elements/Bomb.cpp
+        src/Menus/KeyBindMenu.cpp
+        src/Menus/StartGameMenu.cpp
+        src/Menus/PauseMenu.cpp
+        )
 
 add_dependencies(bomberman graphics)
 find_package(Boost REQUIRED COMPONENTS system serialization)

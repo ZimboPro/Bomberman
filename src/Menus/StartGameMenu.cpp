@@ -1,24 +1,33 @@
-//
-// Created by Patrick RUSSELL on 2018/08/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   StartGameMenu.cpp                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpauwels <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/19 07:00:19 by cpauwels          #+#    #+#             */
+/*   Updated: 2018/09/19 07:00:23 by cpauwels         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <iostream>
-#include <Shaders.hpp>
-#include <Juicy.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include "MainMenu.hpp"
+#include "StartGameMenu.hpp"
 #include "Game.hpp"
+#include <Juicy.hpp>
 
-MainMenu::MainMenu()
+StartGameMenu::StartGameMenu()
 {
-	loadMenu();
-
+    loadMenu();
 }
 
-MainMenu::~MainMenu()
+StartGameMenu::StartGameMenu(StartGameMenu const & src)
+{
+    *this= src;
+}
+
+StartGameMenu::~StartGameMenu()
 {}
 
-int MainMenu::show(Shaders & shader, Shaders & brightShader)
+int StartGameMenu::show(Shaders & shader, Shaders & brightShader)
 {
 	moveOnScreen(shader, (Game::_window.Width() >> 1));
 	glm::mat4 projection = Game::_window.Projection();
@@ -44,17 +53,14 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 				this->_menuItems[i].button->DrawScaledBy(shader, 1.1f);
 		}
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Play : static_cast<MenuResult>(this->_selected - 1);
+			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Back : static_cast<MenuResult>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > MenuResult::Exit) ? MenuResult::Exit : static_cast<MenuResult>(this->_selected + 1);
+			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Start : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
-			break;
-		if (Game::_window.closed() || Game::keyTyped() == eKeys::Escape)
 		{
-			this->_selected = MenuResult::Exit;
-			break;
-		}
-
+            if (_selected == MenuResult::Back)
+                break;
+        }
 		Game::_window.update();
 	}
 	moveOnScreen(shader, -20.0f);
@@ -62,53 +68,53 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 	return static_cast<int>(this->_selected);
 }
 
-void MainMenu::loadMenu()
+void StartGameMenu::loadMenu()
 {	
 	MenuItem start;
-	MenuItem options;
-	MenuItem quit;
+	MenuItem load;
+	MenuItem back;
 
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
-	Model_Sprite *temp = new Model_Sprite("../assets/buttons/start.obj");
+	Model_Sprite *temp = new Model_Sprite("../../Assets/buttons/start.obj");
 	temp->Position(-20, -20, (Game::_window.Height() << 1) / 3);
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(1, 0, 0));
 	start.button = temp;
-	start.action = MenuResult::Play;
+	start.action = MenuResult::Start;
 
 	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../assets/buttons/option.obj");
+	temp = new Model_Sprite("../../Assets/buttons/load.obj");
 	temp->Position(-20, -20, (Game::_window.Height() >> 1));
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(0, 1, 0));
-	options.button = temp;
-	options.action = MenuResult::Settings;
+	load.button = temp;
+	load.action = MenuResult::Load;
 
 	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../assets/buttons/quit.obj");
+	temp = new Model_Sprite("../../Assets/buttons/back.obj");
 	temp->Position(-20, -20, (Game::_window.Height()) / 3);
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(0, 1, 0));
-	quit.button = temp;
-	quit.action = MenuResult::Exit;
+	back.button = temp;
+	back.action = MenuResult::Back;
 	
 	Game::_loadingScreen.display();
 	this->_menuItems.push_back(start);
-	this->_menuItems.push_back(options);
-	this->_menuItems.push_back(quit);
+	this->_menuItems.push_back(load);
+	this->_menuItems.push_back(back);
 
-	this->_selected = MenuResult::Play;
+	this->_selected = MenuResult::Start;
 }
 
-void MainMenu::deleteMenu()
+void StartGameMenu::deleteMenu()
 {
 	for (size_t i = 0; i < this->_menuItems.size(); i++)
 		delete this->_menuItems[i].button;
 	this->_menuItems.clear();
 }
 
-void MainMenu::moveOnScreen(Shaders & shader, float end)
+void StartGameMenu::moveOnScreen(Shaders & shader, float end)
 {
 	glm::mat4 projection = Game::_window.Projection();
 	float weighting = 0.05f;
