@@ -7,6 +7,11 @@
 
 Map::Map() {}
 
+Map::Map(Map const & src) 
+{
+	*this = src;
+}
+
 Map::~Map() {}
 
 char Map::at(int x, int y)

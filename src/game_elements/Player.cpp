@@ -18,6 +18,11 @@ Player::Player(): _speed(0), _maxVelocity(600.0f)
 	
 }
 
+Player::Player(Player const & src)
+{
+	*this = src;
+}
+
 Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
 	
@@ -32,13 +37,26 @@ BoundingBox Player::getBoundingBox()
 
 	float modelSize = 0.6f;
 
-	_box.x1 = static_cast<float>(_model.GetPosition().x);
-	_box.x2 = static_cast<float>(_model.GetPosition().x + modelSize);
+	_box.x1 = _model.GetPosition().x;
+	_box.x2 = _model.GetPosition().x + modelSize;
 
-	_box.y1 = static_cast<float>(_model.GetPosition().z);
-	_box.y2 = static_cast<float>(_model.GetPosition().z + modelSize);
+	_box.y1 = _model.GetPosition().z;
+	_box.y2 = _model.GetPosition().z + modelSize;
 
 	return _box;
+}
+
+void Player::dropBomb()
+{
+	glm::vec3 pos = _model.GetPosition();
+	if (_direction == 270)
+		GameObjectManager::addDynamicObject(bomb, pos.x - 0.6, pos.z);
+	else if (_direction == 90)
+		GameObjectManager::addDynamicObject(bomb, pos.x + 0.6, pos.z);
+	else if (_direction == 0)
+		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z + 0.6);
+	else if (_direction == 180)
+		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z - 0.6);
 }
 
 void Player::Update(float & timeElapsed)
@@ -46,8 +64,6 @@ void Player::Update(float & timeElapsed)
 	float displacement = timeElapsed * _speed;
 	glm::vec3 pos = _model.GetPosition();
 	BoundingBox box = this->getBoundingBox();
-	float moveToX;
-	float moveToY;
 
 	if (Game::keyPressed() == eKeys::Up)
 	{
@@ -94,5 +110,7 @@ void Player::Update(float & timeElapsed)
 		if(GameObjectManager::collidesWith(box) == grass)
 			_model.Move(0 , 0 - displacement);
 	}
+	else if (Game::keyTyped() == eKeys::Select)
+		dropBomb();
 	Game::_camera.LookAt(_model.GetPosition());
 }

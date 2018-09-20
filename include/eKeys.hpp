@@ -8,7 +8,7 @@ enum eKeys
     Left,
     Right,
     Select,
-    Pause,
+    Place,
     Escape,
     Save,
     Load,

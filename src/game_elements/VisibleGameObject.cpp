@@ -9,6 +9,11 @@ VisibleGameObject::VisibleGameObject():
 	_type = grass;
 }
 
+VisibleGameObject::VisibleGameObject(VisibleGameObject const & src)
+{
+	*this = src;
+}
+
 VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
 		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable)
 {

@@ -12,26 +12,35 @@
 #include <chrono>
 
 #include "Game.hpp"
-#include "MainMenu.hpp"
-#include "OptionsMenu.hpp"
+#include "Menus/MainMenu.hpp"
+#include "Menus/OptionsMenu.hpp"
+#include "Menus/PauseMenu.hpp"
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
-#include "Camera.hpp"
+#include "Menus/StartGameMenu.hpp"
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "map_generation/Levels.hpp"
+
+Game::Game() {}
+
+Game::Game(Game const & src) 
+{
+	*this = src;
+}
+
+Game::~Game() {}
 
 void Game::start()
 {
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	// _loadingScreen.loadModels();
-	// _gameState = Game::ShowingSplash;
+	GameObjectManager::init();
+	_loadingScreen.loadModels();
 
 	_gameState = Game::Playing;
-	GameObjectManager::init();
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -63,6 +72,7 @@ void Game::gameLoop()
 			showSplashScreen();
 			break;
 		case Game::Paused:
+			showPauseMenu();
 			break;
 		case Game::ShowingMenu:
 			showMenu();
@@ -72,9 +82,36 @@ void Game::gameLoop()
 		case Game::ShowingOptions:
 			showOptions();
 			break;
+		case Game::ShowingStartGameMenu:
+			showStartGameMenu();
+			break;
 		default:
 			break;
 	}
+}
+
+void Game::showPauseMenu()
+{
+	PauseMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == PauseMenu::Quit)
+		_gameState = Game::ShowingMenu;
+}
+
+void Game::showStartGameMenu()
+{
+	StartGameMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == StartGameMenu::Back)
+		_gameState = Game::ShowingMenu;
 }
 
 void Game::showSplashScreen()
@@ -98,7 +135,7 @@ void Game::showMenu()
 	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
-		_gameState = Game::Playing;
+		_gameState = Game::ShowingStartGameMenu;
 	else if (selection == MainMenu::Settings)
 		_gameState = Game::ShowingOptions;
 }
@@ -113,8 +150,6 @@ void Game::showOptions()
 	int selection = menu.show(shader, brightShader);
 	if (selection == OptionsMenu::Back)
 		_gameState = Game::ShowingMenu;
-	else
-		_gameState = Game::Exiting;
 }
 
 void Game::playGame()
@@ -232,18 +267,48 @@ bool Game::setKeyConfigured(eKeys key, int keycode)
 
 void Game::loadKeys()
 {
-	_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;
-	_keyConfiguration[eKeys::Down] = GLFW_KEY_DOWN;
-	_keyConfiguration[eKeys::Left] = GLFW_KEY_LEFT;
-	_keyConfiguration[eKeys::Right] = GLFW_KEY_RIGHT;
 	_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
-	_keyConfiguration[eKeys::Pause] = GLFW_KEY_SPACE;
+	_keyConfiguration[eKeys::Place] = GLFW_KEY_SPACE;
 	_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
 
 	//Assigning save and load to 'q' and 'w' buttons
 
 	_keyConfiguration[eKeys::Save] = GLFW_KEY_Q;
 	_keyConfiguration[eKeys::Load] = GLFW_KEY_W;
+	if (Game::_KeyBind == false) 
+	{
+		_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;
+		_keyConfiguration[eKeys::Down] = GLFW_KEY_DOWN;
+		_keyConfiguration[eKeys::Left] = GLFW_KEY_LEFT;
+		_keyConfiguration[eKeys::Right] = GLFW_KEY_RIGHT;
+	}
+	else
+	{
+		_keyConfiguration[eKeys::Up] = GLFW_KEY_W;
+		_keyConfiguration[eKeys::Down] = GLFW_KEY_S;
+		_keyConfiguration[eKeys::Left] = GLFW_KEY_A;
+		_keyConfiguration[eKeys::Right] = GLFW_KEY_D;
+	}
+}
+
+void Game::loadSettings()
+{
+	switch (Game::_settings.size)
+	{
+		case s1024:
+			Game::_window.resize(1024, 768);
+			break;
+		case s1280:
+			Game::_window.resize(1280, 720);
+			break;
+		case s1920:
+			Game::_window.resize(1920, 1080);
+			break;
+	}
+	if (Game::_settings.fullscreen)
+		Game::_window.fullscreen();
+	else
+		Game::_window.windowed();
 }
 
 eKeys Game::keyPressed()
@@ -272,9 +337,9 @@ eKeys Game::keyTyped()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-int Game::_keyPress = 0;
 Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
 std::vector<std::vector<char> > Game::_savedMap;
+bool Game::_KeyBind = false;

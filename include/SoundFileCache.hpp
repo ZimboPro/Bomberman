@@ -11,6 +11,7 @@
 class SoundFileCache {
 public:
     SoundFileCache();
+    SoundFileCache(SoundFileCache const & src);
     ~SoundFileCache();
 
     sf::Sound getSound(const std::string & filename);

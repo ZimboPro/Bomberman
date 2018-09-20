@@ -8,6 +8,7 @@ class Grass: public VisibleGameObject
     public:
 
         Grass();
+        Grass(Grass const & src);
         Grass(Model_Texture & texture, float x, float y);
         ~Grass();
 };

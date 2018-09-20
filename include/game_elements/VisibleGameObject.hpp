@@ -17,6 +17,7 @@ class VisibleGameObject
 {
 public:
 	VisibleGameObject();
+	VisibleGameObject(VisibleGameObject const & src);
 	virtual ~VisibleGameObject();
 
 	VisibleGameObject(Model_Texture & texture, float x, float y, bool collidable, bool isBreakable);

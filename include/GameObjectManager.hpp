@@ -15,6 +15,7 @@ class GameObjectManager
 {
 public:
 	GameObjectManager();
+	GameObjectManager(GameObjectManager const & src);
 	~GameObjectManager();
 
 	static void drawAll(Shaders & shader);
@@ -23,12 +24,15 @@ public:
 	static void clearLevel();
 //	static objectTypes collidesWith(VisibleGameObject & type, int x, int y);
 	static objectTypes collidesWith(BoundingBox & box);
+	static void addDynamicObject(objectTypes type, float x, float y);
 	static bool intersects(BoundingBox obj1, BoundingBox obj2);
+	static void explodeBomb(VisibleGameObject * bomb);
+	static void removeDynamicObject(VisibleGameObject * obj);
 
 private:
 	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
-	static std::list<VisibleGameObject *> *_dynamicObjects;
-	static std::list<VisibleGameObject *> *_grass;
+	static std::list<std::shared_ptr<VisibleGameObject>> *_dynamicObjects;
+	static std::list<std::shared_ptr<VisibleGameObject>> * _grass;
 	static ObjectFactory _factory;
 
 };
