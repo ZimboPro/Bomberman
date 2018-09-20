@@ -49,10 +49,9 @@ private:
 	static void playGame();
 
     enum eGameState { Uninitialized, ShowingSplash, Paused,
-            ShowingMenu, ShowingOptions, Playing, Exiting };
+            ShowingMenu, ShowingOptions, Playing, Exiting, ShowingStartGameMenu };
 
     static eGameState _gameState;
-    static int _keyPress;
     static std::map<eKeys, int> _keyConfiguration;
 };
 

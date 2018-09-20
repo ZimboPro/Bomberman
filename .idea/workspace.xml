@@ -23,261 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f16740f0-d3b6-476d-b9af-2e1526452051" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/100.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/101.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/102.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/103.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/104.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/105.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/106.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/107.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/108.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/109.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/110.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/111.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/112.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/113.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/114.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/115.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/116.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/117.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/118.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/119.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/120.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/121.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/122.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/123.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/124.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/125.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/126.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/127.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/128.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/129.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/13.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/130.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/131.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/132.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/133.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/134.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/135.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/136.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/137.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/138.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/139.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/140.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/141.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/142.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/143.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/144.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/145.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/146.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/147.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/148.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/149.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/15.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/150.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/151.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/152.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/153.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/154.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/155.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/156.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/157.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/158.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/159.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/16.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/160.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/161.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/162.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/163.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/164.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/165.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/166.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/167.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/168.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/169.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/170.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/171.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/172.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/173.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/174.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/175.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/176.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/177.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/178.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/179.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/18.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/180.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/181.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/182.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/183.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/184.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/185.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/186.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/187.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/188.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/189.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/19.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/190.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/191.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/192.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/193.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/194.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/195.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/196.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/197.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/198.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/199.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/20.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/200.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/201.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/202.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/203.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/204.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/205.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/206.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/207.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/208.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/209.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/21.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/210.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/211.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/212.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/213.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/214.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/215.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/216.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/217.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/218.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/219.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/22.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/220.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/221.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/222.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/223.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/224.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/225.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/226.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/227.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/228.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/229.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/23.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/230.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/231.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/232.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/233.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/234.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/235.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/236.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/237.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/238.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/24.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/25.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/26.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/27.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/28.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/29.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/30.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/31.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/32.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/33.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/34.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/35.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/36.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/37.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/38.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/39.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/40.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/41.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/42.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/43.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/44.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/45.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/46.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/47.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/48.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/49.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/50.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/51.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/52.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/53.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/54.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/55.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/56.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/58.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/59.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/60.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/61.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/62.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/63.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/64.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/65.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/66.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/67.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/68.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/69.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/70.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/71.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/72.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/73.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/74.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/75.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/76.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/77.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/78.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/79.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/80.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/81.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/82.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/83.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/84.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/85.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/86.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/87.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/88.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/89.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/90.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/91.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/92.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/93.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/94.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/95.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/96.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/97.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/98.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/intro/99.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/KeyBindMenu.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/PauseMenu.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/StartGameMenu.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Menus/KeyBindMenu.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Menus/PauseMenu.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Menus/StartGameMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/Game.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/Game.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/LoadingScreen.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/LoadingScreen.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/OptionsMenu.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/OptionsMenu.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/SplashScreen.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/SplashScreen.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/eKeys.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/eKeys.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoadingScreen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoadingScreen.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Menus/MainMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OptionsMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Menus/OptionsMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SplashScreen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/SplashScreen.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -293,41 +40,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Bomb.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game_elements/Bomb.cpp">
+      <file leaf-file-name="Game.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Game.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
-              <folding>
-                <element signature="e#52#84#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="157">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameObjectManager.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GameObjectManager.cpp">
+      <file leaf-file-name="Game.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/Game.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1365">
-              <caret line="95" column="24" selection-start-line="95" selection-start-column="24" selection-end-line="95" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="33" selection-start-column="33" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/game_elements/Player.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+            <state relative-caret-position="645">
+              <caret line="51" column="66" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -377,13 +103,11 @@
         <option value="$PROJECT_DIR$/include/Player.hpp" />
         <option value="$PROJECT_DIR$/include/Block.hpp" />
         <option value="$PROJECT_DIR$/include/VisibleGameObject.hpp" />
-        <option value="$PROJECT_DIR$/src/Game.cpp" />
         <option value="$PROJECT_DIR$/src/VisibleGameObject.cpp" />
         <option value="$PROJECT_DIR$/src/Block.cpp" />
         <option value="$PROJECT_DIR$/include/BoundingBox.hpp" />
         <option value="$PROJECT_DIR$/src/Map.cpp" />
         <option value="$PROJECT_DIR$/src/Player.cpp" />
-        <option value="$PROJECT_DIR$/include/Game.hpp" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/src/game_elements/powerBlock.cpp" />
         <option value="$PROJECT_DIR$/src/game_elements/Bomb.hpp" />
@@ -396,6 +120,8 @@
         <option value="$PROJECT_DIR$/src/game_elements/Bomb.cpp" />
         <option value="$PROJECT_DIR$/src/GameObjectManager.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/include/Game.hpp" />
+        <option value="$PROJECT_DIR$/src/Game.cpp" />
       </list>
     </option>
   </component>
@@ -462,6 +188,16 @@
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="Bomberman" type="cbb8eebc:String" user="Bomberman" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Bomberman" type="cbb8eebc:String" user="Bomberman" />
+              <item name="include" type="cbb8eebc:String" user="include" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Bomberman" type="cbb8eebc:String" user="Bomberman" />
+              <item name="src" type="cbb8eebc:String" user="src" />
             </path>
           </expand>
           <select />
@@ -570,12 +306,12 @@
       <workItem from="1536842454577" duration="37000" />
       <workItem from="1536842534401" duration="5510000" />
       <workItem from="1537423385758" duration="39000" />
-      <workItem from="1537423493764" duration="274000" />
+      <workItem from="1537423493764" duration="547000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="166716000" />
+    <option name="totallyTimeSpent" value="166989000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -583,10 +319,11 @@
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5427632" visible="true" weight="0.17083333" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="CMake" order="7" visible="true" weight="0.28210115" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.49319068" />
+      <window_info anchor="bottom" id="CMake" order="7" weight="0.28210115" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.4241245" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3004975" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.45914397" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.14980544" />
       <window_info id="Structure" order="1" sideWeight="0.45472637" side_tool="true" weight="0.122470714" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49947917" weight="0.2081712" />
       <window_info id="Favorites" order="2" sideWeight="0.45723686" side_tool="true" weight="0.2078125" />
@@ -595,7 +332,6 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.49319068" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Key Promoter X" order="3" weight="0.32960597" />
@@ -802,13 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Game.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -885,13 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="169" column="52" selection-start-line="169" selection-start-column="52" selection-end-line="169" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/GameObjectManager.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -913,16 +635,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/game_elements/Player.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game_elements/Bomb.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="374">
           <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
           <folding>
             <element signature="e#52#84#0" expanded="true" />
@@ -941,6 +656,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="33" selection-start-column="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/game_elements/Player.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Game.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="51" column="66" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
         </state>
       </provider>
     </entry>

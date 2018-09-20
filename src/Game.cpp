@@ -30,7 +30,7 @@ void Game::start()
 	//GameObjectManager::init();
 	_loadingScreen.loadModels();
 
-	_gameState = Game::ShowingSplash;
+	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -57,8 +57,7 @@ void Game::gameLoop()
 	switch (_gameState)
 	{
 		case Game::Playing:
-			// playGame();
-			showStartGameMenu();
+			playGame();
 			break;
 		case Game::ShowingSplash:
 			showSplashScreen();
@@ -72,6 +71,9 @@ void Game::gameLoop()
 			break;
 		case Game::ShowingOptions:
 			showOptions();
+			break;
+		case Game::ShowingStartGameMenu:
+			showStartGameMenu();
 			break;
 		default:
 			break;
@@ -222,7 +224,6 @@ eKeys Game::keyTyped()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-int Game::_keyPress = 0;
 Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
