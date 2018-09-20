@@ -27,11 +27,11 @@ BoundingBox Player::getBoundingBox()
 
 	float modelSize = 0.6f;
 
-	_box.x1 = static_cast<float>(_model.GetPosition().x);
-	_box.x2 = static_cast<float>(_model.GetPosition().x + modelSize);
+	_box.x1 = _model.GetPosition().x;
+	_box.x2 = _model.GetPosition().x + modelSize;
 
-	_box.y1 = static_cast<float>(_model.GetPosition().z);
-	_box.y2 = static_cast<float>(_model.GetPosition().z + modelSize);
+	_box.y1 = _model.GetPosition().z;
+	_box.y2 = _model.GetPosition().z + modelSize;
 
 	return _box;
 }
@@ -54,8 +54,6 @@ void Player::Update(float & timeElapsed)
 	float displacement = timeElapsed * _speed;
 	glm::vec3 pos = _model.GetPosition();
 	BoundingBox box = this->getBoundingBox();
-	float moveToX;
-	float moveToY;
 
 	if (Game::keyPressed() == eKeys::Up)
 	{
@@ -101,7 +99,7 @@ void Player::Update(float & timeElapsed)
 			if(GameObjectManager::collidesWith(box) == grass)
 		_model.Move(0 , 0 - displacement);
 	}
-	else if (Game::keyPressed() == eKeys::Select)
+	else if (Game::keyTyped() == eKeys::Select)
 		dropBomb();
 	Game::_camera.LookAt(_model.GetPosition());
 }

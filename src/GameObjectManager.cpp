@@ -7,6 +7,8 @@
 #include "ObjectFactory.hpp"
 #include <glm/vec4.hpp>
 #include <Map.hpp>
+#include <memory>
+#include <game_elements/Bomb.hpp>
 
 GameObjectManager::GameObjectManager()
 {
@@ -22,15 +24,6 @@ void GameObjectManager::init()
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
-	std::cout << "=================================" << std::endl;
-	Map::printMap();
-	std::cout << "=================================" << std::endl;
-
-	for(size_t y = 0; y < _staticObjects.size(); y++) {
-		for (size_t x = 0; x < _staticObjects[0].size(); x++)
-			std::cout << (char)_staticObjects[y][x]->getType();
-		std::cout << std::endl;
-	}
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -92,10 +85,26 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 {
 	if (type == bomb)
-		_dynamicObjects->push_back(_factory.newBomb(x, y));
+	{
+		std::shared_ptr<VisibleGameObject> bomb(_factory.newBomb(x, y));
+		_dynamicObjects->push_back(bomb);
+	}
+}
+
+void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
+{
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if (bomb == (*iter).get())
+		{
+			_dynamicObjects->erase((iter));
+			return ;
+		}
+	}
 }
 
 objectTypes GameObjectManager::collidesWith(BoundingBox & box)
+
 {
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
@@ -134,6 +143,6 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 }
 
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
-std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
-std::list<VisibleGameObject *> *GameObjectManager::_grass;
+std::list<std::shared_ptr<VisibleGameObject> > * GameObjectManager::_dynamicObjects;
+std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
