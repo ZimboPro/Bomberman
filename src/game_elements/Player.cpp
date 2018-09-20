@@ -109,19 +109,27 @@ void Player::Update(float & timeElapsed)
 	float moveToX;
 	float moveToY;
 	
-
-	for (float i = 0; i < displacement; i += 0.01)
-	{
 		if (_direction == 270)
-			_model.Move(0 - 0.009, 0);
+			_model.Move(0 - displacement, 0);
 		else if (_direction == 90)
-			_model.Move(0 + 0.009, 0);
+			_model.Move(0 + displacement, 0);
 		else if (_direction == 0)
-			_model.Move(0 , 0 + 0.009);
+			_model.Move(0 , 0 + displacement);
 		else if (_direction == 180)
-			_model.Move(0 , 0 - 0.009);
+			_model.Move(0 , 0 - displacement);
 
-	}
+	// for (float i = 0; i < displacement; i += 0.01)
+	// {
+	// 	if (_direction == 270)
+	// 		_model.Move(0 - 0.009, 0);
+	// 	else if (_direction == 90)
+	// 		_model.Move(0 + 0.009, 0);
+	// 	else if (_direction == 0)
+	// 		_model.Move(0 , 0 + 0.009);
+	// 	else if (_direction == 180)
+	// 		_model.Move(0 , 0 - 0.009);
+
+	// }
 
 	if (GameObjectManager::collidesWith(box) != grass)
 	{

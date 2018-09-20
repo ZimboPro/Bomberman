@@ -21,11 +21,12 @@ public:
 	static size_t height();
 	static void printMap();
 	static void readInRandomMap(int seed);
+	static Levels	_levels;
 
 private:
 	static int _currentWorkingLevel;
 	static std::vector<std::vector<std::vector<char>>> _map;
-	static Levels	_levels;
+	// static Levels	_levels;
 };
 
 #endif //BOMBERMAN_MAP_HPP

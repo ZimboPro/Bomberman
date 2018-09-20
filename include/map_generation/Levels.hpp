@@ -31,7 +31,8 @@ class Levels {
 		std::vector<std::vector<char> >		load( void );
 		std::string							getDir( void );
 
-		void			save(std::vector<std::vector<char> > map);
+		void			fixMap(std::vector<std::vector<char> > currentMap, int enemiesKilled);
+		void			save(std::vector<std::vector<char> > map, int enemyTotal, int health, int score);
 		void			dimension(int width, int height);
 		void			difficulty( int lvl );
 		void			changeDir( std::string dir);
@@ -40,6 +41,9 @@ class Levels {
 		char			populate( void );
 
 		int				getSeed( void );
+
+		int				getScore( void );
+		int				getHealth( void );
 
 	private:
 
@@ -52,6 +56,9 @@ class Levels {
 		int				_health = 0;
 		int				_power = 0;
 		int				_lvl = 1;
+		int				_score;
+		int				_playerHealth;
+		std::vector<std::vector<char> > _lastMap;
 
 		std::string		_dir = ".";
 };

@@ -14,25 +14,38 @@
 
 Save::Save() {}
 
-Save::Save(std::vector<std::vector<char>> Save) {
+Save::Save(std::vector<std::vector<char>> Save, int health, int score)
+{
 	this->_Save = Save;
+	this->_score = score;
+	this->_health = health;
 }
 
-Save::Save(Save const & src) {
+Save::Save(Save const & src) 
+{
 	*this = src;	
 }
 
 Save::~Save() {}
 
-Save & Save::operator=(Save const & src) {
+Save & Save::operator=(Save const & src) 
+{
 	if (this != &src)
-    {
-	*this = src;
-    }
+		*this = src;
 	return (*this);
 }
 
 std::vector<std::vector<char> >		Save::getSave( void )
 {
 	return (this->_Save);
+}
+
+int			Save::getHealth( void )
+{
+	return (this->_health);
+}
+
+int			Save::getScore( void )
+{
+	return (this->_score);
 }

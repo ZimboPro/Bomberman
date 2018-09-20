@@ -21,23 +21,29 @@
 class Save {
 	private:
 		std::vector<std::vector<char>> _Save;
-		friend class boost::serialization::access;
+		int		_health = 0;
+		int		_score = 0;
 
+		friend class boost::serialization::access;
 		template<class Archive>
 			void serialize(Archive & ar, const unsigned int version)
 			{
 				(void)version;
 				ar & _Save;
+				ar & _health;
+				ar & _score;
 			}
 
 	public:
 		Save();
 		Save(Save const & src);
-		Save(std::vector<std::vector<char>> Save);
+		Save(std::vector<std::vector<char>> Save, int health, int score);
 		~Save();
 		Save & operator=(Save const & src);
 
 		std::vector<std::vector<char> >		getSave( void );
+		int			getScore( void );
+		int			getHealth( void );
 };
 
 #endif

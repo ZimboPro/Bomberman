@@ -124,13 +124,42 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 	this->_enemyTotal = enemyTotal;
 	// close file when done
 	result.erase(result.begin());
+	// save generated map
+	this->_lastMap = result;
 	return (result);
 }
 
-// save the map
-void			Levels::save(std::vector<std::vector<char>> map)
+// update current map with new map
+void			Levels::fixMap(std::vector<std::vector<char> > map, int enemiesKilled)
 {
-	const Save		temp(map);
+	for (size_t y = 0; y < this->_lastMap.size(); y++)
+	{
+		for (size_t x = 0; x < this->_lastMap.size(); x++)
+		{
+			if (this->_lastMap[y][x] == '4' || this->_lastMap[y][x] == '5')
+			{
+				if (enemiesKilled > 0)
+				{
+					this->_lastMap[y][x] == '0';
+					enemiesKilled--;
+				}
+				else
+					this->_lastMap[y][x] == this->_lastMap[y][x];
+			}
+			else if (map[y][x] == '0' && this->_lastMap[y][x] != '3')
+				this->_lastMap[y][x] == '0';
+		}
+	}
+}
+
+// save the map
+void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int health, int score)
+{
+	// update current map to current game state
+	fixMap(map, enemyTotal);
+	// setup object to save to archive
+	std::cout << "original map size : " << this->_lastMap.size() << std::endl;
+	const Save		temp(this->_lastMap, health, score);
 	// open file stream
 	std::ofstream ofs("save.data");
 	// create output archive object with stream
@@ -149,7 +178,9 @@ std::vector<std::vector<char> >			Levels::load( void )
 	boost::archive::text_iarchive		ia(ifs);
 	// load the read archive to map
 	ia >> temp;
-
+	this->_playerHealth = temp.getHealth();
+	this->_score = temp.getScore();
+	this->_lastMap = temp.getSave();
 	return (temp.getSave());
 }
 
@@ -201,4 +232,14 @@ void	Levels::dimension(int width, int height)
 int		Levels::getSeed( void )
 {
 	return (this->_seed);
+}
+
+int		Levels::getScore( void )
+{
+	return (this->_score);
+}
+
+int		Levels::getHealth( void )
+{
+	return (this->_playerHealth);
 }
