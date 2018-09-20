@@ -22,15 +22,6 @@ void GameObjectManager::init()
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
-	std::cout << "=================================" << std::endl;
-	Map::printMap();
-	std::cout << "=================================" << std::endl;
-
-	for(size_t y = 0; y < _staticObjects.size(); y++) {
-		for (size_t x = 0; x < _staticObjects[0].size(); x++)
-			std::cout << (char)_staticObjects[y][x]->getType();
-		std::cout << std::endl;
-	}
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -95,7 +86,21 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 		_dynamicObjects->push_back(_factory.newBomb(x, y));
 }
 
+void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
+{
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if (bomb == (*iter))
+		{
+			_dynamicObjects->erase((iter));
+			delete *iter;
+			return ;
+		}
+	}
+}
+
 objectTypes GameObjectManager::collidesWith(BoundingBox & box)
+
 {
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{

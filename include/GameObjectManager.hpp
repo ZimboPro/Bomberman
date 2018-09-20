@@ -24,6 +24,7 @@ public:
 	static objectTypes collidesWith(BoundingBox & box);
 	static void addDynamicObject(objectTypes type, float x, float y);
 	static bool intersects(BoundingBox obj1, BoundingBox obj2);
+	static void explodeBomb(VisibleGameObject * bomb);
 
 private:
 	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
