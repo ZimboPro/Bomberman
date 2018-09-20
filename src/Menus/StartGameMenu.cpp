@@ -89,7 +89,7 @@ void StartGameMenu::loadMenu()
 
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
-	Model_Sprite *temp = new Model_Sprite("../../Assets/buttons/start.obj");
+	Model_Sprite *temp = new Model_Sprite("../../Assets/buttons/new.obj");
 	temp->Position(-20, -20, (Game::_window.Height() << 1) / 3);
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(1, 0, 0));

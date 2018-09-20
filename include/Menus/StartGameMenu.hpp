@@ -21,10 +21,19 @@
 class StartGameMenu : public IMenu
 {
     public:
+        /**
+         * @brief Construct a new Start Game Menu object
+         * 
+         */
         StartGameMenu();
+        /**
+         * @brief Construct a new Start Game Menu object
+         * 
+         * @param src instance of StartGameMenu
+         */
         StartGameMenu(StartGameMenu const & src);
         virtual ~StartGameMenu();
-
+    
 		enum MenuResult {Start, Load, Back };
 
 		struct MenuItem
@@ -33,7 +42,13 @@ class StartGameMenu : public IMenu
                 Model_Sprite *button;
                 MenuResult action;
         };
-
+        /**
+         * @brief Displays Menu
+         * 
+         * @param shader 
+         * @param brightShader 
+         * @return int Describes option selected
+         */
 		virtual int show(Shaders & shader, Shaders & brightShader);
 
     private:

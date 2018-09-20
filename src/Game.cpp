@@ -14,6 +14,7 @@
 #include "Game.hpp"
 #include "Menus/MainMenu.hpp"
 #include "Menus/OptionsMenu.hpp"
+#include "Menus/PauseMenu.hpp"
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
@@ -72,6 +73,7 @@ void Game::gameLoop()
 			showSplashScreen();
 			break;
 		case Game::Paused:
+			showPauseMenu();
 			break;
 		case Game::ShowingMenu:
 			showMenu();
@@ -87,6 +89,18 @@ void Game::gameLoop()
 		default:
 			break;
 	}
+}
+
+void Game::showPauseMenu()
+{
+	PauseMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == PauseMenu::Quit)
+		_gameState = Game::ShowingMenu;
 }
 
 void Game::showStartGameMenu()
@@ -206,6 +220,26 @@ void Game::loadKeys()
 		_keyConfiguration[eKeys::Left] = GLFW_KEY_A;
 		_keyConfiguration[eKeys::Right] = GLFW_KEY_D;
 	}
+}
+
+void Game::loadSettings()
+{
+	switch (Game::_settings.size)
+	{
+		case s1024:
+			Game::_window.resize(1024, 768);
+			break;
+		case s1280:
+			Game::_window.resize(1280, 720);
+			break;
+		case s1920:
+			Game::_window.resize(1920, 1080);
+			break;
+	}
+	if (Game::_settings.fullscreen)
+		Game::_window.fullscreen();
+	else
+		Game::_window.windowed();
 }
 
 eKeys Game::keyPressed()

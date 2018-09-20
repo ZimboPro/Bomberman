@@ -54,14 +54,14 @@ int PauseMenu::show(Shaders & shader, Shaders & brightShader)
 				this->_menuItems[i].button->DrawScaledBy(shader, 1.1f);
 		}
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Back : static_cast<MenuResult>(this->_selected - 1);
+			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Quit : static_cast<MenuResult>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Resume : static_cast<MenuResult>(this->_selected + 1);
+			this->_selected = ((this->_selected + 1) > MenuResult::Quit) ? MenuResult::Resume : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
             if (_selected == MenuResult::Options)
                 showOptionsMenu();
-            if (_selected == MenuResult::Back || _selected == MenuResult::Resume)
+            if (_selected == MenuResult::Quit || _selected == MenuResult::Resume)
                 break;
         }
 		Game::_window.update();
@@ -85,13 +85,14 @@ void PauseMenu::loadMenu()
 {	
     MenuItem paused;
 	MenuItem resume;
+	MenuItem save;
 	MenuItem options;
 	MenuItem back;
 
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
 	Model_Sprite *temp = new Model_Sprite("../../Assets/buttons/paused.obj");
-	temp->Position(-20, -20, ((Game::_window.Height() / 5) * 4));
+	temp->Position(-20, -20, ((Game::_window.Height() / 7) * 6));
 	temp->Scale(10);
 	temp->Rotate(15, glm::vec3(1, 0, 0));
 	paused.button = temp;
@@ -100,31 +101,41 @@ void PauseMenu::loadMenu()
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
 	temp = new Model_Sprite("../../Assets/buttons/resume.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 5) * 3);
+	temp->Position(-20, -20, (Game::_window.Height() / 7) * 4);
 	temp->Scale(8);
 	temp->Rotate(15, glm::vec3(1, 0, 0));
 	resume.button = temp;
 	resume.action = MenuResult::Resume;
 
+	Game::_loadingScreen.reset();
+	Game::_loadingScreen.display();
+	temp = new Model_Sprite("../../Assets/buttons/save.obj");
+	temp->Position(-20, -20, (Game::_window.Height() / 7) * 3);
+	temp->Scale(8);
+	temp->Rotate(15, glm::vec3(1, 0, 0));
+	save.button = temp;
+	save.action = MenuResult::Save;
+
 	Game::_loadingScreen.display();
 	temp = new Model_Sprite("../../Assets/buttons/option.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 5) * 2);
+	temp->Position(-20, -20, (Game::_window.Height() / 7) * 2);
 	temp->Scale(8);
 	temp->Rotate(15, glm::vec3(0, 1, 0));
 	options.button = temp;
 	options.action = MenuResult::Options;
 
 	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../../Assets/buttons/back.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 5) * 1);
+	temp = new Model_Sprite("../../Assets/buttons/quit.obj");
+	temp->Position(-20, -20, (Game::_window.Height() / 7) * 1);
 	temp->Scale(8);
 	temp->Rotate(15, glm::vec3(0, 1, 0));
 	back.button = temp;
-	back.action = MenuResult::Back;
+	back.action = MenuResult::Quit;
 	
 	Game::_loadingScreen.display();
     this->_menuItems.push_back(paused);
 	this->_menuItems.push_back(resume);
+	this->_menuItems.push_back(save);
 	this->_menuItems.push_back(options);
 	this->_menuItems.push_back(back);
 

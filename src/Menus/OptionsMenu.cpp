@@ -57,6 +57,7 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 	}
 	moveOnScreen(shader, -((Game::_window.Width() >> 1) + 40.0f));
 	deleteMenu();
+	Game::loadSettings();
 	return static_cast<int>(this->_selected);
 }
 
@@ -110,7 +111,7 @@ void OptionsMenu::drawNotSelectedSetting(Shaders & shader)
 void OptionsMenu::changeSettings()
 {
 	if (this->_selected == Options::WindowSize)
-		Game::_settings.size = static_cast<eScreen>((Game::_settings.size + 1) % (eScreen::s800 + 1));
+		Game::_settings.size = static_cast<eScreen>((Game::_settings.size + 1) % (eScreen::s1024 + 1));
 	else if (this->_selected == Options::WindowMode)
 		Game::_settings.fullscreen = (Game::_settings.fullscreen + 1) % 2;
 	else if (this->_selected == Options::Sound)
@@ -153,7 +154,7 @@ void OptionsMenu::loadOptions()
 {
 	loadTexture("../../Assets/options_menu/1920x1080.obj");
 	loadTexture("../../Assets/options_menu/1080x720.obj");
-	loadTexture("../../Assets/options_menu/800x600.obj");
+	loadTexture("../../Assets/options_menu/1024x768.obj");
 	loadTexture("../../Assets/options_menu/off.obj");
 	loadTexture("../../Assets/options_menu/on.obj");
 	loadTexture("../../Assets/options_menu/volume_0.obj");

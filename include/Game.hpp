@@ -34,6 +34,7 @@ class Game
         static int getKeyConfigured(eKeys key);
         static bool setKeyConfigured(eKeys key, int keycode);
         static void loadKeys();
+        static void loadSettings();
         static Window _window;
         static LoadingScreen _loadingScreen;
         static eKeys keyPressed();
@@ -47,6 +48,7 @@ class Game
         static void gameLoop();
         static void showSplashScreen();
         static void showMenu();
+        static void showPauseMenu();
         static void showOptions();
         static void showStartGameMenu();
         static void playGame();
