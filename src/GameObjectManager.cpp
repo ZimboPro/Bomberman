@@ -93,7 +93,6 @@ void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
 		if (bomb == (*iter))
 		{
 			_dynamicObjects->erase((iter));
-			delete *iter;
 			return ;
 		}
 	}

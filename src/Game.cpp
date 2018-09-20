@@ -138,6 +138,7 @@ void Game::playGame()
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
 	_camera.LookAt(glm::vec3(0));
+	GameObjectManager::init();
 
 	while(_gameState == Game::Playing)
 	{
