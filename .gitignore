@@ -37,5 +37,7 @@ build/
 cmake-build-debug/
 .idea/
 
+
+.idea/workspace.xml
 .DS_Store
 ._*

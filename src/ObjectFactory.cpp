@@ -13,6 +13,7 @@
 #include "Map.hpp"
 #include "Game.hpp"
 #include "game_elements/Bomb.hpp"
+#include <string>
 
 ObjectFactory::ObjectFactory()
 {
@@ -83,21 +84,22 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 	return result;
 }
 
-std::list<VisibleGameObject *> * ObjectFactory::genGrass()
+std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genGrass()
 {
-	auto result = new std::list<VisibleGameObject *>;
+	auto result = new std::list<std::shared_ptr<VisibleGameObject>>;
 
 	for (size_t y = 0; y < Map::height(); y++)
 		for (size_t x = 0; x < Map::width(); x++)
 		{
-			result->push_back(new Grass(*_grass, x, y));
+			std::shared_ptr<VisibleGameObject> grassPtr(new Grass(*_grass, x, y));
+			result->push_back(grassPtr);
 		}
 	return result;
 }
 
-std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
+std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genDynamicAndPickUpObjects()
 {
-	auto result = new std::list<VisibleGameObject *>;
+	auto result = new std::list<std::shared_ptr<VisibleGameObject>>;
 
 	for (size_t y = 0; y < Map::height(); y++)
 		for (size_t x = 0; x < Map::width(); x++)
@@ -105,19 +107,19 @@ std::list<VisibleGameObject *> * ObjectFactory::genDynamicAndPickUpObjects()
 			switch (Map::at(x, y))
 			{
 				case player:
-					result->push_back(new Player(*_player, x, y));
+					result->push_back(std::shared_ptr<VisibleGameObject> (new Player(*_player, x, y)));
 					break;
 				case goomba:
-					result->push_back(new Goomba(*_goomba, x, y));
+					result->push_back(std::shared_ptr<VisibleGameObject> (new Goomba(*_goomba, x, y)));
 					break;
 				case koopaTroopa:
-					result->push_back(new KoopaTroopa(*_koopaTroopa, x, y));
+					result->push_back(std::shared_ptr<VisibleGameObject> (new KoopaTroopa(*_koopaTroopa, x, y)));
 					break;
 				case powerBlock:
-					result->push_back(new PowerBlock(*_powerBlock, x, y));
+					result->push_back(std::shared_ptr<VisibleGameObject> (new PowerBlock(*_powerBlock, x, y)));
 					break;
 				case healthBlock:
-					result->push_back(new HealthBlock(*_healthBlock, x, y));
+					result->push_back(std::shared_ptr<VisibleGameObject> (new HealthBlock(*_healthBlock, x, y)));
 					break;
 				default:
 					break;

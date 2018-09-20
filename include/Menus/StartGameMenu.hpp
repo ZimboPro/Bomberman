@@ -16,7 +16,7 @@
 #include <Model_Sprite.hpp>
 #include <Model_Texture.hpp>
 #include <vector>
-#include "IMenu.hpp"
+#include "Menus/IMenu.hpp"
 
 class StartGameMenu : public IMenu
 {
