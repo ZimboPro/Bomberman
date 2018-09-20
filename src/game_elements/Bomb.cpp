@@ -17,7 +17,6 @@ Bomb::Bomb(Model_Texture & texture, float x, float y): VisibleGameObject(texture
 
 Bomb::~Bomb()
 {
-	std::cout << "Bomb destructor called" << std::endl;
 }
 
 
@@ -28,6 +27,5 @@ void Bomb::Update(float & timeElapsed)
 	else
 	{
 		GameObjectManager::explodeBomb(this);
-		std::cout << "bomb exploded" << std::endl;
 	}
 }

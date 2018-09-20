@@ -14,6 +14,7 @@
 #include "Game.hpp"
 #include "game_elements/Bomb.hpp"
 #include <string>
+#include <game_elements/Fire.hpp>
 
 ObjectFactory::~ObjectFactory()
 {
@@ -50,6 +51,18 @@ VisibleGameObject * ObjectFactory::newBomb(float x, float y)
 	return new Bomb(*_bomb, x, y);
 }
 
+VisibleGameObject * ObjectFactory::newVGO(objectTypes type, float x, float y)
+{
+	switch (type)
+	{
+		case fire:
+			return new Fire(*_fire, x, y);
+		case bomb:
+			return new(*_bomb, x, y);
+		default:
+			return NULL;
+	}
+}
 
 std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 {

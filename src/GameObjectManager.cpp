@@ -84,18 +84,46 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 
 void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 {
-	if (type == bomb)
-	{
-		std::shared_ptr<VisibleGameObject> bomb(_factory.newBomb(x, y));
-		_dynamicObjects->push_back(bomb);
-	}
+	std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
+	_dynamicObjects->push_back(obj);
 }
 
 void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
 {
+	float burnRange = 2;
+
+	float bombX = bomb->getPosition().x;
+	float bombY = bomb->getPosition().z;
+
+	float startX = ((bombX - burnRange >= 0) ? bombX - burnRange : 0);
+	float startY = ((bombY - burnRange >= 0) ? bombY - burnRange : 0);
+	float endX = ((bombX + burnRange < static_cast<float>(_staticObjects[0].size())) ? bombX + burnRange : static_cast<float>(_staticObjects[0].size()));
+	float endY = ((bombY + burnRange < static_cast<float>(_staticObjects.size())) ? bombY + burnRange : static_cast<float>(_staticObjects.size()));
+
+	for (float y = startY; y < endY; y++)
+		addDynamicObject(fire, bombX, y);
+
+	for(float x = startX; x < endX; x++)
+	{
+		if (x != bombX)
+			addDynamicObject(fire, x, bombY);
+	}
+
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
 		if (bomb == (*iter).get())
+		{
+			_dynamicObjects->erase((iter));
+			return ;
+		}
+	}
+}
+
+void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
+{
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if (obj == (*iter).get())
 		{
 			_dynamicObjects->erase((iter));
 			return ;
