@@ -167,36 +167,36 @@ void Game::save()
 	std::vector<std::vector<char> > saveMap(height, std::vector<char>(width, '0'));
 	std::vector<std::vector<char> > loadedMap;
 
-	std::cout << "======================================================\n";
+	std::cout << "====================Saved Map===========================\n";
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
 			if (Map::at(x, y) == '1' || Map::at(x, y) == '2')
 			{
-				saveMap[y][x] = Map::at(x, y);
+				saveMap[y][x] = '1';
 			}
 			std::cout << saveMap[y][x];
 		}
 		std::cout << '\n';
 	}
 	std::cout << "======================================================\n";
-	std::cout << "Saving\n";
+	// std::cout << "Saving\n";
 	lvl.save(saveMap);
-	loadedMap = lvl.load();
+	// loadedMap = lvl.load();
 
-	std::cout << "loaded\n";
-		std::cout << "======================================================\n";
+	// std::cout << "loaded\n";
+	// 	std::cout << "======================================================\n";
 
-	for (int i = 0; i < loadedMap.size(); i++)
-	{
-		for (int j = 0; j < loadedMap[i].size(); j++)
-		{
-			std::cout << loadedMap[i][j];
-		}
-		std::cout << '\n';
-	}
-		std::cout << "======================================================\n";
+	// for (int i = 0; i < loadedMap.size(); i++)
+	// {
+	// 	for (int j = 0; j < loadedMap[i].size(); j++)
+	// 	{
+	// 		std::cout << loadedMap[i][j];
+	// 	}
+	// 	std::cout << '\n';
+	// }
+	// 	std::cout << "======================================================\n";
 
 }
 

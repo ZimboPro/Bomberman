@@ -22,8 +22,7 @@ Player::Player(): _speed(0), _maxVelocity(600.0f)
 
 Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
-	_model.Rotate(270);
-	_direction = 270;
+	
 }
 
 Player::~Player() {}
@@ -126,7 +125,7 @@ void Player::Update(float & timeElapsed)
 
 	if (GameObjectManager::collidesWith(box) != grass)
 	{
-		std::cout << "Direction: " << _direction << std::endl;
+		// std::cout << "Direction: " << _direction << std::endl;
 		if (_direction == 270)
 			_model.Rotate(90);
 		else if (_direction == 90)
