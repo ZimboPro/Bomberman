@@ -6,7 +6,7 @@
 #include "Error.hpp"
 #include "SFMLSoundProvider.hpp"
 
-SFMLSoundProvider::SFMLSoundProvider(): _currentSongName("")
+SFMLSoundProvider::SFMLSoundProvider(): _currentSongName(""), _level(100)
 {
 }
 
@@ -14,6 +14,12 @@ SFMLSoundProvider::SFMLSoundProvider(SFMLSoundProvider const & src)
 {
 	*this = src;
 }
+
+void SFMLSoundProvider::setSoundLevel(float level)
+{
+	_level = level;
+}
+
 
 SFMLSoundProvider::~SFMLSoundProvider() {}
 
@@ -34,7 +40,7 @@ void SFMLSoundProvider::playSound(std::string fileName)
 		try
 		{
 			_currentSounds[availChannel] = _soundFileCache.getSound(fileName);
-			_currentSounds[availChannel].setVolume(100);
+			_currentSounds[availChannel].setVolume(_level);
 			_currentSounds[availChannel].play();
 		}
 		catch (std::exception & e)
