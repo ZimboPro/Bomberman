@@ -82,12 +82,15 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genGrass()
 {
 	auto result = new std::list<std::shared_ptr<VisibleGameObject>>;
+//	std::shared_ptr<std::list<std::shared_ptr<VisibleGameObject>>> result;
 
 	for (size_t y = 0; y < Map::height(); y++)
 		for (size_t x = 0; x < Map::width(); x++)
 		{
-			VisibleGameObject *grass = new Grass(*_grass, x, y);
-			result->push_back(grass);
+			VisibleGameObject * grass = new Grass(*_grass, x, y);
+			std::shared_ptr<VisibleGameObject> grassPtr(grass);
+//			result->push_back(new Grass(*_grass, x, y));
+			result->push_back(grassPtr);
 //			result->push_back()
 		}
 	return result;

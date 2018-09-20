@@ -140,5 +140,5 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
 std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
-std::list<std::shared_ptr<VisibleGameObject>> *GameObjectManager::_grass;
+std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
