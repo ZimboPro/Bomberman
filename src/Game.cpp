@@ -40,6 +40,7 @@ void Game::start()
 
 	// GameObjectManager::init();
 	_loadingScreen.loadModels();
+	_interface.loadObjects();
 
 	_gameState = Game::ShowingMenu;
 
@@ -52,7 +53,7 @@ void Game::start()
 	{
 		gameLoop();
 	}
-
+	_interface.deleteObjects();
 	_window.close();
 }
 
@@ -164,9 +165,9 @@ void Game::playGame()
 
 	_camera.LookAt(glm::vec3(0));
 
-	GameInterface _interface;
 	_interface.resetHOD();
 	_interface.resetTime(70);
+	_interface.resetPostions();
 
 	while(_gameState == Game::Playing)
 	{
