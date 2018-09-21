@@ -49,6 +49,7 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 	_models.emplace_back(new Model_Sprite(*textures[1]));
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[2]));
+	_type = player;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
