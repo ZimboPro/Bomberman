@@ -21,7 +21,6 @@ public:
 	static void drawAll(Shaders & shader);
 	static void updateAll(float elapsedTime);
 	static void init();
-	static void clearLevel();
 //	static objectTypes collidesWith(VisibleGameObject & type, int x, int y);
 	static objectTypes collidesWith(BoundingBox & box, objectTypes type);
 	static void addDynamicObject(objectTypes type, float x, float y);

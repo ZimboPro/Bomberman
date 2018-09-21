@@ -84,16 +84,16 @@ void Goomba::RandomDirection()
 
 			std::vector<int> dir;
 			//left
-			if (GameObjectManager::collidesWith(boxLeft) != unbreakableBlocks && GameObjectManager::collidesWith(boxLeft) != breakableBlocks)
+			if (GameObjectManager::collidesWith(boxLeft, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxLeft, _type) != breakableBlocks)
 				dir.push_back(3);
 			//right
-			if (GameObjectManager::collidesWith(boxRight) != unbreakableBlocks && GameObjectManager::collidesWith(boxRight) != breakableBlocks)
+			if (GameObjectManager::collidesWith(boxRight, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxRight, _type) != breakableBlocks)
 				dir.push_back(4);
 			//up
-			if (GameObjectManager::collidesWith(boxUp) != unbreakableBlocks && GameObjectManager::collidesWith(boxUp) != breakableBlocks)
+			if (GameObjectManager::collidesWith(boxUp, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxUp, _type) != breakableBlocks)
 				dir.push_back(1);
 			//down
-			if (GameObjectManager::collidesWith(boxDown) != unbreakableBlocks && GameObjectManager::collidesWith(boxDown) != breakableBlocks)
+			if (GameObjectManager::collidesWith(boxDown, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxDown, _type) != breakableBlocks)
 				dir.push_back(2);
 			if (dir.size() > 2)
 			{
@@ -131,9 +131,9 @@ void Goomba::Update(float & timeElapsed)
 			}
 			box.x1 -= displacement;
 			box.x2 -= displacement;
-			if(GameObjectManager::collidesWith(box) == grass)
+			if(GameObjectManager::collidesWith(box, _type) == grass)
 				_model.Move(0 - displacement, 0);
-			if (GameObjectManager::collidesWith(box) == unbreakableBlocks || GameObjectManager::collidesWith(box) == breakableBlocks)
+			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
 				{
@@ -163,9 +163,9 @@ void Goomba::Update(float & timeElapsed)
 			}
 			box.x1 += displacement + 0.2;
 			box.x2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box) == grass)
+			if(GameObjectManager::collidesWith(box, _type) == grass)
 				_model.Move(0 + displacement, 0);
-			if (GameObjectManager::collidesWith(box) == unbreakableBlocks || GameObjectManager::collidesWith(box) == breakableBlocks)
+			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
 				{
@@ -194,9 +194,9 @@ void Goomba::Update(float & timeElapsed)
 			}
 			box.y1 += displacement + 0.2;
 			box.y2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box) == grass)
+			if(GameObjectManager::collidesWith(box, _type) == grass)
 				_model.Move(0 , 0 + displacement);
-			if (GameObjectManager::collidesWith(box) == unbreakableBlocks || GameObjectManager::collidesWith(box) == breakableBlocks)
+			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
 				{
@@ -225,9 +225,9 @@ void Goomba::Update(float & timeElapsed)
 			}
 			box.y1 -= displacement;
 			box.y2 -= displacement;
-			if(GameObjectManager::collidesWith(box) == grass)
+			if(GameObjectManager::collidesWith(box, _type) == grass)
 				_model.Move(0 , 0 - displacement);
-			if (GameObjectManager::collidesWith(box) == unbreakableBlocks || GameObjectManager::collidesWith(box) == breakableBlocks)
+			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
 				{
