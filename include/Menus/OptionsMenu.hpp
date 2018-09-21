@@ -36,6 +36,7 @@ class OptionsMenu : public IMenu
         void drawSelectedSetting(Shaders & shader);
         void drawNotSelectedSetting(Shaders & shader);
         void setGroupPositions(int groupIndex, int heightIndex);
+        void showKeyBindMenu();
 
         std::vector<OptionsAction> _action;
         Options _selected;

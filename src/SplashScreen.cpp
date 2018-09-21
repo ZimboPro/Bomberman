@@ -14,6 +14,11 @@
 SplashScreen::SplashScreen()
 {}
 
+SplashScreen::SplashScreen(SplashScreen const & src)
+{
+	*this = src;
+}
+
 SplashScreen::~SplashScreen()
 {}
 

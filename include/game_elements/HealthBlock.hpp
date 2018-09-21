@@ -9,8 +9,9 @@
 
 class HealthBlock: public VisibleGameObject {
 public:
-	~HealthBlock();
 	HealthBlock();
+	HealthBlock(HealthBlock const & src);
+	~HealthBlock();
 
 	HealthBlock(Model_Texture & texture, float x, float y);
 

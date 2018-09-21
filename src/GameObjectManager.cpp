@@ -7,9 +7,14 @@
 #include "ObjectFactory.hpp"
 #include <glm/vec4.hpp>
 #include <Map.hpp>
+#include <memory>
+#include <game_elements/Bomb.hpp>
 
-GameObjectManager::GameObjectManager()
+GameObjectManager::GameObjectManager() {}
+
+GameObjectManager::GameObjectManager(GameObjectManager const & src) 
 {
+	*this = src;
 }
 
 GameObjectManager::~GameObjectManager()
@@ -22,15 +27,6 @@ void GameObjectManager::init()
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
-	std::cout << "=================================" << std::endl;
-	Map::printMap();
-	std::cout << "=================================" << std::endl;
-
-	for(size_t y = 0; y < _staticObjects.size(); y++) {
-		for (size_t x = 0; x < _staticObjects[0].size(); x++)
-			std::cout << (char)_staticObjects[y][x]->getType();
-		std::cout << std::endl;
-	}
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -89,33 +85,78 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 	return false;
 }
 
-objectTypes GameObjectManager::collidesWith(BoundingBox & box)
+void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 {
-	std::cout << box.x1 << " " << box.x2  << " "<< box.y1  << " "<< box.y2  << " "<< std::endl;
+	std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
+	_dynamicObjects->push_back(obj);
+}
+
+void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
+{
+	float burnRange = 2;
+
+	float bombX = bomb->getPosition().x;
+	float bombY = bomb->getPosition().z;
+
+	float startX = ((bombX - burnRange >= 0) ? bombX - burnRange : 0);
+	float startY = ((bombY - burnRange >= 0) ? bombY - burnRange : 0);
+	float endX = ((bombX + burnRange < static_cast<float>(_staticObjects[0].size())) ? bombX + burnRange : static_cast<float>(_staticObjects[0].size()));
+	float endY = ((bombY + burnRange < static_cast<float>(_staticObjects.size())) ? bombY + burnRange : static_cast<float>(_staticObjects.size()));
+
+	for (float y = startY; y < endY; y++)
+		addDynamicObject(fire, bombX, y);
+
+	for(float x = startX; x < endX; x++)
+	{
+		if (x != bombX)
+			addDynamicObject(fire, x, bombY);
+	}
+
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if (bomb == (*iter).get())
+		{
+			_dynamicObjects->erase((iter));
+			return ;
+		}
+	}
+}
+
+void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
+{
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if (obj == (*iter).get())
+		{
+			_dynamicObjects->erase((iter));
+			return ;
+		}
+	}
+}
+
+objectTypes GameObjectManager::collidesWith(BoundingBox & box)
+
+{
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
-		std::cout << "Found Static Object1" << std::endl;
 		if (_staticObjects[box.y1][box.x1]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y1][box.x2]->isLoaded())
 	{
-		std::cout << "Found Static Object2" << std::endl;
 		if (_staticObjects[box.y2][box.x2]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y2][box.x1]->isLoaded())
 	{
-		std::cout << "Found Static Object3" << std::endl;
 		if (_staticObjects[box.y2][box.x1]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
 	}
 	else if (_staticObjects[box.y2][box.x2]->isLoaded())
 	{
-		std::cout << "Found Static Object4" << std::endl;
 		if (_staticObjects[box.y2][box.x2]->isBreakable())
 			return objectTypes::breakableBlocks;
 		return objectTypes::unbreakableBlocks;
@@ -133,6 +174,6 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 }
 
 std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
-std::list<VisibleGameObject *> *GameObjectManager::_dynamicObjects;
-std::list<VisibleGameObject *> *GameObjectManager::_grass;
+std::list<std::shared_ptr<VisibleGameObject> > * GameObjectManager::_dynamicObjects;
+std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;

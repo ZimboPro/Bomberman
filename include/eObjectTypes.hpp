@@ -14,7 +14,9 @@ enum objectTypes
 	goomba = '4',
 	koopaTroopa = '5',
 	powerBlock = '6',
-	healthBlock = '7'
+	healthBlock = '7',
+	bomb = '8',
+	fire = '9'
 };
 
 #endif //BOMBERMAN_EOBJECTTYPES_HPP

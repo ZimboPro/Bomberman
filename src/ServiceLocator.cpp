@@ -4,6 +4,15 @@
 
 #include "ServiceLocator.hpp"
 
+ServiceLocator::ServiceLocator() {}
+
+ServiceLocator::ServiceLocator(ServiceLocator const & src) 
+{
+	*this = src;
+}
+
+ServiceLocator::~ServiceLocator() {}
+
 IAudioProvider * ServiceLocator::getAudio()
 {
 	return _audioProvider;

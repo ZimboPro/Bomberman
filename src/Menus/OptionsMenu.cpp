@@ -1,8 +1,9 @@
 #include <Shaders.hpp>
 #include <Juicy.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "OptionsMenu.hpp"
+#include "Menus/OptionsMenu.hpp"
 #include "Game.hpp"
+#include "Menus/KeyBindMenu.hpp"
 
 OptionsMenu::OptionsMenu()
 {
@@ -34,15 +35,18 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 		}
 		drawSelectedSetting(brightShader);
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? Options::WindowSize : static_cast<Options>(this->_selected - 1);
+			this->_selected = ((this->_selected - 1) < 0) ? Options::Back : static_cast<Options>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::Back : static_cast<Options>(this->_selected + 1);
+			this->_selected = ((this->_selected + 1) > Options::Back) ? Options::WindowSize : static_cast<Options>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
-			if (this->_selected == Options::Back || this->_selected == Options::Keys)
+			if (this->_selected == Options::Keys) 
+			{
+				showKeyBindMenu();
+			}				
+			if (this->_selected == Options::Back)
 				break;
-			else
-				changeSettings();
+			changeSettings();			
 		}
 		if (Game::keyTyped() == eKeys::Escape)
 		{
@@ -53,7 +57,18 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 	}
 	moveOnScreen(shader, -((Game::_window.Width() >> 1) + 40.0f));
 	deleteMenu();
+	Game::loadSettings();
 	return static_cast<int>(this->_selected);
+}
+
+void OptionsMenu::showKeyBindMenu()
+{
+	KeyBindMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
 }
 
 void OptionsMenu::drawSettings(Shaders & shader)
@@ -96,7 +111,7 @@ void OptionsMenu::drawNotSelectedSetting(Shaders & shader)
 void OptionsMenu::changeSettings()
 {
 	if (this->_selected == Options::WindowSize)
-		Game::_settings.size = static_cast<eScreen>((Game::_settings.size + 1) % (eScreen::s800 + 1));
+		Game::_settings.size = static_cast<eScreen>((Game::_settings.size + 1) % (eScreen::s1024 + 1));
 	else if (this->_selected == Options::WindowMode)
 		Game::_settings.fullscreen = (Game::_settings.fullscreen + 1) % 2;
 	else if (this->_selected == Options::Sound)
@@ -139,7 +154,7 @@ void OptionsMenu::loadOptions()
 {
 	loadTexture("../../Assets/options_menu/1920x1080.obj");
 	loadTexture("../../Assets/options_menu/1080x720.obj");
-	loadTexture("../../Assets/options_menu/800x600.obj");
+	loadTexture("../../Assets/options_menu/1024x768.obj");
 	loadTexture("../../Assets/options_menu/off.obj");
 	loadTexture("../../Assets/options_menu/on.obj");
 	loadTexture("../../Assets/options_menu/volume_0.obj");
