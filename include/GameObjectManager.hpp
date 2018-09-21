@@ -25,11 +25,14 @@ public:
 	static void addDynamicObject(objectTypes type, float x, float y);
 	static void explodeBomb(VisibleGameObject * bomb);
 	static void removeDynamicObject(VisibleGameObject * obj);
+	static void newLevel();
 
 private:
+	static void clearLevel();
+	static void initLevel();
 	static bool intersects(BoundingBox obj1, BoundingBox obj2);
 	static void spawnFire(VisibleGameObject *bomb);
-	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
+	static std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> _staticObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> *_dynamicObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> * _grass;
 	static ObjectFactory _factory;

@@ -16,7 +16,7 @@ public:
 	ObjectFactory();
 	ObjectFactory(ObjectFactory const & src);
 	~ObjectFactory();
-	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
+	std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> genStaticObjects();
 	std::list<std::shared_ptr<VisibleGameObject>> * genDynamicAndPickUpObjects();
 	std::list<std::shared_ptr<VisibleGameObject>> * genGrass();
 	VisibleGameObject * newBomb(float x, float y);

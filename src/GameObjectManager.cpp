@@ -62,6 +62,17 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
+void GameObjectManager::clearLevel()
+{}
+void GameObjectManager::initLevel()
+{}
+
+void GameObjectManager::newLevel()
+{
+	clearLevel(); // empty the data structures: _DynamicObjetcs, _Grass and _static Objetcs
+	initLevel(); // makes call to factory to init the datastructures with fresh objects
+}
+
 bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 {
 	float x1 = obj1.x1;
@@ -181,7 +192,7 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 	return grass;
 }
 
-std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
+std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> GameObjectManager::_staticObjects;
 std::list<std::shared_ptr<VisibleGameObject> > * GameObjectManager::_dynamicObjects;
 std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
