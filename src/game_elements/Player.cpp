@@ -34,6 +34,7 @@ Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), Visible
 	_totalElapsed = 0.0f;
 	_prevIndex = 0;
 	_index = 0;
+	_type = player;
 }
 
 Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _speed(3.0f)

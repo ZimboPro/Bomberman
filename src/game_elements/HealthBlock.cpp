@@ -19,6 +19,7 @@ HealthBlock::HealthBlock(HealthBlock const & src)
 
 HealthBlock::HealthBlock(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
+	_type = healthBlock;
 }
 
 HealthBlock::~HealthBlock() {}
