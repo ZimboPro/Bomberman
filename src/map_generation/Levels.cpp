@@ -40,7 +40,7 @@ char	Levels::populate( void )
 		if (random >= 80 && random <= 85 && this->_gate == false)
 		{
 			this->_gate = true;
-			return ('8');
+			return ('G');
 		}
 		if (rand() % 100 < 5)
 		{

@@ -185,7 +185,6 @@ void Game::playGame()
 
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
-<<<<<<< HEAD
 		// if (keyTyped() == eKeys::Up)
 		// 	_interface.adjustLives(1);
 		// if (keyTyped() == eKeys::Down)
@@ -194,29 +193,6 @@ void Game::playGame()
 		// 	_interface.adjustScore(10);
 		// if (keyTyped() == eKeys::Left)
 		// 	_interface.adjustScore(-5);
-=======
-		if (keyTyped() == eKeys::Up)
-			GameObjectManager::newLevel(1);
-		if (keyTyped() == eKeys::Down)
-			GameObjectManager::newLevel(0);
-//		if (keyTyped() == eKeys::Right)
-//			_interface.adjustScore(10);
-//		if (keyTyped() == eKeys::Left)
-//			_interface.adjustScore(-5);
-
-		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
-		{
-			std::cout << "Q is pressed to save game\n";
-			save();
-			_gameState = Game::Exiting;
-		}
-		if (_window.isKeyPressed(getKeyConfigured(eKeys::Load)))
-		{
-			std::cout << "W is pressed to load game\n";
-			load();
-			_gameState = Game::Exiting;
-		}
->>>>>>> master
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
 			_gameState = Game::Exiting;
