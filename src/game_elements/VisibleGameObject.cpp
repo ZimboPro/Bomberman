@@ -26,6 +26,15 @@ VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, 
 BoundingBox VisibleGameObject::getBoundingBox()
 {}
 
+void VisibleGameObject::setDirection(float direction)
+{
+	if (_direction != direction)
+	{
+		_model.Rotate(direction);
+		_direction = direction;
+	}
+}
+
 void VisibleGameObject::setScale(float scale)
 {
 	_model.Scale(scale);

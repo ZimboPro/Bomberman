@@ -33,6 +33,7 @@ private:
 	static std::list<std::shared_ptr<VisibleGameObject>> *_dynamicObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> * _grass;
 	static ObjectFactory _factory;
+	static bool _initialized;
 
 };
 

@@ -65,7 +65,7 @@ VisibleGameObject * ObjectFactory::newVGO(objectTypes type, float x, float y)
 		case fire:
 			return new Fire(*_fire, x, y);
 		case bomb:
-			return new Bomb(*_bomb, x, y);
+			return new Bomb(*_bomb, round(x), round(y));
 		default:
 			return NULL;
 	}

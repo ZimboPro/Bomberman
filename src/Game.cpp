@@ -38,7 +38,6 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	// GameObjectManager::init();
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
 
@@ -158,6 +157,7 @@ void Game::showOptions()
 
 void Game::playGame()
 {
+	GameObjectManager::init();
 	sf::Clock clock;
 
 	Shaders shader("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
@@ -175,11 +175,11 @@ void Game::playGame()
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
-		// GameObjectManager::drawAll(shader);
+		GameObjectManager::drawAll(shader);
 		_interface.display();
 		_window.update();
 
-		// GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
+		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 		if (keyTyped() == eKeys::Up)
 			_interface.adjustLives(1);

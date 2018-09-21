@@ -9,6 +9,7 @@
 #include <Map.hpp>
 #include <memory>
 #include <game_elements/Bomb.hpp>
+#include <Error.hpp>
 
 GameObjectManager::GameObjectManager() {}
 
@@ -27,10 +28,13 @@ void GameObjectManager::init()
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
+	_initialized = true;
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
 {
+	if (!_initialized)
+		throw Error::AssetError("Models not initialized");
 	for(size_t y = 0; y < _staticObjects.size(); y++)
 		for (size_t x = 0; x < _staticObjects[y].size(); x++)
 		{
@@ -50,6 +54,8 @@ void GameObjectManager::drawAll(Shaders & shader)
 
 void GameObjectManager::updateAll(float elapsedTime)
 {
+	if (!_initialized)
+		throw Error::AssetError("Models not initialized");
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
 		(*iter)->Update(elapsedTime);
@@ -181,3 +187,4 @@ std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
 std::list<std::shared_ptr<VisibleGameObject> > * GameObjectManager::_dynamicObjects;
 std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
+bool GameObjectManager::_initialized = false;
