@@ -91,7 +91,7 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 	_dynamicObjects->push_back(obj);
 }
 
-void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
+void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 {
 	float burnRange = 2;
 
@@ -103,15 +103,19 @@ void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
 	float endX = ((bombX + burnRange < static_cast<float>(_staticObjects[0].size())) ? bombX + burnRange : static_cast<float>(_staticObjects[0].size()));
 	float endY = ((bombY + burnRange < static_cast<float>(_staticObjects.size())) ? bombY + burnRange : static_cast<float>(_staticObjects.size()));
 
-	for (float y = startY; y < endY; y++)
+	for(float y = startY; y <= endY; y++)
 		addDynamicObject(fire, bombX, y);
 
-	for(float x = startX; x < endX; x++)
+	for(float x = startX; x <= endX; x++)
 	{
 		if (x != bombX)
 			addDynamicObject(fire, x, bombY);
 	}
+}
 
+void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
+{
+	spawnFire(bomb);
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
 		if (bomb == (*iter).get())

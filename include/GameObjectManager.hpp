@@ -28,6 +28,7 @@ public:
 	static void removeDynamicObject(VisibleGameObject * obj);
 
 private:
+	static void spawnFire(VisibleGameObject *bomb);
 	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> *_dynamicObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> * _grass;
