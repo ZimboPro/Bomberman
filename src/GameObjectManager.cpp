@@ -131,7 +131,6 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 	float y2 = obj2.y1;
 	float maxY2 = obj2.y2;
 
-	std::cout << x2 << std::endl;
 	if (x2 >= x1 && x2 <= maxX1 && y2 >= y1 && y2 <= maxY1)
 		return true;
 

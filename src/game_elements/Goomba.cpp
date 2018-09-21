@@ -60,40 +60,40 @@ void Goomba::RandomDirection()
 	// if (fmod(temp.x + shift, 1.64) > 0.8f && fmod(temp.x + shift, 1.64) < 0.84f &&
 	// 	fmod(temp.z + shift, 1.64) > 0.8f && fmod(temp.z + shift, 1.64) > 0.84f)
 	// {
-		if (glfwGetTime() - _time > 1)
-		{
-			BoundingBox boxLeft = this->getBoundingBox();
-			BoundingBox boxRight = this->getBoundingBox();
-			BoundingBox boxUp = this->getBoundingBox();
-			BoundingBox boxDown = this->getBoundingBox();
-			ShiftBox(boxLeft, - ( 2 * 0.6f), 0.0f);
-			ShiftBox(boxRight,( 2 * 0.6f), 0.0f);
-			ShiftBox(boxUp, 0.0f, - ( 2 * 0.6f));
-			ShiftBox(boxDown, 0.0f, ( 2 * 0.6f));
+	if (glfwGetTime() - _time > 1)
+	{
+		BoundingBox boxLeft = this->getBoundingBox();
+		BoundingBox boxRight = this->getBoundingBox();
+		BoundingBox boxUp = this->getBoundingBox();
+		BoundingBox boxDown = this->getBoundingBox();
+		ShiftBox(boxLeft, - ( 2 * 0.6f), 0.0f);
+		ShiftBox(boxRight,( 2 * 0.6f), 0.0f);
+		ShiftBox(boxUp, 0.0f, - ( 2 * 0.6f));
+		ShiftBox(boxDown, 0.0f, ( 2 * 0.6f));
 
-			std::vector<int> dir;
-			//left
-			if (GameObjectManager::collidesWith(boxLeft, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxLeft, _type) != breakableBlocks)
-				dir.push_back(3);
-			//right
-			if (GameObjectManager::collidesWith(boxRight, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxRight, _type) != breakableBlocks)
-				dir.push_back(4);
-			//up
-			if (GameObjectManager::collidesWith(boxUp, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxUp, _type) != breakableBlocks)
-				dir.push_back(1);
-			//down
-			if (GameObjectManager::collidesWith(boxDown, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxDown, _type) != breakableBlocks)
-				dir.push_back(2);
-			if (dir.size() > 2)
-			{
-				int index = rand() % (100 * dir.size());
-				_directionGen = dir[index / 100];
-				// std::cout << dir.size() << " " << x << " " << y << std::endl;
-				_time = glfwGetTime();
-			}
-		}
-		// if (dir.size() > 2)
+		std::vector<int> dir;
+		//left
+		if (GameObjectManager::collidesWith(boxLeft, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxLeft, _type) != breakableBlocks)
+			dir.push_back(3);
+		//right
+		if (GameObjectManager::collidesWith(boxRight, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxRight, _type) != breakableBlocks)
+			dir.push_back(4);
+		//up
+		if (GameObjectManager::collidesWith(boxUp, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxUp, _type) != breakableBlocks)
+			dir.push_back(1);
+		//down
+		if (GameObjectManager::collidesWith(boxDown, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxDown, _type) != breakableBlocks)
+			dir.push_back(2);
+		if (dir.size() > 2)
+		{
+			int index = rand() % (100 * dir.size());
+			_directionGen = dir[index / 100];
 			// std::cout << dir.size() << " " << x << " " << y << std::endl;
+			_time = glfwGetTime();
+		}
+	}
+	// if (dir.size() > 2)
+	// std::cout << dir.size() << " " << x << " " << y << std::endl;
 	// }
 }
 
@@ -103,142 +103,136 @@ void Goomba::Update(float & timeElapsed)
 	glm::vec3 pos = _model.GetPosition();
 	BoundingBox box = this->getBoundingBox();
 	int newDir;
-	// float moveToX;
-	// float moveToY;
-	
-	// Delay();
 
-	// for (int i = 0; i < 10; i++)
-	// {
-		RandomDirection();
-		if (_directionGen == 1)
+	RandomDirection();
+	if (_directionGen == 1)
+	{
+		if (_direction != 270)
 		{
-			if (_direction != 270)
+			_model.Rotate(270);
+			_direction = 270;
+		}
+		box.x1 -= displacement;
+		box.x2 -= displacement;
+		if(GameObjectManager::collidesWith(box, _type) == grass)
+			_model.Move(0 - displacement, 0);
+		if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+		{
+			if (_directionGen == 1 || _directionGen == 2)
 			{
-				_model.Rotate(270);
-				_direction = 270;
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 3;
+				else
+					_directionGen = 4;
 			}
-			box.x1 -= displacement;
-			box.x2 -= displacement;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				_model.Move(0 - displacement, 0);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+			else if (_directionGen == 3 || _directionGen == 4)
 			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4; 
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2; 
-				}
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 1;
+				else
+					_directionGen = 2;
 			}
+		}
 
-		}
-		else if (_directionGen == 2)
+	}
+	else if (_directionGen == 2)
+	{
+		if (_direction != 90)
 		{
-			if (_direction != 90) 
-			{
-				_model.Rotate(90);
-				_direction = 90;
-			}
-			box.x1 += displacement + 0.2;
-			box.x2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				_model.Move(0 + displacement, 0);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
-			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4; 
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2; 
-				}
-			}
+			_model.Rotate(90);
+			_direction = 90;
 		}
-		else if (_directionGen == 3)
+		box.x1 += displacement + 0.2;
+		box.x2 += displacement + 0.2;
+		if(GameObjectManager::collidesWith(box, _type) == grass)
+			_model.Move(0 + displacement, 0);
+		if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 		{
-			if (_direction != 0) 
+			if (_directionGen == 1 || _directionGen == 2)
 			{
-				_model.Rotate(0);
-				_direction = 0;
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 3;
+				else
+					_directionGen = 4;
 			}
-			box.y1 += displacement + 0.2;
-			box.y2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				_model.Move(0 , 0 + displacement);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+			else if (_directionGen == 3 || _directionGen == 4)
 			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4; 
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2; 
-				}
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 1;
+				else
+					_directionGen = 2;
 			}
 		}
-		else if (_directionGen == 4)
+	}
+	else if (_directionGen == 3)
+	{
+		if (_direction != 0)
 		{
-			if (_direction != 180) 
+			_model.Rotate(0);
+			_direction = 0;
+		}
+		box.y1 += displacement + 0.2;
+		box.y2 += displacement + 0.2;
+		if(GameObjectManager::collidesWith(box, _type) == grass)
+			_model.Move(0 , 0 + displacement);
+		if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+		{
+			if (_directionGen == 1 || _directionGen == 2)
 			{
-				_model.Rotate(180);
-				_direction = 180;
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 3;
+				else
+					_directionGen = 4;
 			}
-			box.y1 -= displacement;
-			box.y2 -= displacement;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				_model.Move(0 , 0 - displacement);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+			else if (_directionGen == 3 || _directionGen == 4)
 			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4; 
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2; 
-				}
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 1;
+				else
+					_directionGen = 2;
 			}
+		}
+	}
+	else if (_directionGen == 4)
+	{
+		if (_direction != 180)
+		{
+			_model.Rotate(180);
+			_direction = 180;
 		}
 		box.y1 -= displacement;
 		box.y2 -= displacement;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
 			_model.Move(0 , 0 - displacement);
+		if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+		{
+			if (_directionGen == 1 || _directionGen == 2)
+			{
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 3;
+				else
+					_directionGen = 4;
+			}
+			else if (_directionGen == 3 || _directionGen == 4)
+			{
+				newDir = rand() % 2 + 1;
+				if (newDir == 1)
+					_directionGen = 1;
+				else
+					_directionGen = 2;
+			}
+		}
 	}
+	box.y1 -= displacement;
+	box.y2 -= displacement;
+	if(GameObjectManager::collidesWith(box, _type) == grass)
+		_model.Move(0 , 0 - displacement);
+
 }

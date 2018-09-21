@@ -28,10 +28,10 @@ BoundingBox Fire::getBoundingBox()
 
 	_box.x1 = _model.GetPosition().x;
 	_box.x2 = _model.GetPosition().x + modelSize;
-	std::cout << " minX "<< _box.x1 << " maxX "<<_box.x2 << std::endl;
+//	std::cout << " minX "<< _box.x1 << " maxX "<<_box.x2 << std::endl;
 	_box.y1 = _model.GetPosition().z;
 	_box.y2 = _model.GetPosition().z + modelSize;
-	std::cout << " minY "<< _box.y1 << " maxY "<<_box.y2 << std::endl;
+//	std::cout << " minY "<< _box.y1 << " maxY "<<_box.y2 << std::endl;
 
 	return _box;
 }

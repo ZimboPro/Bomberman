@@ -181,14 +181,6 @@ void Game::playGame()
 
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
-		if (keyTyped() == eKeys::Up)
-			GameObjectManager::newLevel(1);
-		if (keyTyped() == eKeys::Down)
-			GameObjectManager::newLevel(0);
-//		if (keyTyped() == eKeys::Right)
-//			_interface.adjustScore(10);
-//		if (keyTyped() == eKeys::Left)
-//			_interface.adjustScore(-5);
 
 		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
 		{
