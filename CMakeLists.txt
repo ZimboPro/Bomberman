@@ -59,6 +59,9 @@ add_executable(
         src/game_elements/KoopaTroopa.cpp
         src/game_elements/powerBlock.cpp
         src/game_elements/HealthBlock.cpp
+        src/map_generation/Levels.cpp
+        src/map_generation/Save.cpp
+        src/map_generation/MapError.cpp
         src/game_elements/Bomb.cpp
         src/Menus/KeyBindMenu.cpp
         src/Menus/StartGameMenu.cpp

@@ -10,7 +10,6 @@
 #include <game_elements/powerBlock.hpp>
 #include "game_elements/HealthBlock.hpp"
 #include "ObjectFactory.hpp"
-#include "Map.hpp"
 #include "Game.hpp"
 #include "game_elements/Bomb.hpp"
 #include <string>
@@ -72,32 +71,34 @@ VisibleGameObject * ObjectFactory::newVGO(objectTypes type, float x, float y)
 		case fire:
 			return new Fire(*_fire, x, y);
 		case bomb:
-			return new Bomb(*_bomb, x, y);
+			return new Bomb(*_bomb, round(x), round(y));
 		default:
 			return NULL;
 	}
 }
 
-std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
+std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> ObjectFactory::genStaticObjects()
 {
-	std::vector<std::vector<VisibleGameObject * >> result;
+	std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> result;
 
 	for (size_t y = 0; y < Map::height(); y++)
 	{
-		std::vector<VisibleGameObject * > innerResult;
-
+		std::vector<std::shared_ptr<VisibleGameObject>> innerResult;
 		for (size_t x = 0; x < Map::width(); x++)
 		{
 			switch (Map::at(x, y))
 			{
 				case breakableBlocks:
-					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
+//					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
+					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new Block(*_breakableBlock, x, y, true)));
 					break;
 				case unbreakableBlocks:
-					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
+//					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
+					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new Block(*_unbreakableBlock, x, y, false)));
 					break;
 				default:
-					innerResult.push_back(new VisibleGameObject);
+//					innerResult.push_back(new VisibleGameObject);
+					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new VisibleGameObject));
 					break;
 			}
 		}

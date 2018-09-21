@@ -12,6 +12,7 @@
 #include "eObjectTypes.hpp"
 #include "BoundingBox.hpp"
 #include <string>
+#include "Error.hpp"
 
 class VisibleGameObject
 {
@@ -30,6 +31,8 @@ public:
 	virtual void setScale(float scale);
 	virtual objectTypes getType();
 	virtual BoundingBox getBoundingBox();
+	virtual void setDirection(float direction);
+	virtual void die();
 
 	virtual glm::vec3 getPosition();
 

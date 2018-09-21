@@ -6,6 +6,7 @@ LoadingScreen::LoadingScreen()
     this->_shader = new Shaders("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
     this->_model = 0;
     this->_light = glm::vec3(30);
+    // loadModels();
 }
 
 LoadingScreen::LoadingScreen(LoadingScreen const & src)

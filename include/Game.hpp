@@ -14,6 +14,7 @@
 #include "Menus/IMenu.hpp"
 #include "eScreen.hpp"
 #include "eVolume.hpp"
+#include "Map.hpp"
 #include "GameInterface.hpp"
 
 struct Settings
@@ -45,6 +46,9 @@ class Game
         static bool _KeyBind;
         static GameInterface _interface;
 
+        static void save();
+        static void load();
+
     private:
         static bool isExiting();
         static void gameLoop();
@@ -62,6 +66,7 @@ class Game
         static eGameState _gameState;
         static int _keyPress;
         static std::map<eKeys, int> _keyConfiguration;
+        static std::vector<std::vector<char> >  _savedMap;
 };
 
 #endif //BOMBERMAN_GAME_HPP

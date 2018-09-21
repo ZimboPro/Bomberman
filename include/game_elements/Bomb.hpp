@@ -15,6 +15,7 @@ public:
 	Bomb();
 
 	Bomb(Model_Texture & texture, float x, float y);
+	BoundingBox getBoundingBox();
 
 	void Update(float & timeElapsed);
 

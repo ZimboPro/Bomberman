@@ -3,11 +3,14 @@
 //
 
 #include <cassert>
+#include <cstdlib>
 #include <Error.hpp>
 #include "game_elements/Player.hpp"
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
 #include "eKeys.hpp"
+#include <ctime>
+#include <unistd.h>
 
 Player::Player(): _speed(0), _maxVelocity(600.0f)
 {
@@ -15,6 +18,7 @@ Player::Player(): _speed(0), _maxVelocity(600.0f)
 	_prevIndex = 0;
 	_totalElapsed = 0.0f;
 	_type = player;
+	
 }
 
 Player::Player(Player const & src)
@@ -79,14 +83,28 @@ BoundingBox Player::getBoundingBox()
 void Player::dropBomb()
 {
 	glm::vec3 pos = _models[0]->GetPosition();
+	float playerOffset = 0.3;
+
 	if (_direction == 270)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x - 0.6, pos.z);
+		_model.Move(playerOffset, 0);
+	}
 	else if (_direction == 90)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x + 0.6, pos.z);
+		_model.Move(-playerOffset, 0);
+	}
 	else if (_direction == 0)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z + 0.6);
+		_model.Move(0, -playerOffset);
+	}
 	else if (_direction == 180)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z - 0.6);
+		_model.Move(0, playerOffset);
+	}
 }
 
 void Player::Draw(Shaders & shader)
@@ -109,6 +127,7 @@ void Player::Update(float & timeElapsed)
 			Rotate(270);
 			_direction = 270;
 		}
+		setDirection(270);
 		box.x1 -= displacement;
 		box.x2 -= displacement;
 		if(GameObjectManager::collidesWith(box) == grass)

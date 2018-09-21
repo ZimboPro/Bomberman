@@ -9,6 +9,8 @@
 #include <vector>
 #include "game_elements/VisibleGameObject.hpp"
 #include "Model_Texture.hpp"
+#include "map_generation/Levels.hpp"
+
 #include "eObjectTypes.hpp"
 
 class ObjectFactory
@@ -17,7 +19,7 @@ public:
 	ObjectFactory();
 	ObjectFactory(ObjectFactory const & src);
 	~ObjectFactory();
-	std::vector<std::vector<VisibleGameObject *>> genStaticObjects();
+	std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> genStaticObjects();
 	std::list<std::shared_ptr<VisibleGameObject>> * genDynamicAndPickUpObjects();
 	std::list<std::shared_ptr<VisibleGameObject>> * genGrass();
 	VisibleGameObject * newBomb(float x, float y);
@@ -37,6 +39,5 @@ private:
 	Model_Texture * _bomb;
 	Model_Texture * _fire;
 };
-
 
 #endif //BOMBERMAN_OBJECTFACTORY_HPP
