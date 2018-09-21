@@ -6,7 +6,7 @@
 /*   By: mafernan   <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 11/30/15 by mafernan          #+#    #+#             */
-/*   Updated: 2018/09/06 14:34:39 by mafernan         ###   ########.fr       */
+/*   Updated: 2018/09/21 15:18:02 by mafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ class Levels {
 
 	private:
 
+		bool			_gate = false;
 		int				_seed = 0;
 		int				_debug = 0;
 		int				_width = 33;

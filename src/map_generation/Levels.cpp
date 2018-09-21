@@ -6,7 +6,7 @@
 /*   By: mafernan   <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 11/30/15 by mafernan          #+#    #+#             */
-/*   Updated: 2018/09/06 14:45:27 by mafernan         ###   ########.fr       */
+/*   Updated: 2018/09/21 15:21:59 by mafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ char	Levels::populate( void )
 
 	if (random >= 80)
 	{
+		if (random >= 80 && random <= 85 && this->_gate == false)
+		{
+			this->_gate = true;
+			return ('G');
+		}
 		if (rand() % 100 < 5)
 		{
 			this->_health += 1;
@@ -126,6 +131,7 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 	result.erase(result.begin());
 	// save generated map
 	this->_lastMap = result;
+	std::cout << "===================== gate : " << this->_gate << "================" << std::endl;
 	return (result);
 }
 

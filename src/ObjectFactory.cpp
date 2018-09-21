@@ -26,11 +26,16 @@ ObjectFactory::ObjectFactory(ObjectFactory const & src)
 
 ObjectFactory::~ObjectFactory()
 {
-	delete _player;
+	for (size_t i = 0; i < this->_player.size(); i++)
+		delete _player[i];
+	// for (size_t i = 0; i < this->_goomba.size(); i++)
+		// delete _goomba[i];
+	delete _goomba;
+	// for (size_t i = 0; i < this->_koopaTroopa.size(); i++)
+		// delete _koopaTroopa[i];
+	delete _koopaTroopa;
 	delete _unbreakableBlock;
 	delete _breakableBlock;
-	delete _goomba;
-	delete _koopaTroopa;
 	delete _powerBlock;
 	delete _healthBlock;
 	delete _grass;
@@ -40,7 +45,9 @@ ObjectFactory::~ObjectFactory()
 void ObjectFactory::initModelTextures()
 {
 	//todo display loading screen
-	_player = new Model_Texture("../../Assets/game_models/mario_walking_1.obj");
+	_player.emplace_back(new Model_Texture("../../Assets/game_models/mario_walking_2.obj"));
+	_player.emplace_back(new Model_Texture("../../Assets/game_models/mario_walking_1.obj"));
+	_player.emplace_back(new Model_Texture("../../Assets/game_models/mario_walking_3.obj"));
 	_unbreakableBlock = new Model_Texture("../../Assets/game_models/iron_block.obj");
 	_breakableBlock = new Model_Texture("../../Assets/game_models/brick_block.obj");
 	_goomba = new Model_Texture("../../Assets/game_models/goomba_1.obj");
@@ -123,7 +130,7 @@ std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genDynamicAndPick
 			switch (Map::at(x, y))
 			{
 				case player:
-					result->push_back(std::shared_ptr<VisibleGameObject> (new Player(*_player, x, y)));
+					result->push_back(std::shared_ptr<VisibleGameObject> (new Player(_player, x, y)));
 					break;
 				case goomba:
 					result->push_back(std::shared_ptr<VisibleGameObject> (new Goomba(*_goomba, x, y)));

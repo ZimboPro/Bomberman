@@ -44,7 +44,6 @@ protected:
 	float _direction;
 	BoundingBox _box;
 
-private:
 	bool _isLoaded;
 	bool _isCollidable;
 	bool _isBreakable;

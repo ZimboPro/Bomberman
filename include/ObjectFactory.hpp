@@ -6,6 +6,7 @@
 #define BOMBERMAN_OBJECTFACTORY_HPP
 
 #include <list>
+#include <vector>
 #include "game_elements/VisibleGameObject.hpp"
 #include "Model_Texture.hpp"
 #include "map_generation/Levels.hpp"
@@ -26,7 +27,8 @@ public:
 	void initModelTextures();
 
 private:
-	Model_Texture * _player;
+
+	std::vector<Model_Texture *> _player;
 	Model_Texture * _unbreakableBlock;
 	Model_Texture * _breakableBlock;
 	Model_Texture * _goomba;
