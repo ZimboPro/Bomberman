@@ -104,7 +104,9 @@ void Player::Update(float & timeElapsed)
 		box.y1 -= displacement;
 		box.y2 -= displacement;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
-			_model.Move(0 , 0 - displacement);
+		{
+			_model.Move(0, 0 - displacement);
+		}
 	}
 	else if (Game::keyTyped() == eKeys::Select)
 		dropBomb();
