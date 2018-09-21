@@ -7,7 +7,7 @@
 
 #include "ServiceLocator.hpp"
 
-HealthBlock::HealthBlock(): _velocity(0), _maxVelocity(600.0f)
+HealthBlock::HealthBlock(): _speed(2)
 {
 	_type = healthBlock;
 }
@@ -17,7 +17,7 @@ HealthBlock::HealthBlock(HealthBlock const & src)
 	*this = src;
 }
 
-HealthBlock::HealthBlock(Model_Texture & texture, float x, float y): _velocity(0), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
+HealthBlock::HealthBlock(Model_Texture & texture, float x, float y): _speed(2), VisibleGameObject(texture, x, y, true, false)
 {
 	_type = healthBlock;
 }
@@ -25,37 +25,6 @@ HealthBlock::HealthBlock(Model_Texture & texture, float x, float y): _velocity(0
 HealthBlock::~HealthBlock() {}
 
 
-float HealthBlock::getVelocity() const
-{
-	return _velocity;
-}
-
 void HealthBlock::Update(float & timeElapsed)
 {
-//	if (Game::getInput() == sf::Keyboard::Left)
-//	{
-//		_velocity -= 3.0f;
-//	}
-//	else if (Game::getInput() == sf::Keyboard::Right)
-//	{
-//		_velocity += 3.0f;
-//	}
-//	else if (Game::getInput() == sf::Keyboard::Down)
-//	{
-//		_velocity = 0.0f;
-//	}
-//
-//	if (_velocity > _maxVelocity)
-//		_velocity = _maxVelocity;
-//	else if (_velocity < -_maxVelocity)
-//		_velocity = -_maxVelocity;
-//
-//	sf::Vector2f pos = this->getPosition();
-//
-//	if(pos.x < getSprite().getRadius() || pos.x > Game::getWindowSize().x)
-//	{
-//		_velocity = -_velocity;
-//	}
-//
-//	getSprite().move(_velocity * timeElapsed, 0);
 }
