@@ -12,7 +12,7 @@
 #include <ctime>
 #include <unistd.h>
 
-Player::Player(): _speed(0), _maxVelocity(600.0f)
+Player::Player(): _speed(0)
 {
 	_index = 0;
 	_prevIndex = 0;
@@ -29,14 +29,14 @@ Player::Player(Player const & src)
 	*this = src;
 }
 
-Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
+Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), VisibleGameObject(texture, x, y, true, false)
 {
 	_totalElapsed = 0.0f;
 	_prevIndex = 0;
 	_index = 0;
 }
 
-Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _speed(3.0f), _maxVelocity(600.0f)
+Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _speed(3.0f)
 {
 	VisibleGameObject::_isBreakable = false;
 	VisibleGameObject::_isLoaded = true;
@@ -83,7 +83,7 @@ BoundingBox Player::getBoundingBox()
 void Player::dropBomb()
 {
 	glm::vec3 pos = _models[0]->GetPosition();
-	float playerOffset = 0.3;
+	float playerOffset = 0.2;
 
 	if (_direction == 270)
 	{

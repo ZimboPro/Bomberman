@@ -23,15 +23,12 @@ public:
 	BoundingBox getBoundingBox();
 	void dropBomb();
 
-	float getVelocity() const;
-
 private:
 	void Move(float x, float y);
 	void Rotate(float degrees);
 	int _index;
 	int _prevIndex;
 	float _speed;
-	float _maxVelocity;
 	float _totalElapsed;
 	std::vector<Model_Sprite *> _models;
 };
