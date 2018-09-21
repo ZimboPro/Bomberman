@@ -10,7 +10,6 @@
 #include <game_elements/powerBlock.hpp>
 #include "game_elements/HealthBlock.hpp"
 #include "ObjectFactory.hpp"
-#include "Map.hpp"
 #include "Game.hpp"
 #include "game_elements/Bomb.hpp"
 #include <string>

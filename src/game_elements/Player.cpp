@@ -3,15 +3,19 @@
 //
 
 #include <cassert>
+#include <cstdlib>
 #include <Error.hpp>
 #include "game_elements/Player.hpp"
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
 #include "eKeys.hpp"
+#include <ctime>
+#include <unistd.h>
 
 Player::Player(): _speed(0), _maxVelocity(600.0f)
 {
 	_type = player;
+	
 }
 
 Player::Player(Player const & src)
@@ -21,6 +25,7 @@ Player::Player(Player const & src)
 
 Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), _maxVelocity(600.0f), VisibleGameObject(texture, x, y, true, false)
 {
+	
 }
 
 Player::~Player() {}
@@ -76,6 +81,11 @@ void Player::Update(float & timeElapsed)
 
 	if (Game::keyPressed() == eKeys::Up)
 	{
+		if (_direction != 270) 
+		{
+			_model.Rotate(270);
+			_direction = 270;
+		}
 		setDirection(270);
 		box.x1 -= displacement;
 		box.x2 -= displacement;

@@ -21,6 +21,7 @@
 #include "Menus/StartGameMenu.hpp"
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
+#include "map_generation/Levels.hpp"
 #include "Camera.hpp"
 #include "GameInterface.hpp"
 
@@ -45,7 +46,6 @@ void Game::start()
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
-
 
 	loadKeys();
 	while (!isExiting())
@@ -181,14 +181,27 @@ void Game::playGame()
 
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
-//		if (keyTyped() == eKeys::Up)
-//			_interface.adjustLives(1);
-//		if (keyTyped() == eKeys::Down)
-//			_interface.adjustLives(-1);
+		if (keyTyped() == eKeys::Up)
+			GameObjectManager::newLevel(1);
+		if (keyTyped() == eKeys::Down)
+			GameObjectManager::newLevel(0);
 //		if (keyTyped() == eKeys::Right)
 //			_interface.adjustScore(10);
 //		if (keyTyped() == eKeys::Left)
 //			_interface.adjustScore(-5);
+
+		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
+		{
+			std::cout << "Q is pressed to save game\n";
+			save();
+			_gameState = Game::Exiting;
+		}
+		if (_window.isKeyPressed(getKeyConfigured(eKeys::Load)))
+		{
+			std::cout << "W is pressed to load game\n";
+			load();
+			_gameState = Game::Exiting;
+		}
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
 			_gameState = Game::Exiting;
@@ -196,6 +209,59 @@ void Game::playGame()
 //			_gameState = Game::Exiting;
 	}
 	return ;
+}
+
+void Game::save()
+{
+	int width = Map::width();
+	int	height = Map::height();
+
+	std::vector<std::vector<char> > saveMap(height, std::vector<char>(width, '0'));
+	std::vector<std::vector<char> > loadedMap;
+
+
+	// Map::printMap();
+	std::cout << "====================Saved Map========================\n";
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			if (Map::at(x, y) == '1' || Map::at(x, y) == '2')
+			{
+				saveMap[y][x] = '1';
+			}
+			std::cout << saveMap[y][x];
+		}
+		std::cout << '\n';
+	}
+	std::cout << "======================================================\n";
+	std::cout << "==============Original================================\n";
+
+	Map::printMap();
+	std::cout << "======================================================\n";
+	// std::cout << "Saving\n";
+	Map::_levels.save(saveMap, 2,3, 0);
+	loadedMap = Map::_levels.load();
+
+	std::cout << "Loaded Map\n";
+	std::cout << loadedMap.size();
+	std::cout << "\n======================================================\n";
+
+	for (int i = 0; i < loadedMap.size(); i++)
+	{
+		for (int j = 0; j < loadedMap[i].size(); j++)
+		{
+			std::cout << loadedMap[i][j];
+		}
+		std::cout << '\n';
+	}
+		std::cout << "======================================================\n";
+
+}
+
+void Game::load()
+{
+
 }
 
 int Game::getKeyConfigured(eKeys key)
@@ -222,6 +288,11 @@ void Game::loadKeys()
 	_keyConfiguration[eKeys::Select] = GLFW_KEY_ENTER;
 	_keyConfiguration[eKeys::Place] = GLFW_KEY_SPACE;
 	_keyConfiguration[eKeys::Escape] = GLFW_KEY_ESCAPE;
+
+	//Assigning save and load to 'q' and 'w' buttons
+
+	_keyConfiguration[eKeys::Save] = GLFW_KEY_Q;
+	_keyConfiguration[eKeys::Load] = GLFW_KEY_W;
 	if (Game::_KeyBind == false) 
 	{
 		_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;
@@ -288,4 +359,5 @@ Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
+std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;

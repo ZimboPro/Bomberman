@@ -10,6 +10,8 @@ enum eKeys
     Select,
     Place,
     Escape,
+    Save,
+    Load,
     Undefined
 };
 
