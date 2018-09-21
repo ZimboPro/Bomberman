@@ -10,56 +10,72 @@
     timer
 */
 
-int GameInterface::_lives;
-int GameInterface::_score;
+Model_Sprite *          GameInterface::_model;
+Shaders *               GameInterface::_shader;
+Shaders *               GameInterface::_textShader;
+Text *                  GameInterface::_text;
 
-GameInterface::GameInterface()
+std::vector<glm::vec2>  GameInterface::_postions;
+
+float                   GameInterface::_endTime;
+int                     GameInterface::_lives;
+int                     GameInterface::_score;
+int                     GameInterface::_troopaKilled;
+int                     GameInterface::_goombaKilled;
+glm::mat4               GameInterface::_projection;
+glm::mat4               GameInterface::_view;
+glm::vec3               GameInterface::_color;
+
+
+void GameInterface::deleteObjects()
 {
-    load();
+    delete _model;
+    delete _shader;
+    delete _textShader;
 }
 
-GameInterface::~GameInterface()
+void GameInterface::loadObjects()
 {
-    delete this->_model;
-    delete this->_shader;
-    delete this->_textShader;
+    _model = new Model_Sprite("../../Assets/pickups/heart.obj");
+    _text = new Text("../assets/shaders/OCRAEXT.TTF");
+
+    _shader = new Shaders("../assets/shaders/vert/MeshVert.glsl","../assets/shaders/frag/MeshFrag.glsl");
+    _textShader = new Shaders("../assets/shaders/vert/TextVert.glsl","../assets/shaders/frag/TextFrag.glsl");
+
+    _color = glm::vec3(1, 1, 0);
 }
 
-void GameInterface::load()
+void GameInterface::resetPostions()
 {
-    this->_model = new Model_Sprite("../../Assets/pickups/heart.obj");
-    this->_text = new Text("../assets/shaders/OCRAEXT.TTF");
-
-    this->_shader = new Shaders("../assets/shaders/vert/MeshVert.glsl","../assets/shaders/frag/MeshFrag.glsl");
-    this->_textShader = new Shaders("../assets/shaders/vert/TextVert.glsl","../assets/shaders/frag/TextFrag.glsl");
-
     float y = Game::_window.Height() / 20;
     float x = Game::_window.Width() / 4;
+    _projection = Game::_window.Projection();
 
-    this->_postions.push_back(glm::vec2(x * 1 - 40, y));
-    this->_postions.push_back(glm::vec2(x * 2 - 40, y));
-    this->_postions.push_back(glm::vec2(x * 3 - 40, y));
-    this->_model->Position(x - 70.0f, -20.0f, y);
-    this->_model->Scale(3);
-
-    this->_projection = Game::_window.Projection();
-    this->_color = glm::vec3(1, 1, 0);
+    _postions.clear();
+    _postions.push_back(glm::vec2(x * 1 - 40, y));
+    _postions.push_back(glm::vec2(x * 2 - 40, y));
+    _postions.push_back(glm::vec2(x * 3 - 40, y));
+    _model->Reset();
+    _model->Position(x - 70.0f, -20.0f, y);
+    _model->Scale(3);
 }
 
 void GameInterface::resetHOD()
 {
     _lives = 3;
     _score = 0;
+    _goombaKilled = 0;
+    _troopaKilled = 0;
 }
 
 void GameInterface::display()
 {
-    this->_shader->use();
-    this->_shader->setMat4("projection", this->_projection);
-	this->_shader->setMat4("view", this->_view);
-    this->_model->Draw(*this->_shader);
+    _shader->use();
+    _shader->setMat4("projection", _projection);
+	_shader->setMat4("view", _view);
+    _model->Draw(*_shader);
 
-    int timeLeft = this->_endTime - glfwGetTime();
+    int timeLeft = _endTime - glfwGetTime();
     int min = timeLeft / 60;
     int sec = timeLeft % 60;
 
@@ -67,9 +83,9 @@ void GameInterface::display()
     if (s.length() == 1)
         s.insert(0, "0");
     
-    this->_text->Render(*this->_textShader, "x" + std::to_string(_lives), this->_postions[0].x, this->_postions[0].y, 1, this->_color, Game::_window.Width(), Game::_window.Height());
-    this->_text->Render(*this->_textShader,std::to_string(min) + ":" + s , this->_postions[1].x, this->_postions[1].y, 1, this->_color, Game::_window.Width(), Game::_window.Height());
-    this->_text->Render(*this->_textShader, "Score:" + std::to_string(_score), this->_postions[2].x, this->_postions[2].y, 1, this->_color, Game::_window.Width(), Game::_window.Height());
+    _text->Render(*_textShader, "x" + std::to_string(_lives), _postions[0].x, _postions[0].y, 1, _color, Game::_window.Width(), Game::_window.Height());
+    _text->Render(*_textShader,std::to_string(min) + ":" + s , _postions[1].x, _postions[1].y, 1, _color, Game::_window.Width(), Game::_window.Height());
+    _text->Render(*_textShader, "Score:" + std::to_string(_score), _postions[2].x, _postions[2].y, 1, _color, Game::_window.Width(), Game::_window.Height());
 }
 
 void GameInterface::adjustLives(int lives)
@@ -89,10 +105,45 @@ bool GameInterface::stillAlive()
 
 void GameInterface::resetTime(float seconds)
 {
-    this->_endTime = seconds + glfwGetTime();
+    _endTime = seconds + glfwGetTime();
 }
 
 bool GameInterface::timerEnded()
 {
-    return (this->_endTime < glfwGetTime());
+    return (_endTime < glfwGetTime());
+}
+
+void GameInterface::goombaKilled()
+{
+    _goombaKilled++;
+}
+
+void GameInterface::troopaKilled()
+{
+    _troopaKilled++;
+}
+
+int GameInterface::amountOfGoombaKilled()
+{
+    return _goombaKilled;
+}
+
+int GameInterface::amountOfTroopaKilled()
+{
+    return _troopaKilled;
+}
+
+int GameInterface::LivesLeft()
+{
+    return _lives;
+}
+
+float GameInterface::TimeLeft()
+{
+    return (_endTime - glfwGetTime());
+}
+
+int GameInterface::CurrentScore()
+{
+    return _score;
 }

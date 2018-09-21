@@ -38,7 +38,7 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	GameObjectManager::init();
+	// GameObjectManager::init();
 	_loadingScreen.loadModels();
 
 	_gameState = Game::ShowingMenu;
@@ -137,7 +137,8 @@ void Game::showMenu()
 	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
-		_gameState = Game::ShowingStartGameMenu;
+		// _gameState = Game::ShowingStartGameMenu;
+		_gameState = Game::Playing;
 	else if (selection == MainMenu::Settings)
 		_gameState = Game::ShowingOptions;
 }
@@ -165,7 +166,7 @@ void Game::playGame()
 
 	GameInterface _interface;
 	_interface.resetHOD();
-	_interface.resetTime(60);
+	_interface.resetTime(70);
 
 	while(_gameState == Game::Playing)
 	{
@@ -179,8 +180,16 @@ void Game::playGame()
 
 		// GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
+		if (keyTyped() == eKeys::Up)
+			_interface.adjustLives(1);
+		if (keyTyped() == eKeys::Down)
+			_interface.adjustLives(-1);
+		if (keyTyped() == eKeys::Right)
+			_interface.adjustScore(10);
+		if (keyTyped() == eKeys::Left)
+			_interface.adjustScore(-5);
 
-		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded())
+		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
 			_gameState = Game::Exiting;
 	}
 	return ;
