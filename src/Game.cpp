@@ -39,10 +39,6 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-<<<<<<< HEAD
-	GameObjectManager::init();
-=======
->>>>>>> master
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
 

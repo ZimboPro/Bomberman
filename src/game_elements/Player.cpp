@@ -130,7 +130,7 @@ void Player::Update(float & timeElapsed)
 		setDirection(270);
 		box.x1 -= displacement;
 		box.x2 -= displacement;
-		if(GameObjectManager::collidesWith(box) == grass)
+		if(GameObjectManager::collidesWith(box, _type) == grass)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 - camDisplacement, 0);
@@ -146,7 +146,7 @@ void Player::Update(float & timeElapsed)
 		}
 		box.x1 += displacement + 0.2;
 		box.x2 += displacement + 0.2;
-		if(GameObjectManager::collidesWith(box) == grass)
+		if(GameObjectManager::collidesWith(box, _type) == grass)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 + camDisplacement, 0);
@@ -162,7 +162,7 @@ void Player::Update(float & timeElapsed)
 		}
 		box.y1 += displacement + 0.2;
 		box.y2 += displacement + 0.2;
-		if(GameObjectManager::collidesWith(box) == grass)
+		if(GameObjectManager::collidesWith(box, _type) == grass)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0, 0 + camDisplacement);
@@ -178,7 +178,7 @@ void Player::Update(float & timeElapsed)
 		}
 		box.y1 -= displacement;
 		box.y2 -= displacement;
-		if(GameObjectManager::collidesWith(box) == grass)
+		if(GameObjectManager::collidesWith(box, _type) == grass)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0, 0 - camDisplacement);
