@@ -93,5 +93,5 @@ void Goomba::Update(float & timeElapsed)
 			if(GameObjectManager::collidesWith(box) == grass)
 		_model.Move(0 , 0 - displacement);
 	}
-	Game::_camera.LookAt(_model.GetPosition());
+	// Game::_camera.LookAt(_model.GetPosition());
 }

@@ -32,8 +32,7 @@ void VisibleGameObject::setScale(float scale)
 }
 
 VisibleGameObject::~VisibleGameObject()
-{
-}
+{}
 
 void	VisibleGameObject::Draw(Shaders & shader)
 {

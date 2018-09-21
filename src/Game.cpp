@@ -38,11 +38,11 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	// GameObjectManager::init();
+	GameObjectManager::init();
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
 
-	_gameState = Game::ShowingMenu;
+	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -175,20 +175,20 @@ void Game::playGame()
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
-		// GameObjectManager::drawAll(shader);
+		GameObjectManager::drawAll(shader);
 		_interface.display();
 		_window.update();
 
-		// GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
+		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
-		if (keyTyped() == eKeys::Up)
-			_interface.adjustLives(1);
-		if (keyTyped() == eKeys::Down)
-			_interface.adjustLives(-1);
-		if (keyTyped() == eKeys::Right)
-			_interface.adjustScore(10);
-		if (keyTyped() == eKeys::Left)
-			_interface.adjustScore(-5);
+		// if (keyTyped() == eKeys::Up)
+		// 	_interface.adjustLives(1);
+		// if (keyTyped() == eKeys::Down)
+		// 	_interface.adjustLives(-1);
+		// if (keyTyped() == eKeys::Right)
+		// 	_interface.adjustScore(10);
+		// if (keyTyped() == eKeys::Left)
+		// 	_interface.adjustScore(-5);
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
 			_gameState = Game::Exiting;

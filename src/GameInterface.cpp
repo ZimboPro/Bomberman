@@ -47,16 +47,16 @@ void GameInterface::loadObjects()
 
 void GameInterface::resetPostions()
 {
-    float y = Game::_window.Height() / 20;
+    float y = Game::_window.Height() - Game::_window.Height() / 20;
     float x = Game::_window.Width() / 4;
     _projection = Game::_window.Projection();
 
     _postions.clear();
-    _postions.push_back(glm::vec2(x * 1 - 40, y));
-    _postions.push_back(glm::vec2(x * 2 - 40, y));
-    _postions.push_back(glm::vec2(x * 3 - 40, y));
+    _postions.push_back(glm::vec2(x * 1 - 60, y));
+    _postions.push_back(glm::vec2(x * 2 - 60, y));
+    _postions.push_back(glm::vec2(x * 3 - 60, y));
     _model->Reset();
-    _model->Position(x - 70.0f, -20.0f, y);
+    _model->Position(x - 90.0f, -20.0f, y);
     _model->Scale(3);
 }
 
