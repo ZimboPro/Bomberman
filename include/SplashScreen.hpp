@@ -21,7 +21,6 @@ class SplashScreen
 		float _fps;
 		float _timePerFPS;
 		float _time;
-		// std::vector<TextureImages *> _images;
 };
 
 #endif //BOMBERMAN_SPLASHSCREEN_HPP

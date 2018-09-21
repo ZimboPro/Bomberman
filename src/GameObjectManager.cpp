@@ -9,6 +9,7 @@
 #include <Map.hpp>
 #include <memory>
 #include <game_elements/Bomb.hpp>
+#include <Error.hpp>
 
 GameObjectManager::GameObjectManager() {}
 
@@ -28,10 +29,13 @@ void GameObjectManager::init()
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
 	_grass = _factory.genGrass();
+	_initialized = true;
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
 {
+	if (!_initialized)
+		throw Error::AssetError("Models not initialized");
 	for(size_t y = 0; y < _staticObjects.size(); y++)
 		for (size_t x = 0; x < _staticObjects[y].size(); x++)
 		{
@@ -51,6 +55,8 @@ void GameObjectManager::drawAll(Shaders & shader)
 
 void GameObjectManager::updateAll(float elapsedTime)
 {
+	if (!_initialized)
+		throw Error::AssetError("Models not initialized");
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
 		(*iter)->Update(elapsedTime);
@@ -63,13 +69,23 @@ void GameObjectManager::clearLevel()
 	_dynamicObjects->clear();
 }
 
+void GameObjectManager::initLevel()
+{
+	
+}
+
+void GameObjectManager::newLevel()
+{
+	clearLevel(); // empty the data structures: _DynamicObjetcs, _Grass and _static Objetcs
+	initLevel(); // makes call to factory to init the datastructures with fresh objects
+}
+
 bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 {
 	float x1 = obj1.x1;
 	float maxX1 = obj1.x2;
 	float y1 = obj1.y1;
 	float maxY1 = obj1.y2;
-	std::cout << x1 << std::endl;
 
 	float x2 = obj2.x1;
 	float maxX2 = obj2.x2;
@@ -98,7 +114,7 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 	_dynamicObjects->push_back(obj);
 }
 
-void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
+void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 {
 	float burnRange = 2;
 
@@ -110,15 +126,19 @@ void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
 	float endX = ((bombX + burnRange < static_cast<float>(_staticObjects[0].size())) ? bombX + burnRange : static_cast<float>(_staticObjects[0].size()));
 	float endY = ((bombY + burnRange < static_cast<float>(_staticObjects.size())) ? bombY + burnRange : static_cast<float>(_staticObjects.size()));
 
-	for (float y = startY; y < endY; y++)
+	for(float y = startY; y <= endY; y++)
 		addDynamicObject(fire, bombX, y);
 
-	for(float x = startX; x < endX; x++)
+	for(float x = startX; x <= endX; x++)
 	{
 		if (x != bombX)
 			addDynamicObject(fire, x, bombY);
 	}
+}
 
+void GameObjectManager::explodeBomb(VisibleGameObject *bomb)
+{
+	spawnFire(bomb);
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
 		if (bomb == (*iter).get())
@@ -141,8 +161,7 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	}
 }
 
-objectTypes GameObjectManager::collidesWith(BoundingBox & box)
-
+objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 {
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
@@ -169,18 +188,19 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 		return objectTypes::unbreakableBlocks;
 	}
 
-//	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
-//	{
-//		int objX = static_cast<int>((*iter)->getPosition().x);
-//		int objY = static_cast<int>((*iter)->getPosition().z);
-//
-//		if(x == objX && y == objY && type.getType() != (*iter)->getType())
-//			return (*iter)->getType();
-//	}
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if ((*iter)->getType() != type && intersects(box, (*iter)->getBoundingBox()))
+		{
+			std::cout << "Collides with " << (char)(*iter)->getType() << std::endl;
+			return (*iter)->getType();
+		}
+	}
 	return grass;
 }
 
-std::vector<std::vector<VisibleGameObject *>> GameObjectManager::_staticObjects;
+std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> GameObjectManager::_staticObjects;
 std::list<std::shared_ptr<VisibleGameObject> > * GameObjectManager::_dynamicObjects;
 std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;
 ObjectFactory GameObjectManager::_factory;
+bool GameObjectManager::_initialized = false;

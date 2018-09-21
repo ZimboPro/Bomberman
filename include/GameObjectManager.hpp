@@ -23,17 +23,22 @@ public:
 	static void init();
 	static void clearLevel();
 //	static objectTypes collidesWith(VisibleGameObject & type, int x, int y);
-	static objectTypes collidesWith(BoundingBox & box);
+	static objectTypes collidesWith(BoundingBox & box, objectTypes type);
 	static void addDynamicObject(objectTypes type, float x, float y);
-	static bool intersects(BoundingBox obj1, BoundingBox obj2);
 	static void explodeBomb(VisibleGameObject * bomb);
 	static void removeDynamicObject(VisibleGameObject * obj);
+	static void newLevel();
 
 private:
-	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
+	static void clearLevel();
+	static void initLevel();
+	static bool intersects(BoundingBox obj1, BoundingBox obj2);
+	static void spawnFire(VisibleGameObject *bomb);
+	static std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> _staticObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> *_dynamicObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> * _grass;
 	static ObjectFactory _factory;
+	static bool _initialized;
 
 };
 

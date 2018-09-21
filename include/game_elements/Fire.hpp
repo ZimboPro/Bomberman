@@ -17,6 +17,7 @@ public:
 	Fire(Model_Texture & texture, float x, float y);
 
 	void Update(float & timeElapsed);
+	BoundingBox getBoundingBox();
 
 private:
 	float _burnTime;

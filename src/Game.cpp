@@ -22,6 +22,8 @@
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "map_generation/Levels.hpp"
+#include "Camera.hpp"
+#include "GameInterface.hpp"
 
 Game::Game() {}
 
@@ -37,8 +39,8 @@ void Game::start()
 	if (!_window.isInitialised())
 		throw Error::CreateWindowError("Failed to initialize window");
 
-	GameObjectManager::init();
 	_loadingScreen.loadModels();
+	_interface.loadObjects();
 
 	_gameState = Game::Playing;
 
@@ -50,7 +52,7 @@ void Game::start()
 	{
 		gameLoop();
 	}
-
+	_interface.deleteObjects();
 	_window.close();
 }
 
@@ -135,7 +137,8 @@ void Game::showMenu()
 	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
-		_gameState = Game::ShowingStartGameMenu;
+		// _gameState = Game::ShowingStartGameMenu;
+		_gameState = Game::Playing;
 	else if (selection == MainMenu::Settings)
 		_gameState = Game::ShowingOptions;
 }
@@ -154,12 +157,17 @@ void Game::showOptions()
 
 void Game::playGame()
 {
+	GameObjectManager::init();
 	sf::Clock clock;
 
 	Shaders shader("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
 	_camera.LookAt(glm::vec3(0));
+
+	_interface.resetHOD();
+	_interface.resetTime(70);
+	_interface.resetPostions();
 
 	while(_gameState == Game::Playing)
 	{
@@ -168,11 +176,19 @@ void Game::playGame()
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
 		GameObjectManager::drawAll(shader);
-
+		_interface.display();
 		_window.update();
 
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
+//		if (keyTyped() == eKeys::Up)
+//			_interface.adjustLives(1);
+//		if (keyTyped() == eKeys::Down)
+//			_interface.adjustLives(-1);
+//		if (keyTyped() == eKeys::Right)
+//			_interface.adjustScore(10);
+//		if (keyTyped() == eKeys::Left)
+//			_interface.adjustScore(-5);
 
 		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
 		{
@@ -189,6 +205,8 @@ void Game::playGame()
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
 			_gameState = Game::Exiting;
+//		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
+//			_gameState = Game::Exiting;
 	}
 	return ;
 }
