@@ -12,6 +12,7 @@
 #include "eObjectTypes.hpp"
 #include "BoundingBox.hpp"
 #include <string>
+#include "Error.hpp"
 
 class VisibleGameObject
 {

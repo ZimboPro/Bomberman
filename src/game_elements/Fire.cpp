@@ -19,6 +19,22 @@ Fire::~Fire()
 {
 }
 
+BoundingBox Fire::getBoundingBox()
+{
+	if (!isLoaded())
+		throw Error::AssetError("fire object not loaded");
+
+	float modelSize = 0.6f;
+
+	_box.x1 = _model.GetPosition().x;
+	_box.x2 = _model.GetPosition().x + modelSize;
+
+	_box.y1 = _model.GetPosition().z;
+	_box.y2 = _model.GetPosition().z + modelSize;
+
+	return _box;
+}
+
 void Fire::Update(float & timeElapsed)
 {
 	if (_burnTime > 0)
