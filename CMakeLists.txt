@@ -54,6 +54,7 @@ add_executable(
         src/ObjectFactory.cpp
         src/Menus/OptionsMenu.cpp
         src/LoadingScreen.cpp
+        src/GameInterface.cpp
         src/game_elements/Goomba.cpp
         src/game_elements/KoopaTroopa.cpp
         src/game_elements/powerBlock.cpp

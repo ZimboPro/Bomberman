@@ -47,12 +47,13 @@ void LoadingScreen::display()
 
 void LoadingScreen::loadModels()
 {
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_1.obj"));
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_2.obj"));
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_3.obj"));
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_4.obj"));
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_5.obj"));
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_6.obj"));
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_7.obj"));
-    this->_models.emplace_back(new Model_Sprite("../../Assets/buttons/Loading/loading_8.obj"));
+    this->_models.reserve(8);
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_1.obj"));
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_2.obj"));
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_3.obj"));
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_4.obj"));
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_5.obj"));
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_6.obj"));
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_7.obj"));
+    this->_models.push_back(new Model_Sprite("../../Assets/buttons/Loading/loading_8.obj"));
 }

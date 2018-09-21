@@ -14,6 +14,7 @@
 #include "Menus/IMenu.hpp"
 #include "eScreen.hpp"
 #include "eVolume.hpp"
+#include "GameInterface.hpp"
 
 struct Settings
 {
@@ -42,6 +43,7 @@ class Game
         static Camera _camera;
         static Settings _settings;
         static bool _KeyBind;
+        static GameInterface _interface;
 
     private:
         static bool isExiting();
