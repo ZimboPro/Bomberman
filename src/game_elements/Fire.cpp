@@ -12,7 +12,7 @@ Fire::Fire(): _burnTime(5.0)
 
 Fire::Fire(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false)
 {
-	_burnTime = 2;
+	_burnTime = 20;
 }
 
 Fire::~Fire()
@@ -26,10 +26,10 @@ BoundingBox Fire::getBoundingBox()
 
 	float modelSize = 0.6f;
 
-	_box.x1 = _model.GetPosition().x;
+	_box.x1 = _model.GetPosition().x - modelSize;
 	_box.x2 = _model.GetPosition().x + modelSize;
 
-	_box.y1 = _model.GetPosition().z;
+	_box.y1 = _model.GetPosition().z - modelSize;
 	_box.y2 = _model.GetPosition().z + modelSize;
 
 	return _box;

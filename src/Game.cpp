@@ -190,8 +190,10 @@ void Game::playGame()
 //		if (keyTyped() == eKeys::Left)
 //			_interface.adjustScore(-5);
 
-		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
+		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
 			_gameState = Game::Exiting;
+//		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
+//			_gameState = Game::Exiting;
 	}
 	return ;
 }

@@ -44,14 +44,28 @@ BoundingBox Player::getBoundingBox()
 void Player::dropBomb()
 {
 	glm::vec3 pos = _model.GetPosition();
+	float playerOffset = 0.3;
+
 	if (_direction == 270)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x - 0.6, pos.z);
+		_model.Move(playerOffset, 0);
+	}
 	else if (_direction == 90)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x + 0.6, pos.z);
+		_model.Move(-playerOffset, 0);
+	}
 	else if (_direction == 0)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z + 0.6);
+		_model.Move(0, -playerOffset);
+	}
 	else if (_direction == 180)
+	{
 		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z - 0.6);
+		_model.Move(0, playerOffset);
+	}
 }
 
 void Player::Update(float & timeElapsed)
@@ -73,24 +87,24 @@ void Player::Update(float & timeElapsed)
 		setDirection(90);
 		box.x1 += displacement + 0.2;
 		box.x2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-		_model.Move(0 + displacement, 0);
+		if(GameObjectManager::collidesWith(box, _type) == grass)
+			_model.Move(0 + displacement, 0);
 	}
 	else if (Game::keyPressed() == eKeys::Left)
 	{
 		setDirection(0);
 		box.y1 += displacement + 0.2;
 		box.y2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-		_model.Move(0 , 0 + displacement);
+		if(GameObjectManager::collidesWith(box, _type) == grass)
+			_model.Move(0 , 0 + displacement);
 	}
 	else if (Game::keyPressed() == eKeys::Right)
 	{
 		setDirection(180);
 		box.y1 -= displacement;
 		box.y2 -= displacement;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-		_model.Move(0 , 0 - displacement);
+		if(GameObjectManager::collidesWith(box, _type) == grass)
+			_model.Move(0 , 0 - displacement);
 	}
 	else if (Game::keyTyped() == eKeys::Select)
 		dropBomb();
