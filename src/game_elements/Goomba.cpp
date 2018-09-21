@@ -6,20 +6,24 @@
 #include "Game.hpp"
 #include "ServiceLocator.hpp"
 #include "Error.hpp"
+#include "Map.hpp"
 
 Goomba::Goomba(): _speed(3)
 {
 	_type = goomba;
+	_time = glfwGetTime();
 }
 
 Goomba::Goomba(Model_Texture & texture, float x, float y): _speed(3), VisibleGameObject(texture, x, y, true, false)
 {
 	_type = goomba;
+	_time = glfwGetTime();
 }
 
 Goomba::Goomba(Goomba const & src)
 {
 	*this = src;
+	_time = glfwGetTime();
 }
 
 
@@ -28,7 +32,7 @@ Goomba::~Goomba() {}
 BoundingBox Goomba::getBoundingBox()
 {
 	if (!isLoaded())
-		throw Error::AssetError("Player object not loaded");
+		throw Error::AssetError("Goomba object not loaded");
 
 	float modelSize = 0.6f;
 
@@ -52,6 +56,58 @@ BoundingBox Goomba::getBoundingBox()
 //     while(clock() != end_time);
 // }
 
+void ShiftBox(BoundingBox & box, float x, float y)
+{
+	box.x1 += x;
+	box.x2 += x;
+	box.y1 += y;
+	box.y2 += y;
+}
+
+void Goomba::RandomDirection()
+{
+	// glm::vec3 temp = this->_model.GetPosition();
+	// float shift = 0.82f;
+	// if (fmod(temp.x + shift, 1.64) > 0.8f && fmod(temp.x + shift, 1.64) < 0.84f &&
+	// 	fmod(temp.z + shift, 1.64) > 0.8f && fmod(temp.z + shift, 1.64) > 0.84f)
+	// {
+		if (glfwGetTime() - _time > 1)
+		{
+			BoundingBox boxLeft = this->getBoundingBox();
+			BoundingBox boxRight = this->getBoundingBox();
+			BoundingBox boxUp = this->getBoundingBox();
+			BoundingBox boxDown = this->getBoundingBox();
+			ShiftBox(boxLeft, - ( 2 * 0.6f), 0.0f);
+			ShiftBox(boxRight,( 2 * 0.6f), 0.0f);
+			ShiftBox(boxUp, 0.0f, - ( 2 * 0.6f));
+			ShiftBox(boxDown, 0.0f, ( 2 * 0.6f));
+
+			std::vector<int> dir;
+			//left
+			if (GameObjectManager::collidesWith(boxLeft) != unbreakableBlocks && GameObjectManager::collidesWith(boxLeft) != breakableBlocks)
+				dir.push_back(3);
+			//right
+			if (GameObjectManager::collidesWith(boxRight) != unbreakableBlocks && GameObjectManager::collidesWith(boxRight) != breakableBlocks)
+				dir.push_back(4);
+			//up
+			if (GameObjectManager::collidesWith(boxUp) != unbreakableBlocks && GameObjectManager::collidesWith(boxUp) != breakableBlocks)
+				dir.push_back(1);
+			//down
+			if (GameObjectManager::collidesWith(boxDown) != unbreakableBlocks && GameObjectManager::collidesWith(boxDown) != breakableBlocks)
+				dir.push_back(2);
+			if (dir.size() > 2)
+			{
+				int index = rand() % (100 * dir.size());
+				_directionGen = dir[index / 100];
+				// std::cout << dir.size() << " " << x << " " << y << std::endl;
+				_time = glfwGetTime();
+			}
+		}
+		// if (dir.size() > 2)
+			// std::cout << dir.size() << " " << x << " " << y << std::endl;
+	// }
+}
+
 void Goomba::Update(float & timeElapsed)
 {
 	float displacement = timeElapsed * _speed;
@@ -65,6 +121,7 @@ void Goomba::Update(float & timeElapsed)
 
 	// for (int i = 0; i < 10; i++)
 	// {
+		RandomDirection();
 		if (_directionGen == 1)
 		{
 			if (_direction != 270)
