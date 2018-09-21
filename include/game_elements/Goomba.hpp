@@ -22,6 +22,7 @@ public:
 
 private:
 	void RandomDirection();
+	void updateDirection(int newDir);
 	float _speed;
 	int	_directionGen = rand() % 4 + 1;
 	float _time;
