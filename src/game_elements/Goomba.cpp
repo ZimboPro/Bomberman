@@ -247,5 +247,4 @@ void Goomba::Update(float & timeElapsed)
 				}
 			}
 		}
-	// }
 }
