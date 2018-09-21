@@ -20,6 +20,7 @@
 #include "Map.hpp"
 #include "game_elements/Player.hpp"
 #include "Camera.hpp"
+#include "GameInterface.hpp"
 
 void Game::start()
 {
@@ -29,7 +30,7 @@ void Game::start()
 	//GameObjectManager::init();
 	_loadingScreen.loadModels();
 
-	_gameState = Game::ShowingSplash;
+	_gameState = Game::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -125,20 +126,24 @@ void Game::playGame()
 
 	_camera.LookAt(glm::vec3(0));
 
+	GameInterface _interface;
+	_interface.resetHOD();
+	_interface.resetTime(60);
+
 	while(_gameState == Game::Playing)
 	{
 		_window.clear(0.5f, 0.5f, 0.5f);
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
-		GameObjectManager::drawAll(shader);
-
+		// GameObjectManager::drawAll(shader);
+		_interface.display();
 		_window.update();
 
-		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
+		// GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 
-		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
+		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded())
 			_gameState = Game::Exiting;
 	}
 	return ;

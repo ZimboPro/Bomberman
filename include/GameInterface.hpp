@@ -5,6 +5,7 @@
 #include <Model_Sprite.hpp>
 
 class Shaders;
+class Text;
 
 class GameInterface
 {
@@ -12,20 +13,30 @@ class GameInterface
         GameInterface();
         ~GameInterface();
 
-        void display(Shaders & shader);
+        void display();
 
         void load();
+        void resetHOD();
         void resetTime(float seconds);
         void adjustLives(int i);
         void adjustScore(int score);
         bool stillAlive();
+        bool timerEnded();
     
     private:
-        Model_Sprite * _models;
-        std::vector<glm::vec3> _postions;
+        Model_Sprite * _model;
+        Shaders * _shader;
+        Shaders * _textShader;
+        Text * _text;
+
+        std::vector<glm::vec2> _postions;
+
         float _endTime;
-        int _lives;
-        int _score;
+        static int _lives;
+        static int _score;
+        glm::mat4 _projection;
+        glm::mat4 _view;
+        glm::vec3 _color;
 };
 
 #endif
