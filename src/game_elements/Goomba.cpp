@@ -248,6 +248,4 @@ void Goomba::Update(float & timeElapsed)
 			}
 		}
 	// }
-	
-	Game::_camera.LookAt(_model.GetPosition());
 }

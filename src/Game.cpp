@@ -181,10 +181,10 @@ void Game::playGame()
 
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
-//		if (keyTyped() == eKeys::Up)
-//			_interface.adjustLives(1);
-//		if (keyTyped() == eKeys::Down)
-//			_interface.adjustLives(-1);
+		if (keyTyped() == eKeys::Up)
+			GameObjectManager::newLevel(1);
+		if (keyTyped() == eKeys::Down)
+			GameObjectManager::newLevel(0);
 //		if (keyTyped() == eKeys::Right)
 //			_interface.adjustScore(10);
 //		if (keyTyped() == eKeys::Left)

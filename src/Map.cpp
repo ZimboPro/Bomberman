@@ -50,6 +50,17 @@ void Map::printMap()
 	}
 }
 
+std::vector<std::vector<std::vector<char >>> Map::getLevelHolder( void )
+{
+	return _map;
+}
+
+void Map::levelDown( void )
+{
+	if (_currentWorkingLevel > 0)
+		_currentWorkingLevel--;
+}
+
 void Map::readInRandomMap(int seed)
 {
 	_map.push_back(_levels.makeMap(seed));

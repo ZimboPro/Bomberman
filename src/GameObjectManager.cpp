@@ -63,21 +63,60 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
-void GameObjectManager::clearLevel()
+
+void GameObjectManager::clearLevelDown()
 {
+	_initialized = false;
+	if (Map::getLevelHolder().size() > Map::getLevel())
+	{
+		Map::readInRandomMap(Map::getLevel() - 1);
+		Map::levelDown();
+	}
 	_staticObjects.clear();
 	_dynamicObjects->clear();
+	_grass->clear();
+	delete _dynamicObjects;
+	delete _grass;
+}
+
+void GameObjectManager::clearLevelUp()
+{
+	_initialized = false;
+	Map::readInRandomMap(Map::getLevel() + 1);
+	Map::levelUp();
+	_staticObjects.clear();
+	_dynamicObjects->clear();
+	_grass->clear();
+	delete _dynamicObjects;
+	delete _grass;
 }
 
 void GameObjectManager::initLevel()
 {
-	
+	_staticObjects = _factory.genStaticObjects();
+	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
+	_grass = _factory.genGrass();
+	_initialized = true;
 }
 
-void GameObjectManager::newLevel()
+void GameObjectManager::newLevel(int type)
 {
-	clearLevel(); // empty the data structures: _DynamicObjetcs, _Grass and _static Objetcs
-	initLevel(); // makes call to factory to init the datastructures with fresh objects
+	int Down = 0;
+	int Up = 1;
+
+	if (type == Up)
+	{
+		clearLevelUp(); // empty the data structures: _DynamicObjetcs, _Grass and _static Objetcs
+		initLevel(); // makes call to factory to init the datastructures with fresh objects
+	}
+	else if (type == Down)
+	{
+		clearLevelDown();
+		initLevel();
+
+	}
+	else
+		std::cout << "Invalid change type. values needed 0:Down or 1:Up" << std::endl;
 }
 
 bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
