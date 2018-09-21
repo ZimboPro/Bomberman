@@ -21,13 +21,13 @@ public:
 	static void drawAll(Shaders & shader);
 	static void updateAll(float elapsedTime);
 	static void init();
-	static objectTypes collidesWith(BoundingBox & box);
+	static objectTypes collidesWith(BoundingBox & box, objectTypes type);
 	static void addDynamicObject(objectTypes type, float x, float y);
-	static bool intersects(BoundingBox obj1, BoundingBox obj2);
 	static void explodeBomb(VisibleGameObject * bomb);
 	static void removeDynamicObject(VisibleGameObject * obj);
 
 private:
+	static bool intersects(BoundingBox obj1, BoundingBox obj2);
 	static void spawnFire(VisibleGameObject *bomb);
 	static std::vector<std::vector<VisibleGameObject *>> _staticObjects;
 	static std::list<std::shared_ptr<VisibleGameObject>> *_dynamicObjects;

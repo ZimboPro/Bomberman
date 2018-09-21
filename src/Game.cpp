@@ -41,7 +41,7 @@ void Game::start()
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
 
-	_gameState = Game::ShowingMenu;
+	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -181,14 +181,14 @@ void Game::playGame()
 
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
-		if (keyTyped() == eKeys::Up)
-			_interface.adjustLives(1);
-		if (keyTyped() == eKeys::Down)
-			_interface.adjustLives(-1);
-		if (keyTyped() == eKeys::Right)
-			_interface.adjustScore(10);
-		if (keyTyped() == eKeys::Left)
-			_interface.adjustScore(-5);
+//		if (keyTyped() == eKeys::Up)
+//			_interface.adjustLives(1);
+//		if (keyTyped() == eKeys::Down)
+//			_interface.adjustLives(-1);
+//		if (keyTyped() == eKeys::Right)
+//			_interface.adjustScore(10);
+//		if (keyTyped() == eKeys::Left)
+//			_interface.adjustScore(-5);
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
 			_gameState = Game::Exiting;

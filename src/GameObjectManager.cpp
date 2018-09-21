@@ -68,7 +68,6 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 	float maxX1 = obj1.x2;
 	float y1 = obj1.y1;
 	float maxY1 = obj1.y2;
-	std::cout << x1 << std::endl;
 
 	float x2 = obj2.x1;
 	float maxX2 = obj2.x2;
@@ -144,8 +143,7 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	}
 }
 
-objectTypes GameObjectManager::collidesWith(BoundingBox & box)
-
+objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 {
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
@@ -172,14 +170,14 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box)
 		return objectTypes::unbreakableBlocks;
 	}
 
-//	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
-//	{
-//		int objX = static_cast<int>((*iter)->getPosition().x);
-//		int objY = static_cast<int>((*iter)->getPosition().z);
-//
-//		if(x == objX && y == objY && type.getType() != (*iter)->getType())
-//			return (*iter)->getType();
-//	}
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if ((*iter)->getType() != type && intersects(box, (*iter)->getBoundingBox()))
+		{
+			std::cout << "Collides with " << (char)(*iter)->getType() << std::endl;
+			return (*iter)->getType();
+		}
+	}
 	return grass;
 }
 

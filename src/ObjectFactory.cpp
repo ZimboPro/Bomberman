@@ -78,7 +78,6 @@ std::vector<std::vector<VisibleGameObject *>> ObjectFactory::genStaticObjects()
 	for (size_t y = 0; y < Map::height(); y++)
 	{
 		std::vector<VisibleGameObject * > innerResult;
-
 		for (size_t x = 0; x < Map::width(); x++)
 		{
 			switch (Map::at(x, y))

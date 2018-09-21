@@ -31,6 +31,7 @@ public:
 	virtual objectTypes getType();
 	virtual BoundingBox getBoundingBox();
 	virtual void setDirection(float direction);
+	virtual void die();
 
 	virtual glm::vec3 getPosition();
 

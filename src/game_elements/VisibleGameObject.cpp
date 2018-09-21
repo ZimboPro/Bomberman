@@ -35,6 +35,10 @@ void VisibleGameObject::setDirection(float direction)
 	}
 }
 
+void VisibleGameObject::die()
+{
+}
+
 void VisibleGameObject::setScale(float scale)
 {
 	_model.Scale(scale);

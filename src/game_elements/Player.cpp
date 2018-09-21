@@ -65,7 +65,7 @@ void Player::Update(float & timeElapsed)
 		setDirection(270);
 		box.x1 -= displacement;
 		box.x2 -= displacement;
-		if(GameObjectManager::collidesWith(box) == grass)
+		if(GameObjectManager::collidesWith(box, _type) == grass)
 			_model.Move(0 - displacement, 0);
 	}
 	else if (Game::keyPressed() == eKeys::Down)
@@ -73,7 +73,7 @@ void Player::Update(float & timeElapsed)
 		setDirection(90);
 		box.x1 += displacement + 0.2;
 		box.x2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box) == grass)
+			if(GameObjectManager::collidesWith(box, _type) == grass)
 		_model.Move(0 + displacement, 0);
 	}
 	else if (Game::keyPressed() == eKeys::Left)
@@ -81,7 +81,7 @@ void Player::Update(float & timeElapsed)
 		setDirection(0);
 		box.y1 += displacement + 0.2;
 		box.y2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box) == grass)
+			if(GameObjectManager::collidesWith(box, _type) == grass)
 		_model.Move(0 , 0 + displacement);
 	}
 	else if (Game::keyPressed() == eKeys::Right)
@@ -89,7 +89,7 @@ void Player::Update(float & timeElapsed)
 		setDirection(180);
 		box.y1 -= displacement;
 		box.y2 -= displacement;
-			if(GameObjectManager::collidesWith(box) == grass)
+			if(GameObjectManager::collidesWith(box, _type) == grass)
 		_model.Move(0 , 0 - displacement);
 	}
 	else if (Game::keyTyped() == eKeys::Select)
