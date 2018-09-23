@@ -141,6 +141,23 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 	_dynamicObjects->push_back(obj);
 }
 
+bool GameObjectManager::setFireAndContinue(int x, int y)
+{
+	if (_staticObjects[y][x]->isLoaded())
+	{
+		if (_staticObjects[y][x]->isBreakable())
+		{
+			_staticObjects[y][x]->die();
+			addDynamicObject(fire, x, y);
+			return false;
+		}
+		else
+			return false;
+	}
+	addDynamicObject(fire, x, y);
+	return true;
+}
+
 void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 {
 	float burnRange = 2 * GameInterface::getRangeMultiplier();
@@ -154,49 +171,17 @@ void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 	float endY = ((bombY + burnRange < static_cast<float>(_staticObjects.size())) ? bombY + burnRange : static_cast<float>(_staticObjects.size()));
 
 	for(float y = bombY; y >= startY; y--)
-	{
-		if (_staticObjects[y][bombX]->isLoaded())
-		{
-			if (_staticObjects[y][bombX]->isBreakable())
-				_staticObjects[y][bombX]->die();
-			else
-				break;
-		}
-		addDynamicObject(fire, bombX, y);
-	}
+		if (!setFireAndContinue(bombX, y))
+			break;
 	for(float y = bombY; y <= endY; y++)
-	{
-		if (_staticObjects[y][bombX]->isLoaded())
-		{
-			if (_staticObjects[y][bombX]->isBreakable())
-				_staticObjects[y][bombX]->die();
-			else
-				break;
-		}
-		addDynamicObject(fire, bombX, y);
-	}
+		if (!setFireAndContinue(bombX, y))
+			break;
 	for(float x = bombX - 1; x >= startX; x--)
-	{
-		if (_staticObjects[bombY][x]->isLoaded())
-		{
-			if (_staticObjects[bombY][x]->isBreakable())
-				_staticObjects[bombY][x]->die();
-			else
-				break;
-		}
-		addDynamicObject(fire, x, bombY);
-	}
+		if (!setFireAndContinue(x, bombY))
+			break;
 	for(float x = bombX + 1; x <= endX; x++)
-	{
-		if (_staticObjects[bombY][x]->isLoaded())
-		{
-			if (_staticObjects[bombY][x]->isBreakable())
-				_staticObjects[bombY][x]->die();
-			else
-				break;
-		}
-		addDynamicObject(fire, x, bombY);
-	}
+		if (!setFireAndContinue(x, bombY))
+			break;
 }
 
 void GameObjectManager::explodeBomb(VisibleGameObject *bomb)

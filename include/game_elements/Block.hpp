@@ -11,6 +11,7 @@ class Block: public VisibleGameObject
         Block(Model_Texture & texture, float x, float y, bool isBreakable);
         ~Block();
         BoundingBox getBoundingBox();
+        void Update(float & elapsedTime);
 };
 
 #endif

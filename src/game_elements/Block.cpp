@@ -18,6 +18,10 @@ Block::Block(Model_Texture & texture, float x, float y, bool isBreakable): Visib
 		_type = unbreakableBlocks;
 }
 
+void Block::Update(float & elapsedTime)
+{
+}
+
 BoundingBox Block::getBoundingBox()
 {
 	if (!isLoaded())

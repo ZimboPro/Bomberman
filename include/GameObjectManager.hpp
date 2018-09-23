@@ -27,6 +27,7 @@ public:
 	static void explodeBomb(VisibleGameObject * bomb);
 	static void removeDynamicObject(VisibleGameObject * obj);
 	static void newLevel( int type );
+	static bool setFireAndContinue(int x, int y);
 
 private:
 	static void clearLevelUp();
