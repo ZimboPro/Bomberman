@@ -10,6 +10,7 @@
 #include <memory>
 #include <game_elements/Bomb.hpp>
 #include <Error.hpp>
+#include <GameInterface.hpp>
 
 GameObjectManager::GameObjectManager() = default;
 
@@ -142,7 +143,7 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 
 void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 {
-	float burnRange = 2;
+	float burnRange = 2 * GameInterface::getRangeMultiplier();
 
 	float bombX = bomb->getPosition().x;
 	float bombY = bomb->getPosition().z;
@@ -152,21 +153,49 @@ void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 	float endX = ((bombX + burnRange < static_cast<float>(_staticObjects[0].size())) ? bombX + burnRange : static_cast<float>(_staticObjects[0].size()));
 	float endY = ((bombY + burnRange < static_cast<float>(_staticObjects.size())) ? bombY + burnRange : static_cast<float>(_staticObjects.size()));
 
-	for(float y = startY; y <= endY; y++)
+	for(float y = bombY; y >= startY; y--)
 	{
-		if (_staticObjects[y][bombX]->isLoaded() && _staticObjects[y][bombX]->isBreakable())
-			_staticObjects[y][bombX]->die();
-
+		if (_staticObjects[y][bombX]->isLoaded())
+		{
+			if (_staticObjects[y][bombX]->isBreakable())
+				_staticObjects[y][bombX]->die();
+			else
+				break;
+		}
 		addDynamicObject(fire, bombX, y);
 	}
-
-	for(float x = startX; x <= endX; x++)
+	for(float y = bombY; y <= endY; y++)
 	{
-		if (_staticObjects[bombY][x]->isLoaded() && _staticObjects[bombY][x]->isBreakable())
-			_staticObjects[bombY][x]->die();
-
-		if (x != bombX)
-			addDynamicObject(fire, x, bombY);
+		if (_staticObjects[y][bombX]->isLoaded())
+		{
+			if (_staticObjects[y][bombX]->isBreakable())
+				_staticObjects[y][bombX]->die();
+			else
+				break;
+		}
+		addDynamicObject(fire, bombX, y);
+	}
+	for(float x = bombX - 1; x >= startX; x--)
+	{
+		if (_staticObjects[bombY][x]->isLoaded())
+		{
+			if (_staticObjects[bombY][x]->isBreakable())
+				_staticObjects[bombY][x]->die();
+			else
+				break;
+		}
+		addDynamicObject(fire, x, bombY);
+	}
+	for(float x = bombX + 1; x <= endX; x++)
+	{
+		if (_staticObjects[bombY][x]->isLoaded())
+		{
+			if (_staticObjects[bombY][x]->isBreakable())
+				_staticObjects[bombY][x]->die();
+			else
+				break;
+		}
+		addDynamicObject(fire, x, bombY);
 	}
 }
 

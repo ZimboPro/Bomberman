@@ -127,6 +127,9 @@ void Player::Update(float & timeElapsed)
 	float modelChangeTime = 0.13f;
 	glm::vec3 pos = _models[0]->GetPosition();
 
+	float alignX = round(pos.x) - pos.x;
+	float alignY = round(pos.z) - pos.z;
+
 	if (Game::keyPressed() == eKeys::Up)
 	{
 		Rotate(270);
@@ -137,7 +140,7 @@ void Player::Update(float & timeElapsed)
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 - camDisplacement, 0);
 			if (_totalElapsed > modelChangeTime)
-				Move(0 - displacement, 0);
+				Move(0 - displacement, alignY);
 		}
 	}
 	else if (Game::keyPressed() == eKeys::Down)
@@ -150,7 +153,7 @@ void Player::Update(float & timeElapsed)
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 + camDisplacement, 0);
 			if (_totalElapsed > modelChangeTime)
-				Move(0 + displacement, 0);
+				Move(0 + displacement, alignY);
 		}
 	}
 	else if (Game::keyPressed() == eKeys::Left)
@@ -163,7 +166,7 @@ void Player::Update(float & timeElapsed)
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0, 0 + camDisplacement);
 			if (_totalElapsed > modelChangeTime)
-				Move(0 , 0 + displacement);
+				Move(alignX, 0 + displacement);
 		}
 	}
 	else if (Game::keyPressed() == eKeys::Right)
@@ -177,10 +180,10 @@ void Player::Update(float & timeElapsed)
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0, 0 - camDisplacement);
 			if (_totalElapsed > modelChangeTime)
-				Move(0 , 0 - displacement);
+				Move(alignX, 0 - displacement);
 		}
 	}
-	else if (Game::keyTyped() == eKeys::Select)
+	else if (Game::keyTyped() == eKeys::Place)
 		dropBomb();
 	else if (Game::keyTyped() == eKeys::Undefined)
 	{

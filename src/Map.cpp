@@ -61,6 +61,8 @@ void Map::levelDown()
 		_currentWorkingLevel--;
 }
 
+
+
 void Map::readInRandomMap(int seed)
 {
 	if (seed == 0)
