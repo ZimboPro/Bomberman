@@ -85,7 +85,6 @@ BoundingBox Player::getBoundingBox()
 void Player::dropBomb()
 {
 	glm::vec3 pos = _models[0]->GetPosition();
-	float playerOffset = 0.2;
 	float bombOffset = 0.5;
 	float bombX = pos.x;
 	float bombY = pos.z;
@@ -94,28 +93,23 @@ void Player::dropBomb()
 	{
 		bombX = floor(bombX - bombOffset);
 		bombY = round(bombY);
-		_model.Move(playerOffset, 0);
 	}
 	else if (_direction == 90) // Down
 	{
 		bombX = ceil(bombX + bombOffset);
 		bombY = round(bombY);
-		_model.Move(-playerOffset, 0);
 	}
 	else if (_direction == 0) // Left
 	{
 		bombY = ceil(bombY + bombOffset);
 		bombX = round(bombX);
-		_model.Move(0, -playerOffset);
 	}
 	else if (_direction == 180) // Right
 	{
 		bombY = floor(bombY - bombOffset);
 		bombX = round(bombX);
-		_model.Move(0, playerOffset);
 	}
 	GameObjectManager::addDynamicObject(bomb, bombX ,bombY);
-
 }
 
 void Player::Draw(Shaders & shader)
