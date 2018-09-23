@@ -121,6 +121,7 @@ void Player::Update(float & timeElapsed)
 	BoundingBox box = this->getBoundingBox();
 	_prevIndex = _index;
 	float displacement = _totalElapsed * _speed;
+	float modelChangeTime = 0.13f;
 	glm::vec3 pos = _models[0]->GetPosition();
 
 	if (Game::keyPressed() == eKeys::Up)
@@ -136,7 +137,7 @@ void Player::Update(float & timeElapsed)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 - camDisplacement, 0);
-			if (_totalElapsed > 0.2f)
+			if (_totalElapsed > modelChangeTime)
 				Move(0 - displacement, 0);
 		}
 	}
@@ -152,7 +153,7 @@ void Player::Update(float & timeElapsed)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 + camDisplacement, 0);
-			if (_totalElapsed > 0.2f)
+			if (_totalElapsed > modelChangeTime)
 				Move(0 + displacement, 0);
 		}
 	}
@@ -168,7 +169,7 @@ void Player::Update(float & timeElapsed)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0, 0 + camDisplacement);
-			if (_totalElapsed > 0.2f)
+			if (_totalElapsed > modelChangeTime)
 				Move(0 , 0 + displacement);
 		}
 	}
@@ -185,7 +186,7 @@ void Player::Update(float & timeElapsed)
 			_model.Move(0, 0 - displacement);
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0, 0 - camDisplacement);
-			if (_totalElapsed > 0.2f)
+			if (_totalElapsed > modelChangeTime)
 				Move(0 , 0 - displacement);
 		}
 	}

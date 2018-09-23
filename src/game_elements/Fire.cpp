@@ -13,7 +13,7 @@ Fire::Fire(): _burnTime(5.0)
 Fire::Fire(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false)
 {
 	_type = fire;
-	_burnTime = 20;
+	_burnTime = 5;
 }
 
 Fire::~Fire()

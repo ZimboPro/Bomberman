@@ -11,7 +11,7 @@
 #include <game_elements/Bomb.hpp>
 #include <Error.hpp>
 
-GameObjectManager::GameObjectManager() {}
+GameObjectManager::GameObjectManager() = default;
 
 GameObjectManager::GameObjectManager(GameObjectManager const & src) 
 {
@@ -19,8 +19,7 @@ GameObjectManager::GameObjectManager(GameObjectManager const & src)
 }
 
 GameObjectManager::~GameObjectManager()
-{
-}
+= default;
 
 void GameObjectManager::init()
 {
@@ -39,7 +38,8 @@ void GameObjectManager::drawAll(Shaders & shader)
 	for(size_t y = 0; y < _staticObjects.size(); y++)
 		for (size_t x = 0; x < _staticObjects[y].size(); x++)
 		{
-			_staticObjects[y][x]->Draw(shader);
+			if(_staticObjects[y][x]->isLoaded())
+				_staticObjects[y][x]->Draw(shader);
 		}
 
 	for (auto iter = _grass->begin(); iter != _grass->end(); iter++)
@@ -62,7 +62,6 @@ void GameObjectManager::updateAll(float elapsedTime)
 		(*iter)->Update(elapsedTime);
 	}
 }
-
 
 void GameObjectManager::clearLevelDown()
 {
@@ -106,14 +105,13 @@ void GameObjectManager::newLevel(int type)
 
 	if (type == Up)
 	{
-		clearLevelUp(); // empty the data structures: _DynamicObjetcs, _Grass and _static Objetcs
-		initLevel(); // makes call to factory to init the datastructures with fresh objects
+		clearLevelUp();
+		initLevel();
 	}
 	else if (type == Down)
 	{
 		clearLevelDown();
 		initLevel();
-
 	}
 	else
 		std::cout << "Invalid change type. values needed 0:Down or 1:Up" << std::endl;
@@ -165,10 +163,18 @@ void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 	float endY = ((bombY + burnRange < static_cast<float>(_staticObjects.size())) ? bombY + burnRange : static_cast<float>(_staticObjects.size()));
 
 	for(float y = startY; y <= endY; y++)
+	{
+		if (_staticObjects[y][bombX]->isLoaded() && _staticObjects[y][bombX]->isBreakable())
+			_staticObjects[y][bombX]->die();
+
 		addDynamicObject(fire, bombX, y);
+	}
 
 	for(float x = startX; x <= endX; x++)
 	{
+		if (_staticObjects[bombY][x]->isLoaded() && _staticObjects[bombY][x]->isBreakable())
+			_staticObjects[bombY][x]->die();
+
 		if (x != bombX)
 			addDynamicObject(fire, x, bombY);
 	}

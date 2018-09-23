@@ -37,6 +37,7 @@ void VisibleGameObject::setDirection(float direction)
 
 void VisibleGameObject::die()
 {
+	_isLoaded = false;
 }
 
 void VisibleGameObject::setScale(float scale)
