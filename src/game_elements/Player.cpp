@@ -86,27 +86,36 @@ void Player::dropBomb()
 {
 	glm::vec3 pos = _models[0]->GetPosition();
 	float playerOffset = 0.2;
+	float bombOffset = 0.5;
+	float bombX = pos.x;
+	float bombY = pos.z;
 
-	if (_direction == 270)
+	if (_direction == 270) // UP
 	{
-		GameObjectManager::addDynamicObject(bomb, pos.x - 0.6, pos.z);
+		bombX = floor(bombX - bombOffset);
+		bombY = round(bombY);
 		_model.Move(playerOffset, 0);
 	}
-	else if (_direction == 90)
+	else if (_direction == 90) // Down
 	{
-		GameObjectManager::addDynamicObject(bomb, pos.x + 0.6, pos.z);
+		bombX = ceil(bombX + bombOffset);
+		bombY = round(bombY);
 		_model.Move(-playerOffset, 0);
 	}
-	else if (_direction == 0)
+	else if (_direction == 0) // Left
 	{
-		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z + 0.6);
+		bombY = ceil(bombY + bombOffset);
+		bombX = round(bombX);
 		_model.Move(0, -playerOffset);
 	}
-	else if (_direction == 180)
+	else if (_direction == 180) // Right
 	{
-		GameObjectManager::addDynamicObject(bomb, pos.x, pos.z - 0.6);
+		bombY = floor(bombY - bombOffset);
+		bombX = round(bombX);
 		_model.Move(0, playerOffset);
 	}
+	GameObjectManager::addDynamicObject(bomb, bombX ,bombY);
+
 }
 
 void Player::Draw(Shaders & shader)
@@ -126,11 +135,7 @@ void Player::Update(float & timeElapsed)
 
 	if (Game::keyPressed() == eKeys::Up)
 	{
-		if (_direction != 270) {
-			Rotate(270);
-			_direction = 270;
-		}
-		setDirection(270);
+		Rotate(270);
 		box.x1 -= displacement;
 		box.x2 -= displacement;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
@@ -143,10 +148,7 @@ void Player::Update(float & timeElapsed)
 	}
 	else if (Game::keyPressed() == eKeys::Down)
 	{
-		if (_direction != 90) {
-			Rotate(90);
-			_direction = 90;
-		}
+		Rotate(90);
 		box.x1 += displacement + 0.2;
 		box.x2 += displacement + 0.2;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
@@ -159,10 +161,7 @@ void Player::Update(float & timeElapsed)
 	}
 	else if (Game::keyPressed() == eKeys::Left)
 	{
-		if (_direction != 0) {
-			Rotate(0);
-			_direction = 0;
-		}
+		Rotate(0);
 		box.y1 += displacement + 0.2;
 		box.y2 += displacement + 0.2;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
@@ -175,10 +174,7 @@ void Player::Update(float & timeElapsed)
 	}
 	else if (Game::keyPressed() == eKeys::Right)
 	{
-		if (_direction != 180) {
-			Rotate(180);
-			_direction = 180;
-		}
+		Rotate(180);
 		box.y1 -= displacement;
 		box.y2 -= displacement;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
@@ -217,9 +213,13 @@ void Player::Move(float x, float y)
 
 void Player::Rotate(float degrees)
 {
-	for (size_t i = 0; i < this->_models.size(); i++)
-		this->_models[i]->Rotate(degrees);
-	if (_prevIndex == _index)
-		_index = (_index + 1) % this->_models.size();
-	_totalElapsed = 0.0f;
+	if (_direction != degrees)
+	{
+		_direction = degrees;
+		for (size_t i = 0; i < this->_models.size(); i++)
+			this->_models[i]->Rotate(degrees);
+		if (_prevIndex == _index)
+			_index = (_index + 1) % this->_models.size();
+		_totalElapsed = 0.0f;
+	}
 }
