@@ -33,33 +33,33 @@ void GameObjectManager::init()
 
 void GameObjectManager::drawAll(Shaders & shader)
 {
-	if (!_initialized)
-		throw Error::AssetError("Models not initialized");
-	for(size_t y = 0; y < _staticObjects.size(); y++)
-		for (size_t x = 0; x < _staticObjects[y].size(); x++)
+	if (!_initialized) throw Error::AssetError("Models not initialized");
+	
+	for (auto &_staticObject : _staticObjects)
+		for (auto &x : _staticObject)
 		{
-			if(_staticObjects[y][x]->isLoaded())
-				_staticObjects[y][x]->Draw(shader);
+			if(x->isLoaded())
+				x->Draw(shader);
 		}
 
-	for (auto iter = _grass->begin(); iter != _grass->end(); iter++)
+	for (auto &_gras : *_grass)
 	{
-		(*iter)->Draw(shader);
+		_gras->Draw(shader);
 	}
 
-	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	for (auto &_dynamicObject : *_dynamicObjects)
 	{
-		(*iter)->Draw(shader);
+		_dynamicObject->Draw(shader);
 	}
 }
 
 void GameObjectManager::updateAll(float elapsedTime)
 {
-	if (!_initialized)
-		throw Error::AssetError("Models not initialized");
-	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	if (!_initialized) throw Error::AssetError("Models not initialized");
+	
+	for (auto &_dynamicObject : *_dynamicObjects)
 	{
-		(*iter)->Update(elapsedTime);
+		_dynamicObject->Update(elapsedTime);
 	}
 }
 
@@ -119,26 +119,16 @@ void GameObjectManager::newLevel(int type)
 
 bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 {
-	float x1 = obj1.x1;
-	float maxX1 = obj1.x2;
-	float y1 = obj1.y1;
-	float maxY1 = obj1.y2;
-
-	float x2 = obj2.x1;
-	float maxX2 = obj2.x2;
-	float y2 = obj2.y1;
-	float maxY2 = obj2.y2;
-
-	if (x2 >= x1 && x2 <= maxX1 && y2 >= y1 && y2 <= maxY1)
+	if (obj2.x1 >= obj1.x1 && obj2.x1 <= obj1.x2 && obj2.y1 >= obj1.y1 && obj2.y1 <= obj1.y2)
 		return true;
 
-	if (maxX2 >= x1 && maxX2 <= maxX1 && y2 >= y1 && y2 <= maxY1)
+	if (obj2.x2 >= obj1.x1 && obj2.x2 <= obj1.x2 && obj2.y1 >= obj1.y1 && obj2.y1 <= obj1.y2)
 		return true;
 	
-	if (x1 >= x2 && x1 <= maxX2 && y1 >= y2 && y1 <= maxY2)
+	if (obj1.x1 >= obj2.x1 && obj1.x1 <= obj2.x2 && obj1.y1 >= obj2.y1 && obj1.y1 <= obj2.y2)
 		return true;
 
-	if (maxX1 >= x2 && maxX1 <= maxX2 && y1 >= y2 && y1 <= maxY2)
+	if (obj1.x2 >= obj2.x1 && obj1.x2 <= obj2.x2 && obj1.y1 >= obj2.y1 && obj1.y1 <= obj2.y2)
 		return true;
 
 	return false;
