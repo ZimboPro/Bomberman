@@ -5,9 +5,8 @@
 #include "game_elements/VisibleGameObject.hpp"
 
 VisibleGameObject::VisibleGameObject():
-		 _isLoaded(false) {
-	_type = grass;
-}
+		 _isLoaded(false), _type(grass), _isDying(false), _timeTodie(2)
+{}
 
 VisibleGameObject::VisibleGameObject(VisibleGameObject const & src)
 {
@@ -15,12 +14,13 @@ VisibleGameObject::VisibleGameObject(VisibleGameObject const & src)
 }
 
 VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
-		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable)
+		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable), _timeTodie(2)
 {
 	_model.LoadModel_Texture(texture);
 	_model.Position(x, y);
 	_model.Scale(0.032f);
 	_direction = 0;
+	_isDying = false;
 }
 
 BoundingBox VisibleGameObject::getBoundingBox()
@@ -35,8 +35,9 @@ void VisibleGameObject::setDirection(float direction)
 	}
 }
 
-void VisibleGameObject::die()
+void VisibleGameObject::kill()
 {
+	_isDying = true;
 	_isLoaded = false;
 }
 
@@ -53,6 +54,9 @@ void	VisibleGameObject::Draw(Shaders & shader)
 	if(_model.IsLoaded())
 		_model.Draw(shader);
 }
+
+void VisibleGameObject::dying(float & elapsedTime)
+{}
 
 glm::vec3 VisibleGameObject::getPosition()
 {

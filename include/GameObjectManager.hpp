@@ -21,13 +21,12 @@ public:
 	static void drawAll(Shaders & shader);
 	static void updateAll(float elapsedTime);
 	static void init();
-//	static objectTypes collidesWith(VisibleGameObject & type, int x, int y);
 	static objectTypes collidesWith(BoundingBox & box, objectTypes type);
 	static void addDynamicObject(objectTypes type, float x, float y);
 	static void explodeBomb(VisibleGameObject * bomb);
 	static void removeDynamicObject(VisibleGameObject * obj);
 	static void newLevel( int type );
-	static bool setFireAndContinue(int x, int y);
+	static bool setFireAndContinue(float x, float y);
 
 private:
 	static void clearLevelUp();

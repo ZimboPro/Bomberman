@@ -32,18 +32,21 @@ public:
 	virtual objectTypes getType();
 	virtual BoundingBox getBoundingBox();
 	virtual void setDirection(float direction);
-	virtual void die();
+	virtual void kill();
 
 	virtual glm::vec3 getPosition();
 
 	Model_Sprite getModelSprite();
 
 protected:
+	void dying(float & elapsedTime);
 	Model_Sprite _model;
 	objectTypes _type;
 	float _direction;
+	float _timeTodie;
 	BoundingBox _box;
 
+	bool _isDying;
 	bool _isLoaded;
 	bool _isCollidable;
 	bool _isBreakable;

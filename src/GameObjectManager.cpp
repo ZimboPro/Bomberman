@@ -24,7 +24,7 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(0);
+	Map::readInRandomMap(1);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
@@ -43,9 +43,9 @@ void GameObjectManager::drawAll(Shaders & shader)
 				x->Draw(shader);
 		}
 
-	for (auto &_gras : *_grass)
+	for (auto &_grass : *_grass)
 	{
-		_gras->Draw(shader);
+		_grass->Draw(shader);
 	}
 
 	for (auto &_dynamicObject : *_dynamicObjects)
@@ -57,8 +57,15 @@ void GameObjectManager::drawAll(Shaders & shader)
 void GameObjectManager::updateAll(float elapsedTime)
 {
 	if (!_initialized) throw Error::AssetError("Models not initialized");
-	
-	for (auto &_dynamicObject : *_dynamicObjects)
+
+	for (auto &_staticObject : _staticObjects)
+		for (auto &x : _staticObject)
+		{
+			if(x->isLoaded() && x->isBreakable())
+				x->Update(elapsedTime);
+		}
+
+		for (auto &_dynamicObject : *_dynamicObjects)
 	{
 		_dynamicObject->Update(elapsedTime);
 	}
@@ -141,13 +148,13 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 	_dynamicObjects->push_back(obj);
 }
 
-bool GameObjectManager::setFireAndContinue(int x, int y)
+bool GameObjectManager::setFireAndContinue(float x, float y)
 {
 	if (_staticObjects[y][x]->isLoaded())
 	{
 		if (_staticObjects[y][x]->isBreakable())
 		{
-			_staticObjects[y][x]->die();
+			_staticObjects[y][x]->kill();
 			addDynamicObject(fire, x, y);
 			return true;
 		}
