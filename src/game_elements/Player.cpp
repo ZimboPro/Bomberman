@@ -185,18 +185,18 @@ void Player::Update(float & timeElapsed)
 	}
 	else if (Game::keyTyped() == eKeys::Place)
 		dropBomb();
-	else if (Game::keyTyped() == eKeys::Undefined)
-	{
-		if (_direction == 0)
-			Move(0 , 0 - displacement);
-		else if (_direction == 90)
-			Move(0 + displacement, 0);
-		else if (_direction == 180)
-			Move(0 , 0 - displacement);
-		else if (_direction == 270)
-			Move(0 - displacement, 0);
-		_index = 0;
-	}	
+	// else if (Game::keyTyped() == eKeys::Undefined)
+	// {
+	// 	if (_direction == 0)
+	// 		Move(0 , 0 - displacement);
+	// 	else if (_direction == 90)
+	// 		Move(0 + displacement, 0);
+	// 	else if (_direction == 180)
+	// 		Move(0 , 0 - displacement);
+	// 	else if (_direction == 270)
+	// 		Move(0 - displacement, 0);
+	// 	_index = 0;
+	// }	
 }
 
 void Player::Move(float x, float y)

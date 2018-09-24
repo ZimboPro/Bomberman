@@ -24,7 +24,7 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(0);
+	Map::readInRandomMap(1);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
