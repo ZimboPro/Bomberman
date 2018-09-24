@@ -12,18 +12,26 @@
 MainMenu::MainMenu()
 {
 	loadMenu();
-
+	_sound = ServiceLocator::getAudio();
+	_sound->setSoundLevel(Game::_settings.volume);
 }
 
 MainMenu::~MainMenu()
-{}
+{
+	while (_sound->isSoundPlaying())
+	{}
+	_sound->stopAllSounds();
+}
 
 int MainMenu::show(Shaders & shader, Shaders & brightShader)
 {
+	_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
 	moveOnScreen(shader, (Game::_window.Width() >> 1));
 	glm::mat4 projection = Game::_window.Projection();
+	MenuResult temp;
 	while (true)
 	{
+		temp = _selected;
 		Game::_window.clear(0.2588f, 0.7961f, 0.8196f);
 		shader.use();
 		shader.setMat4("projection", projection);
@@ -54,9 +62,14 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = MenuResult::Exit;
 			break;
 		}
-
+		if (temp != _selected)
+			_sound->playSound("../../Assets/sounds/button_press/select_settings.wav");
 		Game::_window.update();
 	}
+	if (MenuResult::Exit == _selected)
+		_sound->playSound("../../Assets/sounds/button_press/exit_button.wav");
+	else
+		_sound->playSound("../../Assets/sounds/button_press/start_game.wav");
 	moveOnScreen(shader, -20.0f);
 	deleteMenu();
 	return static_cast<int>(this->_selected);
