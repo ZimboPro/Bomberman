@@ -145,7 +145,10 @@ void Goomba::Draw(Shaders & shader)
 void Goomba::Update(float & timeElapsed)
 {
 	if (_isDying)
+	{
 		dying(timeElapsed);
+		return;
+	}
 
 	glm::vec3 pos = _models[_index]->GetPosition();
 	BoundingBox box = this->getBoundingBox();
