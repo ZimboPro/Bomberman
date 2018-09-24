@@ -42,9 +42,7 @@ BoundingBox PowerBlock::getBoundingBox()
 
 void PowerBlock::Update(float & timeElapsed)
 {
+	float rotationMultiplier = 100;
 	_direction += timeElapsed * _speed;
-	if (_direction > 360)
-		_direction = 0;
-//	std::cout << _direction << std::endl;
-	_model.Rotate(_direction);
+	_model.Rotate(timeElapsed * _speed * rotationMultiplier);
 }

@@ -54,6 +54,7 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 	_type = player;
 	_totalDroppedWhilstDying = 0;
 	_timeSpentDying = 0;
+	_isDying = false;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
