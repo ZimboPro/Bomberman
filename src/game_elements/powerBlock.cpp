@@ -45,6 +45,6 @@ void PowerBlock::Update(float & timeElapsed)
 	_direction += timeElapsed * _speed;
 	if (_direction > 360)
 		_direction = 0;
-	std::cout << _direction << std::endl;
+//	std::cout << _direction << std::endl;
 	_model.Rotate(_direction);
 }

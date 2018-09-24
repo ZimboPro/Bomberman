@@ -50,7 +50,8 @@ void GameObjectManager::drawAll(Shaders & shader)
 
 	for (auto &_dynamicObject : *_dynamicObjects)
 	{
-		_dynamicObject->Draw(shader);
+		if (_dynamicObject->isLoaded())
+			_dynamicObject->Draw(shader);
 	}
 }
 
@@ -65,9 +66,10 @@ void GameObjectManager::updateAll(float elapsedTime)
 				x->Update(elapsedTime);
 		}
 
-		for (auto &_dynamicObject : *_dynamicObjects)
+	for (auto &_dynamicObject : *_dynamicObjects)
 	{
-		_dynamicObject->Update(elapsedTime);
+		if(_dynamicObject->isLoaded())
+			_dynamicObject->Update(elapsedTime);
 	}
 }
 

@@ -125,7 +125,7 @@ void Goomba::dying(float & elapsedTime)
 {
 	if(_timeSpentDying < _timeTodie)
 	{
-		_timeTodie += elapsedTime;
+		_timeSpentDying += elapsedTime;
 		Move(0, 0, (-elapsedTime * _speed) / _timeTodie);
 	}
 	else
