@@ -55,6 +55,7 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 	_totalDroppedWhilstDying = 0;
 	_timeSpentDying = 0;
 	_isDying = false;
+	_timeTodie = 3;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
@@ -224,6 +225,7 @@ void Player::Update(float & timeElapsed)
 				Move(alignX, 0 - displacement);
 		}
 	}
+	
 	switch (GameObjectManager::collidesWith(box, _type))
 	{
 		case fire:
@@ -232,7 +234,10 @@ void Player::Update(float & timeElapsed)
 		case powerBlock:
 			GameInterface::increaseRangeMultiplier();
 			break;
+		default:
+			break;
 	}
+
 	if (Game::keyTyped() == eKeys::Place && !_isDying)
 		dropBomb();
 //	else if (Game::keyTyped() == eKeys::Undefined)

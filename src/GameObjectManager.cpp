@@ -24,7 +24,7 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(1);
+	Map::readInRandomMap(0);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
@@ -167,6 +167,7 @@ bool GameObjectManager::setFireAndContinue(float x, float y)
 	return true;
 }
 
+
 void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 {
 	float burnRange = 2 * GameInterface::getRangeMultiplier();
@@ -212,7 +213,7 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	{
 		if (obj == (*iter).get())
 		{
-			_dynamicObjects->erase((iter));
+			_dynamicObjects->erase(iter);
 			return ;
 		}
 	}
@@ -249,8 +250,12 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 	{
 		if ((*iter)->getType() != type && (*iter)->isLoaded() && intersects(box, (*iter)->getBoundingBox()))
 		{
-			std::cout << "Collides with " << (char)(*iter)->getType() << std::endl;
-			return (*iter)->getType();
+			objectTypes dynamicType = (*iter)->getType();
+			if ((dynamicType == healthBlock || dynamicType == powerBlock) && type == player)
+			{
+				_dynamicObjects->erase(iter);
+			}
+			return type;
 		}
 	}
 	return grass;
