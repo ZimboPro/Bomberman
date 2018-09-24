@@ -12,7 +12,7 @@
 #include <ctime>
 #include <unistd.h>
 
-Player::Player(): _speed(0)
+Player::Player(): _speed(3.0f)
 {
 	_index = 0;
 	_prevIndex = 0;
@@ -26,6 +26,7 @@ Player::Player(Player const & src)
 	_totalElapsed = 0.0f;
 	_index = 0;
 	_prevIndex = 0;
+	_totalDroppedWhilstDying = 0;
 	*this = src;
 }
 
@@ -35,6 +36,7 @@ Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), Visible
 	_prevIndex = 0;
 	_index = 0;
 	_type = player;
+	_totalDroppedWhilstDying = 0;
 }
 
 Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _speed(3.0f)
@@ -50,6 +52,9 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[2]));
 	_type = player;
+	_totalDroppedWhilstDying = 0;
+	_timeSpentDying = 0;
+	_isDying = false;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
@@ -118,8 +123,36 @@ void Player::Draw(Shaders & shader)
 		_models[_index]->Draw(shader);
 }
 
+void Player::dying(float & elapsedTime)
+{
+	float rotationMultiplier = 150;
+	if(_timeSpentDying < _timeTodie)
+	{
+		_timeSpentDying += elapsedTime;
+		Move(0, 0, (-elapsedTime * _speed) / _timeTodie);
+		_totalDroppedWhilstDying += (elapsedTime * _speed) / 2;
+		Rotate(_timeSpentDying * _speed * rotationMultiplier);
+	}
+	else
+	{
+		glm::vec3 pos = _models[0]->GetPosition();
+		GameInterface::adjustLives(-1);
+		GameInterface::resetRangeMultiplier();
+		Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()), _totalDroppedWhilstDying);
+		Rotate(0);
+		Game::_camera.Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()));
+		_totalDroppedWhilstDying = 0;
+		_isDying = false;
+		_timeSpentDying = 0;
+
+	}
+}
+
 void Player::Update(float & timeElapsed)
 {
+	if(_isDying)
+		dying(timeElapsed);
+
 	float camDisplacement = timeElapsed * _speed;
 	BoundingBox box = this->getBoundingBox();
 	_prevIndex = _index;
@@ -135,6 +168,8 @@ void Player::Update(float & timeElapsed)
 		Rotate(270);
 		box.x1 -= displacement;
 		box.x2 -= displacement;
+		box.y1 += alignY;
+		box.y2 += alignY;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
 		{
 			_totalElapsed += timeElapsed;
@@ -148,6 +183,8 @@ void Player::Update(float & timeElapsed)
 		Rotate(90);
 		box.x1 += displacement + 0.2;
 		box.x2 += displacement + 0.2;
+		box.y1 += alignY;
+		box.y2 += alignY;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
 		{
 			_totalElapsed += timeElapsed;
@@ -159,6 +196,8 @@ void Player::Update(float & timeElapsed)
 	else if (Game::keyPressed() == eKeys::Left)
 	{
 		Rotate(0);
+		box.x1 += alignX;
+		box.x2 += alignX;
 		box.y1 += displacement + 0.2;
 		box.y2 += displacement + 0.2;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
@@ -172,6 +211,8 @@ void Player::Update(float & timeElapsed)
 	else if (Game::keyPressed() == eKeys::Right)
 	{
 		Rotate(180);
+		box.x1 += alignX;
+		box.x2 += alignX;
 		box.y1 -= displacement;
 		box.y2 -= displacement;
 		if(GameObjectManager::collidesWith(box, _type) == grass)
@@ -183,26 +224,35 @@ void Player::Update(float & timeElapsed)
 				Move(alignX, 0 - displacement);
 		}
 	}
-	else if (Game::keyTyped() == eKeys::Place)
+	switch (GameObjectManager::collidesWith(box, _type))
+	{
+		case fire:
+			_isDying = true;
+			break ;
+		case powerBlock:
+			GameInterface::increaseRangeMultiplier();
+			break;
+	}
+	if (Game::keyTyped() == eKeys::Place && !_isDying)
 		dropBomb();
-	// else if (Game::keyTyped() == eKeys::Undefined)
-	// {
-	// 	if (_direction == 0)
-	// 		Move(0 , 0 - displacement);
-	// 	else if (_direction == 90)
-	// 		Move(0 + displacement, 0);
-	// 	else if (_direction == 180)
-	// 		Move(0 , 0 - displacement);
-	// 	else if (_direction == 270)
-	// 		Move(0 - displacement, 0);
-	// 	_index = 0;
-	// }	
+//	else if (Game::keyTyped() == eKeys::Undefined)
+//	{
+//		if (_direction == 0)
+//			Move(alignX , 0 - displacement);
+//		else if (_direction == 90)
+//			Move(0 + displacement, alignY);
+//		else if (_direction == 180)
+//			Move(alignX , 0 - displacement);
+//		else if (_direction == 270)
+//			Move(0 - displacement, alignY);
+//		_index = 0;
+//	}
 }
 
-void Player::Move(float x, float y)
+void Player::Move(float x, float y, float z)
 {
 	for (size_t i = 0; i < this->_models.size(); i++)
-		this->_models[i]->Move(x, y);
+		this->_models[i]->Move(x, y, z);
 	if (_prevIndex == _index)
 		_index = (_index + 1) % this->_models.size();
 	_totalElapsed = 0.0f;

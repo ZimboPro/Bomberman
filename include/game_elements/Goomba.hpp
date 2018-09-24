@@ -23,8 +23,9 @@ public:
 	// void Delay(void);
 
 private:
+	void dying(float & timeElapsed);
 	void RandomDirection();
-	void Move(float x, float y);
+	void Move(float x, float y, float z = 0);
 	void Rotate(float degrees);
 	float _speed;
 	int	_directionGen = rand() % 4 + 1;

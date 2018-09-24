@@ -136,6 +136,7 @@ std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genDynamicAndPick
 			{
 				case player:
 					result->push_back(std::shared_ptr<VisibleGameObject> (new Player(_player, x, y)));
+					Map::setPlayerStart(x, y);
 					break;
 				case goomba:
 					result->push_back(std::shared_ptr<VisibleGameObject> (new Goomba(_goomba, x, y)));
