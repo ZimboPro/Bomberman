@@ -149,7 +149,7 @@ bool GameObjectManager::setFireAndContinue(int x, int y)
 		{
 			_staticObjects[y][x]->die();
 			addDynamicObject(fire, x, y);
-			return false;
+			return true;
 		}
 		else
 			return false;
