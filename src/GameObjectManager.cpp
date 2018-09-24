@@ -24,10 +24,12 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(1);
+	Map::readInRandomMap(0);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
+	for (auto & dyn: *_dynamicObjects)
+		std::cout << (char)(*dyn).getType() << std::endl;
 	_grass = _factory.genGrass();
 	_initialized = true;
 }
@@ -210,7 +212,6 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	{
 		if (obj == (*iter).get())
 		{
-			std::cout << "removed " << (char)(*iter)->getType() << std::endl;
 			_dynamicObjects->erase((iter));
 			return ;
 		}

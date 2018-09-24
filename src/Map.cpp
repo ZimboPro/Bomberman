@@ -61,7 +61,21 @@ void Map::levelDown()
 		_currentWorkingLevel--;
 }
 
+float Map::getPlayerStartX()
+{
+	return _playerStartX;
+}
 
+float Map::getPlayerStartY()
+{
+	return _playerStartY;
+}
+
+void Map::setPlayerStart(float x, float y)
+{
+	_playerStartX = x;
+	_playerStartY = y;
+}
 
 void Map::readInRandomMap(int seed)
 {
@@ -97,3 +111,5 @@ void Map::readInRandomMap(int seed)
 int Map::_currentWorkingLevel = 0;
 Levels Map::_levels;
 std::vector<std::vector<std::vector<char>>> Map::_map;
+float Map::_playerStartX = 0;
+float Map::_playerStartY = 0;

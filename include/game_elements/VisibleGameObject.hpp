@@ -44,6 +44,7 @@ protected:
 	objectTypes _type;
 	float _direction;
 	float _timeTodie;
+	float _timeSpentDying;
 	float _speed;
 	BoundingBox _box;
 

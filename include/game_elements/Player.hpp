@@ -22,14 +22,16 @@ public:
 	virtual void Draw(Shaders & shader);
 	BoundingBox getBoundingBox();
 	void dropBomb();
+	void dying(float & timeElapsed);
 
 private:
-	void Move(float x, float y);
+	void Move(float x, float y, float z = 0);
 	void Rotate(float degrees);
 	int _index;
 	int _prevIndex;
 	float _speed;
 	float _totalElapsed;
+	float _totalDroppedWhilstDying;
 	std::vector<Model_Sprite *> _models;
 };
 
