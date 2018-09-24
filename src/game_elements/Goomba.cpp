@@ -58,6 +58,7 @@ void Goomba::init()
 	_index = 0;
 	_direction = 0;
 	_totalElapsed = 0.0f;
+	_directionGen = rand() % 4 + 1;
 }
 
 BoundingBox Goomba::getBoundingBox()
@@ -67,11 +68,13 @@ BoundingBox Goomba::getBoundingBox()
 
 	float modelSize = 0.6f;
 
-	_box.x1 = static_cast<float>(this->_models[_index]->GetPosition().x);
-	_box.x2 = static_cast<float>(this->_models[_index]->GetPosition().x + modelSize);
+	glm::vec3 pos = this->_models[_index]->GetPosition();
 
-	_box.y1 = static_cast<float>(this->_models[_index]->GetPosition().z);
-	_box.y2 = static_cast<float>(this->_models[_index]->GetPosition().z + modelSize);
+	_box.x1 = pos.x;
+	_box.x2 = pos.x + modelSize;
+
+	_box.y1 = pos.z;
+	_box.y2 = pos.z + modelSize;
 
 	return _box;
 }
@@ -182,7 +185,7 @@ void Goomba::newDirection()
 		_directionGen = rand() % 2 + 1;
 }
 
-void Goomba::movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox & box)
+void Goomba::movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox box)
 {
 	if (_direction != degree)
 		Rotate(degree);
