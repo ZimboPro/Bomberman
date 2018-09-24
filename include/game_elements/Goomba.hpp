@@ -27,6 +27,10 @@ private:
 	void RandomDirection();
 	void Move(float x, float y, float z = 0);
 	void Rotate(float degrees);
+	void newDirection();
+	void movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox & box);
+	void init();
+
 	float _speed;
 	int	_directionGen = rand() % 4 + 1;
 	float _time;

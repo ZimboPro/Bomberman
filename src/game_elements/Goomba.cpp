@@ -10,39 +10,32 @@
 
 Goomba::Goomba(): _speed(3)
 {
-	_type = goomba;
-	_time = glfwGetTime();
-	_index = 0;
+	init();
 }
 
 Goomba::Goomba(Model_Texture & texture, float x, float y): _speed(3), VisibleGameObject(texture, x, y, true, false)
 {
-	_type = goomba;
-	_time = glfwGetTime();
-	_index = 0;
+	init();
 }
 
 Goomba::Goomba(Goomba const & src)
 {
 	*this = src;
-	_time = glfwGetTime();
+	init();
 }
 
 Goomba::Goomba(std::vector<Model_Texture *> & textures, float x, float y) : _speed(3)
 {
-	_time = glfwGetTime();
-	_timeTodie = 2;
+	init();
+	VisibleGameObject::_timeTodie = 2;
 	VisibleGameObject::_isBreakable = false;
 	VisibleGameObject::_isLoaded = true;
 	VisibleGameObject::_isCollidable = true;
-	_isDying = false;
-	_totalElapsed = 0.0f;
-	_index = 0;
+	VisibleGameObject::_isDying = false;
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[1]));
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[2]));
-	_type = goomba;
 	_timeSpentDying = 0;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
@@ -50,13 +43,21 @@ Goomba::Goomba(std::vector<Model_Texture *> & textures, float x, float y) : _spe
 		this->_models[i]->Position(x, y);
 		this->_models[i]->Scale(0.032f);
 	}
-	_direction = 0;
 }
 
 Goomba::~Goomba()
 {
 	for (size_t i = 0; i < this->_models.size(); i++)
 		delete this->_models[i];
+}
+
+void Goomba::init()
+{
+	_type = goomba;
+	_time = glfwGetTime();
+	_index = 0;
+	_direction = 0;
+	_totalElapsed = 0.0f;
 }
 
 BoundingBox Goomba::getBoundingBox()
@@ -146,15 +147,13 @@ void Goomba::Draw(Shaders & shader)
 
 void Goomba::Update(float & timeElapsed)
 {
-	if (_isDying)
+	if (VisibleGameObject::_isDying)
 	{
 		dying(timeElapsed);
 		return;
 	}
 
-	glm::vec3 pos = _models[_index]->GetPosition();
 	BoundingBox box = getBoundingBox();
-	int newDir;
 	_totalElapsed += timeElapsed;
 
 	if (_totalElapsed > 0.13f)
@@ -162,121 +161,39 @@ void Goomba::Update(float & timeElapsed)
 		float displacement = _totalElapsed * _speed;
 		RandomDirection();
 		if (_directionGen == 1)
-		{
-			if (_direction != 270)
-				Rotate(270);
-			box.x1 -= displacement;
-			box.x2 -= displacement;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 - displacement, 0, 0);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
-			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4;
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2;
-				}
-			}
-		}
+			movement(270, -displacement, 0, -displacement, 0, box);
 		else if (_directionGen == 2)
-		{
-			if (_direction != 90)
-				Rotate(90);
-			box.x1 += displacement + 0.2;
-			box.x2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 + displacement, 0, 0);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
-			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4;
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2;
-				}
-			}
-		}
+			movement(90, displacement, 0, displacement + 0.2, 0, box);
 		else if (_directionGen == 3)
-		{
-			if (_direction != 0)
-				Rotate(0);
-			box.y1 += displacement + 0.2;
-			box.y2 += displacement + 0.2;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 , 0 + displacement);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
-			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4;
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2;
-				}
-			}
-		}
+			movement(0, 0, displacement, 0, displacement + 0.2, box);
 		else if (_directionGen == 4)
-		{
-			if (_direction != 180)
-				Rotate(180);
-			box.y1 -= displacement;
-			box.y2 -= displacement;
-			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 , 0 - displacement);
-			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
-			{
-				if (_directionGen == 1 || _directionGen == 2)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 3;
-					else
-						_directionGen = 4;
-				}
-				else if (_directionGen == 3 || _directionGen == 4)
-				{
-					newDir = rand() % 2 + 1;
-					if (newDir == 1)
-						_directionGen = 1;
-					else
-						_directionGen = 2;
-				}
-			}
-		}
+			movement(180, 0, -displacement, 0, -displacement, box);
 		_index = (_index + 1) % this->_models.size();
 		if (GameObjectManager::collidesWith(box, _type) == fire)
 			_isDying = true;
 	}
+}
+
+void Goomba::newDirection()
+{
+	if (_directionGen == 1 || _directionGen == 2)
+		_directionGen = rand() % 2 + 3;
+	else if (_directionGen == 3 || _directionGen == 4)
+		_directionGen = rand() % 2 + 1;
+}
+
+void Goomba::movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox & box)
+{
+	if (_direction != degree)
+		Rotate(degree);
+	box.x1 += boxX;
+	box.x2 += boxX;
+	box.y1 += boxY;
+	box.y2 += boxY;
+	if(GameObjectManager::collidesWith(box, _type) == grass)
+		Move(moveX, moveY, 0);
+	if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+		newDirection();
 }
 
 void Goomba::Move(float x, float y, float z)
