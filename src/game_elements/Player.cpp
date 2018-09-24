@@ -12,7 +12,7 @@
 #include <ctime>
 #include <unistd.h>
 
-Player::Player(): _speed(0)
+Player::Player(): _speed(3.0f)
 {
 	_index = 0;
 	_prevIndex = 0;

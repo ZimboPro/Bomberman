@@ -210,6 +210,7 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	{
 		if (obj == (*iter).get())
 		{
+			std::cout << "removed " << (char)(*iter)->getType() << std::endl;
 			_dynamicObjects->erase((iter));
 			return ;
 		}
@@ -245,7 +246,7 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 
 	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
 	{
-		if ((*iter)->getType() != type && intersects(box, (*iter)->getBoundingBox()))
+		if ((*iter)->getType() != type && (*iter)->isLoaded() && intersects(box, (*iter)->getBoundingBox()))
 		{
 			std::cout << "Collides with " << (char)(*iter)->getType() << std::endl;
 			return (*iter)->getType();

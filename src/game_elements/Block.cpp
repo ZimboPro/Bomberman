@@ -18,8 +18,23 @@ Block::Block(Model_Texture & texture, float x, float y, bool isBreakable): Visib
 		_type = unbreakableBlocks;
 }
 
+void Block::dying(float & elapsedTime)
+{
+	if(_timeTodie > 0)
+	{
+		_timeTodie -= elapsedTime;
+		_model.Move(0, 0, -elapsedTime * _speed);
+	}
+	else
+	{
+		_isLoaded = false;
+	}
+}
+
 void Block::Update(float & elapsedTime)
 {
+	if (_isDying)
+		dying(elapsedTime);
 }
 
 BoundingBox Block::getBoundingBox()

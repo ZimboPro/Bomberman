@@ -31,6 +31,7 @@ Goomba::Goomba(Goomba const & src)
 Goomba::Goomba(std::vector<Model_Texture *> & textures, float x, float y) : _speed(3)
 {
 	_time = glfwGetTime();
+	_timeTodie = 2;
 	VisibleGameObject::_isBreakable = false;
 	VisibleGameObject::_isLoaded = true;
 	VisibleGameObject::_isCollidable = true;
@@ -119,6 +120,20 @@ void Goomba::RandomDirection()
 	// }
 }
 
+void Goomba::dying(float & elapsedTime)
+{
+	if(_timeTodie > 0)
+	{
+		_timeTodie -= elapsedTime;
+		Move(0, 0, (-elapsedTime * _speed) / 2);
+	}
+	else
+	{
+		GameInterface::goombaKilled();
+		GameInterface::adjustScore(20);
+		GameObjectManager::removeDynamicObject(this);
+	}
+}
 void Goomba::Draw(Shaders & shader)
 {
 	if(_models[_index]->IsLoaded())
@@ -130,6 +145,10 @@ void Goomba::Update(float & timeElapsed)
 	glm::vec3 pos = _models[_index]->GetPosition();
 	BoundingBox box = this->getBoundingBox();
 	int newDir;
+
+	if (_isDying)
+		dying(timeElapsed);
+
 	_totalElapsed += timeElapsed;
 
 	if (_totalElapsed > 0.13f)
@@ -143,7 +162,7 @@ void Goomba::Update(float & timeElapsed)
 			box.x1 -= displacement;
 			box.x2 -= displacement;
 			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 - displacement, 0);
+				Move(0 - displacement, 0, 0);
 			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
@@ -171,7 +190,7 @@ void Goomba::Update(float & timeElapsed)
 			box.x1 += displacement + 0.2;
 			box.x2 += displacement + 0.2;
 			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 + displacement, 0);
+				Move(0 + displacement, 0, 0);
 			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
@@ -199,7 +218,7 @@ void Goomba::Update(float & timeElapsed)
 			box.y1 += displacement + 0.2;
 			box.y2 += displacement + 0.2;
 			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 , 0 + displacement);
+				Move(0 , 0 + displacement, 0);
 			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
@@ -227,7 +246,7 @@ void Goomba::Update(float & timeElapsed)
 			box.y1 -= displacement;
 			box.y2 -= displacement;
 			if(GameObjectManager::collidesWith(box, _type) == grass)
-				Move(0 , 0 - displacement);
+				Move(0 , 0 - displacement, 0);
 			if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
 			{
 				if (_directionGen == 1 || _directionGen == 2)
@@ -249,13 +268,15 @@ void Goomba::Update(float & timeElapsed)
 			}
 		}
 		_index = (_index + 1) % this->_models.size();
+		if (GameObjectManager::collidesWith(box, _type) == fire)
+			_isDying = true;
 	}
 }
 
-void Goomba::Move(float x, float y)
+void Goomba::Move(float x, float y, float z)
 {
 	for (size_t i = 0; i < this->_models.size(); i++)
-		this->_models[i]->Move(x, y);
+		this->_models[i]->Move(x, y, z);
 	_totalElapsed = 0.0f;
 }
 

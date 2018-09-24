@@ -5,7 +5,7 @@
 #include <GameObjectManager.hpp>
 #include "game_elements/Fire.hpp"
 
-Fire::Fire(): _burnTime(5.0)
+Fire::Fire(): _burnTime(2.0)
 {
 	_type = fire;
 }
@@ -13,7 +13,8 @@ Fire::Fire(): _burnTime(5.0)
 Fire::Fire(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false)
 {
 	_type = fire;
-	_burnTime = 5;
+	_burnTime = 2.0;
+	_model.Move(0, 0, -0.5);
 }
 
 Fire::~Fire()
@@ -29,18 +30,28 @@ BoundingBox Fire::getBoundingBox()
 
 	_box.x1 = _model.GetPosition().x;
 	_box.x2 = _model.GetPosition().x + modelSize;
-//	std::cout << " minX "<< _box.x1 << " maxX "<<_box.x2 << std::endl;
 	_box.y1 = _model.GetPosition().z;
 	_box.y2 = _model.GetPosition().z + modelSize;
-//	std::cout << " minY "<< _box.y1 << " maxY "<<_box.y2 << std::endl;
 
 	return _box;
 }
 
 void Fire::Update(float & timeElapsed)
 {
+	float rotationMultiplier = 1000;
 	if (_burnTime > 0)
+	{
 		_burnTime -= timeElapsed;
+		glm::vec3 pos = _model.GetPosition();
+		if (pos.y < 0)
+		{
+			_model.Move(0, 0, timeElapsed * _speed, rotationMultiplier * timeElapsed * _speed);
+		}
+		else
+		{
+			_model.Move(0, 0, -timeElapsed * _speed, rotationMultiplier * timeElapsed * _speed);
+		}
+	}
 	else
 	{
 		GameObjectManager::removeDynamicObject(this);

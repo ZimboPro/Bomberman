@@ -14,7 +14,7 @@ VisibleGameObject::VisibleGameObject(VisibleGameObject const & src)
 }
 
 VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
-		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable), _timeTodie(2)
+		_isLoaded(true), _isCollidable(collidable), _isBreakable(isBreakable), _timeTodie(2), _speed(2)
 {
 	_model.LoadModel_Texture(texture);
 	_model.Position(x, y);
@@ -38,7 +38,6 @@ void VisibleGameObject::setDirection(float direction)
 void VisibleGameObject::kill()
 {
 	_isDying = true;
-	_isLoaded = false;
 }
 
 void VisibleGameObject::setScale(float scale)
