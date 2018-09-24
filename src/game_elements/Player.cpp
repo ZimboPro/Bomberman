@@ -124,17 +124,20 @@ void Player::Draw(Shaders & shader)
 
 void Player::dying(float & elapsedTime)
 {
+	float rotationMultiplier = 150;
 	if(_timeSpentDying < _timeTodie)
 	{
 		_timeSpentDying += elapsedTime;
 		Move(0, 0, (-elapsedTime * _speed) / _timeTodie);
 		_totalDroppedWhilstDying += (elapsedTime * _speed) / 2;
+		Rotate(_timeSpentDying * _speed * rotationMultiplier);
 	}
 	else
 	{
 		glm::vec3 pos = _models[0]->GetPosition();
 		GameInterface::adjustLives(-1);
 		Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()), _totalDroppedWhilstDying);
+		Rotate(0);
 		Game::_camera.Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()));
 		_totalDroppedWhilstDying = 0;
 		_isDying = false;
