@@ -149,11 +149,7 @@ void Goomba::Update(float & timeElapsed)
 	if (_isDying)
 	{
 		dying(timeElapsed);
-<<<<<<< HEAD
 		return;
-=======
-		return ;
->>>>>>> b0bfe583cd8db42ed1c24579a0531d38b41e0d7d
 	}
 
 	glm::vec3 pos = _models[_index]->GetPosition();

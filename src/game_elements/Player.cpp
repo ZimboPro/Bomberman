@@ -137,12 +137,14 @@ void Player::dying(float & elapsedTime)
 	{
 		glm::vec3 pos = _models[0]->GetPosition();
 		GameInterface::adjustLives(-1);
+		GameInterface::resetRangeMultiplier();
 		Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()), _totalDroppedWhilstDying);
 		Rotate(0);
 		Game::_camera.Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()));
 		_totalDroppedWhilstDying = 0;
 		_isDying = false;
 		_timeSpentDying = 0;
+
 	}
 }
 
@@ -222,10 +224,16 @@ void Player::Update(float & timeElapsed)
 				Move(alignX, 0 - displacement);
 		}
 	}
-	if (GameObjectManager::collidesWith(box, _type) == fire)
-		_isDying = true;
-
-	else if (Game::keyTyped() == eKeys::Place)
+	switch (GameObjectManager::collidesWith(box, _type))
+	{
+		case fire:
+			_isDying = true;
+			break ;
+		case powerBlock:
+			GameInterface::increaseRangeMultiplier();
+			break;
+	}
+	if (Game::keyTyped() == eKeys::Place && !_isDying)
 		dropBomb();
 //	else if (Game::keyTyped() == eKeys::Undefined)
 //	{
