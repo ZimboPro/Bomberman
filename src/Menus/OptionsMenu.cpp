@@ -7,18 +7,28 @@
 
 OptionsMenu::OptionsMenu()
 {
+	_sound = ServiceLocator::getAudio();
+	_sound->setSoundLevel(Game::_settings.volume * 20);
+	if (Game::_settings.music)
+		_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
     loadModels();
 }
 
 OptionsMenu::~OptionsMenu()
-{}
+{
+	while (_sound->isSoundPlaying())
+	{}
+	_sound->stopAllSounds();
+}
 
 int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 {
 	glm::mat4 projection = Game::_window.Projection();
 	moveOnScreen(shader, (Game::_window.Width() >> 2));
+	Options temp;
 	while (true)
 	{
+		temp = this->_selected;
 		Game::_window.clear(0.2588f, 0.7961f, 0.8196f);
 		setShader(shader, projection);
 		for (size_t i = 0; i < this->_action.size(); i++)
@@ -53,8 +63,14 @@ int OptionsMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = Options::Back;
 			break;
 		}
+		if (temp != _selected && Game::_settings.sound)
+			_sound->playSound("../../Assets/sounds/button_press/select_settings.wav");
 		Game::_window.update();
 	}
+	if (Options::Back == _selected && Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/button_press/exit_button.wav");
+	else if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/button_press/start_game.wav");
 	moveOnScreen(shader, -((Game::_window.Width() >> 1) + 40.0f));
 	deleteMenu();
 	Game::loadSettings();
@@ -110,6 +126,8 @@ void OptionsMenu::drawNotSelectedSetting(Shaders & shader)
 
 void OptionsMenu::changeSettings()
 {
+	if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/button_press/start_game.wav");
 	if (this->_selected == Options::WindowSize)
 		Game::_settings.size = static_cast<eScreen>((Game::_settings.size + 1) % (eScreen::s1024 + 1));
 	else if (this->_selected == Options::WindowMode)
@@ -134,13 +152,13 @@ void OptionsMenu::loadModels()
 {   
     this->_selected = Options::WindowSize;
 	Game::_loadingScreen.reset();
-    loadActions("../../Assets/options_menu/window_size.obj");
-    loadActions("../../Assets/options_menu/fullscreen.obj");
-    loadActions("../../Assets/options_menu/keybind.obj");
-    loadActions("../../Assets/options_menu/sound.obj");
-    loadActions("../../Assets/options_menu/volume.obj");
-    loadActions("../../Assets/options_menu/music.obj");
-    loadActions("../../Assets/options_menu/back_options.obj");
+    loadActions("../../Assets/buttons/window_size.obj");
+    loadActions("../../Assets/buttons/fullscreen.obj");
+    loadActions("../../Assets/buttons/keybind.obj");
+    loadActions("../../Assets/buttons/sound.obj");
+    loadActions("../../Assets/buttons/volume.obj");
+    loadActions("../../Assets/buttons/music.obj");
+    loadActions("../../Assets/buttons/back_options.obj");
     for (size_t i = 0; i < this->_action.size(); i++)
     {
         this->_action[i].action = static_cast<Options>(i);
@@ -152,11 +170,11 @@ void OptionsMenu::loadModels()
 
 void OptionsMenu::loadOptions()
 {
-	loadTexture("../../Assets/options_menu/1920x1080.obj");
-	loadTexture("../../Assets/options_menu/1080x720.obj");
-	loadTexture("../../Assets/options_menu/1024x768.obj");
-	loadTexture("../../Assets/options_menu/off.obj");
-	loadTexture("../../Assets/options_menu/on.obj");
+	loadTexture("../../Assets/buttons/1920x1080.obj");
+	loadTexture("../../Assets/buttons/1080x720.obj");
+	loadTexture("../../Assets/buttons/1024x768.obj");
+	loadTexture("../../Assets/buttons/off.obj");
+	loadTexture("../../Assets/buttons/on.obj");
 	loadTexture("../../Assets/options_menu/volume_0.obj");
 	loadTexture("../../Assets/options_menu/volume_1.obj");
 	loadTexture("../../Assets/options_menu/volume_2.obj");

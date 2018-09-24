@@ -43,6 +43,7 @@ class PauseMenu : public IMenu
         void showOptionsMenu();
 		std::vector<MenuItem> _menuItems;
 		MenuResult _selected;
+        IAudioProvider * _sound;
 };
 
 #endif

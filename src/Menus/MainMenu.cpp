@@ -11,9 +11,11 @@
 
 MainMenu::MainMenu()
 {
-	loadMenu();
 	_sound = ServiceLocator::getAudio();
-	_sound->setSoundLevel(Game::_settings.volume);
+	_sound->setSoundLevel(Game::_settings.volume * 20);
+	if (Game::_settings.music)
+		_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
+	loadMenu();
 }
 
 MainMenu::~MainMenu()
@@ -25,7 +27,6 @@ MainMenu::~MainMenu()
 
 int MainMenu::show(Shaders & shader, Shaders & brightShader)
 {
-	_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
 	moveOnScreen(shader, (Game::_window.Width() >> 1));
 	glm::mat4 projection = Game::_window.Projection();
 	MenuResult temp;
@@ -62,13 +63,13 @@ int MainMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = MenuResult::Exit;
 			break;
 		}
-		if (temp != _selected)
+		if (temp != _selected && Game::_settings.sound)
 			_sound->playSound("../../Assets/sounds/button_press/select_settings.wav");
 		Game::_window.update();
 	}
-	if (MenuResult::Exit == _selected)
+	if (MenuResult::Exit == _selected && Game::_settings.sound)
 		_sound->playSound("../../Assets/sounds/button_press/exit_button.wav");
-	else
+	else if (Game::_settings.sound)
 		_sound->playSound("../../Assets/sounds/button_press/start_game.wav");
 	moveOnScreen(shader, -20.0f);
 	deleteMenu();

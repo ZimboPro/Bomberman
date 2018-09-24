@@ -57,6 +57,7 @@ class KeyBindMenu : public IMenu
         Options _selected;
         std::vector<Model_Texture *> _options;
         std::vector<ModelGroup *> _groups;
+        IAudioProvider * _sound;
 };
 
 #endif
