@@ -35,6 +35,7 @@ Goomba::Goomba(std::vector<Model_Texture *> & textures, float x, float y) : _spe
 	VisibleGameObject::_isBreakable = false;
 	VisibleGameObject::_isLoaded = true;
 	VisibleGameObject::_isCollidable = true;
+	_isDying = false;
 	_totalElapsed = 0.0f;
 	_index = 0;
 	_models.emplace_back(new Model_Sprite(*textures[0]));
@@ -132,6 +133,7 @@ void Goomba::dying(float & elapsedTime)
 	{
 		GameInterface::goombaKilled();
 		GameInterface::adjustScore(20);
+		_isLoaded = false;
 		GameObjectManager::removeDynamicObject(this);
 	}
 }
@@ -145,10 +147,13 @@ void Goomba::Draw(Shaders & shader)
 void Goomba::Update(float & timeElapsed)
 {
 	if (_isDying)
+	{
 		dying(timeElapsed);
+		return ;
+	}
 
 	glm::vec3 pos = _models[_index]->GetPosition();
-	BoundingBox box = this->getBoundingBox();
+	BoundingBox box = getBoundingBox();
 	int newDir;
 	_totalElapsed += timeElapsed;
 
