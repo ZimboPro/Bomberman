@@ -5,13 +5,12 @@
 #include "game_elements/VisibleGameObject.hpp"
 
 VisibleGameObject::VisibleGameObject():
-		 _isLoaded(false), _type(grass), _isDying(false), _timeTodie(2), _timeSpentDying(0)
+		 _isLoaded(false), _type(grass), _isDying(false), _timeTodie(2), _timeSpentDying(0), _totalElapsedTime(0)
 {}
 
 VisibleGameObject::VisibleGameObject(VisibleGameObject const & src)
 {
 	*this = src;
-	_timeSpentDying = 0;
 }
 
 VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, bool collidable = true, bool isBreakable = false):
@@ -20,6 +19,7 @@ VisibleGameObject::VisibleGameObject(Model_Texture & texture, float x, float y, 
 	_model.LoadModel_Texture(texture);
 	_model.Position(x, y);
 	_model.Scale(0.032f);
+	_totalElapsedTime = 0;
 	_direction = 0;
 	_timeSpentDying = 0;
 	_isDying = false;

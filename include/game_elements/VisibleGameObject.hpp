@@ -46,6 +46,7 @@ protected:
 	float _timeTodie;
 	float _timeSpentDying;
 	float _speed;
+	float _totalElapsedTime;
 	BoundingBox _box;
 
 	bool _isDying;

@@ -24,12 +24,10 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(0);
+	Map::readInRandomMap(1);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
-	for (auto & dyn: *_dynamicObjects)
-		std::cout << (char)(*dyn).getType() << std::endl;
 	_grass = _factory.genGrass();
 	_initialized = true;
 }
