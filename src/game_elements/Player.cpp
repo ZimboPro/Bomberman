@@ -131,7 +131,7 @@ void Player::dying(float & elapsedTime)
 	{
 		_timeSpentDying += elapsedTime;
 		Move(0, 0, (-elapsedTime * _speed) / _timeTodie);
-		_totalDroppedWhilstDying += (elapsedTime * _speed) / 2;
+		_totalDroppedWhilstDying += (elapsedTime * _speed) / _timeTodie;
 		Rotate(_timeSpentDying * _speed * rotationMultiplier);
 	}
 	else
@@ -145,7 +145,6 @@ void Player::dying(float & elapsedTime)
 		_totalDroppedWhilstDying = 0;
 		_isDying = false;
 		_timeSpentDying = 0;
-
 	}
 }
 
@@ -235,6 +234,7 @@ void Player::Update(float & timeElapsed)
 			break;
 		case powerBlock:
 			GameInterface::increaseRangeMultiplier();
+			GameInterface::adjustScore(20);
 			break;
 		case healthBlock:
 			GameInterface::adjustLives(1);
