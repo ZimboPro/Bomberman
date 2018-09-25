@@ -24,7 +24,7 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(1);
+	Map::readInRandomMap(0);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
@@ -250,7 +250,10 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 		if ((*iter)->getType() != type && (*iter)->isLoaded() && intersects(box, (*iter)->getBoundingBox()))
 		{
 			std::cout << "Collides with " << (char)(*iter)->getType() << std::endl;
-			return (*iter)->getType();
+			objectTypes collType = (*iter)->getType();
+			if((collType == healthBlock || collType == powerBlock) && type == player)
+				_dynamicObjects->erase(iter);
+			return type;
 		}
 	}
 	return grass;

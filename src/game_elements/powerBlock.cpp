@@ -26,9 +26,9 @@ PowerBlock::~PowerBlock() {}
 BoundingBox PowerBlock::getBoundingBox()
 {
 	if (!isLoaded())
-		throw Error::AssetError("Player object not loaded");
+		throw Error::AssetError("powerBlock object not loaded");
 
-	float modelSize = 0.6f;
+	float modelSize = 0.3f;
 	glm::vec3 pos = _model.GetPosition();
 
 	_box.x1 = pos.x;
