@@ -41,7 +41,7 @@ class GameInterface
 		static void incrementTotalEnemies();
 
         static bool completedLevel();
-        static void setLevelCompleted();
+        static void setLevelCompleted(bool complete);
 
     private:
         static Model_Sprite * _model;

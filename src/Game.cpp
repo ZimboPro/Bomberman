@@ -93,15 +93,31 @@ void Game::gameLoop()
 			showLevelSelect();
 			break;
 		case Game::LostLevel:
-			//Show Game Lost Screen
-			_gameState = ShowingMenu;
+			lostLevel();
 			break;
 		case Game::WonLevel:
-			_startLevel += 1;
-			_gameState = Playing;
+			wonLevel();
 		default:
 			break;
 	}
+}
+
+void Game::wonLevel()
+{
+	LevelPassed levelPassed;
+
+	levelPassed.show();
+	_startLevel += 1;
+	_interface.setLevelCompleted(false);
+	_gameState = Playing;
+}
+
+void Game::lostLevel()
+{
+	GameOver gameover;
+
+	gameover.show();
+	_gameState = ShowingMenu;
 }
 
 void Game::showPauseMenu()
@@ -223,7 +239,7 @@ void Game::playGame()
 
 
 	_interface.resetHOD();
-	_interface.resetTime(70);
+	_interface.resetTime(300);
 	_interface.resetPostions();
 
 	while(_gameState == Game::Playing)
@@ -258,14 +274,14 @@ void Game::playGame()
 			showPauseMenu();
 			GameInterface::resetTime(timeLeft);
 		}
-		if (_window.closed() || _interface.timerEnded() || !_interface.stillAlive())
+		if (_interface.timerEnded() || !_interface.stillAlive())
 			_gameState = Game::LostLevel;
 
 		if (_interface.completedLevel())
 			_gameState = Game::WonLevel;
-		
-//		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
-//			_gameState = Game::Exiting;
+
+		if (_window.closed())
+			_gameState = ShowingMenu;
 	}
 	return ;
 }
@@ -410,6 +426,11 @@ eKeys Game::keyTyped()
 			return it->first;
 	}
 	return eKeys::Undefined;
+}
+
+void	Game::setGameStateGameWon()
+{
+	_gameState = ShowingMenu;
 }
 
 Game::eGameState Game::_gameState = Game::Uninitialized;

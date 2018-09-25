@@ -11,6 +11,8 @@
 #include <game_elements/Bomb.hpp>
 #include <Error.hpp>
 #include <GameInterface.hpp>
+#include "Screens/GameWon.hpp"
+#include "Game.hpp"
 
 GameObjectManager::GameObjectManager() = default;
 
@@ -84,7 +86,7 @@ void GameObjectManager::changeLevel(int seed)
 
 void GameObjectManager::clearObjects()
 {
-	if (_staticObjects.size() != 0)
+	if (_staticObjects.size() > 0)
 	{
 		_staticObjects.clear();
 		_dynamicObjects->clear();
@@ -111,8 +113,9 @@ void GameObjectManager::newLevel(int seed)
 		changeLevel(seed);		
 	else
 	{
-		std::cout << "Display Game Over" << std::endl;
-		
+		GameWon gamewon;
+		gamewon.show();
+		Game::setGameStateGameWon();
 	}
 }
 

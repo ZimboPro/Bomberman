@@ -48,6 +48,7 @@ class Game
 
         static void save();
         static void load();
+        static void setGameStateGameWon();
 
     private:
         static bool isExiting();
@@ -59,6 +60,8 @@ class Game
         static void showStartGameMenu();
         static void showLevelSelect();
         static void playGame();
+        static void lostLevel();
+        static void wonLevel();
 
         enum eGameState { Uninitialized, ShowingSplash, ShowingLevelSelect,
                 ShowingMenu, ShowingOptions,ShowingStartGameMenu, LostLevel,
