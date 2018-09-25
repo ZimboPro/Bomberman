@@ -246,6 +246,7 @@ void Player::Update(float & timeElapsed)
 		case gate:
 			if(GameInterface::allEnemiesDead())
 			{
+				std::cout << "level progression" << std::endl;
 				//implement level change here
 			}
 			break;
