@@ -236,6 +236,8 @@ void Player::Update(float & timeElapsed)
 		case powerBlock:
 			GameInterface::increaseRangeMultiplier();
 			break;
+		case healthBlock:
+			GameInterface::adjustLives(1);
 	}
 
 	if (Game::keyTyped() == eKeys::Place && !_isDying)
