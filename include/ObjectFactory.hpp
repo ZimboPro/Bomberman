@@ -11,7 +11,7 @@
 #include "Model_Texture.hpp"
 #include "map_generation/Levels.hpp"
 
-#include "eObjectTypes.hpp"
+#include "game_elements/eObjectTypes.hpp"
 
 class ObjectFactory
 {
