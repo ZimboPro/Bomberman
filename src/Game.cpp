@@ -47,7 +47,7 @@ void Game::start()
 	_interface.loadObjects();
 	_camera.Zoom = 30.0f;
 
-	_gameState = eGameState::Playing;
+	_gameState = eGameState::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -187,21 +187,21 @@ void Game::playGame()
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 
-		// if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
-		// {
-		// 	std::cout << "Q is pressed to save game\n";
-		// 	save();
-		// 	_gameState = Game::Exiting;
-		// }
+		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
+		{
+			std::cout << "Q is pressed to save game\n";
+			save();
+			// _gameState = Game::Paused;
+		}
 		// if (_window.isKeyPressed(getKeyConfigured(eKeys::Load)))
 		// {
 		// 	std::cout << "W is pressed to load game\n";
 		// 	load();
-		// 	_gameState = Game::Exiting;
+		// 	// _gameState = Game::Exiting;
 		// }
 
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
-			_gameState = Game::Exiting;
+			_gameState = Game::Paused;
 //		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
 //			_gameState = Game::Exiting;
 	}
@@ -223,19 +223,22 @@ void Game::save()
 	int	height = Map::height();
 	int lives = GameInterface::LivesLeft();
 	int	score = GameInterface::CurrentScore();
+	int	enemiesKilled = GameInterface::amountOfGoombaKilled() + GameInterface::amountOfTroopaKilled();
 	int	timeLeft = GameInterface::TimeLeft();
 
 	std::cout << "Lives: " << lives << "\n";
 	std::cout << "Score: " << score << "\n";
 	std::cout << "Remaining time: " << timeLeft << "\n";
-
+	std::cout << "Enemies killed: " << enemiesKilled << "\n";
 
 	std::vector<std::vector<char> > saveMap(height, std::vector<char>(width, '0'));
-	std::vector<std::vector<char> > loadedMap;
+	// std::vector<std::vector<char> > loadedMap;
 
+	// std::cout << "==============Generated map==========================\n";
+	// Map::printMap();
+	// std::cout << "=====================================================\n";
 
-	// // Map::printMap();
-	std::cout << "====================Saved Map========================\n";
+	std::cout << "==============Saved map==========================\n";
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -248,33 +251,31 @@ void Game::save()
 		}
 		std::cout << '\n';
 	}
-	// std::cout << "======================================================\n";
-	// std::cout << "==============Original================================\n";
+	std::cout << "=====================================================\n";
 
-	// Map::printMap();
-	// std::cout << "======================================================\n";
-	// // std::cout << "Saving\n";
-	Map::_levels.save(saveMap, lives, score, timeLeft);
-	// loadedMap = Map::_levels.load();
+	std::cout << "==============Original================================\n";
+	Map::printMap();
+	std::cout << "======================================================\n";
 
-	// std::cout << "Loaded Map\n";
-	// std::cout << loadedMap.size();
-	// std::cout << "\n======================================================\n";
+	Map::_levels.save(saveMap, enemiesKilled, lives, score, timeLeft);
+	
+	std::vector<std::vector<char> > loadedMap = Map::_levels.load();
 
-	// for (int i = 0; i < loadedMap.size(); i++)
-	// {
-	// 	for (int j = 0; j < loadedMap[i].size(); j++)
-	// 	{
-	// 		std::cout << loadedMap[i][j];
-	// 	}
-	// 	std::cout << '\n';
-	// }
-	// 	std::cout << "======================================================\n";
-
+	std::cout << "==============Loaded================================\n";
+	for (int i = 0; i < loadedMap.size(); i++)
+	{
+		for (int j = 0; j < loadedMap[i].size(); j++)
+		{
+			std::cout << loadedMap[i][j];
+		}
+		std::cout << '\n';
+	}
+		std::cout << "======================================================\n";
 }
 
 void Game::load()
 {
+	std::cout << "Loading\n";
 	Map::_levels.load();
 	Map::_levels.getTimeLeft();
 	Map::_levels.getScore();
@@ -308,8 +309,8 @@ void Game::loadKeys()
 
 	//Assigning save and load to 'q' and 'w' buttons
 
-	// _keyConfiguration[eKeys::Save] = GLFW_KEY_Q;
-	// _keyConfiguration[eKeys::Load] = GLFW_KEY_W;
+	_keyConfiguration[eKeys::Save] = GLFW_KEY_Q;
+	_keyConfiguration[eKeys::Load] = GLFW_KEY_W;
 	if (Game::_KeyBind == false) 
 	{
 		_keyConfiguration[eKeys::Up] = GLFW_KEY_UP;

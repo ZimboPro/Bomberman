@@ -73,9 +73,9 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 {
 	char			type = '0';
 	int				enemyTotal = this->_enemyTotal;
-	int				_lvl = rand() % 3 + 1;
 	std::vector<std::vector<char> >	result;
-
+	
+	_lvl = (rand() % 3) + 1;
 	// check if seed number given is positive
 	if (seed > 0)
 		this->_seed = seed;
@@ -251,3 +251,9 @@ int		Levels::getHealth( void )
 {
 	return (this->_playerHealth);
 }
+
+float	Levels::getTimeLeft ( void )
+{
+	return (this->_timeLeft);
+}
+
