@@ -238,6 +238,9 @@ void Player::Update(float & timeElapsed)
 			break;
 		case healthBlock:
 			GameInterface::adjustLives(1);
+		case gate:
+			//implement level change here
+			break;
 		default:
 			break;
 	}
