@@ -24,6 +24,10 @@
 #include "map_generation/Levels.hpp"
 #include "Camera.hpp"
 #include "GameInterface.hpp"
+#include "Screens/GameOver.hpp"
+#include "Screens/GameWon.hpp"
+#include "Screens/LevelPassed.hpp"
+#include "Screens/Credits.hpp"
 
 Game::Game() {}
 
@@ -42,7 +46,7 @@ void Game::start()
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
 
-	_gameState = Game::Playing;
+	_gameState = Game::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -347,9 +351,9 @@ eKeys Game::keyTyped()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
+Camera Game::_camera(glm::vec3(15.0f, 25.0f, 0.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
-Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
+Settings Game::_settings{eScreen::s1024, false, true, eVolume::v100, true};
 std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;

@@ -53,6 +53,7 @@ void ObjectFactory::initModelTextures()
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_2.obj"));
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_1.obj"));
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_3.obj"));
+	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_burnt.obj"));
 	
 	_unbreakableBlock = new Model_Texture("../../Assets/game_models/iron_block.obj");
 	_breakableBlock = new Model_Texture("../../Assets/game_models/brick_block.obj");

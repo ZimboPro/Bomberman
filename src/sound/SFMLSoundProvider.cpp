@@ -59,6 +59,7 @@ void SFMLSoundProvider::playSong(std::string fileName, bool looping)
 	try
 	{
 		currentSong = _soundFileCache.getSong(fileName);
+		currentSong->setVolume(_level >> 1);
 	}
 	catch (std::exception & e)
 	{

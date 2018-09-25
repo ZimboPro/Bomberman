@@ -18,6 +18,10 @@
 
 KeyBindMenu::KeyBindMenu() 
 {
+	_sound = ServiceLocator::getAudio();
+	_sound->setSoundLevel(Game::_settings.volume * 20);
+	if (Game::_settings.music)
+		_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
     loadModels();
 }
 
@@ -26,15 +30,22 @@ KeyBindMenu::KeyBindMenu(KeyBindMenu const & src)
     *this = src;
 }
 
-KeyBindMenu::~KeyBindMenu() {}
+KeyBindMenu::~KeyBindMenu()
+{
+	while (_sound->isSoundPlaying())
+	{}
+	_sound->stopAllSounds();
+}
 
 
 int KeyBindMenu::show(Shaders & shader, Shaders & brightShader)
 {
 	glm::mat4 projection = Game::_window.Projection();
 	moveOnScreen(shader, (Game::_window.Width() >> 2));
+	Options temp;
 	while (true)
 	{
+		temp = this->_selected;
 		Game::_window.clear(0.2588f, 0.7961f, 0.8196f);
 		setShader(shader, projection);
 		for (size_t i = 0; i < this->_action.size(); i++)
@@ -65,8 +76,14 @@ int KeyBindMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = Options::Back;
 			break;
 		}
+		if (temp != _selected && Game::_settings.sound)
+			_sound->playSound("../../Assets/sounds/button_press/select_settings.wav");
 		Game::_window.update();
 	}
+	if (Options::Back == _selected && Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/button_press/exit_button.wav");
+	else if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/button_press/start_game.wav");
 	moveOnScreen(shader, -((Game::_window.Width() >> 1) + 40.0f));
 	deleteMenu();
 	Game::loadKeys();
@@ -108,6 +125,8 @@ void KeyBindMenu::drawNotSelectedSetting(Shaders & shader)
 
 void KeyBindMenu::changeSettings()
 {
+	if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/button_press/start_game.wav");
 	if (this->_selected == Options::WASD)
 	{
 		Game::_KeyBind = !Game::_KeyBind;
