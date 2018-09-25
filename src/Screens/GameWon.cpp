@@ -9,7 +9,7 @@ GameWon::GameWon()
 	_sound->setSoundLevel(Game::_settings.volume * 20);
 	if (Game::_settings.music)
 		_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
-    this->_model = new Model_Sprite("");
+    this->_model = new Model_Sprite("../../Assets/buttons/winner.obj");
     this->_shader = new Shaders("../assets/shaders/vert/MeshVert.glsl","../assets/shaders/frag/MeshFrag.glsl");
     this->_model->Position(Game::_window.Width() >> 1, -40.0f, Game::_window.Height() >> 1);
     this->_model->Scale(7);

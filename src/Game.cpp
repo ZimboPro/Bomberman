@@ -27,7 +27,6 @@
 #include "Screens/GameOver.hpp"
 #include "Screens/GameWon.hpp"
 #include "Screens/LevelPassed.hpp"
-#include "Screens/Credits.hpp"
 
 Game::Game() {}
 
@@ -47,7 +46,7 @@ void Game::start()
 	_interface.loadObjects();
 	_camera.Zoom = 30.0f;
 
-	_gameState = eGameState::Playing;
+	_gameState = eGameState::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -126,7 +125,7 @@ void Game::showSplashScreen()
 	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
 
 	SplashScreen splash;
-	splash.show(shader, "../assets/images/intro/", 238);
+	splash.show(shader, "../../Assets/intro/", 238);
 	_gameState = Game::ShowingMenu;
 }
 
