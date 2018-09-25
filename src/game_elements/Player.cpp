@@ -163,6 +163,8 @@ void Player::Update(float & timeElapsed)
 	float alignX = round(pos.x) - pos.x;
 	float alignY = round(pos.z) - pos.z;
 
+	objectTypes collidesWith = GameObjectManager::collidesWith(box, _type);
+
 	if (Game::keyPressed() == eKeys::Up)
 	{
 		Rotate(270);
@@ -170,7 +172,7 @@ void Player::Update(float & timeElapsed)
 		box.x2 -= displacement;
 		box.y1 += alignY;
 		box.y2 += alignY;
-		if(GameObjectManager::collidesWith(box, _type) == grass)
+		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 - camDisplacement, 0);
@@ -185,7 +187,7 @@ void Player::Update(float & timeElapsed)
 		box.x2 += displacement + 0.2;
 		box.y1 += alignY;
 		box.y2 += alignY;
-		if(GameObjectManager::collidesWith(box, _type) == grass)
+		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0 + camDisplacement, 0);
@@ -200,7 +202,7 @@ void Player::Update(float & timeElapsed)
 		box.x2 += alignX;
 		box.y1 += displacement + 0.2;
 		box.y2 += displacement + 0.2;
-		if(GameObjectManager::collidesWith(box, _type) == grass)
+		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_totalElapsed += timeElapsed;
 			Game::_camera.Move(0, 0 + camDisplacement);
@@ -215,7 +217,7 @@ void Player::Update(float & timeElapsed)
 		box.x2 += alignX;
 		box.y1 -= displacement;
 		box.y2 -= displacement;
-		if(GameObjectManager::collidesWith(box, _type) == grass)
+		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_model.Move(0, 0 - displacement);
 			_totalElapsed += timeElapsed;
@@ -224,29 +226,20 @@ void Player::Update(float & timeElapsed)
 				Move(alignX, 0 - displacement);
 		}
 	}
-	switch (GameObjectManager::collidesWith(box, _type))
+	if (collidesWith != grass)
+		std::cout << "Player collides with" << (char)collidesWith << std::endl;
+	switch (collidesWith)
 	{
 		case fire:
 			_isDying = true;
-			break ;
+			break;
 		case powerBlock:
 			GameInterface::increaseRangeMultiplier();
 			break;
 	}
+
 	if (Game::keyTyped() == eKeys::Place && !_isDying)
 		dropBomb();
-//	else if (Game::keyTyped() == eKeys::Undefined)
-//	{
-//		if (_direction == 0)
-//			Move(alignX , 0 - displacement);
-//		else if (_direction == 90)
-//			Move(0 + displacement, alignY);
-//		else if (_direction == 180)
-//			Move(alignX , 0 - displacement);
-//		else if (_direction == 270)
-//			Move(0 - displacement, alignY);
-//		_index = 0;
-//	}
 }
 
 void Player::Move(float x, float y, float z)

@@ -51,7 +51,7 @@ class GameInterface
         static int _score;
         static int _goombaKilled;
         static int _troopaKilled;
-        static int _rangeMultiplier;
+        static float _rangeMultiplier;
         static glm::mat4 _projection;
         static glm::mat4 _view;
         static glm::vec3 _color;
