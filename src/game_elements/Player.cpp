@@ -244,7 +244,10 @@ void Player::Update(float & timeElapsed)
 		case healthBlock:
 			GameInterface::adjustLives(1);
 		case gate:
-			//implement level change here
+			if(GameInterface::allEnemiesDead())
+			{
+				//implement level change here
+			}
 			break;
 		default:
 			break;

@@ -37,6 +37,8 @@ class GameInterface
         static int getRangeMultiplier();
         static void increaseRangeMultiplier();
         static void resetRangeMultiplier();
+		static bool allEnemiesDead();
+		static void incrementTotalEnemies();
 
     private:
         static Model_Sprite * _model;
@@ -51,6 +53,7 @@ class GameInterface
         static int _score;
         static int _goombaKilled;
         static int _troopaKilled;
+        static int _totalEnemiesInPlay;
         static float _rangeMultiplier;
         static glm::mat4 _projection;
         static glm::mat4 _view;

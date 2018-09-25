@@ -147,9 +147,11 @@ std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genDynamicAndPick
 					Map::setPlayerStart(x, y);
 					break;
 				case goomba:
+					GameInterface::incrementTotalEnemies();
 					result->push_back(std::shared_ptr<VisibleGameObject> (new Goomba(_goomba, x, y)));
 					break;
 				case koopaTroopa:
+					GameInterface::incrementTotalEnemies();
 					result->push_back(std::shared_ptr<VisibleGameObject> (new KoopaTroopa(*_koopaTroopa, x, y)));
 					break;
 				case powerBlock:
