@@ -29,6 +29,7 @@ private:
 	void Rotate(float degrees);
 	int _index;
 	int _prevIndex;
+	void movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox box);
 	float _speed;
 	float _totalElapsed;
 	float _totalDroppedWhilstDying;

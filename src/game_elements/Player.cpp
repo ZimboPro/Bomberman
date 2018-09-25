@@ -148,6 +148,22 @@ void Player::dying(float & elapsedTime)
 	}
 }
 
+void Player::movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox box)
+{
+	objectTypes collidesWith = grass;
+
+	if (_direction != degree)
+		Rotate(degree);
+	box.x1 += boxX;
+	box.x2 += boxX;
+	box.y1 += boxY;
+	box.y2 += boxY;
+	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
+		Move(moveX, moveY, 0);
+//	if (collidesWith == unbreakableBlocks || collidesWith == breakableBlocks || collidesWith == bomb)
+//		newDirection();
+}
+
 void Player::Update(float & timeElapsed)
 {
 	if(_isDying)
