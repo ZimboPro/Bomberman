@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Error.hpp"
-#include "SFMLSoundProvider.hpp"
+#include "sound/SFMLSoundProvider.hpp"
 
 SFMLSoundProvider::SFMLSoundProvider(): _currentSongName(""), _level(100)
 {

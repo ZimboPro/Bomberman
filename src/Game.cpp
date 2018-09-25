@@ -16,7 +16,7 @@
 #include "Menus/OptionsMenu.hpp"
 #include "Menus/PauseMenu.hpp"
 #include "SplashScreen.hpp"
-#include "SFMLSoundProvider.hpp"
+#include "sound/SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
 #include "Menus/StartGameMenu.hpp"
 #include "Map.hpp"

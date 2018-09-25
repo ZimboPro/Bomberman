@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include "Error.hpp"
-#include "SoundFileCache.hpp"
+#include "sound/SoundFileCache.hpp"
 
 SoundFileCache::SoundFileCache() {}
 

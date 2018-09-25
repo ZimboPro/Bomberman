@@ -19,7 +19,7 @@ std::vector<glm::vec2>  GameInterface::_postions;
 
 float                   GameInterface::_endTime = 10;
 int                     GameInterface::_lives = 3;
-int                     GameInterface::_rangeMultiplier = 1;
+float                   GameInterface::_rangeMultiplier = 1;
 int                     GameInterface::_score = 0;
 int                     GameInterface::_troopaKilled = 0;
 int                     GameInterface::_goombaKilled = 0;
@@ -97,7 +97,7 @@ int GameInterface::getRangeMultiplier()
 
 void GameInterface::increaseRangeMultiplier()
 {
-    _rangeMultiplier *= 2;
+    _rangeMultiplier += 0.5;
 }
 
 void GameInterface::resetRangeMultiplier()

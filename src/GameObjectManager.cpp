@@ -24,7 +24,7 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(1);
+	Map::readInRandomMap(0);
 	_factory.initModelTextures();
 	_staticObjects = _factory.genStaticObjects();
 	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
@@ -146,8 +146,11 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 
 void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 {
-	std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
-	_dynamicObjects->push_back(obj);
+	if (type != bomb || !_staticObjects[y][x]->isLoaded())
+	{
+		std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
+		_dynamicObjects->push_back(obj);
+	}
 }
 
 bool GameObjectManager::setFireAndContinue(float x, float y)
@@ -166,6 +169,7 @@ bool GameObjectManager::setFireAndContinue(float x, float y)
 	addDynamicObject(fire, x, y);
 	return true;
 }
+
 
 void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 {
@@ -212,7 +216,7 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	{
 		if (obj == (*iter).get())
 		{
-			_dynamicObjects->erase((iter));
+			_dynamicObjects->erase(iter);
 			return ;
 		}
 	}
@@ -249,8 +253,10 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 	{
 		if ((*iter)->getType() != type && (*iter)->isLoaded() && intersects(box, (*iter)->getBoundingBox()))
 		{
-			std::cout << "Collides with " << (char)(*iter)->getType() << std::endl;
-			return (*iter)->getType();
+			objectTypes collType = (*iter)->getType();
+			if((collType == healthBlock || collType == powerBlock) && type == player)
+				_dynamicObjects->erase(iter);
+			return collType;
 		}
 	}
 	return grass;

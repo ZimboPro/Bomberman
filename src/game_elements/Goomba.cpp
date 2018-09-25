@@ -155,6 +155,8 @@ void Goomba::Update(float & timeElapsed)
 	BoundingBox box = getBoundingBox();
 	_totalElapsed += timeElapsed;
 
+	objectTypes collidesWith = grass;
+
 	if (_totalElapsed > 0.13f)
 	{
 		float displacement = _totalElapsed * _speed;

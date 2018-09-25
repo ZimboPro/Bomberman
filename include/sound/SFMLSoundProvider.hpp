@@ -5,8 +5,8 @@
 #ifndef BOMBERMAN_SFMLSOUNDPROVIDER_HPP
 #define BOMBERMAN_SFMLSOUNDPROVIDER_HPP
 
-#include "IAudioProvider.hpp"
-#include "SoundFileCache.hpp"
+#include "sound/IAudioProvider.hpp"
+#include "sound/SoundFileCache.hpp"
 #include <SFML/Audio.hpp>
 
 class SFMLSoundProvider: public IAudioProvider
