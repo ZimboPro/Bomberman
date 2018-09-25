@@ -14,11 +14,12 @@
 
 Save::Save() {}
 
-Save::Save(std::vector<std::vector<char>> Save, int health, int score)
+Save::Save(std::vector<std::vector<char>> Save, int health, int score, float timeLeft)
 {
 	this->_Save = Save;
 	this->_score = score;
 	this->_health = health;
+	this->_timeLeft = timeLeft;
 }
 
 Save::Save(Save const & src) 
@@ -49,3 +50,8 @@ int			Save::getScore( void )
 {
 	return (this->_score);
 }
+
+float		Save::getTimeLeft ( void )
+{
+	return (this->_timeLeft);
+} 

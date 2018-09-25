@@ -73,6 +73,7 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 {
 	char			type = '0';
 	int				enemyTotal = this->_enemyTotal;
+	int				_lvl = rand() % 3 + 1;
 	std::vector<std::vector<char> >	result;
 
 	// check if seed number given is positive
@@ -159,13 +160,13 @@ void			Levels::fixMap(std::vector<std::vector<char> > map, int enemiesKilled)
 }
 
 // save the map
-void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int health, int score)
+void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int health, int score, float timeLeft)
 {
 	// update current map to current game state
 	fixMap(map, enemyTotal);
 	// setup object to save to archive
 	std::cout << "original map size : " << this->_lastMap.size() << std::endl;
-	const Save		temp(this->_lastMap, health, score);
+	const Save		temp(this->_lastMap, health, score, timeLeft);
 	// open file stream
 	std::ofstream ofs("save.data");
 	// create output archive object with stream
@@ -186,6 +187,7 @@ std::vector<std::vector<char> >			Levels::load( void )
 	ia >> temp;
 	this->_playerHealth = temp.getHealth();
 	this->_score = temp.getScore();
+	this->_timeLeft = temp.getTimeLeft();
 	this->_lastMap = temp.getSave();
 	return (temp.getSave());
 }
