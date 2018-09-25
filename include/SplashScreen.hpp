@@ -16,7 +16,7 @@ class SplashScreen
 		SplashScreen();
 		SplashScreen(SplashScreen const & src);
 		~SplashScreen();
-		void show(Shaders & shader, std::string file);
+		void show(Shaders & shader, std::string file, int number);
 	private:
 		float _fps;
 		float _timePerFPS;
