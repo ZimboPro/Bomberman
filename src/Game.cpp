@@ -24,6 +24,10 @@
 #include "map_generation/Levels.hpp"
 #include "Camera.hpp"
 #include "GameInterface.hpp"
+#include "Screens/GameOver.hpp"
+#include "Screens/GameWon.hpp"
+#include "Screens/LevelPassed.hpp"
+#include "Screens/Credits.hpp"
 
 Game::Game() {}
 
@@ -347,7 +351,7 @@ eKeys Game::keyTyped()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
+Camera Game::_camera(glm::vec3(15.0f, 25.0f, 0.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, true, eVolume::v100, true};

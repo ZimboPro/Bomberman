@@ -31,6 +31,7 @@ Goomba::Goomba(std::vector<Model_Texture *> & textures, float x, float y)
 	_models.emplace_back(new Model_Sprite(*textures[1]));
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[2]));
+	_models.emplace_back(new Model_Sprite(*textures[3]));
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
@@ -134,6 +135,7 @@ void Goomba::dying(float & elapsedTime)
 		_isLoaded = false;
 		GameObjectManager::removeDynamicObject(this);
 	}
+	_index = this->_models.size() - 1;
 }
 
 void Goomba::Draw(Shaders & shader)
@@ -165,7 +167,7 @@ void Goomba::Update(float & timeElapsed)
 			movement(0, 0, displacement, 0, displacement + 0.2, box);
 		else if (_directionGen == 4)
 			movement(180, 0, -displacement, 0, -displacement, box);
-		_index = (_index + 1) % this->_models.size();
+		_index = (_index + 1) % (this->_models.size() - 1);
 		if (GameObjectManager::collidesWith(box, _type) == fire)
 			_isDying = true;
 	}
@@ -173,9 +175,9 @@ void Goomba::Update(float & timeElapsed)
 
 void Goomba::newDirection()
 {
-	if (_directionGen == 1 || _directionGen == 2)
+	if (_directionGen < 3)
 		_directionGen = rand() % 2 + 3;
-	else if (_directionGen == 3 || _directionGen == 4)
+	else
 		_directionGen = rand() % 2 + 1;
 }
 
