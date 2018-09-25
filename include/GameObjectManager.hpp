@@ -29,6 +29,7 @@ public:
 	static bool setFireAndContinue(float x, float y);
 	static void removePickup(float x, float y);
 	static bool validBox(BoundingBox & box);
+	static void killPlayer();
 
 private:
 	static void clearLevelUp();

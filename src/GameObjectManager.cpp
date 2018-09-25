@@ -222,6 +222,18 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	}
 }
 
+void GameObjectManager::killPlayer()
+{
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if ((*iter).get()->getType() == player)
+		{
+			(*iter).get()->kill();
+			return ;
+		}
+	}
+}
+
 bool GameObjectManager::validBox(BoundingBox & box)
 {
 	float maxX = static_cast<float>(_staticObjects[0].size());
