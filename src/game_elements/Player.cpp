@@ -95,27 +95,36 @@ void Player::dropBomb()
 {
 	glm::vec3 pos = _models[0]->GetPosition();
 	float bombOffset = 0.5;
+	float playerOffset = 0.3;
 	float bombX = pos.x;
 	float bombY = pos.z;
 
 	if (_direction == 270) // UP
 	{
 		bombX = floor(bombX - bombOffset);
+		if (abs(bombX - pos.x) < 0.5)
+			Move(0, playerOffset);
 		bombY = round(bombY);
 	}
 	else if (_direction == 90) // Down
 	{
 		bombX = ceil(bombX + bombOffset);
+		if (abs(bombX - pos.x) < 0.5)
+			Move(0, -playerOffset);
 		bombY = round(bombY);
 	}
 	else if (_direction == 0) // Left
 	{
 		bombY = ceil(bombY + bombOffset);
+		if (abs(bombY - pos.z) < 0.5)
+			Move(playerOffset, 0);
 		bombX = round(bombX);
 	}
 	else if (_direction == 180) // Right
 	{
 		bombY = floor(bombY - bombOffset);
+		if (abs(bombY - pos.z) < 0.5)
+			Move(-playerOffset, 0);
 		bombX = round(bombX);
 	}
 	GameObjectManager::addDynamicObject(bomb, bombX ,bombY);
@@ -171,6 +180,34 @@ void Player::Update(float & timeElapsed)
 
 	objectTypes collidesWith = GameObjectManager::collidesWith(box, _type);
 
+	switch (collidesWith)
+	{
+		case fire:
+			_isDying = true;
+			break;
+		case goomba:
+			_isDying = true;
+			break;
+		case koopaTroopa:
+			_isDying = true;
+			break;
+		case powerBlock:
+			GameInterface::increaseRangeMultiplier();
+			GameInterface::adjustScore(20);
+			break;
+		case healthBlock:
+			GameInterface::adjustLives(1);
+		case gate:
+			if(GameInterface::allEnemiesDead())
+			{
+				std::cout << "level progression" << std::endl;
+				//implement level change here
+			}
+			break;
+		default:
+			break;
+	}
+
 	if (Game::keyPressed() == eKeys::Up)
 	{
 		Rotate(270);
@@ -189,8 +226,8 @@ void Player::Update(float & timeElapsed)
 	else if (Game::keyPressed() == eKeys::Down)
 	{
 		Rotate(90);
-		box.x1 += displacement + 0.2;
-		box.x2 += displacement + 0.2;
+		box.x1 += displacement + 0.1;
+		box.x2 += displacement + 0.1;
 		box.y1 += alignY;
 		box.y2 += alignY;
 		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
@@ -206,8 +243,8 @@ void Player::Update(float & timeElapsed)
 		Rotate(0);
 		box.x1 += alignX;
 		box.x2 += alignX;
-		box.y1 += displacement + 0.2;
-		box.y2 += displacement + 0.2;
+		box.y1 += displacement + 0.1;
+		box.y2 += displacement + 0.1;
 		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_totalElapsed += timeElapsed;
@@ -232,6 +269,7 @@ void Player::Update(float & timeElapsed)
 				Move(alignX, 0 - displacement);
 		}
 	}
+
 	switch (collidesWith)
 	{
 		case fire:
