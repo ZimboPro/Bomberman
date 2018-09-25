@@ -227,7 +227,6 @@ void Player::Update(float & timeElapsed)
 		}
 	}
 	switch (collidesWith)
-
 	{
 		case fire:
 			_isDying = true;
