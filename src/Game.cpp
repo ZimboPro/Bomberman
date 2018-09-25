@@ -350,6 +350,6 @@ Window Game::_window("Bomberman", 1024, 768);
 Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
-Settings Game::_settings{eScreen::s1920, false, true, eVolume::v100, true};
+Settings Game::_settings{eScreen::s1024, false, true, eVolume::v100, true};
 std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;

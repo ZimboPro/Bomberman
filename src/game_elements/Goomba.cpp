@@ -8,12 +8,12 @@
 #include "Error.hpp"
 #include "Map.hpp"
 
-Goomba::Goomba(): _speed(3)
+Goomba::Goomba()
 {
 	init();
 }
 
-Goomba::Goomba(Model_Texture & texture, float x, float y): _speed(3), VisibleGameObject(texture, x, y, true, false)
+Goomba::Goomba(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false)
 {
 	init();
 }
@@ -24,19 +24,13 @@ Goomba::Goomba(Goomba const & src)
 	init();
 }
 
-Goomba::Goomba(std::vector<Model_Texture *> & textures, float x, float y) : _speed(3)
+Goomba::Goomba(std::vector<Model_Texture *> & textures, float x, float y)
 {
 	init();
-	VisibleGameObject::_timeTodie = 2;
-	VisibleGameObject::_isBreakable = false;
-	VisibleGameObject::_isLoaded = true;
-	VisibleGameObject::_isCollidable = true;
-	VisibleGameObject::_isDying = false;
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[1]));
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[2]));
-	_timeSpentDying = 0;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
@@ -53,12 +47,20 @@ Goomba::~Goomba()
 
 void Goomba::init()
 {
+	VisibleGameObject::_timeTodie = 2;
+	VisibleGameObject::_isBreakable = false;
+	VisibleGameObject::_isLoaded = true;
+	VisibleGameObject::_isCollidable = true;
+	VisibleGameObject::_isDying = false;
+	
 	_type = goomba;
 	_time = glfwGetTime();
 	_index = 0;
 	_direction = 0;
 	_totalElapsed = 0.0f;
 	_directionGen = rand() % 4 + 1;
+	_speed = 3;
+	_timeSpentDying = 0;
 }
 
 BoundingBox Goomba::getBoundingBox()
@@ -87,43 +89,35 @@ void ShiftBox(BoundingBox & box, float x, float y)
 	box.y2 += y;
 }
 
+void Goomba::CheckDirection(BoundingBox box, float x, float y, std::vector<int> & dir, int d)
+{
+	ShiftBox(box, - ( 2 * 0.6f), 0.0f);
+	if (GameObjectManager::collidesWith(box, _type) != unbreakableBlocks && GameObjectManager::collidesWith(box, _type) != breakableBlocks)
+		dir.push_back(d);
+}
+
 void Goomba::RandomDirection()
 {
 	if (glfwGetTime() - _time > 1)
 	{
-		BoundingBox boxLeft = this->getBoundingBox();
-		BoundingBox boxRight = this->getBoundingBox();
-		BoundingBox boxUp = this->getBoundingBox();
-		BoundingBox boxDown = this->getBoundingBox();
-		ShiftBox(boxLeft, - ( 2 * 0.6f), 0.0f);
-		ShiftBox(boxRight,( 2 * 0.6f), 0.0f);
-		ShiftBox(boxUp, 0.0f, - ( 2 * 0.6f));
-		ShiftBox(boxDown, 0.0f, ( 2 * 0.6f));
+		BoundingBox box = this->getBoundingBox();
 
 		std::vector<int> dir;
 		//left
-		if (GameObjectManager::collidesWith(boxLeft, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxLeft, _type) != breakableBlocks)
-			dir.push_back(3);
+		CheckDirection(box, - ( 2 * 0.6f), 0.0f, dir, 3);
 		//right
-		if (GameObjectManager::collidesWith(boxRight, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxRight, _type) != breakableBlocks)
-			dir.push_back(4);
+		CheckDirection(box, ( 2 * 0.6f), 0.0f, dir, 4);
 		//up
-		if (GameObjectManager::collidesWith(boxUp, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxUp, _type) != breakableBlocks)
-			dir.push_back(1);
+		CheckDirection(box, 0.0f, - ( 2 * 0.6f), dir, 1);
 		//down
-		if (GameObjectManager::collidesWith(boxDown, _type) != unbreakableBlocks && GameObjectManager::collidesWith(boxDown, _type) != breakableBlocks)
-			dir.push_back(2);
+		CheckDirection(box, 0.0f, ( 2 * 0.6f), dir, 2);
 		if (dir.size() > 2)
 		{
 			int index = rand() % (100 * dir.size());
 			_directionGen = dir[index / 100];
-			// std::cout << dir.size() << " " << x << " " << y << std::endl;
 			_time = glfwGetTime();
 		}
 	}
-	// if (dir.size() > 2)
-	// std::cout << dir.size() << " " << x << " " << y << std::endl;
-	// }
 }
 
 void Goomba::dying(float & elapsedTime)
