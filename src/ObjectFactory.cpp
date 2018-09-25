@@ -14,6 +14,7 @@
 #include "game_elements/Bomb.hpp"
 #include <string>
 #include <game_elements/Fire.hpp>
+#include <game_elements/Pipe.hpp>
 
 ObjectFactory::ObjectFactory()
 {
@@ -62,6 +63,7 @@ void ObjectFactory::initModelTextures()
 	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
 	_bomb = new Model_Texture("../../Assets/game_models/bomb_carry.obj");
 	_fire = new Model_Texture("../../Assets/game_models/fire.obj");
+	_pipe = new Model_Texture("../../Assets/game_models/pipe.obj");
 }
 
 VisibleGameObject * ObjectFactory::newBomb(float x, float y)
@@ -94,15 +96,21 @@ std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> ObjectFactory::genS
 			switch (Map::at(x, y))
 			{
 				case breakableBlocks:
-//					innerResult.push_back(new Block(*_breakableBlock, x, y, true));
 					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new Block(*_breakableBlock, x, y, true)));
 					break;
 				case unbreakableBlocks:
-//					innerResult.push_back(new Block(*_unbreakableBlock, x, y, false));
 					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new Block(*_unbreakableBlock, x, y, false)));
 					break;
+				case powerBlock:
+					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new Block(*_breakableBlock, x, y, true)));
+					break;
+				case healthBlock:
+					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new Block(*_breakableBlock, x, y, true)));
+					break;
+				case gate:
+					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new Block(*_breakableBlock, x, y, true)));
+					break;
 				default:
-//					innerResult.push_back(new VisibleGameObject);
 					innerResult.push_back(std::shared_ptr<VisibleGameObject> (new VisibleGameObject));
 					break;
 			}
@@ -150,6 +158,8 @@ std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genDynamicAndPick
 				case healthBlock:
 					result->push_back(std::shared_ptr<VisibleGameObject> (new HealthBlock(*_healthBlock, x, y)));
 					break;
+				case gate:
+					result->push_back(std::shared_ptr<VisibleGameObject> (new Pipe(*_pipe, x, y)));
 				default:
 					break;
 			}

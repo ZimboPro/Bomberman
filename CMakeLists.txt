@@ -68,7 +68,7 @@ add_executable(
         src/Menus/PauseMenu.cpp
         src/game_elements/Fire.cpp include/game_elements/Fire.hpp
         src/Menus/LevelSelectMenu.cpp
-        )
+		src/game_elements/Pipe.cpp)
 
 add_dependencies(bomberman graphics)
 find_package(Boost REQUIRED COMPONENTS system serialization)

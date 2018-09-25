@@ -38,6 +38,7 @@ private:
 	Model_Texture * _grass;
 	Model_Texture * _bomb;
 	Model_Texture * _fire;
+	Model_Texture * _pipe;
 };
 
 #endif //BOMBERMAN_OBJECTFACTORY_HPP
