@@ -46,6 +46,7 @@ void Game::start()
 
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
+	_camera.Zoom = 30.0f;
 
 	_gameState = Game::ShowingMenu;
 
@@ -158,7 +159,7 @@ void Game::showSplashScreen()
 	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
 
 	SplashScreen splash;
-	splash.show(shader, "../assets/images/intro/");
+	splash.show(shader, "../assets/images/intro/", 238);
 	_gameState = Game::ShowingMenu;
 }
 
@@ -244,7 +245,7 @@ void Game::playGame()
 
 	while(_gameState == Game::Playing)
 	{
-		_window.clear(0.5f, 0.5f, 0.5f);
+		_window.clear(0.2588f, 0.7961f, 0.8196f);
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
@@ -284,6 +285,15 @@ void Game::playGame()
 			_gameState = ShowingMenu;
 	}
 	return ;
+}
+
+void Game::showCredits()
+{
+	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
+
+	SplashScreen splash;
+	splash.show(shader, "../../Assets/credits/", 222);
+	_gameState = Game::ShowingMenu;
 }
 
 void Game::save()

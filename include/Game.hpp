@@ -62,6 +62,7 @@ class Game
         static void playGame();
         static void lostLevel();
         static void wonLevel();
+        static void showCredits();
 
         enum eGameState { Uninitialized, ShowingSplash, ShowingLevelSelect,
                 ShowingMenu, ShowingOptions,ShowingStartGameMenu, LostLevel,
