@@ -27,8 +27,13 @@ private:
 	void RandomDirection();
 	void Move(float x, float y, float z = 0);
 	void Rotate(float degrees);
+	void newDirection();
+	void movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox box);
+	void init();
+	void CheckDirection(BoundingBox box, float x, float y, std::vector<int> & dir, int d);
+
 	float _speed;
-	int	_directionGen = rand() % 4 + 1;
+	int	_directionGen;
 	float _time;
 	float _totalElapsed;
 	std::vector<Model_Sprite *> _models;

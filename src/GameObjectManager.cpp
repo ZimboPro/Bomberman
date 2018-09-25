@@ -146,8 +146,11 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 
 void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 {
-	std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
-	_dynamicObjects->push_back(obj);
+	if (type != bomb || !_staticObjects[y][x]->isLoaded())
+	{
+		std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
+		_dynamicObjects->push_back(obj);
+	}
 }
 
 bool GameObjectManager::setFireAndContinue(float x, float y)
@@ -219,8 +222,23 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	}
 }
 
+bool GameObjectManager::validBox(BoundingBox & box)
+{
+	float maxX = static_cast<float>(_staticObjects[0].size());
+	float maxY = static_cast<float>(_staticObjects.size());
+	if (box.x1 >= maxX || box.x2 >= maxX || box.y1 >= maxY || box.y2 >= maxY)
+		return false;
+	else if (box.x1 < 0 || box.x2 < 0 || box.y1 < 0 || box.y2 < 0)
+		return false;
+
+	return true;
+}
+
 objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 {
+	if (!validBox(box))
+		return fire;
+
 	if (_staticObjects[box.y1][box.x1]->isLoaded())
 	{
 		if (_staticObjects[box.y1][box.x1]->isBreakable())

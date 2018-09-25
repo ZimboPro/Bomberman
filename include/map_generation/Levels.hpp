@@ -53,8 +53,8 @@ class Levels {
 		bool			_gate = false;
 		int				_seed = 0;
 		int				_debug = 0;
-		int				_width = 33;
-		int				_height = 15;
+		int				_width = 15;
+		int				_height = 33;
 		int				_enemyTotal = 5;
 		int				_bricks = 0;
 		int				_health = 0;

@@ -9,7 +9,7 @@
 #include <map>
 #include "Shaders.hpp"
 #include "ObjectFactory.hpp"
-#include "eObjectTypes.hpp"
+#include "game_elements/eObjectTypes.hpp"
 
 class GameObjectManager
 {
@@ -28,6 +28,7 @@ public:
 	static void newLevel( int type );
 	static bool setFireAndContinue(float x, float y);
 	static void removePickup(float x, float y);
+	static bool validBox(BoundingBox & box);
 
 private:
 	static void clearLevelUp();

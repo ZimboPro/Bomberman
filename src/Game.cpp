@@ -16,7 +16,7 @@
 #include "Menus/OptionsMenu.hpp"
 #include "Menus/PauseMenu.hpp"
 #include "SplashScreen.hpp"
-#include "SFMLSoundProvider.hpp"
+#include "sound/SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
 #include "Menus/StartGameMenu.hpp"
 #include "Map.hpp"
@@ -24,6 +24,10 @@
 #include "map_generation/Levels.hpp"
 #include "Camera.hpp"
 #include "GameInterface.hpp"
+#include "Screens/GameOver.hpp"
+#include "Screens/GameWon.hpp"
+#include "Screens/LevelPassed.hpp"
+//#include "Screens/Credits.hpp"
 
 Game::Game() {}
 
@@ -41,8 +45,9 @@ void Game::start()
 
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
+	_camera.Zoom = 30.0f;
 
-	_gameState = Game::Playing;
+	_gameState = eGameState::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -121,7 +126,7 @@ void Game::showSplashScreen()
 	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
 
 	SplashScreen splash;
-	splash.show(shader, "../assets/images/intro/");
+	splash.show(shader, "../assets/images/intro/", 238);
 	_gameState = Game::ShowingMenu;
 }
 
@@ -171,7 +176,7 @@ void Game::playGame()
 
 	while(_gameState == Game::Playing)
 	{
-		_window.clear(0.5f, 0.5f, 0.5f);
+		_window.clear(0.2588f, 0.7961f, 0.8196f);
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
@@ -201,6 +206,15 @@ void Game::playGame()
 //			_gameState = Game::Exiting;
 	}
 	return ;
+}
+
+void Game::showCredits()
+{
+	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
+
+	SplashScreen splash;
+	splash.show(shader, "../../Assets/credits/", 222);
+	_gameState = Game::ShowingMenu;
 }
 
 void Game::save()
@@ -358,9 +372,9 @@ eKeys Game::keyTyped()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
+Camera Game::_camera(glm::vec3(15.0f, 25.0f, 0.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
-Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
+Settings Game::_settings{eScreen::s1024, false, true, eVolume::v100, true};
 std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;

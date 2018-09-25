@@ -47,9 +47,9 @@ add_executable(
         src/game_elements/Player.cpp
         src/GameObjectManager.cpp
         src/Error.cpp
-        src/SFMLSoundProvider.cpp
+        src/sound/SFMLSoundProvider.cpp
         src/ServiceLocator.cpp
-        src/SoundFileCache.cpp
+        src/sound/SoundFileCache.cpp
         src/Map.cpp
         src/ObjectFactory.cpp
         src/Menus/OptionsMenu.cpp
@@ -68,6 +68,11 @@ add_executable(
         src/Menus/PauseMenu.cpp
         src/game_elements/Fire.cpp include/game_elements/Fire.hpp
         src/Menus/LevelSelectMenu.cpp
+        src/Screens/LevelPassed.cpp
+        src/Screens/GameOver.cpp
+        src/Screens/GameWon.cpp
+		src/game_elements/Pipe.cpp
+
         )
 
 add_dependencies(bomberman graphics)
