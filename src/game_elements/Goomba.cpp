@@ -155,8 +155,6 @@ void Goomba::Update(float & timeElapsed)
 	BoundingBox box = getBoundingBox();
 	_totalElapsed += timeElapsed;
 
-	objectTypes collidesWith = grass;
-
 	if (_totalElapsed > 0.13f)
 	{
 		float displacement = _totalElapsed * _speed;
@@ -185,15 +183,17 @@ void Goomba::newDirection()
 
 void Goomba::movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox box)
 {
+	objectTypes collidesWith = grass;
+
 	if (_direction != degree)
 		Rotate(degree);
 	box.x1 += boxX;
 	box.x2 += boxX;
 	box.y1 += boxY;
 	box.y2 += boxY;
-	if(GameObjectManager::collidesWith(box, _type) == grass)
+	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		Move(moveX, moveY, 0);
-	if (GameObjectManager::collidesWith(box, _type) == unbreakableBlocks || GameObjectManager::collidesWith(box, _type) == breakableBlocks)
+	if (collidesWith == unbreakableBlocks || collidesWith == breakableBlocks || collidesWith == bomb)
 		newDirection();
 }
 

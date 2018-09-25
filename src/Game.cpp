@@ -46,7 +46,7 @@ void Game::start()
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
 
-	_gameState = Game::ShowingMenu;
+	_gameState = Game::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
