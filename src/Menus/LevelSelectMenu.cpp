@@ -57,10 +57,7 @@ int LevelSelectMenu::show(Shaders & shader, Shaders & brightShader)
 		if (Game::keyTyped() == eKeys::Down)
 			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Random : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
-		{
-            if (_selected == MenuResult::Back)
-                break;
-        }
+			break;
 		Game::_window.update();
 	}
 	moveOnScreen(shader, -20.0f);

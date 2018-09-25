@@ -57,10 +57,11 @@ class Game
         static void showPauseMenu();
         static void showOptions();
         static void showStartGameMenu();
+        static void showLevelSelect();
         static void playGame();
 
-        enum eGameState { Uninitialized, ShowingSplash, Paused,
-                ShowingMenu, ShowingOptions,ShowingStartGameMenu,
+        enum eGameState { Uninitialized, ShowingSplash, ShowingLevelSelect,
+                ShowingMenu, ShowingOptions,ShowingStartGameMenu, LostLevel,
                 Playing, Exiting };
 
         static eGameState _gameState;

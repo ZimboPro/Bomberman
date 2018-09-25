@@ -73,26 +73,19 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
-void GameObjectManager::clearLevelDown()
+void GameObjectManager::changeLevel(int seed)
 {
 	_initialized = false;
 	if (Map::getLevelHolder().size() > Map::getLevel())
 	{
-		Map::readInRandomMap(Map::getLevel() - 1);
+		Map::readInRandomMap(seed);
 		Map::levelDown();
 	}
-	_staticObjects.clear();
-	_dynamicObjects->clear();
-	_grass->clear();
-	delete _dynamicObjects;
-	delete _grass;
+	clearObjects();
 }
 
-void GameObjectManager::clearLevelUp()
+void GameObjectManager::clearObjects()
 {
-	_initialized = false;
-	Map::readInRandomMap(Map::getLevel() + 1);
-	Map::levelUp();
 	_staticObjects.clear();
 	_dynamicObjects->clear();
 	_grass->clear();
@@ -108,23 +101,23 @@ void GameObjectManager::initLevel()
 	_initialized = true;
 }
 
-void GameObjectManager::newLevel(int type)
+void GameObjectManager::newLevel(int seed)
 {
 	int Down = 0;
 	int Up = 1;
 
-	if (type == Up)
+	if (seed == 0)
 	{
-		clearLevelUp();
+		changeLevel(0);
 		initLevel();
 	}
-	else if (type == Down)
+	else if (seed < 3)
 	{
-		clearLevelDown();
+		changeLevel(Map::getLevel() + 1);		
 		initLevel();
 	}
 	else
-		std::cout << "Invalid change type. values needed 0:Down or 1:Up" << std::endl;
+		std::cout << "Display Game Over" << std::endl;
 }
 
 bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)

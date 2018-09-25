@@ -144,8 +144,8 @@ void KeyBindMenu::loadModels()
 
 void KeyBindMenu::loadOptions()
 {
-	loadTexture("../../Assets/options_menu/off.obj");
-	loadTexture("../../Assets/options_menu/on.obj");
+	loadTexture("../../Assets/buttons/off.obj");
+	loadTexture("../../Assets/buttons/on.obj");
 	loadTexture("../../Assets/buttons/enter.obj");
 	loadTexture("../../Assets/buttons/space.obj");
 

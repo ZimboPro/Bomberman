@@ -134,13 +134,13 @@ void OptionsMenu::loadModels()
 {   
     this->_selected = Options::WindowSize;
 	Game::_loadingScreen.reset();
-    loadActions("../../Assets/options_menu/window_size.obj");
-    loadActions("../../Assets/options_menu/fullscreen.obj");
-    loadActions("../../Assets/options_menu/keybind.obj");
-    loadActions("../../Assets/options_menu/sound.obj");
-    loadActions("../../Assets/options_menu/volume.obj");
-    loadActions("../../Assets/options_menu/music.obj");
-    loadActions("../../Assets/options_menu/back_options.obj");
+    loadActions("../../Assets/buttons/window_size.obj");
+    loadActions("../../Assets/buttons/fullscreen.obj");
+    loadActions("../../Assets/buttons/keybind.obj");
+    loadActions("../../Assets/buttons/sound.obj");
+    loadActions("../../Assets/buttons/volume.obj");
+    loadActions("../../Assets/buttons/music.obj");
+    loadActions("../../Assets/buttons/back_options.obj");
     for (size_t i = 0; i < this->_action.size(); i++)
     {
         this->_action[i].action = static_cast<Options>(i);
@@ -152,11 +152,11 @@ void OptionsMenu::loadModels()
 
 void OptionsMenu::loadOptions()
 {
-	loadTexture("../../Assets/options_menu/1920x1080.obj");
-	loadTexture("../../Assets/options_menu/1080x720.obj");
-	loadTexture("../../Assets/options_menu/1024x768.obj");
-	loadTexture("../../Assets/options_menu/off.obj");
-	loadTexture("../../Assets/options_menu/on.obj");
+	loadTexture("../../Assets/buttons/1920x1080.obj");
+	loadTexture("../../Assets/buttons/1080x720.obj");
+	loadTexture("../../Assets/buttons/1024x768.obj");
+	loadTexture("../../Assets/buttons/off.obj");
+	loadTexture("../../Assets/buttons/on.obj");
 	loadTexture("../../Assets/options_menu/volume_0.obj");
 	loadTexture("../../Assets/options_menu/volume_1.obj");
 	loadTexture("../../Assets/options_menu/volume_2.obj");

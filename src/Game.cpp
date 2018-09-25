@@ -15,6 +15,7 @@
 #include "Menus/MainMenu.hpp"
 #include "Menus/OptionsMenu.hpp"
 #include "Menus/PauseMenu.hpp"
+#include "Menus/LevelSelectMenu.hpp"
 #include "SplashScreen.hpp"
 #include "SFMLSoundProvider.hpp"
 #include "ServiceLocator.hpp"
@@ -42,7 +43,7 @@ void Game::start()
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
 
-	_gameState = Game::Playing;
+	_gameState = Game::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -73,9 +74,6 @@ void Game::gameLoop()
 		case Game::ShowingSplash:
 			showSplashScreen();
 			break;
-		case Game::Paused:
-			showPauseMenu();
-			break;
 		case Game::ShowingMenu:
 			showMenu();
 			break;
@@ -86,6 +84,13 @@ void Game::gameLoop()
 			break;
 		case Game::ShowingStartGameMenu:
 			showStartGameMenu();
+			break;
+		case Game::ShowingLevelSelect:
+			showLevelSelect();
+			break;
+		case Game::LostLevel:
+			GameObjectManager::clearObjects();
+			showMenu();
 			break;
 		default:
 			break;
@@ -101,7 +106,12 @@ void Game::showPauseMenu()
 	
 	int selection = menu.show(shader, brightShader);
 	if (selection == PauseMenu::Quit)
-		_gameState = Game::ShowingMenu;
+	{
+		GameObjectManager::clearObjects();
+		_gameState = ShowingMenu;
+	}
+	if (selection == PauseMenu::Save)
+		save();
 }
 
 void Game::showStartGameMenu()
@@ -112,6 +122,10 @@ void Game::showStartGameMenu()
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
 	
 	int selection = menu.show(shader, brightShader);
+	if (selection == StartGameMenu::Start)
+		_gameState = Game::ShowingLevelSelect;
+	if (selection == StartGameMenu::Load)
+		load();
 	if (selection == StartGameMenu::Back)
 		_gameState = Game::ShowingMenu;
 }
@@ -123,6 +137,20 @@ void Game::showSplashScreen()
 	SplashScreen splash;
 	splash.show(shader, "../assets/images/intro/");
 	_gameState = Game::ShowingMenu;
+}
+
+void Game::showLevelSelect()
+{
+	LevelSelectMenu menu;
+
+	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
+	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
+	
+	int selection = menu.show(shader, brightShader);
+	if (selection == LevelSelectMenu::Random)
+		_gameState = Game::Playing;
+	if (selection == LevelSelectMenu::Back)
+		_gameState = Game::ShowingStartGameMenu;
 }
 
 void Game::showMenu()
@@ -137,8 +165,8 @@ void Game::showMenu()
 	if (selection == MainMenu::Exit)
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
-		// _gameState = Game::ShowingStartGameMenu;
-		_gameState = Game::Playing;
+		_gameState = Game::ShowingStartGameMenu;
+		// _gameState = Game::Playing;
 	else if (selection == MainMenu::Settings)
 		_gameState = Game::ShowingOptions;
 }
@@ -182,21 +210,31 @@ void Game::playGame()
 		GameObjectManager::updateAll(clock.getElapsedTime().asSeconds());
 		clock.restart();
 
-		if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
-		{
-			std::cout << "Q is pressed to save game\n";
-			save();
-			_gameState = Game::Exiting;
-		}
-		if (_window.isKeyPressed(getKeyConfigured(eKeys::Load)))
-		{
-			std::cout << "W is pressed to load game\n";
-			load();
-			_gameState = Game::Exiting;
-		}
+		// if (_window.isKeyPressed(getKeyConfigured(eKeys::Save)))
+		// {
+		// 	std::cout << "Q is pressed to save game\n";
+		// 	save();
+		// 	_gameState = Game::Exiting;
+		// }
+		// if (_window.isKeyPressed(getKeyConfigured(eKeys::Load)))
+		// {
+		// 	std::cout << "W is pressed to load game\n";
+		// 	load();
+		// 	_gameState = Game::Exiting;
+		// }
 
-		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed())
-			_gameState = Game::Exiting;
+		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)))
+		{
+			float timeLeft = GameInterface::TimeLeft();
+			showPauseMenu();
+			GameInterface::resetTime(timeLeft);
+		}
+		if (_window.closed() || _interface.timerEnded() || !_interface.stillAlive())
+			_gameState = Game::LostLevel;
+
+//		if (_player.WonLevel == true)
+//			GameObjectManager::newLevel(Map::getLevel());
+		
 //		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
 //			_gameState = Game::Exiting;
 	}
@@ -253,7 +291,7 @@ void Game::save()
 
 void Game::load()
 {
-
+	std::cout << "Not implemented" << std::endl;
 }
 
 int Game::getKeyConfigured(eKeys key)
@@ -347,9 +385,9 @@ eKeys Game::keyTyped()
 
 Game::eGameState Game::_gameState = Game::Uninitialized;
 Window Game::_window("Bomberman", 1024, 768);
-Camera Game::_camera(glm::vec3(15.0f, 15.0f, 15.0f));
+Camera Game::_camera(glm::vec3(15.0f, 15.0f, 0));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
-Settings Game::_settings{eScreen::s1920, false, true, eVolume::v60, true};
+Settings Game::_settings{eScreen::s1024, false, true, eVolume::v60, true};
 std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;

@@ -59,26 +59,13 @@ int StartGameMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Start : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
-			if (_selected == MenuResult::Start)
-				showLevelSelect();
-            if (_selected == MenuResult::Back)
-                break;
+			break;
         }
 		Game::_window.update();
 	}
 	moveOnScreen(shader, -20.0f);
 	deleteMenu();
 	return static_cast<int>(this->_selected);
-}
-
-void StartGameMenu::showLevelSelect()
-{
-	LevelSelectMenu menu;
-
-	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");
-	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
-	
-	int selection = menu.show(shader, brightShader);
 }
 
 void StartGameMenu::loadMenu()
