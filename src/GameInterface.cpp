@@ -17,11 +17,12 @@ Text *                  GameInterface::_text;
 
 std::vector<glm::vec2>  GameInterface::_postions;
 
-float                   GameInterface::_endTime;
-int                     GameInterface::_lives;
-int                     GameInterface::_score;
-int                     GameInterface::_troopaKilled;
-int                     GameInterface::_goombaKilled;
+float                   GameInterface::_endTime = 10;
+int                     GameInterface::_lives = 3;
+float                   GameInterface::_rangeMultiplier = 1;
+int                     GameInterface::_score = 0;
+int                     GameInterface::_troopaKilled = 0;
+int                     GameInterface::_goombaKilled = 0;
 glm::mat4               GameInterface::_projection;
 glm::mat4               GameInterface::_view;
 glm::vec3               GameInterface::_color;
@@ -47,16 +48,16 @@ void GameInterface::loadObjects()
 
 void GameInterface::resetPostions()
 {
-    float y = Game::_window.Height() / 20;
+    float y = Game::_window.Height() - Game::_window.Height() / 20;
     float x = Game::_window.Width() / 4;
     _projection = Game::_window.Projection();
 
     _postions.clear();
-    _postions.push_back(glm::vec2(x * 1 - 40, y));
-    _postions.push_back(glm::vec2(x * 2 - 40, y));
-    _postions.push_back(glm::vec2(x * 3 - 40, y));
+    _postions.push_back(glm::vec2(x * 1 - 60, y));
+    _postions.push_back(glm::vec2(x * 2 - 60, y));
+    _postions.push_back(glm::vec2(x * 3 - 60, y));
     _model->Reset();
-    _model->Position(x - 70.0f, -20.0f, y);
+    _model->Position(x - 90.0f, -20.0f, y);
     _model->Scale(3);
 }
 
@@ -66,6 +67,7 @@ void GameInterface::resetHOD()
     _score = 0;
     _goombaKilled = 0;
     _troopaKilled = 0;
+    _rangeMultiplier = 1;
 }
 
 void GameInterface::display()
@@ -86,6 +88,21 @@ void GameInterface::display()
     _text->Render(*_textShader, "x" + std::to_string(_lives), _postions[0].x, _postions[0].y, 1, _color, Game::_window.Width(), Game::_window.Height());
     _text->Render(*_textShader,std::to_string(min) + ":" + s , _postions[1].x, _postions[1].y, 1, _color, Game::_window.Width(), Game::_window.Height());
     _text->Render(*_textShader, "Score:" + std::to_string(_score), _postions[2].x, _postions[2].y, 1, _color, Game::_window.Width(), Game::_window.Height());
+}
+
+int GameInterface::getRangeMultiplier()
+{
+    return _rangeMultiplier;
+}
+
+void GameInterface::increaseRangeMultiplier()
+{
+    _rangeMultiplier += 0.5;
+}
+
+void GameInterface::resetRangeMultiplier()
+{
+    _rangeMultiplier = 1;
 }
 
 void GameInterface::adjustLives(int lives)

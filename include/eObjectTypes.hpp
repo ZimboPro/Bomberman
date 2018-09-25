@@ -16,7 +16,8 @@ enum objectTypes
 	powerBlock = '6',
 	healthBlock = '7',
 	bomb = '8',
-	fire = '9'
+	fire = '9',
+	gate = 'G'
 };
 
 #endif //BOMBERMAN_EOBJECTTYPES_HPP

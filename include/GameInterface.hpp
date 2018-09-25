@@ -33,7 +33,11 @@ class GameInterface
         static int LivesLeft();
         static float TimeLeft();
         static int CurrentScore();
-    
+
+        static int getRangeMultiplier();
+        static void increaseRangeMultiplier();
+        static void resetRangeMultiplier();
+
     private:
         static Model_Sprite * _model;
         static Shaders * _shader;
@@ -47,6 +51,7 @@ class GameInterface
         static int _score;
         static int _goombaKilled;
         static int _troopaKilled;
+        static float _rangeMultiplier;
         static glm::mat4 _projection;
         static glm::mat4 _view;
         static glm::vec3 _color;
