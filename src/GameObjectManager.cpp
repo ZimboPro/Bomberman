@@ -146,7 +146,7 @@ bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
 
 void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 {
-	if (!_staticObjects[y][x]->isLoaded())
+	if (type != bomb || !_staticObjects[y][x]->isLoaded())
 	{
 		std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
 		_dynamicObjects->push_back(obj);
