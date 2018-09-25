@@ -92,6 +92,7 @@ void GameInterface::display()
 
 int GameInterface::getRangeMultiplier()
 {
+	std::cout << "rangeMulti: " << _rangeMultiplier << std::endl;
     return _rangeMultiplier;
 }
 
@@ -102,6 +103,7 @@ void GameInterface::increaseRangeMultiplier()
 
 void GameInterface::resetRangeMultiplier()
 {
+    std::cout << "reset rangeMulti: " << _rangeMultiplier << std::endl;
     _rangeMultiplier = 1;
 }
 

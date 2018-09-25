@@ -167,6 +167,7 @@ bool GameObjectManager::setFireAndContinue(float x, float y)
 	return true;
 }
 
+
 void GameObjectManager::spawnFire(VisibleGameObject *bomb)
 {
 	float burnRange = 2 * GameInterface::getRangeMultiplier();
@@ -212,7 +213,7 @@ void GameObjectManager::removeDynamicObject(VisibleGameObject *obj)
 	{
 		if (obj == (*iter).get())
 		{
-			_dynamicObjects->erase((iter));
+			_dynamicObjects->erase(iter);
 			return ;
 		}
 	}
