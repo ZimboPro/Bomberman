@@ -243,12 +243,10 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 	{
 		if ((*iter)->getType() != type && (*iter)->isLoaded() && intersects(box, (*iter)->getBoundingBox()))
 		{
-			objectTypes dynamicType = (*iter)->getType();
-			if ((dynamicType == healthBlock || dynamicType == powerBlock) && type == player)
-			{
+			objectTypes collType = (*iter)->getType();
+			if((collType == healthBlock || collType == powerBlock) && type == player)
 				_dynamicObjects->erase(iter);
-			}
-			return type;
+			return collType;
 		}
 	}
 	return grass;
