@@ -23,6 +23,7 @@ float                   GameInterface::_rangeMultiplier = 1;
 int                     GameInterface::_score = 0;
 int                     GameInterface::_troopaKilled = 0;
 int                     GameInterface::_goombaKilled = 0;
+bool                    GameInterface::_wonLevel = false;
 glm::mat4               GameInterface::_projection;
 glm::mat4               GameInterface::_view;
 glm::vec3               GameInterface::_color;
@@ -117,7 +118,7 @@ void GameInterface::adjustScore(int score)
 
 bool GameInterface::stillAlive()
 {
-    return (_lives > -1);
+    return (_lives > 0);
 }
 
 void GameInterface::resetTime(float seconds)
@@ -163,4 +164,14 @@ float GameInterface::TimeLeft()
 int GameInterface::CurrentScore()
 {
     return _score;
+}
+
+bool GameInterface::completedLevel()
+{
+    return _wonLevel;
+}
+
+void GameInterface::setLevelCompleted()
+{
+    _wonLevel = true;
 }

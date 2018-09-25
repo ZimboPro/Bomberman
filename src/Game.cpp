@@ -89,9 +89,12 @@ void Game::gameLoop()
 			showLevelSelect();
 			break;
 		case Game::LostLevel:
-			GameObjectManager::clearObjects();
-			showMenu();
+			//Show Game Lost Screen
+			_gameState = ShowingMenu;
 			break;
+		case Game::WonLevel:
+			_startLevel += 1;
+			_gameState = Playing;
 		default:
 			break;
 	}
@@ -147,10 +150,30 @@ void Game::showLevelSelect()
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
 	
 	int selection = menu.show(shader, brightShader);
-	if (selection == LevelSelectMenu::Random)
-		_gameState = Game::Playing;
-	if (selection == LevelSelectMenu::Back)
-		_gameState = Game::ShowingStartGameMenu;
+	std::cout << selection << std::endl;
+	switch(selection)
+	{
+		case LevelSelectMenu::Random:
+			Game::_startLevel = 0;
+			_gameState = Playing;
+			break;
+		case LevelSelectMenu::lvl1:
+			Game::_startLevel = 1;
+			_gameState = Playing;
+			break;
+		case LevelSelectMenu::lvl2:
+			Game::_startLevel = 2;
+			_gameState = Playing;
+			break;
+		case LevelSelectMenu::lvl3:
+			Game::_startLevel = 3;
+			_gameState = Playing;
+			break;
+		case LevelSelectMenu::Back:
+			_gameState = ShowingStartGameMenu;		
+			break;
+	}
+	std::cout << Game::_startLevel << std::endl;
 }
 
 void Game::showMenu()
@@ -186,12 +209,14 @@ void Game::showOptions()
 void Game::playGame()
 {
 	GameObjectManager::init();
+	GameObjectManager::newLevel(Game::_startLevel);
 	sf::Clock clock;
 
 	Shaders shader("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",
 			"_deps/graphics-src/Resources/FragmentShaders/ShadedModelsFrag.glsl");
 
 	_camera.LookAt(glm::vec3(0));
+
 
 	_interface.resetHOD();
 	_interface.resetTime(70);
@@ -232,8 +257,8 @@ void Game::playGame()
 		if (_window.closed() || _interface.timerEnded() || !_interface.stillAlive())
 			_gameState = Game::LostLevel;
 
-//		if (_player.WonLevel == true)
-//			GameObjectManager::newLevel(Map::getLevel());
+		if (_interface.completedLevel())
+			_gameState = Game::WonLevel;
 		
 //		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)) || _window.closed() || _interface.timerEnded() || !_interface.stillAlive())
 //			_gameState = Game::Exiting;
@@ -391,3 +416,4 @@ LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, true, eVolume::v60, true};
 std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;
+int	Game::_startLevel = 0;

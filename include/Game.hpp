@@ -62,10 +62,11 @@ class Game
 
         enum eGameState { Uninitialized, ShowingSplash, ShowingLevelSelect,
                 ShowingMenu, ShowingOptions,ShowingStartGameMenu, LostLevel,
-                Playing, Exiting };
+                WonLevel, Playing, Exiting };
 
         static eGameState _gameState;
         static int _keyPress;
+        static int _startLevel;
         static std::map<eKeys, int> _keyConfiguration;
         static std::vector<std::vector<char> >  _savedMap;
 };
