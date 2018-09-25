@@ -22,7 +22,7 @@ SplashScreen::SplashScreen(SplashScreen const & src)
 SplashScreen::~SplashScreen()
 {}
 
-void SplashScreen::show(Shaders & shader, std::string file)
+void SplashScreen::show(Shaders & shader, std::string file, int number)
 {
 	this->_fps = 13.0f;
     this->_timePerFPS = 1.0f / this->_fps;
@@ -36,7 +36,7 @@ void SplashScreen::show(Shaders & shader, std::string file)
 	// float elapsed = glfwGetTime();
 	// int fps = 0;
 	TextureImages texture;
-	for (int i = 1; i < 238; i++)
+	for (int i = 1; i < number; i++)
 	{
 		texture.Load(file + std::to_string(i) + jpg);
 		currentTime = glfwGetTime();
