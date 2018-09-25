@@ -45,8 +45,9 @@ void Game::start()
 
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
+	_camera.Zoom = 30.0f;
 
-	_gameState = Game::Playing;
+	_gameState = eGameState::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -125,7 +126,7 @@ void Game::showSplashScreen()
 	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
 
 	SplashScreen splash;
-	splash.show(shader, "../assets/images/intro/");
+	splash.show(shader, "../assets/images/intro/", 238);
 	_gameState = Game::ShowingMenu;
 }
 
@@ -205,6 +206,15 @@ void Game::playGame()
 //			_gameState = Game::Exiting;
 	}
 	return ;
+}
+
+void Game::showCredits()
+{
+	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
+
+	SplashScreen splash;
+	splash.show(shader, "../../Assets/credits/", 222);
+	_gameState = Game::ShowingMenu;
 }
 
 void Game::save()

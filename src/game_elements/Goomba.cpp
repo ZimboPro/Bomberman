@@ -92,7 +92,7 @@ void ShiftBox(BoundingBox & box, float x, float y)
 
 void Goomba::CheckDirection(BoundingBox box, float x, float y, std::vector<int> & dir, int d)
 {
-	ShiftBox(box, - ( 2 * 0.6f), 0.0f);
+	ShiftBox(box, - ( 2 * 0.8f), 0.0f);
 	if (GameObjectManager::collidesWith(box, _type) != unbreakableBlocks && GameObjectManager::collidesWith(box, _type) != breakableBlocks)
 		dir.push_back(d);
 }
@@ -105,13 +105,13 @@ void Goomba::RandomDirection()
 
 		std::vector<int> dir;
 		//left
-		CheckDirection(box, - ( 2 * 0.6f), 0.0f, dir, 3);
+		CheckDirection(box, - ( 2 * 0.8f), 0.0f, dir, 3);
 		//right
-		CheckDirection(box, ( 2 * 0.6f), 0.0f, dir, 4);
+		CheckDirection(box, ( 2 * 0.8f), 0.0f, dir, 4);
 		//up
-		CheckDirection(box, 0.0f, - ( 2 * 0.6f), dir, 1);
+		CheckDirection(box, 0.0f, - ( 2 * 0.8f), dir, 1);
 		//down
-		CheckDirection(box, 0.0f, ( 2 * 0.6f), dir, 2);
+		CheckDirection(box, 0.0f, ( 2 * 0.8f), dir, 2);
 		if (dir.size() > 2)
 		{
 			int index = rand() % (100 * dir.size());

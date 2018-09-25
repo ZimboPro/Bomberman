@@ -58,6 +58,7 @@ class Game
         static void showOptions();
         static void showStartGameMenu();
         static void playGame();
+        static void showCredits();
 
         enum eGameState { Uninitialized, ShowingSplash, Paused,
                 ShowingMenu, ShowingOptions,ShowingStartGameMenu,
