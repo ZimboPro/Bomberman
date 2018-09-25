@@ -45,8 +45,9 @@ void Game::start()
 
 	_loadingScreen.loadModels();
 	_interface.loadObjects();
+	_camera.Zoom = 30.0f;
 
-	_gameState = Game::ShowingMenu;
+	_gameState = eGameState::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -175,7 +176,7 @@ void Game::playGame()
 
 	while(_gameState == Game::Playing)
 	{
-		_window.clear(0.5f, 0.5f, 0.5f);
+		_window.clear(0.2588f, 0.7961f, 0.8196f);
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
