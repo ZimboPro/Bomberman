@@ -193,7 +193,8 @@ void Goomba::movement(float degree, float moveX, float moveY, float boxX, float 
 	box.y2 += boxY;
 	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		Move(moveX, moveY, 0);
-	if (collidesWith == unbreakableBlocks || collidesWith == breakableBlocks || collidesWith == bomb)
+//	if (collidesWith == unbreakableBlocks || collidesWith == breakableBlocks || collidesWith == bomb)
+	if (collidesWith != grass)
 		newDirection();
 }
 

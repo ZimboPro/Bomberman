@@ -28,6 +28,7 @@ public:
 	static void newLevel( int type );
 	static bool setFireAndContinue(float x, float y);
 	static void removePickup(float x, float y);
+	static bool validBox(BoundingBox & box);
 
 private:
 	static void clearLevelUp();
