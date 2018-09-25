@@ -32,6 +32,7 @@ private:
 	float _speed;
 	float _totalElapsed;
 	float _totalDroppedWhilstDying;
+	bool _wonLevel;
 	std::vector<Model_Sprite *> _models;
 };
 

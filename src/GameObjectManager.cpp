@@ -11,6 +11,8 @@
 #include <game_elements/Bomb.hpp>
 #include <Error.hpp>
 #include <GameInterface.hpp>
+#include "Screens/GameWon.hpp"
+#include "Game.hpp"
 
 GameObjectManager::GameObjectManager() = default;
 
@@ -24,12 +26,11 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::init()
 {
-	Map::readInRandomMap(0);
 	_factory.initModelTextures();
-	_staticObjects = _factory.genStaticObjects();
-	_dynamicObjects = _factory.genDynamicAndPickUpObjects();
-	_grass = _factory.genGrass();
-	_initialized = true;
+	// _staticObjects = _factory.genStaticObjects();
+	// _dynamicObjects = _factory.genDynamicAndPickUpObjects();
+	// _grass = _factory.genGrass();
+	// _initialized = true;
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -73,31 +74,26 @@ void GameObjectManager::updateAll(float elapsedTime)
 	}
 }
 
-void GameObjectManager::clearLevelDown()
+void GameObjectManager::changeLevel(int seed)
 {
+	// std::cout << seed << std::endl;
 	_initialized = false;
-	if (Map::getLevelHolder().size() > Map::getLevel())
-	{
-		Map::readInRandomMap(Map::getLevel() - 1);
-		Map::levelDown();
-	}
-	_staticObjects.clear();
-	_dynamicObjects->clear();
-	_grass->clear();
-	delete _dynamicObjects;
-	delete _grass;
+	clearObjects();
+	Map::readInRandomMap(seed);
+	initLevel();
+	Map::levelUp();
 }
 
-void GameObjectManager::clearLevelUp()
+void GameObjectManager::clearObjects()
 {
-	_initialized = false;
-	Map::readInRandomMap(Map::getLevel() + 1);
-	Map::levelUp();
-	_staticObjects.clear();
-	_dynamicObjects->clear();
-	_grass->clear();
-	delete _dynamicObjects;
-	delete _grass;
+	if (_staticObjects.size() > 0)
+	{
+		_staticObjects.clear();
+		_dynamicObjects->clear();
+		delete _dynamicObjects;
+		_grass->clear();
+		delete _grass;
+	}
 }
 
 void GameObjectManager::initLevel()
@@ -108,23 +104,19 @@ void GameObjectManager::initLevel()
 	_initialized = true;
 }
 
-void GameObjectManager::newLevel(int type)
+void GameObjectManager::newLevel(int seed)
 {
-	int Down = 0;
-	int Up = 1;
-
-	if (type == Up)
-	{
-		clearLevelUp();
-		initLevel();
-	}
-	else if (type == Down)
-	{
-		clearLevelDown();
-		initLevel();
-	}
+	// std::cout << seed << std::endl;
+	if (seed == 0)
+		changeLevel(0);
+	else if (seed <= 3)
+		changeLevel(seed);		
 	else
-		std::cout << "Invalid change type. values needed 0:Down or 1:Up" << std::endl;
+	{
+		GameWon gamewon;
+		gamewon.show();
+		Game::setGameStateGameWon();
+	}
 }
 
 bool GameObjectManager::intersects(BoundingBox obj1, BoundingBox obj2)
