@@ -9,6 +9,7 @@
 #include <Model_Texture.hpp>
 #include <vector>
 #include "IMenu.hpp"
+#include "ServiceLocator.hpp"
 
 class MainMenu : public IMenu
 {
@@ -33,6 +34,7 @@ class MainMenu : public IMenu
 		void moveOnScreen(Shaders & shader, float end);
 		std::vector<MenuItem> _menuItems;
 		MenuResult _selected;
+		IAudioProvider * _sound;
 };
 
 

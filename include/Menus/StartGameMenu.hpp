@@ -58,6 +58,7 @@ class StartGameMenu : public IMenu
         void showLevelSelect();
 		std::vector<MenuItem> _menuItems;
 		MenuResult _selected;
+        IAudioProvider * _sound;
 };
 
 #endif

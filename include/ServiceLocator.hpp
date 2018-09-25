@@ -5,7 +5,7 @@
 #ifndef BOMBERMAN_SERVICELOCATOR_HPP
 #define BOMBERMAN_SERVICELOCATOR_HPP
 
-#include "IAudioProvider.hpp"
+#include "sound/IAudioProvider.hpp"
 
 class ServiceLocator
 {

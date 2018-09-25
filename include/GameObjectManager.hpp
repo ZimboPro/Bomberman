@@ -9,7 +9,7 @@
 #include <map>
 #include "Shaders.hpp"
 #include "ObjectFactory.hpp"
-#include "eObjectTypes.hpp"
+#include "game_elements/eObjectTypes.hpp"
 
 class GameObjectManager
 {

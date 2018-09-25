@@ -42,6 +42,7 @@ class LevelSelectMenu : public IMenu
 		void moveOnScreen(Shaders & shader, float end);
 		std::vector<MenuItem> _menuItems;
 		MenuResult _selected;
+        IAudioProvider * _sound;
 };
 
 

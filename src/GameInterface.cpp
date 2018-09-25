@@ -23,7 +23,7 @@ float                   GameInterface::_rangeMultiplier = 1;
 int                     GameInterface::_score = 0;
 int                     GameInterface::_troopaKilled = 0;
 int                     GameInterface::_goombaKilled = 0;
-bool                    GameInterface::_wonLevel = false;
+int                     GameInterface::_totalEnemiesInPlay = 0;
 glm::mat4               GameInterface::_projection;
 glm::mat4               GameInterface::_view;
 glm::vec3               GameInterface::_color;
@@ -134,11 +134,23 @@ bool GameInterface::timerEnded()
 void GameInterface::goombaKilled()
 {
     _goombaKilled++;
+    _totalEnemiesInPlay--;
 }
 
 void GameInterface::troopaKilled()
 {
     _troopaKilled++;
+    _totalEnemiesInPlay--;
+}
+
+bool GameInterface::allEnemiesDead()
+{
+    return(_totalEnemiesInPlay == 0);
+}
+
+void GameInterface::incrementTotalEnemies()
+{
+	_totalEnemiesInPlay++;
 }
 
 int GameInterface::amountOfGoombaKilled()

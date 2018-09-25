@@ -37,6 +37,8 @@ class GameInterface
         static int getRangeMultiplier();
         static void increaseRangeMultiplier();
         static void resetRangeMultiplier();
+		static bool allEnemiesDead();
+		static void incrementTotalEnemies();
 
         static bool completedLevel();
         static void setLevelCompleted();
@@ -54,6 +56,7 @@ class GameInterface
         static int _score;
         static int _goombaKilled;
         static int _troopaKilled;
+        static int _totalEnemiesInPlay;
         static float _rangeMultiplier;
         static bool _wonLevel;
         static glm::mat4 _projection;
