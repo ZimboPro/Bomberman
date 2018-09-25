@@ -109,7 +109,6 @@ void Game::wonLevel()
 
 	levelPassed.show();
 	_startLevel += 1;
-	_interface.setLevelCompleted(false);
 	_gameState = Playing;
 }
 
@@ -231,6 +230,7 @@ void Game::playGame()
 {
 	GameObjectManager::init();
 	GameObjectManager::newLevel(Game::_startLevel);
+	_interface.setLevelCompleted(false);
 	sf::Clock clock;
 
 	Shaders shader("_deps/graphics-src/Resources/VertexShaders/ShadedModelsVert.glsl",

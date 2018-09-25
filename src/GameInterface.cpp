@@ -186,5 +186,5 @@ bool GameInterface::completedLevel()
 
 void GameInterface::setLevelCompleted(bool complete)
 {
-    _wonLevel = true;
+    _wonLevel = complete;
 }
