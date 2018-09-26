@@ -270,6 +270,8 @@ void Game::playGame()
 				sound->playSound("../../Assets/sounds/gameplay/pause_game.wav");
 			showPauseMenu();
 			GameInterface::resetTime(timeLeft);
+			if (_settings.music && !sound->isSongPlaying())
+				sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 		}
 		if (_interface.timerEnded() || !_interface.stillAlive())
 			_gameState = Game::LostLevel;

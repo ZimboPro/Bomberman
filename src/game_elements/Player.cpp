@@ -119,7 +119,7 @@ void Player::dropBomb()
 	float bombX = pos.x;
 	float bombY = pos.z;
 	if (Game::_settings.sound)
-		_sound->playSound("../../Assets/sounds/drop_bomb.wav");
+		_sound->playSound("../../Assets/sounds/gameplay/drop_bomb.wav");
 	if (_direction == 270) // UP
 		placeBombX(bombX, bombY, -bombOffset, 0.0f, playerOffset, pos.x, false);
 	else if (_direction == 90) // Down
