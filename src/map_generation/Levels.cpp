@@ -191,6 +191,7 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	boost::archive::text_oarchive oa(ofs);
 	// write instance to archive
 	oa << temp;
+	std::cout << "done" << std::endl;
 }
 
 // load the map

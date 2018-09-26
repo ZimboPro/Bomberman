@@ -83,6 +83,7 @@ void GameObjectManager::changeLevel(int seed)
 	if (Map::size() > 1)
 		Map::levelUp();
 	initLevel();
+	Map::printMap();
 }
 
 void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)
@@ -90,6 +91,7 @@ void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)
 	// std::cout << Map::getLevel() << std::endl;
 	// clearObjects();
 	Map::setMap(map);
+	Map::printMap();
 	// Map::printMap();
 	// initLevel();
 }

@@ -115,7 +115,13 @@ void Map::readInRandomMap(int seed)
 
 void Map::setMap(std::vector<std::vector<char>> map)
 {
-	_map[_currentWorkingLevel] = map;
+	for(size_t row = 0; row < _map[_currentWorkingLevel].size(); row++)
+	{
+		for(size_t col = 0; col < _map[_currentWorkingLevel][row].size(); col++)
+		{
+			_map[_currentWorkingLevel][row][col] = map[row][col];
+		}
+	}
 }
 
 int Map::_currentWorkingLevel = 0;
