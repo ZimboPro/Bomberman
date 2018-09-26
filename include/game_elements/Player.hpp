@@ -30,7 +30,7 @@ private:
 	void Rotate(float degrees);
 	void fixCameraPosition();
 	void init();
-	void movement(float degree, float x, float y, float camX, float camY, BoundingBox & box, objectTypes &collidesWith, float timeElapsed);
+	void movement(float degree, float x, float y, float x1, float y1, float camX, float camY, BoundingBox & box, objectTypes &collidesWith, float timeElapsed);
 	void checks(float &timeElapsed);
 	void placeBombX(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos);
 	void placeBombY(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos);
