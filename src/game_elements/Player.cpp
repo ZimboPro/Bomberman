@@ -269,6 +269,8 @@ void Player::Update(float & timeElapsed)
 				Move(alignX, 0 - displacement);
 		}
 	}
+	else if (Game::keyPressed() == eKeys::Undefined)
+		_index = 0;
 
 	switch (collidesWith)
 	{
