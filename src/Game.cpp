@@ -47,7 +47,7 @@ void Game::start()
 	_interface.loadObjects();
 	_camera.Zoom = 30.0f;
 
-	_gameState = eGameState::ShowingMenu;
+	_gameState = eGameState::Playing;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -415,7 +415,7 @@ Window Game::_window("Bomberman", 1024, 768);
 Camera Game::_camera(glm::vec3(15.0f, 25.0f, 0.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
-Settings Game::_settings{eScreen::s1024, false, true, eVolume::v20, true};
+Settings Game::_settings{eScreen::s1024, false, false, eVolume::v100, false};
 std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;
 bool Game::_loadedLevel = false;
