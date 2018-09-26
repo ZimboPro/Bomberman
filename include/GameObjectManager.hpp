@@ -30,6 +30,7 @@ public:
 	static void removePickup(float x, float y);
 	static void clearObjects();
 	static bool validBox(BoundingBox & box);
+	static void killPlayer();
 
 private:
 	static void changeLevel(int seed);
