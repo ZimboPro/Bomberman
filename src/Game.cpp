@@ -316,6 +316,7 @@ void Game::load()
 	Map::_levels.getTimeLeft();
 	Map::_levels.getScore();
 	Map::_levels.getHealth();
+	Map::_levels.getSeed();
 }
 
 int Game::getKeyConfigured(eKeys key)

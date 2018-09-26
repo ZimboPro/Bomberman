@@ -25,6 +25,7 @@ class Save {
 		int		_score = 0;
 		float	_timeLeft = 0;
 		int		_enemiesKilled = 0;
+		int		_seed = 0;
 
 		friend class boost::serialization::access;
 		template<class Archive>
@@ -36,12 +37,13 @@ class Save {
 				ar & _score;
 				ar & _timeLeft;
 				ar & _enemiesKilled;
+				ar & _seed;
 			}
 
 	public:
 		Save();
 		Save(Save const & src);
-		Save(std::vector<std::vector<char>> Save, int health, int score, float timeLeft, int enemiesKilled);
+		Save(std::vector<std::vector<char>> Save, int health, int score, float timeLeft, int enemiesKilled, int seed);
 		~Save();
 		Save & operator=(Save const & src);
 
@@ -50,6 +52,8 @@ class Save {
 		int			getHealth( void );
 		float		getTimeLeft ( void );
 		int			getEnemiesKilled ( void );
+		int			getSeed( void );
+
 };
 
 #endif
