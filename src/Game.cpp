@@ -299,7 +299,7 @@ void Game::save()
 	{
 		for (int x = 0; x < width; x++)
 		{
-			if (Map::at(x, y) == '1' || Map::at(x, y) == '2')
+			if (Map::at(x, y) == '1' || Map::at(x, y) == '2' || Map::at(x, y) == 'G')
 			{
 				saveMap[y][x] = '1';
 			}
