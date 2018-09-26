@@ -39,14 +39,14 @@ class Levels {
 		void			changeDir( std::string dir);
 		void			debug( void );
 
-		char			populate( void );
+		char			populate(int row, int col );
 
 		int				getSeed( void );
 		float			getTimeLeft ( void );
 		int				getScore( void );
 		int				getHealth( void );
-		std::vector<std::vector<char> > getMap( void );
-		
+		int				distanceToPlayer(int row, int col);
+		int				getEnemiesKilled ( void );		
 
 	private:
 
@@ -56,6 +56,7 @@ class Levels {
 		int				_width = 15;
 		int				_height = 33;
 		int				_enemyTotal = 5;
+		int				_enemiesKilled = 0;
 		int				_bricks = 0;
 		int				_health = 0;
 		float			_timeLeft = 0;
