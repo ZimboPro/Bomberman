@@ -111,7 +111,6 @@ void Map::readInRandomMap(int seed)
 //		});
 //	}
 	_map.push_back(_levels.makeMap(seed));
-	printMap();
 }
 
 int Map::_currentWorkingLevel = 0;

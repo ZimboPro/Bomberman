@@ -39,13 +39,13 @@ class Levels {
 		void			changeDir( std::string dir);
 		void			debug( void );
 
-		char			populate( void );
+		char			populate(int row, int col );
 
 		int				getSeed( void );
 		float			getTimeLeft ( void );
 		int				getScore( void );
 		int				getHealth( void );
-		std::vector<std::vector<char> > getMap( void );
+		int				distanceToPlayer(int row, int col);
 		
 
 	private:

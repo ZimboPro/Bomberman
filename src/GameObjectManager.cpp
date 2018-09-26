@@ -76,14 +76,12 @@ void GameObjectManager::updateAll(float elapsedTime)
 
 void GameObjectManager::changeLevel(int seed)
 {
-	// std::cout << seed << std::endl;
 	Map::levelDown();
 	_initialized = false;
 	clearObjects();
 	Map::readInRandomMap(seed);
 	if (Map::size() > 1)
 		Map::levelUp();
-	std::cout << Map::getLevel() << std::endl;
 	initLevel();
 }
 
@@ -109,7 +107,6 @@ void GameObjectManager::initLevel()
 
 void GameObjectManager::newLevel(int seed)
 {
-	// std::cout << seed << std::endl;
 	if (seed == 0)
 		changeLevel(0);
 	else if (seed <= 3)
