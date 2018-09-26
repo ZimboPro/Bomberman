@@ -43,6 +43,7 @@ int PauseMenu::show(Shaders & shader, Shaders & brightShader)
 	MenuResult temp;
 	while (true)
 	{
+		temp = _selected;
 		Game::_window.clear(0.2588f, 0.7961f, 0.8196f);
 		shader.use();
 		shader.setMat4("projection", projection);

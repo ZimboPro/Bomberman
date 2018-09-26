@@ -19,6 +19,8 @@ Player::Player(): _speed(3.0f)
 	_totalElapsed = 0.0f;
 	_type = player;
 	_wonLevel = false;
+	_spawned = false;
+	_spawn = false;
 }
 
 Player::Player(Player const & src)
@@ -28,6 +30,8 @@ Player::Player(Player const & src)
 	_prevIndex = 0;
 	_totalDroppedWhilstDying = 0;
 	_wonLevel = false;
+	_spawned = false;
+	_spawn = false;
 	*this = src;
 }
 
@@ -38,6 +42,8 @@ Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), Visible
 	_index = 0;
 	_type = player;
 	_wonLevel = false;
+	_spawned = false;
+	_spawn = false;
 	_totalDroppedWhilstDying = 0;
 }
 
@@ -57,8 +63,11 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 	_totalDroppedWhilstDying = 0;
 	_timeSpentDying = 0;
 	_isDying = false;
+	_spawned = false;
 	_wonLevel = false;
+	_spawn = false;
 	_timeTodie = 4;
+	_timeSpawned = 0.0f;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
@@ -139,6 +148,7 @@ void Player::Draw(Shaders & shader)
 void Player::dying(float & elapsedTime)
 {
 	float rotationMultiplier = 150;
+	setCamera();
 	if(_timeSpentDying < _timeTodie)
 	{
 		_timeSpentDying += elapsedTime;
@@ -152,18 +162,37 @@ void Player::dying(float & elapsedTime)
 		GameInterface::adjustLives(-1);
 		GameInterface::resetRangeMultiplier();
 		Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()), _totalDroppedWhilstDying);
+		setCamera();
+		fixCameraPosition();
 		Rotate(0);
-		Game::_camera.Move(-(pos.x - Map::getPlayerStartX()), -(pos.z - Map::getPlayerStartY()));
 		_totalDroppedWhilstDying = 0;
 		_isDying = false;
+		_spawned = false;
+		_timeSpawned = 0.0f;
 		_timeSpentDying = 0;
 	}
 }
 
 void Player::Update(float & timeElapsed)
 {
+	if (!_spawn)
+	{
+		setCamera();
+		Game::_camera.LookAt(_models[_index]->GetPosition());
+		fixCameraPosition();
+		_spawn = true;
+	}
 	if(_isDying)
 		dying(timeElapsed);
+	if (!_spawned && !_isDying)
+	{
+		_timeSpawned += timeElapsed;
+		if (_timeSpawned > 2.0f)
+		{
+			_spawned = true;
+			_timeSpawned = 0.0f;
+		}
+	}
 
 	if (_wonLevel)
 		GameInterface::setLevelCompleted(true);
@@ -180,34 +209,6 @@ void Player::Update(float & timeElapsed)
 
 	objectTypes collidesWith = GameObjectManager::collidesWith(box, _type);
 
-	switch (collidesWith)
-	{
-		case fire:
-			_isDying = true;
-			break;
-		case goomba:
-			_isDying = true;
-			break;
-		case koopaTroopa:
-			_isDying = true;
-			break;
-		case powerBlock:
-			GameInterface::increaseRangeMultiplier();
-			GameInterface::adjustScore(20);
-			break;
-		case healthBlock:
-			GameInterface::adjustLives(1);
-		case gate:
-			if(GameInterface::allEnemiesDead())
-			{
-				std::cout << "level progression" << std::endl;
-				//implement level change here
-			}
-			break;
-		default:
-			break;
-	}
-
 	if (Game::keyPressed() == eKeys::Up)
 	{
 		Rotate(270);
@@ -218,6 +219,7 @@ void Player::Update(float & timeElapsed)
 		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_totalElapsed += timeElapsed;
+			// setCamera();
 			Game::_camera.Move(0 - camDisplacement, 0);
 			if (_totalElapsed > modelChangeTime)
 				Move(0 - displacement, alignY);
@@ -233,6 +235,7 @@ void Player::Update(float & timeElapsed)
 		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_totalElapsed += timeElapsed;
+			// setCamera();
 			Game::_camera.Move(0 + camDisplacement, 0);
 			if (_totalElapsed > modelChangeTime)
 				Move(0 + displacement, alignY);
@@ -248,6 +251,7 @@ void Player::Update(float & timeElapsed)
 		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		{
 			_totalElapsed += timeElapsed;
+			// setCamera();
 			Game::_camera.Move(0, 0 + camDisplacement);
 			if (_totalElapsed > modelChangeTime)
 				Move(alignX, 0 + displacement);
@@ -264,7 +268,9 @@ void Player::Update(float & timeElapsed)
 		{
 			_model.Move(0, 0 - displacement);
 			_totalElapsed += timeElapsed;
+			// setCamera();
 			Game::_camera.Move(0, 0 - camDisplacement);
+			
 			if (_totalElapsed > modelChangeTime)
 				Move(alignX, 0 - displacement);
 		}
@@ -275,13 +281,16 @@ void Player::Update(float & timeElapsed)
 	switch (collidesWith)
 	{
 		case fire:
-			_isDying = true;
+			if (_spawned)
+				_isDying = true;
 			break;
 		case goomba:
-			_isDying = true;
+			if (_spawned)
+				_isDying = true;
 			break;
 		case koopaTroopa:
-			_isDying = true;
+			if (_spawned)
+				_isDying = true;
 			break;
 		case powerBlock:
 			GameInterface::increaseRangeMultiplier();
@@ -298,7 +307,7 @@ void Player::Update(float & timeElapsed)
 		default:
 			break;
 	}
-
+	fixCameraPosition();
 	if (Game::keyTyped() == eKeys::Place && !_isDying)
 		dropBomb();
 }
@@ -323,4 +332,24 @@ void Player::Rotate(float degrees)
 			_index = (_index + 1) % this->_models.size();
 		_totalElapsed = 0.0f;
 	}
+}
+
+void Player::setCamera()
+{
+	Game::_camera.Position = this->_models[_index]->GetPosition() + glm::vec3(15.0f, 25.0f, 0.0f);
+	Game::_camera.Zoom = 20.0f;
+}
+
+void Player::fixCameraPosition()
+{
+	glm::vec3 posPlayer = this->_models[_index]->GetPosition();
+	if (posPlayer.x <= 6.25f)
+		Game::_camera.Position.x = 21.25f;
+	else if (posPlayer.x >= 10.0f)
+		Game::_camera.Position.x = 25.0f;
+	
+	if (posPlayer.z <= 5.5f)
+		Game::_camera.Position.z = 5.5f;
+	else if (posPlayer.z >= 25.0f)
+		Game::_camera.Position.z = 25.0f;
 }
