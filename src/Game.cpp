@@ -105,7 +105,7 @@ void Game::gameLoop()
 void Game::wonLevel()
 {
 	LevelPassed levelPassed;
-
+	_loadedLevel = false;
 	levelPassed.show();
 	_startLevel += 1;
 	_gameState = Playing;
@@ -115,6 +115,7 @@ void Game::lostLevel()
 {
 	GameOver gameover;
 
+	_loadedLevel = false;
 	gameover.show();
 	_gameState = ShowingMenu;
 }
@@ -225,8 +226,11 @@ void Game::showOptions()
 
 void Game::playGame()
 {
-	GameObjectManager::init();
-	GameObjectManager::newLevel(Game::_startLevel);
+	if (!_loadedLevel)
+	{
+		GameObjectManager::init();
+		GameObjectManager::newLevel(Game::_startLevel);
+	}
 	_interface.setLevelCompleted(false);
 	sf::Clock clock;
 
@@ -312,10 +316,9 @@ void Game::save()
 void Game::load()
 {
 	std::cout << "Loading\n";
+	_loadedLevel = true;
 	Map::_levels.load();
-	Map::_levels.getTimeLeft();
-	Map::_levels.getScore();
-	Map::_levels.getHealth();
+
 }
 
 int Game::getKeyConfigured(eKeys key)
@@ -415,4 +418,5 @@ LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, true, eVolume::v20, true};
 std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;
+bool Game::_loadedLevel = false;
 int	Game::_startLevel = 0;

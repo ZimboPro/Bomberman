@@ -85,6 +85,11 @@ void GameObjectManager::changeLevel(int seed)
 	initLevel();
 }
 
+void GameObjectManager::loadLevel()
+{
+	
+}
+
 void GameObjectManager::clearObjects()
 {
 	if (_staticObjects.size() > 0)

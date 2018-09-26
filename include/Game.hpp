@@ -71,6 +71,7 @@ class Game
         static eGameState _gameState;
         static int _keyPress;
         static int _startLevel;
+        static bool _loadedLevel;
         static std::map<eKeys, int> _keyConfiguration;
         static std::vector<std::vector<char> >  _savedMap;
 };
