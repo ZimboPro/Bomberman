@@ -316,9 +316,11 @@ void Game::save()
 void Game::load()
 {
 	std::cout << "Loading\n";
-	_loadedLevel = true;
-	GameObjectManager::loadLevel(Map::_levels.load());
-	_gameState = Playing;
+	Map::_levels.load();
+	Map::_levels.getTimeLeft();
+	Map::_levels.getScore();
+	Map::_levels.getHealth();
+	Map::_levels.getSeed();
 }
 
 int Game::getKeyConfigured(eKeys key)
