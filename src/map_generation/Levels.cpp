@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "map_generation/Levels.hpp"
+#include <cmath>
 
 Levels::Levels() {}
 
@@ -31,9 +32,10 @@ Levels & Levels::operator=(Levels const & src)
 // ========================================================================== //
 
 // randomly select a type
-char	Levels::populate( void )
+char	Levels::populate(int row, int col )
 {
 	int random = static_cast<int>(rand() % 100);
+	int spawnRadius = 4;
 
 	if (random >= 80)
 	{
@@ -55,7 +57,7 @@ char	Levels::populate( void )
 		this->_bricks += 1;
 		return ('2');
 	}
-	if (random > 20 && random <= 25 && this->_enemyTotal > 0)
+	if (random > 20 && random <= 25 && this->_enemyTotal > 0 && distanceToPlayer(row, col) >= spawnRadius)
 	{
 		this->_enemyTotal -= 1;
 		if (this->_lvl == 1)
@@ -66,6 +68,14 @@ char	Levels::populate( void )
 			return ('5');
 	}
 	return ('0');
+}
+
+int	Levels::distanceToPlayer(int row, int col)
+{
+	int distance;
+
+	distance = sqrt(pow((col - 3), 2) + pow((row - 3), 2));
+	return distance;
 }
 
 // generate a random map from seed
@@ -110,7 +120,7 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 			else if ((row >= 2 && row <= this->_height - 1) && (col == 2 || col == this->_width - 1))
 				type = '1';
 			else if (row > 2 && row < this->_height && col > 2 && col < this->_width)
-				type = populate();
+				type = populate(row, col);
 			else
 				type = '0';
 			if (this->_debug == 1)

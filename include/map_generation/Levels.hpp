@@ -39,15 +39,19 @@ class Levels {
 		void			changeDir( std::string dir);
 		void			debug( void );
 
+<<<<<<< HEAD
 		char			populate( void );
 		
+=======
+		char			populate(int row, int col );
+
+>>>>>>> master
 		int				getSeed( void );
 		float			getTimeLeft ( void );
 		int				getScore( void );
 		int				getHealth( void );
-		int				getEnemiesKilled ( void );
-		std::vector<std::vector<char> > getMap( void );
-		
+		int				distanceToPlayer(int row, int col);
+		int				getEnemiesKilled ( void );		
 
 	private:
 
