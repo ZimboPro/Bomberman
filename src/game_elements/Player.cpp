@@ -155,7 +155,7 @@ void Player::dying(float & elapsedTime)
 	}
 }
 
-void Player::movement(float degree, float x, float y, float camX, float camY, BoundingBox & box, objectTypes &collidesWith, float timeElapsed)
+void Player::movement(float degree, float x, float y, float x1, float y1, float camX, float camY, BoundingBox & box, objectTypes &collidesWith, float timeElapsed)
 {
 	Rotate(degree);
 	box.x1 += x;
@@ -167,7 +167,7 @@ void Player::movement(float degree, float x, float y, float camX, float camY, Bo
 		_totalElapsed += timeElapsed;
 		Game::_camera.Move(camX, camY);
 		if (_totalElapsed > 0.13f)
-			Move(x, y);
+			Move(x + x1, y + y1);
 	}
 }
 
@@ -212,13 +212,13 @@ void Player::Update(float & timeElapsed)
 	objectTypes collidesWith;
 
 	if (Game::keyPressed() == eKeys::Up)
-		movement(270.0f, -displacement, alignY, -camDisplacement, 0.0f, box, collidesWith, timeElapsed);
+		movement(270.0f, -displacement, alignY, -camDisplacement, 0.0f, 0.0f, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Down)
-		movement(90.0f, displacement + 0.1, alignY, camDisplacement, 0.0f, box, collidesWith, timeElapsed);
+		movement(90.0f, displacement + 0.1, alignY, camDisplacement, 0.0f, -0.1f, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Left)
-		movement(0.0f, alignX, displacement + 0.1, 0.0f, camDisplacement, box, collidesWith, timeElapsed);
+		movement(0.0f, alignX, displacement + 0.1, 0.0f, camDisplacement, 0.0f, -0.1f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Right)
-		movement(180.0f, alignX, -displacement, 0.0f, -camDisplacement, box, collidesWith, timeElapsed);
+		movement(180.0f, alignX, -displacement, 0.0f, -camDisplacement, 0.0f, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Undefined)
 		_index = 0;
 
