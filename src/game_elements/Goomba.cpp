@@ -60,7 +60,7 @@ void Goomba::init()
 	_direction = 0;
 	_totalElapsed = 0.0f;
 	_directionGen = rand() % 4 + 1;
-	_speed = 3;
+	_speed = 1.5;
 	_timeSpentDying = 0;
 }
 
