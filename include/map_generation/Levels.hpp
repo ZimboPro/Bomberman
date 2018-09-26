@@ -46,7 +46,7 @@ class Levels {
 		int				getScore( void );
 		int				getHealth( void );
 		int				distanceToPlayer(int row, int col);
-		
+		int				getEnemiesKilled ( void );		
 
 	private:
 
@@ -56,6 +56,7 @@ class Levels {
 		int				_width = 15;
 		int				_height = 33;
 		int				_enemyTotal = 5;
+		int				_enemiesKilled = 0;
 		int				_bricks = 0;
 		int				_health = 0;
 		float			_timeLeft = 0;
