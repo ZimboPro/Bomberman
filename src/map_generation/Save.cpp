@@ -62,3 +62,7 @@ int			Save::getEnemiesKilled ( void )
 	return (this->_enemiesKilled);
 }
 
+int			Save::getSeed( void )
+{
+	return (this->_seed);
+}

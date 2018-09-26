@@ -77,7 +77,7 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 	
 	// _lvl = (rand() % 3) + 1;
 	// check if seed number given is positive
-	if (seed > 0)
+	if (seed > 0 && seed < 4)
 	{
 		this->_seed = seed;
 		this->_lvl = seed;
@@ -169,7 +169,10 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	fixMap(map, enemyTotal);
 	// setup object to save to archive
 	std::cout << "original map size : " << this->_lastMap.size() << std::endl;
-	const Save		temp(this->_lastMap, health, score, timeLeft, enemyTotal);
+	if (_seed > 0 && _seed < 4)
+		const Save		temp(this->_lastMap, health, score, timeLeft, enemyTotal, this->_seed);
+	else
+		const Save		temp(this->_lastMap, health, score, timeLeft, enemyTotal, 0);
 	// open file stream
 	std::ofstream ofs("save.data");
 	// create output archive object with stream
@@ -265,5 +268,3 @@ int		Levels::getEnemiesKilled ( void )
 {
 	return (this->_enemiesKilled);
 }
-
-

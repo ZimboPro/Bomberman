@@ -40,7 +40,7 @@ class Levels {
 		void			debug( void );
 
 		char			populate( void );
-
+		
 		int				getSeed( void );
 		float			getTimeLeft ( void );
 		int				getScore( void );
