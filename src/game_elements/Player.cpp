@@ -45,6 +45,7 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 
 Player::~Player()
 {
+	_sound->stopAllSounds();
 	for (size_t i = 0; i < this->_models.size(); i++)
 		delete this->_models[i];
 }
@@ -67,6 +68,8 @@ void Player::init()
 	_spawned = false;
 	_isDying = false;
 	_spawn = false;
+	_sound = ServiceLocator::getAudio();
+	_sound->setSoundLevel(Game::_settings.volume * 20);
 }
 
 BoundingBox Player::getBoundingBox()
@@ -115,7 +118,8 @@ void Player::dropBomb()
 	float playerOffset = 0.3;
 	float bombX = pos.x;
 	float bombY = pos.z;
-
+	if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/drop_bomb.wav");
 	if (_direction == 270) // UP
 		placeBombX(bombX, bombY, -bombOffset, 0.0f, playerOffset, pos.x, false);
 	else if (_direction == 90) // Down
@@ -232,25 +236,45 @@ void Player::Update(float & timeElapsed)
 	{
 		case fire:
 			if (_spawned)
+			{
 				_isDying = true;
+				if (Game::_settings.sound)
+					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
+			}
 			break;
 		case goomba:
 			if (_spawned)
+			{
 				_isDying = true;
+				if (Game::_settings.sound)
+					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
+			}
 			break;
 		case koopaTroopa:
 			if (_spawned)
+			{
 				_isDying = true;
+				if (Game::_settings.sound)
+					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
+			}
 			break;
 		case powerBlock:
 			GameInterface::increaseRangeMultiplier();
 			GameInterface::adjustScore(20);
+			if (Game::_settings.sound)
+				_sound->playSound("../../Assets/sounds/gameplay/get_power_up.wav");
 			break;
 		case healthBlock:
 			GameInterface::adjustLives(1);
+			if (Game::_settings.sound)
+				_sound->playSound("../../Assets/sounds/gameplay/pickup_health.wav");
 		case gate:
 			if(GameInterface::allEnemiesDead())
+			{
 				_wonLevel = true;
+				if (Game::_settings.sound)
+					_sound->playSound("../../Assets/sounds/gameplay/jump_into_pipe.wav");
+			}
 			break;
 		default:
 			break;

@@ -157,7 +157,13 @@ void Game::showSplashScreen()
 	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
 
 	SplashScreen splash;
+	IAudioProvider * sound = ServiceLocator::getAudio();
+	sound->setSoundLevel(_settings.volume * 20);
+	if (_settings.music)
+		sound->playSong("../../Assets/sounds/background_music/credits.wav", true);
 	splash.show(shader, "../../Assets/intro/", 238);
+	sound->stopAllSounds();
+
 	_gameState = Game::ShowingMenu;
 }
 
@@ -235,11 +241,15 @@ void Game::playGame()
 
 	_camera.LookAt(glm::vec3(0));
 
+	IAudioProvider * sound = ServiceLocator::getAudio();
+	sound->setSoundLevel(_settings.volume * 20);
 
 	_interface.resetHOD();
 	_interface.resetTime(300);
 	_interface.resetPostions();
 
+	if (_settings.music)
+		sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 	while(_gameState == Game::Playing)
 	{
 		_window.clear(0.2588f, 0.7961f, 0.8196f);
@@ -256,6 +266,8 @@ void Game::playGame()
 		if(_window.isKeyPressed(getKeyConfigured(eKeys::Escape)))
 		{
 			float timeLeft = GameInterface::TimeLeft();
+			if (_settings.sound)
+				sound->playSound("../../Assets/sounds/gameplay/pause_game.wav");
 			showPauseMenu();
 			GameInterface::resetTime(timeLeft);
 		}
@@ -268,6 +280,7 @@ void Game::playGame()
 		if (_window.closed())
 			_gameState = ShowingMenu;
 	}
+	sound->stopAllSounds();
 	return ;
 }
 
@@ -276,7 +289,12 @@ void Game::showCredits()
 	Shaders shader("../assets/shaders/vert/SpriteVert.glsl", "../assets/shaders/frag/SpriteFrag.glsl");
 
 	SplashScreen splash;
+	IAudioProvider * sound = ServiceLocator::getAudio();
+	sound->setSoundLevel(_settings.volume * 20);
+	if (_settings.music)
+		sound->playSong("../../Assets/sounds/background_music/credits.wav", true);
 	splash.show(shader, "../../Assets/credits/", 222);
+	sound->stopAllSounds();
 	_gameState = Game::ShowingMenu;
 }
 

@@ -7,8 +7,8 @@ GameWon::GameWon()
 {
     _sound = ServiceLocator::getAudio();
 	_sound->setSoundLevel(Game::_settings.volume * 20);
-	if (Game::_settings.music)
-		_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
+	if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/gameplay/winner.wav");
     this->_model = new Model_Sprite("../../Assets/buttons/winner.obj");
     this->_shader = new Shaders("../assets/shaders/vert/MeshVert.glsl","../assets/shaders/frag/MeshFrag.glsl");
     this->_model->Position(Game::_window.Width() >> 1, -40.0f, Game::_window.Height() >> 1);
