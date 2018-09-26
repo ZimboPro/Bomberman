@@ -48,8 +48,8 @@ Main menu:
   
 ### Team
 
-<a href="https://github.com/ZimboPro">Leslie</a>
-<a href="https://github.com/P-Russell">Patrick</a>
-<a href="https://github.com/cdpauwels">Charl</a>
-<a href="https://github.com/ChazniK">Chazni</a>
+<a href="https://github.com/ZimboPro">Leslie</a>  
+<a href="https://github.com/P-Russell">Patrick</a>  
+<a href="https://github.com/cdpauwels">Charl</a>  
+<a href="https://github.com/ChazniK">Chazni</a>  
 <a href="https://github.com/Moondog360">Marco</a>
