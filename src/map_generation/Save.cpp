@@ -14,13 +14,14 @@
 
 Save::Save() {}
 
-Save::Save(std::vector<std::vector<char>> Save, int health, int score, float timeLeft, int enemiesKilled)
+Save::Save(std::vector<std::vector<char>> Save, int health, int score, float timeLeft, int enemiesKilled, int seed)
 {
 	this->_Save = Save;
 	this->_score = score;
 	this->_health = health;
 	this->_timeLeft = timeLeft;
 	this->_enemiesKilled = enemiesKilled;
+	this->_seed = seed;
 }
 
 Save::Save(Save const & src) 

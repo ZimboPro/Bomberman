@@ -39,13 +39,8 @@ class Levels {
 		void			changeDir( std::string dir);
 		void			debug( void );
 
-<<<<<<< HEAD
-		char			populate( void );
-		
-=======
 		char			populate(int row, int col );
 
->>>>>>> master
 		int				getSeed( void );
 		float			getTimeLeft ( void );
 		int				getScore( void );
