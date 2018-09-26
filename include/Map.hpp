@@ -29,6 +29,7 @@ public:
 	static void setPlayerStart(float x, float y);
 	static float getPlayerStartX();
 	static float getPlayerStartY();
+	static void	setMap(std::vector<std::vector<char>> map);
 
 private:
 	static int _currentWorkingLevel;

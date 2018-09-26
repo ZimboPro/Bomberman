@@ -85,9 +85,13 @@ void GameObjectManager::changeLevel(int seed)
 	initLevel();
 }
 
-void GameObjectManager::loadLevel()
+void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)
 {
-	
+	// std::cout << Map::getLevel() << std::endl;
+	// clearObjects();
+	Map::setMap(map);
+	// Map::printMap();
+	// initLevel();
 }
 
 void GameObjectManager::clearObjects()

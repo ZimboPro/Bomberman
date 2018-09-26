@@ -31,7 +31,7 @@ public:
 	static void clearObjects();
 	static bool validBox(BoundingBox & box);
 	static void killPlayer();
-	static void loadLevel(std::vector<std::vector<char>> _map);
+	static void loadLevel(std::vector<std::vector<char>> map);
 
 private:
 	static void changeLevel(int seed);

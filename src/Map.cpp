@@ -113,6 +113,11 @@ void Map::readInRandomMap(int seed)
 	_map.push_back(_levels.makeMap(seed));
 }
 
+void Map::setMap(std::vector<std::vector<char>> map)
+{
+	_map[_currentWorkingLevel] = map;
+}
+
 int Map::_currentWorkingLevel = 0;
 Levels Map::_levels;
 std::vector<std::vector<std::vector<char>>> Map::_map;

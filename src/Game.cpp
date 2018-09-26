@@ -47,7 +47,7 @@ void Game::start()
 	_interface.loadObjects();
 	_camera.Zoom = 30.0f;
 
-	_gameState = eGameState::Playing;
+	_gameState = eGameState::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
@@ -226,11 +226,11 @@ void Game::showOptions()
 
 void Game::playGame()
 {
-	if (!_loadedLevel)
-	{
-		GameObjectManager::init();
-		GameObjectManager::newLevel(Game::_startLevel);
-	}
+	GameObjectManager::init();
+	GameObjectManager::newLevel(Game::_startLevel);
+
+	if (_loadedLevel)
+		GameObjectManager::loadLevel(Map::_levels.load());
 	_interface.setLevelCompleted(false);
 	sf::Clock clock;
 
@@ -317,8 +317,8 @@ void Game::load()
 {
 	std::cout << "Loading\n";
 	_loadedLevel = true;
-	Map::_levels.load();
-
+	GameObjectManager::loadLevel(Map::_levels.load());
+	_gameState = Playing;
 }
 
 int Game::getKeyConfigured(eKeys key)
