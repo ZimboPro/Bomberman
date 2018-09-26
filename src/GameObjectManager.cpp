@@ -81,7 +81,9 @@ void GameObjectManager::changeLevel(int seed)
 	_initialized = false;
 	clearObjects();
 	Map::readInRandomMap(seed);
-	Map::levelUp();
+	if (Map::size() > 1)
+		Map::levelUp();
+	std::cout << Map::getLevel() << std::endl;
 	initLevel();
 }
 

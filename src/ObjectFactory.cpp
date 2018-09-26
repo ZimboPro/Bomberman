@@ -64,7 +64,7 @@ void ObjectFactory::initModelTextures()
 	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
 	_bomb = new Model_Texture("../../Assets/game_models/bomb_carry.obj");
 	_fire = new Model_Texture("../../Assets/game_models/fire.obj");
-	// _pipe = new Model_Texture("../../Assets/game_models/pipe.obj");
+	_pipe = new Model_Texture("../../Assets/game_models/pipe.obj");
 }
 
 VisibleGameObject * ObjectFactory::newBomb(float x, float y)

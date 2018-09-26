@@ -75,10 +75,13 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 	int				enemyTotal = this->_enemyTotal;
 	std::vector<std::vector<char> >	result;
 	
-	_lvl = (rand() % 3) + 1;
+	// _lvl = (rand() % 3) + 1;
 	// check if seed number given is positive
 	if (seed > 0)
+	{
 		this->_seed = seed;
+		this->_lvl = seed;
+	}
 	else
 		this->_seed = time(NULL);
 	// set srand to generate psuedo seed
