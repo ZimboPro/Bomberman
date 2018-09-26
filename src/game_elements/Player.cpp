@@ -218,13 +218,13 @@ void Player::Update(float & timeElapsed)
 	objectTypes collidesWith;
 
 	if (Game::keyPressed() == eKeys::Up)
-		movement(270.0f, -displacement, alignY, -camDisplacement, 0.0f, 0.0f, 0.0f, box, collidesWith, timeElapsed);
+		movement(270.0f, -displacement, alignY, 0.0f, 0.0f, -camDisplacement, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Down)
-		movement(90.0f, displacement + 0.1, alignY, camDisplacement, 0.0f, -0.1f, 0.0f, box, collidesWith, timeElapsed);
+		movement(90.0f, displacement + 0.1, alignY, -0.1f, 0.0f, camDisplacement, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Left)
-		movement(0.0f, alignX, displacement + 0.1, 0.0f, camDisplacement, 0.0f, -0.1f, box, collidesWith, timeElapsed);
+		movement(0.0f, alignX, displacement + 0.1, 0.0f, -0.1f, 0.0f, camDisplacement, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Right)
-		movement(180.0f, alignX, -displacement, 0.0f, -camDisplacement, 0.0f, 0.0f, box, collidesWith, timeElapsed);
+		movement(180.0f, alignX, -displacement, 0.0f, 0.0f, 0.0f, -camDisplacement, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Undefined)
 		_index = 0;
 
@@ -295,7 +295,7 @@ void Player::fixCameraPosition()
 		Game::_camera.Position.x = 21.25f;
 	else if (posPlayer.x >= 10.0f || Game::_camera.Position.x > 25.0f)
 		Game::_camera.Position.x = 25.0f;
-	
+
 	if (posPlayer.z <= 5.5f || Game::_camera.Position.z < 5.5f)
 		Game::_camera.Position.z = 5.5f;
 	else if (posPlayer.z >= 25.0f || Game::_camera.Position.z > 25.0f)
