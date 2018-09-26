@@ -170,7 +170,6 @@ void Game::showLevelSelect()
 	Shaders shader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/DarkShadedModelsFrag.glsl");
 	
 	int selection = menu.show(shader, brightShader);
-	std::cout << selection << std::endl;
 	switch(selection)
 	{
 		case LevelSelectMenu::Random:
@@ -193,7 +192,6 @@ void Game::showLevelSelect()
 			_gameState = ShowingStartGameMenu;		
 			break;
 	}
-	std::cout << Game::_startLevel << std::endl;
 }
 
 void Game::showMenu()
