@@ -18,7 +18,7 @@ Player::Player(): _speed(3.0f)
 	_prevIndex = 0;
 	_totalElapsed = 0.0f;
 	_type = player;
-	
+	_wonLevel = false;
 }
 
 Player::Player(Player const & src)
@@ -27,6 +27,7 @@ Player::Player(Player const & src)
 	_index = 0;
 	_prevIndex = 0;
 	_totalDroppedWhilstDying = 0;
+	_wonLevel = false;
 	*this = src;
 }
 
@@ -36,6 +37,7 @@ Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), Visible
 	_prevIndex = 0;
 	_index = 0;
 	_type = player;
+	_wonLevel = false;
 	_totalDroppedWhilstDying = 0;
 }
 
@@ -55,6 +57,7 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 	_totalDroppedWhilstDying = 0;
 	_timeSpentDying = 0;
 	_isDying = false;
+	_wonLevel = false;
 	_timeTodie = 4;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
@@ -162,6 +165,9 @@ void Player::Update(float & timeElapsed)
 	if(_isDying)
 		dying(timeElapsed);
 
+	if (_wonLevel)
+		GameInterface::setLevelCompleted(true);
+
 	float camDisplacement = timeElapsed * _speed;
 	BoundingBox box = this->getBoundingBox();
 	_prevIndex = _index;
@@ -263,6 +269,8 @@ void Player::Update(float & timeElapsed)
 				Move(alignX, 0 - displacement);
 		}
 	}
+	else if (Game::keyPressed() == eKeys::Undefined)
+		_index = 0;
 
 	switch (collidesWith)
 	{
@@ -284,8 +292,7 @@ void Player::Update(float & timeElapsed)
 		case gate:
 			if(GameInterface::allEnemiesDead())
 			{
-				std::cout << "level progression" << std::endl;
-				//implement level change here
+				_wonLevel = true;
 			}
 			break;
 		default:

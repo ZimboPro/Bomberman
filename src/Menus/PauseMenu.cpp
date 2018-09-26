@@ -43,6 +43,7 @@ int PauseMenu::show(Shaders & shader, Shaders & brightShader)
 	MenuResult temp;
 	while (true)
 	{
+		temp = _selected;
 		Game::_window.clear(0.2588f, 0.7961f, 0.8196f);
 		shader.use();
 		shader.setMat4("projection", projection);
@@ -63,15 +64,15 @@ int PauseMenu::show(Shaders & shader, Shaders & brightShader)
 				this->_menuItems[i].button->DrawScaledBy(shader, 1.1f);
 		}
 		if (Game::keyTyped() ==  eKeys::Up)
-			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Quit : static_cast<MenuResult>(this->_selected - 1);
+			this->_selected = ((this->_selected - 1) < 1) ? MenuResult::Quit : static_cast<MenuResult>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
 			this->_selected = ((this->_selected + 1) > MenuResult::Quit) ? MenuResult::Resume : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
             if (_selected == MenuResult::Options)
                 showOptionsMenu();
-            if (_selected == MenuResult::Quit || _selected == MenuResult::Resume)
-                break;
+			else 
+				break;
         }
 		if (temp != _selected && Game::_settings.sound)
 			_sound->playSound("../../Assets/sounds/button_press/select_settings.wav");

@@ -25,14 +25,15 @@ public:
 	static void addDynamicObject(objectTypes type, float x, float y);
 	static void explodeBomb(VisibleGameObject * bomb);
 	static void removeDynamicObject(VisibleGameObject * obj);
-	static void newLevel( int type );
+	static void newLevel(int seed);
 	static bool setFireAndContinue(float x, float y);
 	static void removePickup(float x, float y);
+	static void clearObjects();
 	static bool validBox(BoundingBox & box);
+	static void killPlayer();
 
 private:
-	static void clearLevelUp();
-	static void clearLevelDown();
+	static void changeLevel(int seed);
 	static void initLevel();
 	static bool intersects(BoundingBox obj1, BoundingBox obj2);
 	static void spawnFire(VisibleGameObject *bomb);

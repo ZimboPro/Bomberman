@@ -60,7 +60,7 @@ void Goomba::init()
 	_direction = 0;
 	_totalElapsed = 0.0f;
 	_directionGen = rand() % 4 + 1;
-	_speed = 3;
+	_speed = 1.5;
 	_timeSpentDying = 0;
 }
 
@@ -194,7 +194,9 @@ void Goomba::movement(float degree, float moveX, float moveY, float boxX, float 
 	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 		Move(moveX, moveY, 0);
 //	if (collidesWith == unbreakableBlocks || collidesWith == breakableBlocks || collidesWith == bomb)
-	if (collidesWith != grass)
+	if (collidesWith == player)
+		GameObjectManager::killPlayer();
+	else if (collidesWith != grass)
 		newDirection();
 }
 

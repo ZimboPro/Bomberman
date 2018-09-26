@@ -40,6 +40,9 @@ class GameInterface
 		static bool allEnemiesDead();
 		static void incrementTotalEnemies();
 
+        static bool completedLevel();
+        static void setLevelCompleted(bool complete);
+
     private:
         static Model_Sprite * _model;
         static Shaders * _shader;
@@ -55,6 +58,7 @@ class GameInterface
         static int _troopaKilled;
         static int _totalEnemiesInPlay;
         static float _rangeMultiplier;
+        static bool _wonLevel;
         static glm::mat4 _projection;
         static glm::mat4 _view;
         static glm::vec3 _color;

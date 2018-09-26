@@ -48,6 +48,7 @@ class Game
 
         static void save();
         static void load();
+        static void setGameStateGameWon();
 
     private:
         static bool isExiting();
@@ -57,15 +58,19 @@ class Game
         static void showPauseMenu();
         static void showOptions();
         static void showStartGameMenu();
+        static void showLevelSelect();
         static void playGame();
+        static void lostLevel();
+        static void wonLevel();
         static void showCredits();
 
-        enum eGameState { Uninitialized, ShowingSplash, Paused,
-                ShowingMenu, ShowingOptions,ShowingStartGameMenu,
-                Playing, Exiting };
+        enum eGameState { Uninitialized, ShowingSplash, ShowingLevelSelect,
+                ShowingMenu, ShowingOptions,ShowingStartGameMenu, LostLevel,
+                WonLevel, Playing, Exiting };
 
         static eGameState _gameState;
         static int _keyPress;
+        static int _startLevel;
         static std::map<eKeys, int> _keyConfiguration;
         static std::vector<std::vector<char> >  _savedMap;
 };

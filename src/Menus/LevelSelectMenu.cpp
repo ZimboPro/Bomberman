@@ -68,8 +68,7 @@ int LevelSelectMenu::show(Shaders & shader, Shaders & brightShader)
 			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Random : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
-            if (_selected == MenuResult::Back)
-                break;
+			break;
         }
 		if (temp != _selected && Game::_settings.sound)
 			_sound->playSound("../../Assets/sounds/button_press/select_settings.wav");

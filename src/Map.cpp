@@ -57,7 +57,7 @@ std::vector<std::vector<std::vector<char >>> Map::getLevelHolder()
 
 void Map::levelDown()
 {
-	if (_currentWorkingLevel > 0)
+	// if (_currentWorkingLevel > 0)
 		_currentWorkingLevel--;
 }
 
