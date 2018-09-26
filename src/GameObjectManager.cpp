@@ -77,6 +77,7 @@ void GameObjectManager::updateAll(float elapsedTime)
 void GameObjectManager::changeLevel(int seed)
 {
 	// std::cout << seed << std::endl;
+	Map::levelDown();
 	_initialized = false;
 	clearObjects();
 	Map::readInRandomMap(seed);
