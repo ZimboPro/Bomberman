@@ -34,7 +34,8 @@ ObjectFactory::~ObjectFactory()
 	// delete _goomba;
 	// for (size_t i = 0; i < this->_koopaTroopa.size(); i++)
 		// delete _koopaTroopa[i];
-	delete _koopaTroopa;
+	for (size_t i = 0; i < this->_koopaTroopa.size(); i++)
+		delete _koopaTroopa[i];
 	delete _unbreakableBlock;
 	delete _breakableBlock;
 	delete _powerBlock;
@@ -55,10 +56,15 @@ void ObjectFactory::initModelTextures()
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_3.obj"));
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_burnt.obj"));
 	
+	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_2.obj"));
+	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_1.obj"));
+	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_3.obj"));
+	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_burnt.obj"));
+	
 	_unbreakableBlock = new Model_Texture("../../Assets/game_models/iron_block.obj");
 	_breakableBlock = new Model_Texture("../../Assets/game_models/brick_block.obj");
 	// _goomba = new Model_Texture("../../Assets/game_models/goomba_1.obj");
-	_koopaTroopa = new Model_Texture("../../Assets/game_models/koopa_troopa_1.obj");
+	// _koopaTroopa = new Model_Texture("../../Assets/game_models/koopa_troopa_1.obj");
 	_powerBlock = new Model_Texture("../../Assets/game_models/power_up.obj");
 	_healthBlock = new Model_Texture("../../Assets/game_models/heart.obj");
 	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
@@ -153,7 +159,7 @@ std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genDynamicAndPick
 					break;
 				case koopaTroopa:
 					GameInterface::incrementTotalEnemies();
-					result->push_back(std::shared_ptr<VisibleGameObject> (new KoopaTroopa(*_koopaTroopa, x, y)));
+					result->push_back(std::shared_ptr<VisibleGameObject> (new KoopaTroopa(_koopaTroopa, x, y)));
 					break;
 				case powerBlock:
 					result->push_back(std::shared_ptr<VisibleGameObject> (new PowerBlock(*_powerBlock, x, y)));

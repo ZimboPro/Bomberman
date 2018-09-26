@@ -81,7 +81,7 @@ BoundingBox KoopaTroopa::getBoundingBox()
 	return _box;
 }
 
-void ShiftBox(BoundingBox & box, float x, float y)
+void KoopaTroopa::ShiftBox(BoundingBox & box, float x, float y)
 {
 	box.x1 += x;
 	box.x2 += x;

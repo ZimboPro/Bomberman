@@ -30,9 +30,9 @@ private:
 
 	std::vector<Model_Texture *> _player;
 	std::vector<Model_Texture *> _goomba;
+	std::vector<Model_Texture *> _koopaTroopa;
 	Model_Texture * _unbreakableBlock;
 	Model_Texture * _breakableBlock;
-	Model_Texture * _koopaTroopa;
 	Model_Texture * _powerBlock;
 	Model_Texture * _healthBlock;
 	Model_Texture * _grass;

@@ -30,6 +30,7 @@ private:
 	void movement(float degree, float moveX, float moveY, float boxX, float boxY, BoundingBox box);
 	void init();
 	void CheckDirection(BoundingBox box, float x, float y, std::vector<int> & dir, int d);
+	void ShiftBox(BoundingBox & box, float x, float y);
 
 	float _speed;
 	int	_directionGen;
