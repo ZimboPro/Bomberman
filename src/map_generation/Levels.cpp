@@ -166,7 +166,7 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	fixMap(map, enemyTotal);
 	// setup object to save to archive
 	std::cout << "original map size : " << this->_lastMap.size() << std::endl;
-	const Save		temp(this->_lastMap, health, score, timeLeft);
+	const Save		temp(this->_lastMap, health, score, timeLeft, enemyTotal);
 	// open file stream
 	std::ofstream ofs("save.data");
 	// create output archive object with stream
@@ -189,6 +189,7 @@ std::vector<std::vector<char> >			Levels::load( void )
 	this->_score = temp.getScore();
 	this->_timeLeft = temp.getTimeLeft();
 	this->_lastMap = temp.getSave();
+	this->_enemiesKilled = temp.getEnemiesKilled();
 	return (temp.getSave());
 }
 
@@ -256,4 +257,10 @@ float	Levels::getTimeLeft ( void )
 {
 	return (this->_timeLeft);
 }
+
+int		Levels::getEnemiesKilled ( void )
+{
+	return (this->_enemiesKilled);
+}
+
 

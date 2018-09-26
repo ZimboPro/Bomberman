@@ -45,6 +45,7 @@ class Levels {
 		float			getTimeLeft ( void );
 		int				getScore( void );
 		int				getHealth( void );
+		int				getEnemiesKilled ( void );
 		std::vector<std::vector<char> > getMap( void );
 		
 
@@ -56,6 +57,7 @@ class Levels {
 		int				_width = 15;
 		int				_height = 33;
 		int				_enemyTotal = 5;
+		int				_enemiesKilled = 0;
 		int				_bricks = 0;
 		int				_health = 0;
 		float			_timeLeft = 0;
