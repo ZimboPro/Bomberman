@@ -39,6 +39,11 @@ size_t Map::width()
 	return _map[_currentWorkingLevel][0].size();
 }
 
+size_t Map::size()
+{
+	return _map.size();
+}
+
 void Map::printMap()
 {
 	for (size_t y = 0; y < _map[_currentWorkingLevel].size(); y++)
@@ -106,6 +111,7 @@ void Map::readInRandomMap(int seed)
 //		});
 //	}
 	_map.push_back(_levels.makeMap(seed));
+	printMap();
 }
 
 int Map::_currentWorkingLevel = 0;

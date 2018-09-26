@@ -14,73 +14,59 @@
 
 Player::Player(): _speed(3.0f)
 {
-	_index = 0;
-	_prevIndex = 0;
-	_totalElapsed = 0.0f;
-	_type = player;
-	_wonLevel = false;
-	_spawned = false;
-	_spawn = false;
+	init();
 }
 
 Player::Player(Player const & src)
 {
-	_totalElapsed = 0.0f;
-	_index = 0;
-	_prevIndex = 0;
-	_totalDroppedWhilstDying = 0;
-	_wonLevel = false;
-	_spawned = false;
-	_spawn = false;
+	init();
 	*this = src;
 }
 
 Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), VisibleGameObject(texture, x, y, true, false)
 {
-	_totalElapsed = 0.0f;
-	_prevIndex = 0;
-	_index = 0;
-	_type = player;
-	_wonLevel = false;
-	_spawned = false;
-	_spawn = false;
-	_totalDroppedWhilstDying = 0;
+	init();
 }
 
 Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _speed(3.0f)
 {
-	VisibleGameObject::_isBreakable = false;
-	VisibleGameObject::_isLoaded = true;
-	VisibleGameObject::_isCollidable = true;
-	_prevIndex = 0;
-	_totalElapsed = 0.0f;
-	_index = 0;
+	init();
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[1]));
 	_models.emplace_back(new Model_Sprite(*textures[0]));
 	_models.emplace_back(new Model_Sprite(*textures[2]));
-	_type = player;
-	_totalDroppedWhilstDying = 0;
-	_timeSpentDying = 0;
-	_isDying = false;
-	_spawned = false;
-	_wonLevel = false;
-	_spawn = false;
-	_timeTodie = 4;
-	_timeSpawned = 0.0f;
 
 	for (size_t i = 0; i < this->_models.size(); i++)
 	{
 		this->_models[i]->Position(x, y);
 		this->_models[i]->Scale(0.032f);
 	}
-	_direction = 0;
 }
 
 Player::~Player()
 {
 	for (size_t i = 0; i < this->_models.size(); i++)
 		delete this->_models[i];
+}
+
+void Player::init()
+{
+	VisibleGameObject::_isBreakable = false;
+	VisibleGameObject::_isLoaded = true;
+	VisibleGameObject::_isCollidable = true;
+	_index = 0;
+	_prevIndex = 0;
+	_totalElapsed = 0.0f;
+	_type = player;
+	_totalDroppedWhilstDying = 0;
+	_timeTodie = 4;
+	_timeSpentDying = 0;
+	_timeSpawned = 0.0f;
+	_direction = 0;
+	_wonLevel = false;
+	_spawned = false;
+	_isDying = false;
+	_spawn = false;
 }
 
 BoundingBox Player::getBoundingBox()
@@ -100,6 +86,22 @@ BoundingBox Player::getBoundingBox()
 	return _box;
 }
 
+void Player::placeBombX(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos)
+{
+	bombX = floor(bombX + bombOffset);
+	if (abs(bombX - pos) < 0.5)
+		Move(moveX, moveY);
+	bombY = round(bombY);
+}
+
+void Player::placeBombY(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos)
+{
+	bombY = floor(bombY + bombOffset);
+	if (abs(bombY - pos) < 0.5)
+		Move(moveX, moveY);
+	bombX = round(bombX);
+}
+
 void Player::dropBomb()
 {
 	glm::vec3 pos = _models[0]->GetPosition();
@@ -109,33 +111,13 @@ void Player::dropBomb()
 	float bombY = pos.z;
 
 	if (_direction == 270) // UP
-	{
-		bombX = floor(bombX - bombOffset);
-		if (abs(bombX - pos.x) < 0.5)
-			Move(0, playerOffset);
-		bombY = round(bombY);
-	}
+		placeBombX(bombX, bombY, -bombOffset, 0.0f, playerOffset, pos.x);
 	else if (_direction == 90) // Down
-	{
-		bombX = ceil(bombX + bombOffset);
-		if (abs(bombX - pos.x) < 0.5)
-			Move(0, -playerOffset);
-		bombY = round(bombY);
-	}
+		placeBombX(bombX, bombY, bombOffset, 0.0f, -playerOffset, pos.x);
 	else if (_direction == 0) // Left
-	{
-		bombY = ceil(bombY + bombOffset);
-		if (abs(bombY - pos.z) < 0.5)
-			Move(playerOffset, 0);
-		bombX = round(bombX);
-	}
+		placeBombY(bombX, bombY, bombOffset, playerOffset, 0.0f, pos.z);
 	else if (_direction == 180) // Right
-	{
-		bombY = floor(bombY - bombOffset);
-		if (abs(bombY - pos.z) < 0.5)
-			Move(-playerOffset, 0);
-		bombX = round(bombX);
-	}
+		placeBombY(bombX, bombY, -bombOffset, -playerOffset, 0.0f, pos.z);
 	GameObjectManager::addDynamicObject(bomb, bombX ,bombY);
 }
 
@@ -173,7 +155,23 @@ void Player::dying(float & elapsedTime)
 	}
 }
 
-void Player::Update(float & timeElapsed)
+void Player::movement(float degree, float x, float y, float camX, float camY, BoundingBox & box, objectTypes &collidesWith, float timeElapsed)
+{
+	Rotate(degree);
+	box.x1 += x;
+	box.x2 += x;
+	box.y1 += y;
+	box.y2 += y;
+	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
+	{
+		_totalElapsed += timeElapsed;
+		Game::_camera.Move(camX, camY);
+		if (_totalElapsed > 0.13f)
+			Move(x, y);
+	}
+}
+
+void Player::checks(float &timeElapsed)
 {
 	if (!_spawn)
 	{
@@ -196,85 +194,31 @@ void Player::Update(float & timeElapsed)
 
 	if (_wonLevel)
 		GameInterface::setLevelCompleted(true);
+}
+
+void Player::Update(float & timeElapsed)
+{
+	checks(timeElapsed);
 
 	float camDisplacement = timeElapsed * _speed;
 	BoundingBox box = this->getBoundingBox();
 	_prevIndex = _index;
 	float displacement = _totalElapsed * _speed;
-	float modelChangeTime = 0.13f;
 	glm::vec3 pos = _models[0]->GetPosition();
 
 	float alignX = round(pos.x) - pos.x;
 	float alignY = round(pos.z) - pos.z;
 
-	objectTypes collidesWith = GameObjectManager::collidesWith(box, _type);
+	objectTypes collidesWith;
 
 	if (Game::keyPressed() == eKeys::Up)
-	{
-		Rotate(270);
-		box.x1 -= displacement;
-		box.x2 -= displacement;
-		box.y1 += alignY;
-		box.y2 += alignY;
-		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
-		{
-			_totalElapsed += timeElapsed;
-			// setCamera();
-			Game::_camera.Move(0 - camDisplacement, 0);
-			if (_totalElapsed > modelChangeTime)
-				Move(0 - displacement, alignY);
-		}
-	}
+		movement(270.0f, -displacement, alignY, -camDisplacement, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Down)
-	{
-		Rotate(90);
-		box.x1 += displacement + 0.1;
-		box.x2 += displacement + 0.1;
-		box.y1 += alignY;
-		box.y2 += alignY;
-		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
-		{
-			_totalElapsed += timeElapsed;
-			// setCamera();
-			Game::_camera.Move(0 + camDisplacement, 0);
-			if (_totalElapsed > modelChangeTime)
-				Move(0 + displacement, alignY);
-		}
-	}
+		movement(90.0f, displacement + 0.1, alignY, camDisplacement, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Left)
-	{
-		Rotate(0);
-		box.x1 += alignX;
-		box.x2 += alignX;
-		box.y1 += displacement + 0.1;
-		box.y2 += displacement + 0.1;
-		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
-		{
-			_totalElapsed += timeElapsed;
-			// setCamera();
-			Game::_camera.Move(0, 0 + camDisplacement);
-			if (_totalElapsed > modelChangeTime)
-				Move(alignX, 0 + displacement);
-		}
-	}
+		movement(0.0f, alignX, displacement + 0.1, 0.0f, camDisplacement, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Right)
-	{
-		Rotate(180);
-		box.x1 += alignX;
-		box.x2 += alignX;
-		box.y1 -= displacement;
-		box.y2 -= displacement;
-		if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
-		{
-			_model.Move(0, 0 - displacement);
-			_totalElapsed += timeElapsed;
-			// setCamera();
-			Game::_camera.Move(0, 0 - camDisplacement);
-			
-			if (_totalElapsed > modelChangeTime)
-				Move(alignX, 0 - displacement);
-		}
-	}
+		movement(180.0f, alignX, -displacement, 0.0f, -camDisplacement, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Undefined)
 		_index = 0;
 
@@ -300,9 +244,7 @@ void Player::Update(float & timeElapsed)
 			GameInterface::adjustLives(1);
 		case gate:
 			if(GameInterface::allEnemiesDead())
-			{
 				_wonLevel = true;
-			}
 			break;
 		default:
 			break;
@@ -343,13 +285,13 @@ void Player::setCamera()
 void Player::fixCameraPosition()
 {
 	glm::vec3 posPlayer = this->_models[_index]->GetPosition();
-	if (posPlayer.x <= 6.25f)
+	if (posPlayer.x <= 6.25f || Game::_camera.Position.x < 21.25f)
 		Game::_camera.Position.x = 21.25f;
-	else if (posPlayer.x >= 10.0f)
+	else if (posPlayer.x >= 10.0f || Game::_camera.Position.x > 25.0f)
 		Game::_camera.Position.x = 25.0f;
 	
-	if (posPlayer.z <= 5.5f)
+	if (posPlayer.z <= 5.5f || Game::_camera.Position.z < 5.5f)
 		Game::_camera.Position.z = 5.5f;
-	else if (posPlayer.z >= 25.0f)
+	else if (posPlayer.z >= 25.0f || Game::_camera.Position.z > 25.0f)
 		Game::_camera.Position.z = 25.0f;
 }

@@ -18,6 +18,7 @@
 # include <vector>
 # include "MapError.hpp"
 # include "Save.hpp"
+# include "GameInterface.hpp"
 
 class Levels {
 	public:
@@ -32,7 +33,7 @@ class Levels {
 		std::string							getDir( void );
 
 		void			fixMap(std::vector<std::vector<char> > currentMap, int enemiesKilled);
-		void			save(std::vector<std::vector<char> > map, int enemyTotal, int health, int score);
+		void			save(std::vector<std::vector<char> > map, int enemyTotal, int health, int score, float timeLeft);
 		void			dimension(int width, int height);
 		void			difficulty( int lvl );
 		void			changeDir( std::string dir);
@@ -41,9 +42,11 @@ class Levels {
 		char			populate( void );
 
 		int				getSeed( void );
-
+		float			getTimeLeft ( void );
 		int				getScore( void );
 		int				getHealth( void );
+		std::vector<std::vector<char> > getMap( void );
+		
 
 	private:
 
@@ -55,6 +58,7 @@ class Levels {
 		int				_enemyTotal = 5;
 		int				_bricks = 0;
 		int				_health = 0;
+		float			_timeLeft = 0;
 		int				_power = 0;
 		int				_lvl = 1;
 		int				_score;

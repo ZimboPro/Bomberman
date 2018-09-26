@@ -23,6 +23,7 @@ class Save {
 		std::vector<std::vector<char>> _Save;
 		int		_health = 0;
 		int		_score = 0;
+		float	_timeLeft = 0;
 
 		friend class boost::serialization::access;
 		template<class Archive>
@@ -32,18 +33,20 @@ class Save {
 				ar & _Save;
 				ar & _health;
 				ar & _score;
+				ar & _timeLeft;
 			}
 
 	public:
 		Save();
 		Save(Save const & src);
-		Save(std::vector<std::vector<char>> Save, int health, int score);
+		Save(std::vector<std::vector<char>> Save, int health, int score, float timeLeft);
 		~Save();
 		Save & operator=(Save const & src);
 
 		std::vector<std::vector<char> >		getSave( void );
 		int			getScore( void );
 		int			getHealth( void );
+		float		getTimeLeft ( void );
 };
 
 #endif

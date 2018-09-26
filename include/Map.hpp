@@ -21,6 +21,7 @@ public:
 	static void levelDown();
 	static size_t width();
 	static size_t height();
+	static size_t size();
 	static void printMap();
 	static void readInRandomMap(int seed);
 	static Levels	_levels;

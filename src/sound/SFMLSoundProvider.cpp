@@ -49,7 +49,8 @@ void SFMLSoundProvider::playSound(std::string fileName)
 		}
 	}
 	if(availChannel == -1)
-		std::cout << "No chanel found" << std::endl;
+		;
+		// std::cout << "No chanel found" << std::endl;
 }
 
 void SFMLSoundProvider::playSong(std::string fileName, bool looping)
