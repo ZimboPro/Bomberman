@@ -86,17 +86,23 @@ BoundingBox Player::getBoundingBox()
 	return _box;
 }
 
-void Player::placeBombX(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos)
+void Player::placeBombX(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos, bool ceil)
 {
-	bombX = floor(bombX + bombOffset);
+	if (ceil)
+		bombX = ceilf(bombX + bombOffset);
+	else
+		bombX = floor(bombX + bombOffset);
 	if (abs(bombX - pos) < 0.5)
 		Move(moveX, moveY);
 	bombY = round(bombY);
 }
 
-void Player::placeBombY(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos)
+void Player::placeBombY(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos, bool ceil)
 {
-	bombY = floor(bombY + bombOffset);
+	if (ceil)
+		bombY = ceilf(bombY + bombOffset);
+	else
+		bombY = floor(bombY + bombOffset);
 	if (abs(bombY - pos) < 0.5)
 		Move(moveX, moveY);
 	bombX = round(bombX);
@@ -111,13 +117,13 @@ void Player::dropBomb()
 	float bombY = pos.z;
 
 	if (_direction == 270) // UP
-		placeBombX(bombX, bombY, -bombOffset, 0.0f, playerOffset, pos.x);
+		placeBombX(bombX, bombY, -bombOffset, 0.0f, playerOffset, pos.x, false);
 	else if (_direction == 90) // Down
-		placeBombX(bombX, bombY, bombOffset, 0.0f, -playerOffset, pos.x);
+		placeBombX(bombX, bombY, bombOffset, 0.0f, -playerOffset, pos.x, true);
 	else if (_direction == 0) // Left
-		placeBombY(bombX, bombY, bombOffset, playerOffset, 0.0f, pos.z);
+		placeBombY(bombX, bombY, bombOffset, playerOffset, 0.0f, pos.z, true);
 	else if (_direction == 180) // Right
-		placeBombY(bombX, bombY, -bombOffset, -playerOffset, 0.0f, pos.z);
+		placeBombY(bombX, bombY, -bombOffset, -playerOffset, 0.0f, pos.z, false);
 	GameObjectManager::addDynamicObject(bomb, bombX ,bombY);
 }
 
