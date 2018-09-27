@@ -12,6 +12,7 @@
 #include <chrono>
 
 #include "Game.hpp"
+#include "Map.hpp"
 #include "Menus/MainMenu.hpp"
 #include "Menus/OptionsMenu.hpp"
 #include "Menus/PauseMenu.hpp"
@@ -105,6 +106,7 @@ void Game::gameLoop()
 
 void Game::wonLevel()
 {
+	GameObjectManager::killItWithFire();
 	LevelPassed levelPassed;
 	_loadedLevel = false;
 	levelPassed.show();
@@ -116,6 +118,7 @@ void Game::lostLevel()
 {
 	GameOver gameover;
 
+	GameObjectManager::killItWithFire();
 	_loadedLevel = false;
 	gameover.show();
 	_gameState = ShowingMenu;
@@ -286,7 +289,10 @@ void Game::playGame()
 			_gameState = Game::WonLevel;
 
 		if (_window.closed())
+		{
+			// GameObjectManager::killItWithFire();
 			_gameState = ShowingMenu;
+		}
 	}
 	return ;
 }
@@ -436,7 +442,6 @@ Camera Game::_camera(glm::vec3(15.0f, 25.0f, 0.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, false, eVolume::v100, false};
-std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;
 bool Game::_loadedLevel = false;
 int	Game::_startLevel = 0;

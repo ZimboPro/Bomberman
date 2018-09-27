@@ -16,7 +16,7 @@ Map::~Map() = default;
 
 char Map::at(int x, int y)
 {
-	return _map[_currentWorkingLevel][y][x];
+	return _map[y][x];
 }
 
 int Map::getLevel()
@@ -31,12 +31,12 @@ void Map::levelUp()
 
 size_t Map::height()
 {
-	return _map[_currentWorkingLevel].size();
+	return _map.size();
 }
 
 size_t Map::width()
 {
-	return _map[_currentWorkingLevel][0].size();
+	return _map[0].size();
 }
 
 size_t Map::size()
@@ -46,16 +46,16 @@ size_t Map::size()
 
 void Map::printMap()
 {
-	for (size_t y = 0; y < _map[_currentWorkingLevel].size(); y++)
+	for (size_t y = 0; y < _map.size(); y++)
 	{
-		for (size_t x = 0; x < _map[_currentWorkingLevel][0].size(); x++)
-			std::cout << _map[_currentWorkingLevel][y][x];
+		for (size_t x = 0; x < _map[0].size(); x++)
+			std::cout << _map[y][x];
 
 		std::cout << std::endl;
 	}
 }
 
-std::vector<std::vector<std::vector<char >>> Map::getLevelHolder()
+std::vector<std::vector<char >> Map::getLevelHolder()
 {
 	return _map;
 }
@@ -84,48 +84,25 @@ void Map::setPlayerStart(float x, float y)
 
 void Map::readInRandomMap(int seed)
 {
-//	if (seed == 0)
-//	{
-//		_map.push_back(std::vector<std::vector<char> > {
-//				{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
-//				{'0','1','1','1','1','1','1','1','1','1','1','1','1','1','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','3','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','7','0','1','0'},
-//				{'0','1','0','0','0','0','0','G','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','2','0','0','0','0','0','0','6','0','0','0','1','0'},
-//				{'0','1','0','2','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','6','0','7','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','2','2','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','6','0','7','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','0','0','0','0','0','0','0','0','0','0','0','0','1','0'},
-//				{'0','1','1','1','1','1','1','1','1','1','1','1','1','1','1','0'},
-//				{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
-//		});
-//	}
-	_map.push_back(_levels.makeMap(seed));
+	setMap(_levels.makeMap(seed));
 }
 
 void Map::setMap(std::vector<std::vector<char>> map)
 {
-	for(size_t row = 0; row < _map[_currentWorkingLevel].size(); row++)
+	_map = map;
+}
+
+void Map::destroyEverything()
+{
+	for (size_t row = 0; row < _map.size(); row++)
 	{
-		for(size_t col = 0; col < _map[_currentWorkingLevel][row].size(); col++)
-		{
-			_map[_currentWorkingLevel][row][col] = map[row][col];
-		}
+		_map[row].clear();
 	}
+	_map.clear();
 }
 
 int Map::_currentWorkingLevel = 0;
 Levels Map::_levels;
-std::vector<std::vector<std::vector<char>>> Map::_map;
+std::vector<std::vector<char>> Map::_map;
 float Map::_playerStartX = 0;
 float Map::_playerStartY = 0;

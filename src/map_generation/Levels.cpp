@@ -20,7 +20,14 @@ Levels::Levels(Levels const & src)
 	*this = src;	
 }
 
-Levels::~Levels() {}
+Levels::~Levels() 
+{
+	// for(size_t row = 0; row < _lastMap.size(); row++)
+	// {
+	// 	_lastMap[row].clear();
+	// }
+	// _lastMap.clear();
+}
 
 Levels & Levels::operator=(Levels const & src)
 {
