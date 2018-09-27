@@ -174,7 +174,7 @@ void Player::movement(float degree, float x, float y, float x1, float y1, float 
 	box.x2 += x;
 	box.y1 += y;
 	box.y2 += y;
-	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
+	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass || (collidesWith = GameObjectManager::collidesWith(box, _type)) == bomb)
 	{
 		_totalElapsed += timeElapsed;
 		Game::_camera.Move(camX, camY);
@@ -264,13 +264,10 @@ void Player::Update(float & timeElapsed)
 			}
 			break;
 		case powerBlock:
-			GameInterface::increaseRangeMultiplier();
-			GameInterface::adjustScore(20);
 			if (Game::_settings.sound)
 				_sound->playSound("../../Assets/sounds/gameplay/get_power_up.wav");
 			break;
 		case healthBlock:
-			GameInterface::adjustLives(1);
 			if (Game::_settings.sound)
 				_sound->playSound("../../Assets/sounds/gameplay/pickup_health.wav");
 		case gate:

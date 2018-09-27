@@ -279,7 +279,16 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 		{
 			objectTypes collType = (*iter)->getType();
 			if((collType == healthBlock || collType == powerBlock) && type == player)
+			{
+				if (collType == healthBlock )
+					GameInterface::adjustLives(1);
+				else
+				{
+					GameInterface::increaseRangeMultiplier();
+					GameInterface::adjustScore(20);
+				}
 				_dynamicObjects->erase(iter);
+			}
 			return collType;
 		}
 	}

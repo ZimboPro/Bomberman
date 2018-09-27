@@ -194,7 +194,7 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	const Save	temp(this->_lastMap, health, score, timeLeft, enemyTotal, seed);
 	const Save const *pointer = & temp; 
 	// open file stream
-	std::ofstream ofs("save.data");
+	std::ofstream ofs("save.data", std::ios::out | std::ios::trunc);
 	// create output archive object with stream
 	boost::archive::text_oarchive oa(ofs);
 	// write instance to archive
