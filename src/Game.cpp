@@ -244,7 +244,17 @@ void Game::playGame()
 	_interface.resetPostions();
 
 	if (_loadedLevel)
-		GameObjectManager::loadLevel(Map::_levels.load());
+	{
+		try
+		{
+			GameObjectManager::loadLevel(Map::_levels.load());
+		}
+		catch(std::exception &e)
+		{
+			std::cout << std::endl << e.what() << std::endl;
+			_gameState = ShowingStartGameMenu;
+		}
+	}
 	_interface.setLevelCompleted(false);
 	sf::Clock clock;
 

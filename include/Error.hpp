@@ -90,6 +90,14 @@ public:
     private:
         std::string e_msg;
     };
+
+    class SaveNotFound: public std::exception
+    {
+        virtual const char* what() const throw()
+        {
+            return "Error:: Save file not found";
+        }
+    };
 };
 
 #endif

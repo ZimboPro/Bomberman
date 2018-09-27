@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "map_generation/Levels.hpp"
+#include "Error.hpp"
 #include <cmath>
 
 Levels::Levels() {}
@@ -213,6 +214,10 @@ std::vector<std::vector<char> >			Levels::load( void )
 	Save	*temp;
 	// open a read stream
 	std::ifstream ifs("save.data");
+	if (!ifs.good())
+	{
+		throw Error::SaveNotFound();
+	}
 	// create the read archive class with the stream
 	boost::archive::text_iarchive		ia(ifs);
 	// load the read archive to map
