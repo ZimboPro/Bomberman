@@ -17,7 +17,6 @@ GameWon::GameWon()
 
 GameWon::~GameWon()
 {
-    _sound->stopAllSounds();
     delete this->_model;
     delete this->_shader;
 }

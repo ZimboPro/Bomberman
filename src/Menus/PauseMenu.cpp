@@ -19,6 +19,7 @@ PauseMenu::PauseMenu()
 {
 	_sound = ServiceLocator::getAudio();
 	_sound->setSoundLevel(Game::_settings.volume * 20);
+	_sound->stopAllSounds();
 	if (Game::_settings.music)
 		_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
     loadMenu();
@@ -30,11 +31,7 @@ PauseMenu::PauseMenu(PauseMenu const & src)
 }
 
 PauseMenu::~PauseMenu()
-{
-	while (_sound->isSoundPlaying())
-	{}
-	_sound->stopAllSounds();
-}
+{}
 
 int PauseMenu::show(Shaders & shader, Shaders & brightShader)
 {
@@ -89,7 +86,6 @@ int PauseMenu::show(Shaders & shader, Shaders & brightShader)
 
 void PauseMenu::showOptionsMenu()
 {
-	_sound->stopAllSounds();
 	OptionsMenu menu;
 
 	Shaders brightShader("../assets/shaders/vert/ShadedModelsVert.glsl", "../assets/shaders/frag/ShadedModelsFrag.glsl");

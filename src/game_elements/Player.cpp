@@ -45,7 +45,6 @@ Player::Player(std::vector<Model_Texture *> & textures, float x, float y): _spee
 
 Player::~Player()
 {
-	_sound->stopAllSounds();
 	for (size_t i = 0; i < this->_models.size(); i++)
 		delete this->_models[i];
 }
@@ -162,6 +161,9 @@ void Player::dying(float & elapsedTime)
 		_spawned = false;
 		_timeSpawned = 0.0f;
 		_timeSpentDying = 0;
+		_sound->stopAllSounds();
+		if (Game::_settings.music)
+			_sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 	}
 }
 
@@ -238,24 +240,27 @@ void Player::Update(float & timeElapsed)
 			if (_spawned)
 			{
 				_isDying = true;
-				if (Game::_settings.sound)
-					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
+				_sound->stopAllSounds();
+				if (Game::_settings.music)
+					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
 			}
 			break;
 		case goomba:
 			if (_spawned)
 			{
 				_isDying = true;
-				if (Game::_settings.sound)
-					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
+				_sound->stopAllSounds();
+				if (Game::_settings.music)
+					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
 			}
 			break;
 		case koopaTroopa:
 			if (_spawned)
 			{
 				_isDying = true;
-				if (Game::_settings.sound)
-					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
+				_sound->stopAllSounds();
+				if (Game::_settings.music)
+					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
 			}
 			break;
 		case powerBlock:

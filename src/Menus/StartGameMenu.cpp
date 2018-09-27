@@ -19,6 +19,7 @@ StartGameMenu::StartGameMenu()
 {
 	_sound = ServiceLocator::getAudio();
 	_sound->setSoundLevel(Game::_settings.volume * 20);
+	_sound->stopAllSounds();
 	if (Game::_settings.music)
 		_sound->playSong("../../Assets/sounds/background_music/background_menu.wav", true);
     loadMenu();
@@ -30,11 +31,7 @@ StartGameMenu::StartGameMenu(StartGameMenu const & src)
 }
 
 StartGameMenu::~StartGameMenu()
-{
-	while (_sound->isSoundPlaying())
-	{}
-	_sound->stopAllSounds();
-}
+{}
 
 int StartGameMenu::show(Shaders & shader, Shaders & brightShader)
 {

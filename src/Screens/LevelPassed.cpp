@@ -17,7 +17,6 @@ LevelPassed::LevelPassed()
 
 LevelPassed::~LevelPassed()
 {
-    _sound->stopAllSounds();
     delete this->_model;
     delete this->_shader;
 }

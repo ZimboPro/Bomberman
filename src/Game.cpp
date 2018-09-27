@@ -58,6 +58,7 @@ void Game::start()
 		gameLoop();
 	}
 	_interface.deleteObjects();
+	ServiceLocator::getAudio()->stopAllSounds();
 	_window.close();
 }
 
@@ -159,10 +160,10 @@ void Game::showSplashScreen()
 	SplashScreen splash;
 	IAudioProvider * sound = ServiceLocator::getAudio();
 	sound->setSoundLevel(_settings.volume * 20);
+	sound->stopAllSounds();
 	if (_settings.music)
 		sound->playSong("../../Assets/sounds/background_music/credits.wav", true);
 	splash.show(shader, "../../Assets/intro/", 238);
-	sound->stopAllSounds();
 
 	_gameState = Game::ShowingMenu;
 }
@@ -247,7 +248,7 @@ void Game::playGame()
 	_interface.resetHOD();
 	_interface.resetTime(300);
 	_interface.resetPostions();
-
+	sound->stopAllSounds();
 	if (_settings.music)
 		sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 	while(_gameState == Game::Playing)
@@ -270,6 +271,8 @@ void Game::playGame()
 				sound->playSound("../../Assets/sounds/gameplay/pause_game.wav");
 			showPauseMenu();
 			GameInterface::resetTime(timeLeft);
+			sound->stopAllSounds();
+			clock.restart();
 			if (_settings.music && !sound->isSongPlaying())
 				sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 		}
@@ -282,7 +285,6 @@ void Game::playGame()
 		if (_window.closed())
 			_gameState = ShowingMenu;
 	}
-	sound->stopAllSounds();
 	return ;
 }
 
@@ -293,10 +295,10 @@ void Game::showCredits()
 	SplashScreen splash;
 	IAudioProvider * sound = ServiceLocator::getAudio();
 	sound->setSoundLevel(_settings.volume * 20);
+	sound->stopAllSounds();
 	if (_settings.music)
 		sound->playSong("../../Assets/sounds/background_music/credits.wav", true);
 	splash.show(shader, "../../Assets/credits/", 222);
-	sound->stopAllSounds();
 	_gameState = Game::ShowingMenu;
 }
 

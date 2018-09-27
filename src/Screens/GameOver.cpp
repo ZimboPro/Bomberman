@@ -17,7 +17,6 @@ GameOver::GameOver()
 
 GameOver::~GameOver()
 {
-	_sound->stopAllSounds();
     delete this->_model;
     delete this->_shader;
 }

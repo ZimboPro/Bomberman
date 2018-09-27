@@ -25,9 +25,7 @@ Fire::Fire(Model_Texture & texture, float x, float y): VisibleGameObject(texture
 }
 
 Fire::~Fire()
-{
-	_sound->stopAllSounds();
-}
+{}
 
 BoundingBox Fire::getBoundingBox()
 {
