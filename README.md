@@ -31,7 +31,7 @@ When starting a game you can choose from levels 1-3 or pick a randomly generated
 
 ### Controls
 
-Movement:	
+**Movement:**  
 -	W & arrow up = UP  
 -	A & arrow left = LEFT  
 -	S & arrow down = DOWN  
@@ -40,7 +40,7 @@ Movement:
 -	ESC = pause game  
 -	Enter = select  
   
-Main menu:  
+**Main menu:**  
 -	W & arrow up = UP  
 -	A & arrow left = LEFT  
 -	S & arrow down = DOWN  
@@ -50,8 +50,8 @@ Main menu:
   
 ### Team
 
-<a href="https://github.com/ZimboPro">Leslie</a>  
-<a href="https://github.com/P-Russell">Patrick</a>  
-<a href="https://github.com/cdpauwels">Charl</a>  
-<a href="https://github.com/ChazniK">Chazni</a>  
-<a href="https://github.com/Moondog360">Marco</a>
+- <a href="https://github.com/ZimboPro">Leslie</a>  
+- <a href="https://github.com/P-Russell">Patrick</a>  
+- <a href="https://github.com/cdpauwels">Charl</a>  
+- <a href="https://github.com/ChazniK">Chazni</a>  
+- <a href="https://github.com/Moondog360">Marco</a>
