@@ -302,9 +302,15 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 			if((collType == healthBlock || collType == powerBlock) && type == player)
 			{
 				if (collType == healthBlock )
+				{
+					if (Game::_settings.sound)
+						ServiceLocator::getAudio()->playSound("../../Assets/sounds/gameplay/pickup_health.wav");
 					GameInterface::adjustLives(1);
+				}
 				else
 				{
+					if (Game::_settings.sound)
+						ServiceLocator::getAudio()->playSound("../../Assets/sounds/gameplay/get_power_up.wav");
 					GameInterface::increaseRangeMultiplier();
 					GameInterface::adjustScore(20);
 				}

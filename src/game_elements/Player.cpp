@@ -162,7 +162,7 @@ void Player::dying(float & elapsedTime)
 		_timeSpawned = 0.0f;
 		_timeSpentDying = 0;
 		_sound->stopAllSounds();
-		if (Game::_settings.music)
+		if (Game::_settings.music && GameInterface::stillAlive())
 			_sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 	}
 }
@@ -237,39 +237,13 @@ void Player::Update(float & timeElapsed)
 	switch (collidesWith)
 	{
 		case fire:
-			if (_spawned)
-			{
-				_isDying = true;
-				_sound->stopAllSounds();
-				if (Game::_settings.music)
-					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
-			}
+			aboutToDie();
 			break;
 		case goomba:
-			if (_spawned)
-			{
-				_isDying = true;
-				_sound->stopAllSounds();
-				if (Game::_settings.music)
-					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
-			}
-			break;
+			aboutToDie();
 		case koopaTroopa:
-			if (_spawned)
-			{
-				_isDying = true;
-				_sound->stopAllSounds();
-				if (Game::_settings.music)
-					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
-			}
+			aboutToDie();
 			break;
-		case powerBlock:
-			if (Game::_settings.sound)
-				_sound->playSound("../../Assets/sounds/gameplay/get_power_up.wav");
-			break;
-		case healthBlock:
-			if (Game::_settings.sound)
-				_sound->playSound("../../Assets/sounds/gameplay/pickup_health.wav");
 		case gate:
 			if(GameInterface::allEnemiesDead())
 			{
@@ -284,6 +258,17 @@ void Player::Update(float & timeElapsed)
 	fixCameraPosition();
 	if (Game::keyTyped() == eKeys::Place && !_isDying)
 		dropBomb();
+}
+
+void Player::aboutToDie()
+{
+	if (_spawned)
+	{
+		_isDying = true;
+		_sound->stopAllSounds();
+		if (Game::_settings.music)
+			_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
+	}
 }
 
 void Player::Move(float x, float y, float z)
