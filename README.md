@@ -31,7 +31,7 @@ When starting a game you can choose from levels 1-3 or pick a randomly generated
 
 ### Controls
 
-**Movement:**  
+**Movement:**
 -	W & arrow up = UP  
 -	A & arrow left = LEFT  
 -	S & arrow down = DOWN  
@@ -40,7 +40,7 @@ When starting a game you can choose from levels 1-3 or pick a randomly generated
 -	ESC = pause game  
 -	Enter = select  
   
-**Main menu:**  
+**Main menu:**
 -	W & arrow up = UP  
 -	A & arrow left = LEFT  
 -	S & arrow down = DOWN  
