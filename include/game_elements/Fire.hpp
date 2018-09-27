@@ -7,6 +7,7 @@
 
 
 #include "VisibleGameObject.hpp"
+#include "ServiceLocator.hpp"
 
 class Fire: public VisibleGameObject
 {
@@ -21,6 +22,7 @@ public:
 
 private:
 	float _burnTime;
+	IAudioProvider * _sound;
 };
 
 

@@ -4,10 +4,13 @@
 
 #include <GameObjectManager.hpp>
 #include "game_elements/Fire.hpp"
+#include "Game.hpp"
 
 Fire::Fire(): _burnTime(2.0)
 {
 	_type = fire;
+	_sound = ServiceLocator::getAudio();
+	_sound->setSoundLevel(Game::_settings.volume * 20);
 }
 
 Fire::Fire(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false)
@@ -15,11 +18,14 @@ Fire::Fire(Model_Texture & texture, float x, float y): VisibleGameObject(texture
 	_type = fire;
 	_burnTime = 2.0;
 	_model.Move(0, 0, -0.5);
+	_sound = ServiceLocator::getAudio();
+	_sound->setSoundLevel(Game::_settings.volume * 20);
+	if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/gameplay/fire.wav");
 }
 
 Fire::~Fire()
-{
-}
+{}
 
 BoundingBox Fire::getBoundingBox()
 {

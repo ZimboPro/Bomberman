@@ -17,7 +17,7 @@ if(NOT graphics_POPULATED)
     add_subdirectory(${graphics_SOURCE_DIR} ${graphics_BINARY_DIR})
 endif()
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 
 if (APPLE)

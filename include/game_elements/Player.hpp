@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "VisibleGameObject.hpp"
+#include "ServiceLocator.hpp"
 
 class Player: public VisibleGameObject
 {
@@ -45,6 +46,7 @@ private:
 	bool _spawned;
 	float _timeSpawned;
 	std::vector<Model_Sprite *> _models;
+	IAudioProvider * _sound;
 };
 
 #endif //BOMBERMAN_PLAYER_HPP

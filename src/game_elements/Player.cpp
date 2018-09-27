@@ -67,6 +67,8 @@ void Player::init()
 	_spawned = false;
 	_isDying = false;
 	_spawn = false;
+	_sound = ServiceLocator::getAudio();
+	_sound->setSoundLevel(Game::_settings.volume * 20);
 }
 
 BoundingBox Player::getBoundingBox()
@@ -115,7 +117,8 @@ void Player::dropBomb()
 	float playerOffset = 0.3;
 	float bombX = pos.x;
 	float bombY = pos.z;
-
+	if (Game::_settings.sound)
+		_sound->playSound("../../Assets/sounds/gameplay/drop_bomb.wav");
 	if (_direction == 270) // UP
 		placeBombX(bombX, bombY, -bombOffset, 0.0f, playerOffset, pos.x, false);
 	else if (_direction == 90) // Down
@@ -158,6 +161,9 @@ void Player::dying(float & elapsedTime)
 		_spawned = false;
 		_timeSpawned = 0.0f;
 		_timeSpentDying = 0;
+		_sound->stopAllSounds();
+		if (Game::_settings.music)
+			_sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 	}
 }
 
@@ -218,13 +224,13 @@ void Player::Update(float & timeElapsed)
 	objectTypes collidesWith;
 
 	if (Game::keyPressed() == eKeys::Up)
-		movement(270.0f, -displacement, alignY, -camDisplacement, 0.0f, 0.0f, 0.0f, box, collidesWith, timeElapsed);
+		movement(270.0f, -displacement, alignY, 0.0f, 0.0f, -camDisplacement, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Down)
-		movement(90.0f, displacement + 0.1, alignY, camDisplacement, 0.0f, -0.1f, 0.0f, box, collidesWith, timeElapsed);
+		movement(90.0f, displacement + 0.1, alignY, -0.1f, 0.0f, camDisplacement, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Left)
-		movement(0.0f, alignX, displacement + 0.1, 0.0f, camDisplacement, 0.0f, -0.1f, box, collidesWith, timeElapsed);
+		movement(0.0f, alignX, displacement + 0.1, 0.0f, -0.1f, 0.0f, camDisplacement, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Right)
-		movement(180.0f, alignX, -displacement, 0.0f, -camDisplacement, 0.0f, 0.0f, box, collidesWith, timeElapsed);
+		movement(180.0f, alignX, -displacement, 0.0f, 0.0f, 0.0f, -camDisplacement, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Undefined)
 		_index = 0;
 
@@ -232,25 +238,48 @@ void Player::Update(float & timeElapsed)
 	{
 		case fire:
 			if (_spawned)
+			{
 				_isDying = true;
+				_sound->stopAllSounds();
+				if (Game::_settings.music)
+					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
+			}
 			break;
 		case goomba:
 			if (_spawned)
+			{
 				_isDying = true;
+				_sound->stopAllSounds();
+				if (Game::_settings.music)
+					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
+			}
 			break;
 		case koopaTroopa:
 			if (_spawned)
+			{
 				_isDying = true;
+				_sound->stopAllSounds();
+				if (Game::_settings.music)
+					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
+			}
 			break;
 		case powerBlock:
 			GameInterface::increaseRangeMultiplier();
 			GameInterface::adjustScore(20);
+			if (Game::_settings.sound)
+				_sound->playSound("../../Assets/sounds/gameplay/get_power_up.wav");
 			break;
 		case healthBlock:
 			GameInterface::adjustLives(1);
+			if (Game::_settings.sound)
+				_sound->playSound("../../Assets/sounds/gameplay/pickup_health.wav");
 		case gate:
 			if(GameInterface::allEnemiesDead())
+			{
 				_wonLevel = true;
+				if (Game::_settings.sound)
+					_sound->playSound("../../Assets/sounds/gameplay/jump_into_pipe.wav");
+			}
 			break;
 		default:
 			break;
@@ -295,7 +324,7 @@ void Player::fixCameraPosition()
 		Game::_camera.Position.x = 21.25f;
 	else if (posPlayer.x >= 10.0f || Game::_camera.Position.x > 25.0f)
 		Game::_camera.Position.x = 25.0f;
-	
+
 	if (posPlayer.z <= 5.5f || Game::_camera.Position.z < 5.5f)
 		Game::_camera.Position.z = 5.5f;
 	else if (posPlayer.z >= 25.0f || Game::_camera.Position.z > 25.0f)
