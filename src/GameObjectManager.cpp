@@ -27,10 +27,6 @@ GameObjectManager::~GameObjectManager()
 void GameObjectManager::init()
 {
 	_factory.initModelTextures();
-	// _staticObjects = _factory.genStaticObjects();
-	// _dynamicObjects = _factory.genDynamicAndPickUpObjects();
-	// _grass = _factory.genGrass();
-	// _initialized = true;
 }
 
 void GameObjectManager::drawAll(Shaders & shader)

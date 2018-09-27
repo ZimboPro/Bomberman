@@ -47,7 +47,7 @@ void Game::start()
 	_interface.loadObjects();
 	_camera.Zoom = 30.0f;
 
-	_gameState = eGameState::Playing;
+	_gameState = eGameState::ShowingMenu;
 
 	SFMLSoundProvider soundProvider;
 	ServiceLocator::RegisterServiceLocator(&soundProvider);
