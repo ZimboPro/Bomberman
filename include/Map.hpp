@@ -25,14 +25,16 @@ public:
 	static void printMap();
 	static void readInRandomMap(int seed);
 	static Levels	_levels;
-	static std::vector<std::vector<std::vector<char>>> getLevelHolder();
+	static std::vector<std::vector<char>> getLevelHolder();
 	static void setPlayerStart(float x, float y);
 	static float getPlayerStartX();
 	static float getPlayerStartY();
+	static void	setMap(std::vector<std::vector<char>> map);
+	static void destroyEverything();
 
 private:
 	static int _currentWorkingLevel;
-	static std::vector<std::vector<std::vector<char>>> _map;
+	static std::vector<std::vector<char>> _map;
 	static float _playerStartX;
 	static float _playerStartY;
 

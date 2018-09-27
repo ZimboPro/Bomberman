@@ -12,6 +12,7 @@
 #include <chrono>
 
 #include "Game.hpp"
+#include "Map.hpp"
 #include "Menus/MainMenu.hpp"
 #include "Menus/OptionsMenu.hpp"
 #include "Menus/PauseMenu.hpp"
@@ -105,8 +106,9 @@ void Game::gameLoop()
 
 void Game::wonLevel()
 {
+	GameObjectManager::killItWithFire();
 	LevelPassed levelPassed;
-
+	_loadedLevel = false;
 	levelPassed.show();
 	_startLevel += 1;
 	_gameState = Playing;
@@ -116,6 +118,8 @@ void Game::lostLevel()
 {
 	GameOver gameover;
 
+	GameObjectManager::killItWithFire();
+	_loadedLevel = false;
 	gameover.show();
 	_gameState = ShowingMenu;
 }
@@ -213,7 +217,6 @@ void Game::showMenu()
 		_gameState = Game::Exiting;
 	else if (selection == MainMenu::Play)
 		_gameState = Game::ShowingStartGameMenu;
-		// _gameState = Game::Playing;
 	else if (selection == MainMenu::Settings)
 		_gameState = Game::ShowingOptions;
 }
@@ -234,6 +237,9 @@ void Game::playGame()
 {
 	GameObjectManager::init();
 	GameObjectManager::newLevel(Game::_startLevel);
+
+	if (_loadedLevel)
+		GameObjectManager::loadLevel(Map::_levels.load());
 	_interface.setLevelCompleted(false);
 	sf::Clock clock;
 
@@ -283,7 +289,10 @@ void Game::playGame()
 			_gameState = Game::WonLevel;
 
 		if (_window.closed())
+		{
+			// GameObjectManager::killItWithFire();
 			_gameState = ShowingMenu;
+		}
 	}
 	return ;
 }
@@ -311,11 +320,6 @@ void Game::save()
 	int	enemiesKilled = GameInterface::amountOfGoombaKilled() + GameInterface::amountOfTroopaKilled();
 	int	timeLeft = GameInterface::TimeLeft();
 
-	std::cout << "Lives: " << lives << "\n";
-	std::cout << "Score: " << score << "\n";
-	std::cout << "Remaining time: " << timeLeft << "\n";
-	std::cout << "Enemies killed: " << enemiesKilled << "\n";
-
 	std::vector<std::vector<char> > saveMap(height, std::vector<char>(width, '0'));
 	for (int y = 0; y < height; y++)
 	{
@@ -334,11 +338,13 @@ void Game::save()
 void Game::load()
 {
 	std::cout << "Loading\n";
-	Map::_levels.load();
-	Map::_levels.getTimeLeft();
-	Map::_levels.getScore();
-	Map::_levels.getHealth();
-	Map::_levels.getSeed();
+	_loadedLevel = true;
+	_gameState = Playing;
+	// Map::_levels.load();
+	// Map::_levels.getTimeLeft();
+	// Map::_levels.getScore();
+	// Map::_levels.getHealth();
+	// Map::_levels.getSeed();
 }
 
 int Game::getKeyConfigured(eKeys key)
@@ -436,6 +442,6 @@ Camera Game::_camera(glm::vec3(15.0f, 25.0f, 0.0f));
 std::map<eKeys, int> Game::_keyConfiguration;
 LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, false, eVolume::v100, false};
-std::vector<std::vector<char> > Game::_savedMap;
 bool Game::_KeyBind = false;
+bool Game::_loadedLevel = false;
 int	Game::_startLevel = 0;

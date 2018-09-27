@@ -72,13 +72,22 @@ void GameObjectManager::updateAll(float elapsedTime)
 
 void GameObjectManager::changeLevel(int seed)
 {
-	Map::levelDown();
 	_initialized = false;
 	clearObjects();
+	if (Map::size() != 0)
+		killItWithFire();
 	Map::readInRandomMap(seed);
-	if (Map::size() > 1)
-		Map::levelUp();
 	initLevel();
+}
+
+void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)
+{
+	Map::printMap();
+	clearObjects();
+	Map::setMap(map);
+	initLevel();
+	std::cout << "\n";
+	Map::printMap();
 }
 
 void GameObjectManager::clearObjects()
@@ -275,6 +284,12 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 		}
 	}
 	return grass;
+}
+
+void GameObjectManager::killItWithFire()
+{
+	clearObjects();
+	Map::destroyEverything();
 }
 
 std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> GameObjectManager::_staticObjects;

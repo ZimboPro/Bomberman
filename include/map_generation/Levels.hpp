@@ -49,7 +49,6 @@ class Levels {
 		int				getEnemiesKilled ( void );		
 
 	private:
-
 		bool			_gate = false;
 		int				_seed = 0;
 		int				_debug = 0;
