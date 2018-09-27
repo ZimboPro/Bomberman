@@ -241,6 +241,7 @@ void Player::Update(float & timeElapsed)
 			break;
 		case goomba:
 			aboutToDie();
+			break;
 		case koopaTroopa:
 			aboutToDie();
 			break;

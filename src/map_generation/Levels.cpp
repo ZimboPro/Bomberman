@@ -6,7 +6,7 @@
 /*   By: mafernan   <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 11/30/15 by mafernan          #+#    #+#             */
-/*   Updated: 2018/09/27 12:55:22 by mafernan         ###   ########.fr       */
+/*   Updated: 2018/09/27 13:16:02 by mafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	Levels::populate(int row, int col )
 
 	if (random >= 80)
 	{
-		if (random >= 80 && random <= 85 && this->_gate == false)
+		if (random >= 80 && random <= 90 && this->_gate == false)
 		{
 			this->_gate = true;
 			std::cout << "==================== gate : added ====================" << std::endl;
@@ -96,6 +96,7 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 
 	// _lvl = (rand() % 3) + 1;
 	// check if seed number given is positive
+	this->_gate = false;
 	while (1)
 	{
 		if (seed > 0 && seed < 4)
@@ -167,7 +168,7 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 bool		Levels::findGate(std::vector<std::vector<char> > map)
 {
 	for (size_t x = 0; x < map.size(); x++ )
-		for (size_t y = 0; y < map.size(); y++ )
+		for (size_t y = 0; y < map[x].size(); y++ )
 			if (map[x][y] == 'G')
 				return (true);
 	return (false);
