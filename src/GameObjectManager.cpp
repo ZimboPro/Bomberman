@@ -27,10 +27,6 @@ GameObjectManager::~GameObjectManager()
 void GameObjectManager::init()
 {
 	_factory.initModelTextures();
-	// _staticObjects = _factory.genStaticObjects();
-	// _dynamicObjects = _factory.genDynamicAndPickUpObjects();
-	// _grass = _factory.genGrass();
-	// _initialized = true;
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -38,12 +34,24 @@ void GameObjectManager::drawAll(Shaders & shader)
 	if (!_initialized) throw Error::AssetError("Models not initialized");
 	
 	for (auto &_staticObject : _staticObjects)
+	{
 		for (auto &x : _staticObject)
 		{
 			if(x->isLoaded())
 				x->Draw(shader);
 		}
+	}
+	// std::cout << "-";
 
+	// for(size_t row = 0; row < _staticObjects.size(); row++)
+	// {
+	// 	for(size_t col = 0; col < _staticObjects[row].size(); col++)
+	// 	{
+	// 		if (_staticObjects[row][col]->isLoaded())
+	// 			_staticObjects[row][col]->Draw(shader);
+	// 	}
+	// }
+	// std::cout << "1st\n";
 	for (auto &_grass : *_grass)
 	{
 		_grass->Draw(shader);
@@ -54,6 +62,7 @@ void GameObjectManager::drawAll(Shaders & shader)
 		if (_dynamicObject->isLoaded())
 			_dynamicObject->Draw(shader);
 	}
+
 }
 
 void GameObjectManager::updateAll(float elapsedTime)
@@ -98,11 +107,19 @@ void GameObjectManager::clearObjects()
 {
 	if (_staticObjects.size() > 0)
 	{
+		// _staticObjects.clear();
+		for (size_t i = 0; i < _staticObjects.size(); i++)
+		{
+			_staticObjects[i].clear();
+		}
+		std::cout << "Clear" << std::endl;
 		_staticObjects.clear();
 		_dynamicObjects->clear();
 		delete _dynamicObjects;
+		std::cout << "Clear" << std::endl;
 		_grass->clear();
 		delete _grass;
+		std::cout << "Clear" << std::endl;
 	}
 }
 

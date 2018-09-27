@@ -22,11 +22,11 @@ Levels::Levels(Levels const & src)
 
 Levels::~Levels() 
 {
-	// for(size_t row = 0; row < _lastMap.size(); row++)
-	// {
-	// 	_lastMap[row].clear();
-	// }
-	// _lastMap.clear();
+	for(size_t row = 0; row < _lastMap.size(); row++)
+	{
+		_lastMap[row].clear();
+	}
+	_lastMap.clear();
 }
 
 Levels & Levels::operator=(Levels const & src)
@@ -194,6 +194,12 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	const Save	temp(this->_lastMap, health, score, timeLeft, enemyTotal, seed);
 	const Save const *pointer = & temp; 
 	// open file stream
+	std::ifstream ifs("save.data");
+	if (ifs.good())
+	{
+		ifs.close();
+		remove("save.data");
+	}
 	std::ofstream ofs("save.data");
 	// create output archive object with stream
 	boost::archive::text_oarchive oa(ofs);
