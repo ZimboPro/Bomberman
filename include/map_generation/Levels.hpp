@@ -48,6 +48,12 @@ class Levels {
 		int				distanceToPlayer(int row, int col);
 		int				getEnemiesKilled ( void );		
 
+		void				setSeed( int value );
+		void				setTimeLeft (  float value );
+		void				setScore(  int value );
+		void				setHealth(  int value );
+		void				setEnemiesKilled (  int value );		
+
 	private:
 		bool			_gate = false;
 		int				_seed = 0;

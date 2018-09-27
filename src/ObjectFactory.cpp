@@ -91,9 +91,6 @@ VisibleGameObject * ObjectFactory::newVGO(objectTypes type, float x, float y)
 
 std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> ObjectFactory::genStaticObjects()
 {
-	std::cout << "GenStaticObjects" << std::endl;
-	std::cout << Map::height() << std::endl;
-	std::cout << Map::width() << std::endl;
 	std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> result;
 
 	for (size_t y = 0; y < Map::height(); y++)

@@ -91,16 +91,13 @@ void GameObjectManager::changeLevel(int seed)
 		killItWithFire();
 	Map::readInRandomMap(seed);
 	initLevel();
+	Map::printMap();
 }
 
 void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)
 {
-	Map::printMap();
-	clearObjects();
 	Map::setMap(map);
 	initLevel();
-	std::cout << "\n";
-	Map::printMap();
 }
 
 void GameObjectManager::clearObjects()
@@ -179,6 +176,7 @@ bool GameObjectManager::setFireAndContinue(float x, float y)
 		{
 			_staticObjects[y][x]->kill();
 			addDynamicObject(fire, x, y);
+			Map::removeAtPosition(x, y);
 			return true;
 		}
 		else

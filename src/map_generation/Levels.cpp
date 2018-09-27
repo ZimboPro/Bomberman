@@ -161,7 +161,7 @@ void			Levels::fixMap(std::vector<std::vector<char> > map, int enemiesKilled)
 {
 	for (size_t y = 0; y < this->_lastMap.size(); y++)
 	{
-		for (size_t x = 0; x < this->_lastMap.size(); x++)
+		for (size_t x = 0; x < this->_lastMap[y].size(); x++)
 		{
 			if (this->_lastMap[y][x] == '4' || this->_lastMap[y][x] == '5')
 			{
@@ -192,7 +192,7 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	else
 		seed = 0;
 	const Save	temp(this->_lastMap, health, score, timeLeft, enemyTotal, seed);
-	const Save const *pointer = & temp; 
+	const Save *pointer = & temp; 
 	// open file stream
 	std::ifstream ifs("save.data");
 	if (ifs.good())
@@ -210,20 +210,24 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 // load the map
 std::vector<std::vector<char> >			Levels::load( void )
 {
-	Save	temp;
+	Save	*temp;
 	// open a read stream
 	std::ifstream ifs("save.data");
 	// create the read archive class with the stream
 	boost::archive::text_iarchive		ia(ifs);
 	// load the read archive to map
 	ia >> temp;
-	this->_playerHealth = temp.getHealth();
-	this->_score = temp.getScore();
-	this->_timeLeft = temp.getTimeLeft();
-	this->_lastMap = temp.getSave();
-	this->_enemiesKilled = temp.getEnemiesKilled();
-	this->_seed = temp.getSeed();
-	return (temp.getSave());
+	this->_playerHealth = temp->getHealth();
+	GameInterface::setLives(this->_playerHealth);
+	this->_score = temp->getScore();
+	GameInterface::setScore(this->_score);
+	this->_timeLeft = temp->getTimeLeft();
+	GameInterface::setTime(this->_timeLeft);
+	this->_lastMap = temp->getSave();
+	this->_enemiesKilled = temp->getEnemiesKilled();
+	GameInterface::setNumEnemies(this->_enemiesKilled);
+	this->_seed = temp->getSeed();
+	return (temp->getSave());
 }
 
 // toggle Debug
@@ -294,4 +298,29 @@ float	Levels::getTimeLeft ( void )
 int		Levels::getEnemiesKilled ( void )
 {
 	return (this->_enemiesKilled);
+}
+
+void	Levels::setEnemiesKilled(int value)
+{
+	this->_enemiesKilled = value;
+}
+
+void	Levels::setTimeLeft(float value)
+{
+	this->_timeLeft = value;
+}
+
+void	Levels::setSeed(int value)
+{
+	this->_seed = value;
+}
+
+void	Levels::setScore(int value)
+{
+	this->_score = value;
+}
+
+void	Levels::setHealth(int value)
+{
+	this->_health = value;
 }
