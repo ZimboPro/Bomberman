@@ -6,21 +6,29 @@
 #define BOMBERMAN_GOOMBA_H
 
 #include "VisibleGameObject.hpp"
-
+/*
+** Goomba class inherits from VisibleGameObject
+*/
 class Goomba: public VisibleGameObject
 {
 public:
+	// Default Goomba constructor
 	Goomba();
+	// Goomba constructor - takes in reference to model texture as well as x and y position of the model
 	Goomba(Model_Texture & texture, float x, float y);
+	// Goomba constructor - takes in a reference to a vector of model texture pointers and the x and y of each model
 	Goomba(std::vector<Model_Texture *> & textures, float x, float y);
+	// Goomba copy contructor - to ensure it conforms to Coplien form
 	Goomba(Goomba const & src);
+	// Goomba destructor
 	~Goomba();
 
+	// Bounding box for Goomba object
 	BoundingBox getBoundingBox();
+	// 
 	virtual void Draw(Shaders & shader);
 
 	void Update(float & timeElapsed);
-	// void Delay(void);
 
 private:
 	void dying(float & timeElapsed);
