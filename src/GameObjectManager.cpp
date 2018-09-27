@@ -91,7 +91,6 @@ void GameObjectManager::changeLevel(int seed)
 		killItWithFire();
 	Map::readInRandomMap(seed);
 	initLevel();
-	Map::printMap();
 }
 
 void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)

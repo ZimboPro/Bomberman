@@ -251,6 +251,7 @@ void Game::playGame()
 		}
 		catch(std::exception &e)
 		{
+			_loadedLevel = !_loadedLevel;
 			std::cout << std::endl << e.what() << std::endl;
 			_gameState = ShowingStartGameMenu;
 		}
