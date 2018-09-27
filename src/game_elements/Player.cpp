@@ -241,8 +241,8 @@ void Player::Update(float & timeElapsed)
 			{
 				_isDying = true;
 				_sound->stopAllSounds();
-				if (Game::_settings.music)
-					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
+				if (Game::_settings.sound && GameInterface::stillAlive())
+					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
 			}
 			break;
 		case goomba:
@@ -250,8 +250,8 @@ void Player::Update(float & timeElapsed)
 			{
 				_isDying = true;
 				_sound->stopAllSounds();
-				if (Game::_settings.music)
-					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
+				if (Game::_settings.sound)
+					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
 			}
 			break;
 		case koopaTroopa:
@@ -259,17 +259,10 @@ void Player::Update(float & timeElapsed)
 			{
 				_isDying = true;
 				_sound->stopAllSounds();
-				if (Game::_settings.music)
-					_sound->playSong("../../Assets/sounds/gameplay/mario_dies.wav", false);
+				if (Game::_settings.sound)
+					_sound->playSound("../../Assets/sounds/gameplay/mario_dies.wav");
 			}
 			break;
-		case powerBlock:
-			if (Game::_settings.sound)
-				_sound->playSound("../../Assets/sounds/gameplay/get_power_up.wav");
-			break;
-		case healthBlock:
-			if (Game::_settings.sound)
-				_sound->playSound("../../Assets/sounds/gameplay/pickup_health.wav");
 		case gate:
 			if(GameInterface::allEnemiesDead())
 			{
