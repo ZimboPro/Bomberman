@@ -84,6 +84,7 @@ void Game::gameLoop()
 			showMenu();
 			break;
 		case Game::Exiting:
+			exit(0);
 			break;
 		case Game::ShowingOptions:
 			showOptions();
