@@ -316,11 +316,8 @@ void Player::fixCameraPosition()
 	else if (posPlayer.z >= 25.0f || Game::_camera.Position.z > 25.0f)
 		Game::_camera.Position.z = 25.0f;
 }
-<<<<<<< HEAD
 
 Rectangle Player::getBoundBox()
 {
 	return this->_models[0]->getBoundingRectangle();
 }
-=======
->>>>>>> master
