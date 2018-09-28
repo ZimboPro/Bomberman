@@ -67,6 +67,11 @@ int LevelSelectMenu::show(Shaders & shader, Shaders & brightShader)
 		{
 			break;
         }
+		if (Game::_window.closed() || Game::keyTyped() == eKeys::Escape)
+		{
+			this->_selected = MenuResult::Back;
+			break;
+		}
 		if (temp != _selected && Game::_settings.sound)
 			_sound->playSound("../../Assets/sounds/button_press/select_settings.wav");
 		Game::_window.update();

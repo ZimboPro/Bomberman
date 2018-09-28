@@ -113,6 +113,13 @@ void Game::wonLevel()
 	_wonLevel = true;
 	levelPassed.show();
 	_startLevel += 1;
+	if (_startLevel > 3)
+	{
+		GameWon gamewon;
+		gamewon.show();
+		setGameStateGameWon();
+		_gameState = ShowingMenu;
+	}
 	_gameState = Playing;
 }
 
@@ -238,6 +245,7 @@ void Game::playGame()
 		_wonLevel = false;
 	_interface.resetTime(300);
 	_interface.resetPostions();
+	_interface.resetRangeMultiplier();
 
 	if (_loadedLevel)
 	{
@@ -268,7 +276,7 @@ void Game::playGame()
 		sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
 	while(_gameState == Game::Playing)
 	{
-		_window.clear(0.2588f, 0.7961f, 0.8196f);
+		_window.clear(0.34375f, 0.6328125f, 0.17578125f);
 		_camera.SetShaderView(shader, _window.Width(), _window.Height());
 
 		shader.setVec3("light", glm::vec3(-30, 30, 30));
@@ -299,7 +307,6 @@ void Game::playGame()
 
 		if (_window.closed())
 		{
-			// GameObjectManager::killItWithFire();
 			_gameState = Exiting;
 		}
 	}

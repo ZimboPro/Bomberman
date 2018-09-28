@@ -35,7 +35,8 @@ private:
 	Model_Texture * _breakableBlock;
 	Model_Texture * _powerBlock;
 	Model_Texture * _healthBlock;
-	Model_Texture * _grass;
+	Model_Texture * _grassLight;
+	Model_Texture * _grassDark;
 	Model_Texture * _bomb;
 	Model_Texture * _fire;
 	Model_Texture * _pipe;

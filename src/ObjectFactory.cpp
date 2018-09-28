@@ -40,7 +40,8 @@ ObjectFactory::~ObjectFactory()
 	delete _breakableBlock;
 	delete _powerBlock;
 	delete _healthBlock;
-	delete _grass;
+	delete _grassLight;
+	delete _grassDark;
 	delete _fire;
 }
 
@@ -56,6 +57,7 @@ void ObjectFactory::initModelTextures()
 	Game::_loadingScreen.display();
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_2.obj"));
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_1.obj"));
+	
 	Game::_loadingScreen.display();	
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_3.obj"));
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_burnt.obj"));
@@ -63,6 +65,7 @@ void ObjectFactory::initModelTextures()
 	Game::_loadingScreen.display();
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_2.obj"));
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_1.obj"));
+	
 	Game::_loadingScreen.display();	
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_3.obj"));
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_burnt.obj"));
@@ -70,13 +73,16 @@ void ObjectFactory::initModelTextures()
 	Game::_loadingScreen.display();
 	_unbreakableBlock = new Model_Texture("../../Assets/game_models/iron_block.obj");
 	_breakableBlock = new Model_Texture("../../Assets/game_models/brick_block.obj");
+	
 	Game::_loadingScreen.display();	
 	_powerBlock = new Model_Texture("../../Assets/game_models/power_up.obj");
 	_healthBlock = new Model_Texture("../../Assets/game_models/heart.obj");
 	
 	Game::_loadingScreen.display();
-	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
+	_grassLight = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
+	_grassDark = new Model_Texture("../../Assets/game_models/grass_block_dark.obj");
 	_bomb = new Model_Texture("../../Assets/game_models/bomb_carry.obj");
+	
 	Game::_loadingScreen.display();	
 	_fire = new Model_Texture("../../Assets/game_models/fire.obj");
 	_pipe = new Model_Texture("../../Assets/game_models/pipe.obj");
@@ -143,8 +149,12 @@ std::list<std::shared_ptr<VisibleGameObject>> * ObjectFactory::genGrass()
 	for (size_t y = 0; y < Map::height(); y++)
 		for (size_t x = 0; x < Map::width(); x++)
 		{
-			std::shared_ptr<VisibleGameObject> grassPtr(new Grass(*_grass, x, y));
-			result->push_back(grassPtr);
+			std::shared_ptr<VisibleGameObject> grassLightPtr(new Grass(*_grassLight, x, y));
+			std::shared_ptr<VisibleGameObject> grassDarkPtr(new Grass(*_grassDark, x, y));
+			if (rand() % 10 < 5)
+				result->push_back(grassLightPtr);
+			else
+				result->push_back(grassDarkPtr);
 		}
 	return result;
 }

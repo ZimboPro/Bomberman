@@ -68,7 +68,7 @@ int KeyBindMenu::show(Shaders & shader, Shaders & brightShader)
 				break;
 			changeSettings();
 		}
-		if (Game::keyTyped() == eKeys::Escape)
+		if (Game::keyTyped() == eKeys::Escape || Game::_window.closed())
 		{
 			this->_selected = Options::Back;
 			break;
