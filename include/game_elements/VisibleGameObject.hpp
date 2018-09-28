@@ -33,6 +33,8 @@ public:
 	virtual BoundingBox getBoundingBox();
 	virtual void setDirection(float direction);
 	virtual void kill();
+	virtual Rectangle getBoundBox();
+	virtual bool Collision(Rectangle box);
 
 	virtual glm::vec3 getPosition();
 

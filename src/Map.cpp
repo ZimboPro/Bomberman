@@ -19,14 +19,9 @@ char Map::at(int x, int y)
 	return _map[y][x];
 }
 
-int Map::getLevel()
+void Map::removeAtPosition(int x, int y)
 {
-	return _currentWorkingLevel;
-}
-
-void Map::levelUp()
-{
-	_currentWorkingLevel++;
+	_map[y][x] = '0';
 }
 
 size_t Map::height()
@@ -60,12 +55,6 @@ std::vector<std::vector<char >> Map::getLevelHolder()
 	return _map;
 }
 
-void Map::levelDown()
-{
-	if (_currentWorkingLevel > 0)
-		_currentWorkingLevel--;
-}
-
 float Map::getPlayerStartX()
 {
 	return _playerStartX;
@@ -89,7 +78,12 @@ void Map::readInRandomMap(int seed)
 
 void Map::setMap(std::vector<std::vector<char>> map)
 {
+	std::cout << map.size() << std::endl;
+	std::cout << map[0].size() << std::endl;
 	_map = map;
+	std::cout << std::endl;
+	std::cout << _map.size() << std::endl;
+	std::cout << _map[0].size() << std::endl;
 }
 
 void Map::destroyEverything()
@@ -101,7 +95,6 @@ void Map::destroyEverything()
 	_map.clear();
 }
 
-int Map::_currentWorkingLevel = 0;
 Levels Map::_levels;
 std::vector<std::vector<char>> Map::_map;
 float Map::_playerStartX = 0;

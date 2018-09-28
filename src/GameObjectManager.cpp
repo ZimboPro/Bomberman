@@ -27,10 +27,6 @@ GameObjectManager::~GameObjectManager()
 void GameObjectManager::init()
 {
 	_factory.initModelTextures();
-	// _staticObjects = _factory.genStaticObjects();
-	// _dynamicObjects = _factory.genDynamicAndPickUpObjects();
-	// _grass = _factory.genGrass();
-	// _initialized = true;
 }
 
 void GameObjectManager::drawAll(Shaders & shader)
@@ -38,12 +34,24 @@ void GameObjectManager::drawAll(Shaders & shader)
 	if (!_initialized) throw Error::AssetError("Models not initialized");
 	
 	for (auto &_staticObject : _staticObjects)
+	{
 		for (auto &x : _staticObject)
 		{
 			if(x->isLoaded())
 				x->Draw(shader);
 		}
+	}
+	// std::cout << "-";
 
+	// for(size_t row = 0; row < _staticObjects.size(); row++)
+	// {
+	// 	for(size_t col = 0; col < _staticObjects[row].size(); col++)
+	// 	{
+	// 		if (_staticObjects[row][col]->isLoaded())
+	// 			_staticObjects[row][col]->Draw(shader);
+	// 	}
+	// }
+	// std::cout << "1st\n";
 	for (auto &_grass : *_grass)
 	{
 		_grass->Draw(shader);
@@ -54,6 +62,7 @@ void GameObjectManager::drawAll(Shaders & shader)
 		if (_dynamicObject->isLoaded())
 			_dynamicObject->Draw(shader);
 	}
+
 }
 
 void GameObjectManager::updateAll(float elapsedTime)
@@ -86,18 +95,19 @@ void GameObjectManager::changeLevel(int seed)
 
 void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)
 {
-	Map::printMap();
-	clearObjects();
 	Map::setMap(map);
 	initLevel();
-	std::cout << "\n";
-	Map::printMap();
 }
 
 void GameObjectManager::clearObjects()
 {
 	if (_staticObjects.size() > 0)
 	{
+		// _staticObjects.clear();
+		for (size_t i = 0; i < _staticObjects.size(); i++)
+		{
+			_staticObjects[i].clear();
+		}
 		_staticObjects.clear();
 		_dynamicObjects->clear();
 		delete _dynamicObjects;
@@ -150,7 +160,11 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 	if (type != bomb || !_staticObjects[y][x]->isLoaded())
 	{
 		std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
-		_dynamicObjects->push_back(obj);
+		BoundingBox box = obj.get()->getBoundingBox();
+		if (type == bomb && collidesWith(box, type) == grass)
+			_dynamicObjects->push_back(obj);
+		else if (type != bomb)
+			_dynamicObjects->push_back(obj);
 	}
 }
 
@@ -162,6 +176,7 @@ bool GameObjectManager::setFireAndContinue(float x, float y)
 		{
 			_staticObjects[y][x]->kill();
 			addDynamicObject(fire, x, y);
+			Map::removeAtPosition(x, y);
 			return true;
 		}
 		else
@@ -283,7 +298,22 @@ objectTypes GameObjectManager::collidesWith(BoundingBox & box, objectTypes type)
 		{
 			objectTypes collType = (*iter)->getType();
 			if((collType == healthBlock || collType == powerBlock) && type == player)
+			{
+				if (collType == healthBlock )
+				{
+					if (Game::_settings.sound)
+						ServiceLocator::getAudio()->playSound("../../Assets/sounds/gameplay/pickup_health.wav");
+					GameInterface::adjustLives(1);
+				}
+				else
+				{
+					if (Game::_settings.sound)
+						ServiceLocator::getAudio()->playSound("../../Assets/sounds/gameplay/get_power_up.wav");
+					GameInterface::increaseRangeMultiplier();
+					GameInterface::adjustScore(20);
+				}
 				_dynamicObjects->erase(iter);
+			}
 			return collType;
 		}
 	}
@@ -294,6 +324,29 @@ void GameObjectManager::killItWithFire()
 {
 	clearObjects();
 	Map::destroyEverything();
+}
+
+void GameObjectManager::collidesWithPlayer()
+{
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if ((*iter).get()->getType() == player)
+		{
+			Rectangle box = (*iter).get()->getBoundBox();
+			for (auto fireIter = _dynamicObjects->begin(); fireIter != _dynamicObjects->end(); fireIter++)
+			{
+				if ((*fireIter).get()->getType() == fire)
+				{
+					if ((*fireIter).get()->Collision(box))
+					{
+						(*iter).get()->kill();
+						return;
+					}
+				}
+			}
+			break;
+		}
+	}
 }
 
 std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> GameObjectManager::_staticObjects;

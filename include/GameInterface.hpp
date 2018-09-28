@@ -43,6 +43,11 @@ class GameInterface
         static bool completedLevel();
         static void setLevelCompleted(bool complete);
 
+        static void setLives(int value);
+        static void setScore(int value);
+        static void setTime(float value);
+        static void setNumEnemies(int value);
+
     private:
         static Model_Sprite * _model;
         static Shaders * _shader;

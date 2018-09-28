@@ -92,3 +92,13 @@ objectTypes	VisibleGameObject::getType()
 {
 	return _type;
 }
+
+Rectangle VisibleGameObject::getBoundBox()
+{
+	return this->_model.getBoundingRectangle();
+}
+
+bool VisibleGameObject::Collision(Rectangle box)
+{
+	return this->_model.isColliding(box);
+}

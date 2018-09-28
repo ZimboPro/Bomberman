@@ -47,26 +47,37 @@ ObjectFactory::~ObjectFactory()
 void ObjectFactory::initModelTextures()
 {
 	//todo display loading screen
+	Game::_loadingScreen.reset();
+	Game::_loadingScreen.display();
 	_player.emplace_back(new Model_Texture("../../Assets/game_models/mario_walking_2.obj"));
 	_player.emplace_back(new Model_Texture("../../Assets/game_models/mario_walking_1.obj"));
 	_player.emplace_back(new Model_Texture("../../Assets/game_models/mario_walking_3.obj"));
 	
+	Game::_loadingScreen.display();
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_2.obj"));
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_1.obj"));
+	Game::_loadingScreen.display();	
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_3.obj"));
 	_goomba.emplace_back(new Model_Texture("../../Assets/game_models/goomba_burnt.obj"));
 	
+	Game::_loadingScreen.display();
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_2.obj"));
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_1.obj"));
+	Game::_loadingScreen.display();	
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_3.obj"));
 	_koopaTroopa.emplace_back(new Model_Texture("../../Assets/game_models/koopa_troopa_burnt.obj"));
 	
+	Game::_loadingScreen.display();
 	_unbreakableBlock = new Model_Texture("../../Assets/game_models/iron_block.obj");
 	_breakableBlock = new Model_Texture("../../Assets/game_models/brick_block.obj");
+	Game::_loadingScreen.display();	
 	_powerBlock = new Model_Texture("../../Assets/game_models/power_up.obj");
 	_healthBlock = new Model_Texture("../../Assets/game_models/heart.obj");
+	
+	Game::_loadingScreen.display();
 	_grass = new Model_Texture("../../Assets/game_models/grass_block_light.obj");
 	_bomb = new Model_Texture("../../Assets/game_models/bomb_carry.obj");
+	Game::_loadingScreen.display();	
 	_fire = new Model_Texture("../../Assets/game_models/fire.obj");
 	_pipe = new Model_Texture("../../Assets/game_models/pipe.obj");
 }
@@ -91,9 +102,6 @@ VisibleGameObject * ObjectFactory::newVGO(objectTypes type, float x, float y)
 
 std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> ObjectFactory::genStaticObjects()
 {
-	std::cout << "GenStaticObjects" << std::endl;
-	std::cout << Map::height() << std::endl;
-	std::cout << Map::width() << std::endl;
 	std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> result;
 
 	for (size_t y = 0; y < Map::height(); y++)

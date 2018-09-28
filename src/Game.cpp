@@ -84,6 +84,7 @@ void Game::gameLoop()
 			showMenu();
 			break;
 		case Game::Exiting:
+			exit(0);
 			break;
 		case Game::ShowingOptions:
 			showOptions();
@@ -109,6 +110,7 @@ void Game::wonLevel()
 	GameObjectManager::killItWithFire();
 	LevelPassed levelPassed;
 	_loadedLevel = false;
+	_wonLevel = true;
 	levelPassed.show();
 	_startLevel += 1;
 	_gameState = Playing;
@@ -135,7 +137,7 @@ void Game::showPauseMenu()
 	if (selection == PauseMenu::Quit)
 	{
 		GameObjectManager::clearObjects();
-		_gameState = ShowingMenu;
+		_gameState = Exiting;
 	}
 	if (selection == PauseMenu::Save)
 		save();
@@ -238,8 +240,26 @@ void Game::playGame()
 	GameObjectManager::init();
 	GameObjectManager::newLevel(Game::_startLevel);
 
+	if (!_wonLevel)
+		_interface.resetHOD();
+	else
+		_wonLevel = false;
+	_interface.resetTime(300);
+	_interface.resetPostions();
+
 	if (_loadedLevel)
-		GameObjectManager::loadLevel(Map::_levels.load());
+	{
+		try
+		{
+			GameObjectManager::loadLevel(Map::_levels.load());
+		}
+		catch(std::exception &e)
+		{
+			_loadedLevel = !_loadedLevel;
+			std::cout << std::endl << e.what() << std::endl;
+			_gameState = ShowingStartGameMenu;
+		}
+	}
 	_interface.setLevelCompleted(false);
 	sf::Clock clock;
 
@@ -251,9 +271,6 @@ void Game::playGame()
 	IAudioProvider * sound = ServiceLocator::getAudio();
 	sound->setSoundLevel(_settings.volume * 20);
 
-	_interface.resetHOD();
-	_interface.resetTime(300);
-	_interface.resetPostions();
 	sound->stopAllSounds();
 	if (_settings.music)
 		sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
@@ -291,7 +308,7 @@ void Game::playGame()
 		if (_window.closed())
 		{
 			// GameObjectManager::killItWithFire();
-			_gameState = ShowingMenu;
+			_gameState = Exiting;
 		}
 	}
 	return ;
@@ -331,7 +348,15 @@ void Game::save()
 			}
 		}
 	}
-
+	std::cout << std::endl;
+	for(size_t row = 0; row < saveMap.size(); row++)
+	{
+		for(size_t col = 0; col < saveMap[row].size(); col++)
+		{
+			std::cout << saveMap[row][col];
+		}
+		std::cout << std::endl;
+	}
 	Map::_levels.save(saveMap, enemiesKilled, lives, score, timeLeft);
 }
 
@@ -444,4 +469,5 @@ LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, false, eVolume::v100, false};
 bool Game::_KeyBind = false;
 bool Game::_loadedLevel = false;
+bool Game::_wonLevel = false;
 int	Game::_startLevel = 0;
