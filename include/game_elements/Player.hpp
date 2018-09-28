@@ -37,6 +37,7 @@ private:
 	void placeBombX(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos, bool ceil);
 	void placeBombY(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos, bool ceil);
 	void aboutToDie();
+	void randomDenialSound();
 
 	int _index;
 	int _prevIndex;

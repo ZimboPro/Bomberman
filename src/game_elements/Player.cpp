@@ -247,6 +247,10 @@ void Player::Update(float & timeElapsed)
 				if (Game::_settings.sound)
 					_sound->playSound("../../Assets/sounds/gameplay/jump_into_pipe.wav");
 			}
+			else
+			{
+				randomDenialSound();
+			}
 			break;
 		default:
 			break;
@@ -327,4 +331,24 @@ Rectangle Player::getBoundBox()
     temp.y1 += pos.z;
     temp.y2 += pos.z;
 	return temp;
+}
+
+void Player::randomDenialSound()
+{
+	int rng = rand() % 10;
+	if (rng < 4)
+	{
+		if (Game::_settings.sound && !_sound->isSoundPlaying())
+			_sound->playSound("../../Assets/sounds/gameplay/clever.wav");
+	}
+	else if (rng > 7)
+	{
+		if (Game::_settings.sound && !_sound->isSoundPlaying())
+			_sound->playSound("../../Assets/sounds/gameplay/shallnotpass.wav");
+	}
+	else
+	{
+		if (Game::_settings.sound && !_sound->isSoundPlaying())
+			_sound->playSound("../../Assets/sounds/gameplay/work.wav");
+	}
 }
