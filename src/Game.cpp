@@ -239,8 +239,22 @@ void Game::playGame()
 	GameObjectManager::init();
 	GameObjectManager::newLevel(Game::_startLevel);
 
+	_interface.resetHOD();
+	_interface.resetTime(300);
+	_interface.resetPostions();
+
 	if (_loadedLevel)
-		GameObjectManager::loadLevel(Map::_levels.load());
+	{
+		try
+		{
+			GameObjectManager::loadLevel(Map::_levels.load());
+		}
+		catch(std::exception &e)
+		{
+			std::cout << std::endl << e.what() << std::endl;
+			_gameState = ShowingStartGameMenu;
+		}
+	}
 	_interface.setLevelCompleted(false);
 	sf::Clock clock;
 
@@ -252,9 +266,6 @@ void Game::playGame()
 	IAudioProvider * sound = ServiceLocator::getAudio();
 	sound->setSoundLevel(_settings.volume * 20);
 
-	_interface.resetHOD();
-	_interface.resetTime(300);
-	_interface.resetPostions();
 	sound->stopAllSounds();
 	if (_settings.music)
 		sound->playSong("../../Assets/sounds/background_music/gameplay_background_track.wav", true);
@@ -332,7 +343,15 @@ void Game::save()
 			}
 		}
 	}
-
+	std::cout << std::endl;
+	for(size_t row = 0; row < saveMap.size(); row++)
+	{
+		for(size_t col = 0; col < saveMap[row].size(); col++)
+		{
+			std::cout << saveMap[row][col];
+		}
+		std::cout << std::endl;
+	}
 	Map::_levels.save(saveMap, enemiesKilled, lives, score, timeLeft);
 }
 

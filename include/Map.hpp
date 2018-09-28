@@ -17,8 +17,6 @@ public:
 
 	static char at(int x, int y);
 	static int getLevel();
-	static void levelUp();
-	static void levelDown();
 	static size_t width();
 	static size_t height();
 	static size_t size();
@@ -30,10 +28,10 @@ public:
 	static float getPlayerStartX();
 	static float getPlayerStartY();
 	static void	setMap(std::vector<std::vector<char>> map);
+	static void removeAtPosition(int x, int y);
 	static void destroyEverything();
 
 private:
-	static int _currentWorkingLevel;
 	static std::vector<std::vector<char>> _map;
 	static float _playerStartX;
 	static float _playerStartY;

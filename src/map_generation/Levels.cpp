@@ -6,11 +6,12 @@
 /*   By: mafernan   <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 11/30/15 by mafernan          #+#    #+#             */
-/*   Updated: 2018/09/21 15:21:59 by mafernan         ###   ########.fr       */
+/*   Updated: 2018/09/27 13:16:02 by mafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_generation/Levels.hpp"
+#include "Error.hpp"
 #include <cmath>
 
 Levels::Levels() {}
@@ -46,9 +47,10 @@ char	Levels::populate(int row, int col )
 
 	if (random >= 80)
 	{
-		if (random >= 80 && random <= 85 && this->_gate == false)
+		if (random >= 80 && random <= 90 && this->_gate == false)
 		{
 			this->_gate = true;
+			std::cout << "==================== gate : added ====================" << std::endl;
 			return ('G');
 		}
 		if (rand() % 100 < 5)
@@ -91,69 +93,85 @@ std::vector<std::vector<char> >	 Levels::makeMap( int seed )
 	char			type = '0';
 	int				enemyTotal = this->_enemyTotal;
 	std::vector<std::vector<char> >	result;
-	
+
 	// _lvl = (rand() % 3) + 1;
 	// check if seed number given is positive
-	if (seed > 0 && seed < 4)
+	this->_gate = false;
+	while (1)
 	{
-		this->_seed = seed;
-		this->_lvl = seed;
-	}
-	else
-		this->_seed = time(NULL);
-	// set srand to generate psuedo seed
-	srand(this->_seed);
-	result.resize(this->_height + 1);
-	if (this->_debug == 1)
-		std::cout << "creating map" << std::endl;
-	// loop thru vector and assign a type
-	for (int row = 0; row <= this->_height; row++)
-	{
-		result[row].resize(this->_width);
-		for (int col = 1; col <= this->_width; col++)
+		if (seed > 0 && seed < 4)
 		{
-			if (col == 3 && row == 3)
-				type = '3';
-			else if ((col == 4 && row == 3) || (col == 3 && row == 4))
-				type = '0';
-			else if ((col == 5 && row == 3) || (col == 3 && row == 5))
-				type = '0';
-			else if (col == 1 || col == this->_width || row == 1 || row == this->_height)
-				type = '0';
-			else if (row % 2 == 0 && col % 2 == 0)
-				type = '1';
-			else if ((col >= 2 && col <= this->_width -1) && (row == 2 || row == this->_height - 1))
-				type = '1';
-			else if ((row >= 2 && row <= this->_height - 1) && (col == 2 || col == this->_width - 1))
-				type = '1';
-			else if (row > 2 && row < this->_height && col > 2 && col < this->_width)
-				type = populate(row, col);
-			else
-				type = '0';
-			if (this->_debug == 1)
-				std::cout << type << " ";
-			result[row][col - 1] = type;
+			this->_seed = seed;
+			this->_lvl = seed;
 		}
-		type = '0';
+		else
+			this->_seed = time(NULL);
+		// set srand to generate psuedo seed
+		srand(this->_seed);
+		result.resize(this->_height + 1);
 		if (this->_debug == 1)
-			std::cout << " | " << row << std::endl;
+			std::cout << "creating map" << std::endl;
+		// loop thru vector and assign a type
+		for (int row = 0; row <= this->_height; row++)
+		{
+			result[row].resize(this->_width);
+			for (int col = 1; col <= this->_width; col++)
+			{
+				if (col == 3 && row == 3)
+					type = '3';
+				else if ((col == 4 && row == 3) || (col == 3 && row == 4))
+					type = '0';
+				else if ((col == 5 && row == 3) || (col == 3 && row == 5))
+					type = '0';
+				else if (col == 1 || col == this->_width || row == 1 || row == this->_height)
+					type = '0';
+				else if (row % 2 == 0 && col % 2 == 0)
+					type = '1';
+				else if ((col >= 2 && col <= this->_width -1) && (row == 2 || row == this->_height - 1))
+					type = '1';
+				else if ((row >= 2 && row <= this->_height - 1) && (col == 2 || col == this->_width - 1))
+					type = '1';
+				else if (row > 2 && row < this->_height && col > 2 && col < this->_width)
+					type = populate(row, col);
+				else
+					type = '0';
+				if (this->_debug == 1)
+					std::cout << type << " ";
+				result[row][col - 1] = type;
+			}
+			type = '0';
+			if (this->_debug == 1)
+				std::cout << " | " << row << std::endl;
+		}
+		// print out to see amount of blocks spawned
+		if (this->_debug == 1)
+		{
+			std::cout << "Total enemies not spawned : " << this->_enemyTotal << std::endl;
+			std::cout << "Total bricks spawned : " << this->_bricks << std::endl;
+			std::cout << "Total health spawned : " << this->_health << std::endl;
+			std::cout << "Total powers spawned : " << this->_power << std::endl;
+		}
+		// reset enemy total
+		this->_enemyTotal = enemyTotal;
+		// close file when done
+		result.erase(result.begin());
+		// save generated map
+		if (findGate(result) == true)
+			break ;
+		else
+			result.clear();
 	}
-	// print out to see amount of blocks spawned
-	if (this->_debug == 1)
-	{
-		std::cout << "Total enemies not spawned : " << this->_enemyTotal << std::endl;
-		std::cout << "Total bricks spawned : " << this->_bricks << std::endl;
-		std::cout << "Total health spawned : " << this->_health << std::endl;
-		std::cout << "Total powers spawned : " << this->_power << std::endl;
-	}
-	// reset enemy total
-	this->_enemyTotal = enemyTotal;
-	// close file when done
-	result.erase(result.begin());
-	// save generated map
 	this->_lastMap = result;
-	std::cout << "===================== gate : " << this->_gate << "================" << std::endl;
 	return (result);
+}
+
+bool		Levels::findGate(std::vector<std::vector<char> > map)
+{
+	for (size_t x = 0; x < map.size(); x++ )
+		for (size_t y = 0; y < map[x].size(); y++ )
+			if (map[x][y] == 'G')
+				return (true);
+	return (false);
 }
 
 // update current map with new map
@@ -161,7 +179,7 @@ void			Levels::fixMap(std::vector<std::vector<char> > map, int enemiesKilled)
 {
 	for (size_t y = 0; y < this->_lastMap.size(); y++)
 	{
-		for (size_t x = 0; x < this->_lastMap.size(); x++)
+		for (size_t x = 0; x < this->_lastMap[y].size(); x++)
 		{
 			if (this->_lastMap[y][x] == '4' || this->_lastMap[y][x] == '5')
 			{
@@ -192,7 +210,7 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	else
 		seed = 0;
 	const Save	temp(this->_lastMap, health, score, timeLeft, enemyTotal, seed);
-	const Save const *pointer = & temp; 
+	const Save *pointer = & temp; 
 	// open file stream
 	std::ifstream ifs("save.data");
 	if (ifs.good())
@@ -210,20 +228,28 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 // load the map
 std::vector<std::vector<char> >			Levels::load( void )
 {
-	Save	temp;
+	Save	*temp;
 	// open a read stream
 	std::ifstream ifs("save.data");
+	if (!ifs.good())
+	{
+		throw Error::SaveNotFound();
+	}
 	// create the read archive class with the stream
 	boost::archive::text_iarchive		ia(ifs);
 	// load the read archive to map
 	ia >> temp;
-	this->_playerHealth = temp.getHealth();
-	this->_score = temp.getScore();
-	this->_timeLeft = temp.getTimeLeft();
-	this->_lastMap = temp.getSave();
-	this->_enemiesKilled = temp.getEnemiesKilled();
-	this->_seed = temp.getSeed();
-	return (temp.getSave());
+	this->_playerHealth = temp->getHealth();
+	GameInterface::setLives(this->_playerHealth);
+	this->_score = temp->getScore();
+	GameInterface::setScore(this->_score);
+	this->_timeLeft = temp->getTimeLeft();
+	GameInterface::setTime(this->_timeLeft);
+	this->_lastMap = temp->getSave();
+	this->_enemiesKilled = temp->getEnemiesKilled();
+	GameInterface::setNumEnemies(this->_enemiesKilled);
+	this->_seed = temp->getSeed();
+	return (temp->getSave());
 }
 
 // toggle Debug
@@ -294,4 +320,29 @@ float	Levels::getTimeLeft ( void )
 int		Levels::getEnemiesKilled ( void )
 {
 	return (this->_enemiesKilled);
+}
+
+void	Levels::setEnemiesKilled(int value)
+{
+	this->_enemiesKilled = value;
+}
+
+void	Levels::setTimeLeft(float value)
+{
+	this->_timeLeft = value;
+}
+
+void	Levels::setSeed(int value)
+{
+	this->_seed = value;
+}
+
+void	Levels::setScore(int value)
+{
+	this->_score = value;
+}
+
+void	Levels::setHealth(int value)
+{
+	this->_health = value;
 }

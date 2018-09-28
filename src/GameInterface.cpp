@@ -188,3 +188,23 @@ void GameInterface::setLevelCompleted(bool complete)
 {
     _wonLevel = complete;
 }
+
+void GameInterface::setLives(int value)
+{
+    _lives = value;
+}
+
+void GameInterface::setNumEnemies(int value)
+{
+    _totalEnemiesInPlay = 5 - value;
+}
+
+void GameInterface::setScore(int value)
+{
+    _score = value;
+}
+
+void GameInterface::setTime(float value)
+{
+    _endTime = value;
+}
