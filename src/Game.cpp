@@ -110,6 +110,7 @@ void Game::wonLevel()
 	GameObjectManager::killItWithFire();
 	LevelPassed levelPassed;
 	_loadedLevel = false;
+	_wonLevel = true;
 	levelPassed.show();
 	_startLevel += 1;
 	_gameState = Playing;
@@ -136,7 +137,7 @@ void Game::showPauseMenu()
 	if (selection == PauseMenu::Quit)
 	{
 		GameObjectManager::clearObjects();
-		_gameState = ShowingMenu;
+		_gameState = Exiting;
 	}
 	if (selection == PauseMenu::Save)
 		save();
@@ -239,7 +240,10 @@ void Game::playGame()
 	GameObjectManager::init();
 	GameObjectManager::newLevel(Game::_startLevel);
 
-	_interface.resetHOD();
+	if (!_wonLevel)
+		_interface.resetHOD();
+	else
+		_wonLevel = false;
 	_interface.resetTime(300);
 	_interface.resetPostions();
 
@@ -304,7 +308,7 @@ void Game::playGame()
 		if (_window.closed())
 		{
 			// GameObjectManager::killItWithFire();
-			_gameState = ShowingMenu;
+			_gameState = Exiting;
 		}
 	}
 	return ;
@@ -465,4 +469,5 @@ LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, false, eVolume::v100, false};
 bool Game::_KeyBind = false;
 bool Game::_loadedLevel = false;
+bool Game::_wonLevel = false;
 int	Game::_startLevel = 0;

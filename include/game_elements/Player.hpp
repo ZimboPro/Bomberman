@@ -25,6 +25,7 @@ public:
 	void dropBomb();
 	void dying(float & timeElapsed);
 	void setCamera();
+	void aboutToDie();
 
 private:
 	void Move(float x, float y, float z = 0);
@@ -35,7 +36,6 @@ private:
 	void checks(float &timeElapsed);
 	void placeBombX(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos, bool ceil);
 	void placeBombY(float & bombX, float & bombY, float bombOffset, float moveX, float moveY, float pos, bool ceil);
-	void aboutToDie();
 
 	int _index;
 	int _prevIndex;
