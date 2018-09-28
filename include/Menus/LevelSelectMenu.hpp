@@ -25,7 +25,7 @@ class LevelSelectMenu : public IMenu
         LevelSelectMenu(LevelSelectMenu const & src);
         virtual ~LevelSelectMenu();
 
-		enum MenuResult {Random, lvl1, lvl2, lvl3, Back };
+		enum MenuResult { Infinite, Classic, Back };
 
 		struct MenuItem
 		{
