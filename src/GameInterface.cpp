@@ -11,6 +11,7 @@
 */
 
 Model_Sprite *          GameInterface::_model;
+Model_Sprite *          GameInterface::_bomb;
 Shaders *               GameInterface::_shader;
 Shaders *               GameInterface::_textShader;
 Text *                  GameInterface::_text;
@@ -20,6 +21,7 @@ std::vector<glm::vec2>  GameInterface::_postions;
 float                   GameInterface::_endTime = 10;
 int                     GameInterface::_lives = 3;
 float                   GameInterface::_rangeMultiplier = 1;
+int                     GameInterface::_bombMultiplier = 1;
 int                     GameInterface::_score = 0;
 int                     GameInterface::_troopaKilled = 0;
 int                     GameInterface::_goombaKilled = 0;
@@ -35,11 +37,13 @@ void GameInterface::deleteObjects()
     delete _model;
     delete _shader;
     delete _textShader;
+    delete _bomb;
 }
 
 void GameInterface::loadObjects()
 {
     _model = new Model_Sprite("../../Assets/pickups/heart.obj");
+    _bomb = new Model_Sprite("../../Assets/game_models/bomb_carry.obj");
     _text = new Text("../assets/shaders/OCRAEXT.TTF");
 
     _shader = new Shaders("../assets/shaders/vert/MeshVert.glsl","../assets/shaders/frag/MeshFrag.glsl");
@@ -51,16 +55,20 @@ void GameInterface::loadObjects()
 void GameInterface::resetPostions()
 {
     float y = Game::_window.Height() - Game::_window.Height() / 20;
-    float x = Game::_window.Width() / 4;
+    float x = Game::_window.Width() / 5;
     _projection = Game::_window.Projection();
 
     _postions.clear();
     _postions.push_back(glm::vec2(x * 1 - 60, y));
     _postions.push_back(glm::vec2(x * 2 - 60, y));
     _postions.push_back(glm::vec2(x * 3 - 60, y));
+    _postions.push_back(glm::vec2(x * 4 + 30, y));
     _model->Reset();
     _model->Position(x - 90.0f, -20.0f, y);
     _model->Scale(3);
+    _bomb->Reset();
+    _bomb->Position(x * 4, -20.0f, y);
+    _bomb->Scale(1);
 }
 
 void GameInterface::resetHOD()
@@ -78,10 +86,12 @@ void GameInterface::display()
     _shader->setMat4("projection", _projection);
 	_shader->setMat4("view", _view);
     _model->Draw(*_shader);
+    _bomb->Draw(*_shader);
 
     int timeLeft = _endTime - glfwGetTime();
     int min = timeLeft / 60;
     int sec = timeLeft % 60;
+    
 
     std::string s = std::to_string(sec);
     if (s.length() == 1)
@@ -90,6 +100,7 @@ void GameInterface::display()
     _text->Render(*_textShader, "x" + std::to_string(_lives), _postions[0].x, _postions[0].y, 1, _color, Game::_window.Width(), Game::_window.Height());
     _text->Render(*_textShader,std::to_string(min) + ":" + s , _postions[1].x, _postions[1].y, 1, _color, Game::_window.Width(), Game::_window.Height());
     _text->Render(*_textShader, "Score:" + std::to_string(_score), _postions[2].x, _postions[2].y, 1, _color, Game::_window.Width(), Game::_window.Height());
+    _text->Render(*_textShader, "x" + std::to_string(_bombMultiplier), _postions[3].x, _postions[3].y, 1, _color, Game::_window.Width(), Game::_window.Height());
 }
 
 int GameInterface::getRangeMultiplier()
@@ -100,11 +111,13 @@ int GameInterface::getRangeMultiplier()
 void GameInterface::increaseRangeMultiplier()
 {
     _rangeMultiplier += 0.5;
+    _bombMultiplier++;
 }
 
 void GameInterface::resetRangeMultiplier()
 {
     _rangeMultiplier = 1;
+    _bombMultiplier = 1;
 }
 
 void GameInterface::adjustLives(int lives)

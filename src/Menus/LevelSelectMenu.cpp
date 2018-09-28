@@ -62,7 +62,7 @@ int LevelSelectMenu::show(Shaders & shader, Shaders & brightShader)
 		if (Game::keyTyped() ==  eKeys::Up)
 			this->_selected = ((this->_selected - 1) < 0) ? MenuResult::Back : static_cast<MenuResult>(this->_selected - 1);
 		if (Game::keyTyped() == eKeys::Down)
-			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Random : static_cast<MenuResult>(this->_selected + 1);
+			this->_selected = ((this->_selected + 1) > MenuResult::Back) ? MenuResult::Infinite : static_cast<MenuResult>(this->_selected + 1);
 		if (Game::keyTyped() == eKeys::Select)
 		{
 			break;
@@ -82,62 +82,42 @@ int LevelSelectMenu::show(Shaders & shader, Shaders & brightShader)
 
 void LevelSelectMenu::loadMenu()
 {	
-	MenuItem random;
-	MenuItem lvl1;
-	MenuItem lvl2;
-	MenuItem lvl3;
+	MenuItem infinite;
+	MenuItem classic;
 	MenuItem back;
 
     Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
-	Model_Sprite *temp = new Model_Sprite("../../Assets/buttons/random.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 6) * 5);
-	temp->Scale(10);
-	temp->Rotate(15, glm::vec3(1, 0, 0));
-	random.button = temp;
-	random.action = MenuResult::Random;
+	Model_Sprite *temp = new Model_Sprite("../../Assets/buttons/infinite.obj");
+	temp->Position(-20, -20, (Game::_window.Height() << 1) / 3);
+	temp->Scale(7);
+	temp->Rotate(10, glm::vec3(1, 0, 0));
+	infinite.button = temp;
+	infinite.action = MenuResult::Infinite;
 
 	Game::_loadingScreen.reset();
 	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../../Assets/buttons/lvl1.1.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 6) * 4);
-	temp->Scale(10);
-	temp->Rotate(15, glm::vec3(1, 0, 0));
-	lvl1.button = temp;
-	lvl1.action = MenuResult::lvl1;
-
-	Game::_loadingScreen.display();
-	temp = new Model_Sprite("../../Assets/buttons/lvl1.2.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 6) * 3);
-	temp->Scale(10);
-	temp->Rotate(15, glm::vec3(0, 1, 0));
-	lvl2.button = temp;
-	lvl2.action = MenuResult::lvl2;
-
-    Game::_loadingScreen.display();
-	temp = new Model_Sprite("../../Assets/buttons/lvl1.3.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 6) * 2);
-	temp->Scale(10);
-	temp->Rotate(15, glm::vec3(0, 1, 0));
-	lvl3.button = temp;
-	lvl3.action = MenuResult::lvl3;
+	temp = new Model_Sprite("../../Assets/buttons/classic.obj");
+	temp->Position(-20, -20, (Game::_window.Height() >> 1));
+	temp->Scale(7);
+	temp->Rotate(10, glm::vec3(1, 0, 0));
+	classic.button = temp;
+	classic.action = MenuResult::Classic;
 
 	Game::_loadingScreen.display();
 	temp = new Model_Sprite("../../Assets/buttons/back.obj");
-	temp->Position(-20, -20, (Game::_window.Height() / 6));
+	temp->Position(-20, -20, (Game::_window.Height() >> 1) / 3);
 	temp->Scale(10);
-	temp->Rotate(15, glm::vec3(0, 1, 0));
+	temp->Rotate(15, glm::vec3(1, 0, 0));
 	back.button = temp;
 	back.action = MenuResult::Back;
 	
 	Game::_loadingScreen.display();
-	this->_menuItems.push_back(random);
-	this->_menuItems.push_back(lvl1);
-	this->_menuItems.push_back(lvl2);
-	this->_menuItems.push_back(lvl3);
+	this->_menuItems.push_back(infinite);
+	this->_menuItems.push_back(classic);
 	this->_menuItems.push_back(back);
 
-	this->_selected = MenuResult::Random;
+	this->_selected = MenuResult::Infinite;
 }
 
 void LevelSelectMenu::deleteMenu()
@@ -163,7 +143,7 @@ void LevelSelectMenu::moveOnScreen(Shaders & shader, float end)
 		{
 			temp.y = this->_menuItems[i].button->GetPosition().y;
 			Juicy::Tweening(*this->_menuItems[i].button, temp, weighting);
-			Juicy::TweeingRotation(*this->_menuItems[i].button, 15.0f, weighting);
+			Juicy::TweeingRotation(*this->_menuItems[i].button, 10.0f, weighting);
 			this->_menuItems[i].button->Draw(shader);
 		}
 		Game::_window.update();

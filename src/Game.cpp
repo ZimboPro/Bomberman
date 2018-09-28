@@ -184,20 +184,12 @@ void Game::showLevelSelect()
 	int selection = menu.show(shader, brightShader);
 	switch(selection)
 	{
-		case LevelSelectMenu::Random:
+		case LevelSelectMenu::Infinite:
 			Game::_startLevel = 0;
 			_gameState = Playing;
 			break;
-		case LevelSelectMenu::lvl1:
+		case LevelSelectMenu::Classic:
 			Game::_startLevel = 1;
-			_gameState = Playing;
-			break;
-		case LevelSelectMenu::lvl2:
-			Game::_startLevel = 2;
-			_gameState = Playing;
-			break;
-		case LevelSelectMenu::lvl3:
-			Game::_startLevel = 3;
 			_gameState = Playing;
 			break;
 		case LevelSelectMenu::Back:
@@ -348,15 +340,6 @@ void Game::save()
 			}
 		}
 	}
-	std::cout << std::endl;
-	for(size_t row = 0; row < saveMap.size(); row++)
-	{
-		for(size_t col = 0; col < saveMap[row].size(); col++)
-		{
-			std::cout << saveMap[row][col];
-		}
-		std::cout << std::endl;
-	}
 	Map::_levels.save(saveMap, enemiesKilled, lives, score, timeLeft);
 }
 
@@ -365,11 +348,6 @@ void Game::load()
 	std::cout << "Loading\n";
 	_loadedLevel = true;
 	_gameState = Playing;
-	// Map::_levels.load();
-	// Map::_levels.getTimeLeft();
-	// Map::_levels.getScore();
-	// Map::_levels.getHealth();
-	// Map::_levels.getSeed();
 }
 
 int Game::getKeyConfigured(eKeys key)
