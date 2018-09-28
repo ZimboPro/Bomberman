@@ -319,5 +319,20 @@ void Player::fixCameraPosition()
 
 Rectangle Player::getBoundBox()
 {
-	return this->_models[0]->getBoundingRectangle();
+	Rectangle temp = this->_models[0]->getBoundingRectangle();
+	glm::vec3 pos = this->_models[0]->GetPosition();
+	temp.x1 -= pos.x;
+    temp.x2 -= pos.x;
+    temp.y1 -= pos.z;
+    temp.y2 -= pos.z;
+	float percentage = 0.25f;
+	temp.x1 *= percentage;
+    temp.x2 *= percentage;
+    temp.y1 *= percentage;
+    temp.y2 *= percentage;
+	temp.x1 += pos.x;
+    temp.x2 += pos.x;
+    temp.y1 += pos.z;
+    temp.y2 += pos.z;
+	return temp;
 }

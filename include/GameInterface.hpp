@@ -50,6 +50,7 @@ class GameInterface
 
     private:
         static Model_Sprite * _model;
+        static Model_Sprite * _bomb;
         static Shaders * _shader;
         static Shaders * _textShader;
         static Text * _text;
@@ -63,6 +64,7 @@ class GameInterface
         static int _troopaKilled;
         static int _totalEnemiesInPlay;
         static float _rangeMultiplier;
+        static int _bombMultiplier;
         static bool _wonLevel;
         static glm::mat4 _projection;
         static glm::mat4 _view;
