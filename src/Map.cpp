@@ -79,12 +79,7 @@ void Map::readInRandomMap(int seed)
 
 void Map::setMap(std::vector<std::vector<char>> map)
 {
-	std::cout << map.size() << std::endl;
-	std::cout << map[0].size() << std::endl;
 	_map = map;
-	std::cout << std::endl;
-	std::cout << _map.size() << std::endl;
-	std::cout << _map[0].size() << std::endl;
 }
 
 void Map::destroyEverything()

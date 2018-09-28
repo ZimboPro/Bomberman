@@ -240,10 +240,6 @@ void Player::Update(float & timeElapsed)
 
 	switch (collidesWith)
 	{
-		case fire:
-			std::cout << "Player - Fire\n";
-			aboutToDie();
-			break;
 		case gate:
 			if(GameInterface::allEnemiesDead())
 			{

@@ -436,6 +436,7 @@ eKeys Game::keyTyped()
 
 void	Game::setGameStateGameWon()
 {
+	showCredits();
 	_gameState = ShowingMenu;
 }
 

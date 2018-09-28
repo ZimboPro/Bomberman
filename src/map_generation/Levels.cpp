@@ -50,7 +50,6 @@ char	Levels::populate(int row, int col )
 		if (random >= 80 && random <= 90 && this->_gate == false)
 		{
 			this->_gate = true;
-			std::cout << "==================== gate : added ====================" << std::endl;
 			return ('G');
 		}
 		if (rand() % 100 < 5)
@@ -203,7 +202,6 @@ void			Levels::save(std::vector<std::vector<char>> map, int enemyTotal, int heal
 	// update current map to current game state
 	fixMap(map, enemyTotal);
 	// setup object to save to archive
-	std::cout << "original map size : " << this->_lastMap.size() << std::endl;
 	int seed = 0;
 	if (_seed > 0 && _seed < 4)
 		seed = _seed;
@@ -246,14 +244,6 @@ std::vector<std::vector<char> >			Levels::load( void )
 	this->_timeLeft = temp->getTimeLeft();
 	GameInterface::setTime(this->_timeLeft);
 	this->_lastMap = temp->getSave();
-	for(size_t row = 0; row < this->_lastMap.size(); row++)
-	{
-		for(size_t col = 0; col < this->_lastMap[row].size(); col++)
-		{
-			std::cout << this->_lastMap[row][col];
-		}
-		std::cout << std::endl;
-	}
 	this->_enemiesKilled = temp->getEnemiesKilled();
 	GameInterface::setNumEnemies(this->_enemiesKilled);
 	this->_seed = temp->getSeed();

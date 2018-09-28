@@ -41,17 +41,6 @@ void GameObjectManager::drawAll(Shaders & shader)
 				x->Draw(shader);
 		}
 	}
-	// std::cout << "-";
-
-	// for(size_t row = 0; row < _staticObjects.size(); row++)
-	// {
-	// 	for(size_t col = 0; col < _staticObjects[row].size(); col++)
-	// 	{
-	// 		if (_staticObjects[row][col]->isLoaded())
-	// 			_staticObjects[row][col]->Draw(shader);
-	// 	}
-	// }
-	// std::cout << "1st\n";
 	for (auto &_grass : *_grass)
 	{
 		_grass->Draw(shader);
