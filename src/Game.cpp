@@ -110,6 +110,7 @@ void Game::wonLevel()
 	GameObjectManager::killItWithFire();
 	LevelPassed levelPassed;
 	_loadedLevel = false;
+	_wonLevel = true;
 	levelPassed.show();
 	_startLevel += 1;
 	_gameState = Playing;
@@ -136,7 +137,7 @@ void Game::showPauseMenu()
 	if (selection == PauseMenu::Quit)
 	{
 		GameObjectManager::clearObjects();
-		_gameState = ShowingMenu;
+		_gameState = Exiting;
 	}
 	if (selection == PauseMenu::Save)
 		save();
@@ -183,20 +184,12 @@ void Game::showLevelSelect()
 	int selection = menu.show(shader, brightShader);
 	switch(selection)
 	{
-		case LevelSelectMenu::Random:
+		case LevelSelectMenu::Infinite:
 			Game::_startLevel = 0;
 			_gameState = Playing;
 			break;
-		case LevelSelectMenu::lvl1:
+		case LevelSelectMenu::Classic:
 			Game::_startLevel = 1;
-			_gameState = Playing;
-			break;
-		case LevelSelectMenu::lvl2:
-			Game::_startLevel = 2;
-			_gameState = Playing;
-			break;
-		case LevelSelectMenu::lvl3:
-			Game::_startLevel = 3;
 			_gameState = Playing;
 			break;
 		case LevelSelectMenu::Back:
@@ -239,7 +232,10 @@ void Game::playGame()
 	GameObjectManager::init();
 	GameObjectManager::newLevel(Game::_startLevel);
 
-	_interface.resetHOD();
+	if (!_wonLevel)
+		_interface.resetHOD();
+	else
+		_wonLevel = false;
 	_interface.resetTime(300);
 	_interface.resetPostions();
 
@@ -251,6 +247,7 @@ void Game::playGame()
 		}
 		catch(std::exception &e)
 		{
+			_loadedLevel = !_loadedLevel;
 			std::cout << std::endl << e.what() << std::endl;
 			_gameState = ShowingStartGameMenu;
 		}
@@ -303,7 +300,7 @@ void Game::playGame()
 		if (_window.closed())
 		{
 			// GameObjectManager::killItWithFire();
-			_gameState = ShowingMenu;
+			_gameState = Exiting;
 		}
 	}
 	return ;
@@ -343,15 +340,6 @@ void Game::save()
 			}
 		}
 	}
-	std::cout << std::endl;
-	for(size_t row = 0; row < saveMap.size(); row++)
-	{
-		for(size_t col = 0; col < saveMap[row].size(); col++)
-		{
-			std::cout << saveMap[row][col];
-		}
-		std::cout << std::endl;
-	}
 	Map::_levels.save(saveMap, enemiesKilled, lives, score, timeLeft);
 }
 
@@ -360,11 +348,6 @@ void Game::load()
 	std::cout << "Loading\n";
 	_loadedLevel = true;
 	_gameState = Playing;
-	// Map::_levels.load();
-	// Map::_levels.getTimeLeft();
-	// Map::_levels.getScore();
-	// Map::_levels.getHealth();
-	// Map::_levels.getSeed();
 }
 
 int Game::getKeyConfigured(eKeys key)
@@ -464,4 +447,5 @@ LoadingScreen Game::_loadingScreen;
 Settings Game::_settings{eScreen::s1024, false, false, eVolume::v100, false};
 bool Game::_KeyBind = false;
 bool Game::_loadedLevel = false;
+bool Game::_wonLevel = false;
 int	Game::_startLevel = 0;

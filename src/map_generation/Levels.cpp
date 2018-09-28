@@ -246,6 +246,14 @@ std::vector<std::vector<char> >			Levels::load( void )
 	this->_timeLeft = temp->getTimeLeft();
 	GameInterface::setTime(this->_timeLeft);
 	this->_lastMap = temp->getSave();
+	for(size_t row = 0; row < this->_lastMap.size(); row++)
+	{
+		for(size_t col = 0; col < this->_lastMap[row].size(); col++)
+		{
+			std::cout << this->_lastMap[row][col];
+		}
+		std::cout << std::endl;
+	}
 	this->_enemiesKilled = temp->getEnemiesKilled();
 	GameInterface::setNumEnemies(this->_enemiesKilled);
 	this->_seed = temp->getSeed();

@@ -91,7 +91,6 @@ void GameObjectManager::changeLevel(int seed)
 		killItWithFire();
 	Map::readInRandomMap(seed);
 	initLevel();
-	Map::printMap();
 }
 
 void GameObjectManager::loadLevel(std::vector<std::vector<char>> map)
@@ -109,14 +108,11 @@ void GameObjectManager::clearObjects()
 		{
 			_staticObjects[i].clear();
 		}
-		std::cout << "Clear" << std::endl;
 		_staticObjects.clear();
 		_dynamicObjects->clear();
 		delete _dynamicObjects;
-		std::cout << "Clear" << std::endl;
 		_grass->clear();
 		delete _grass;
-		std::cout << "Clear" << std::endl;
 	}
 }
 
@@ -164,7 +160,11 @@ void GameObjectManager::addDynamicObject(objectTypes type, float x, float y)
 	if (type != bomb || !_staticObjects[y][x]->isLoaded())
 	{
 		std::shared_ptr<VisibleGameObject> obj(_factory.newVGO(type, x, y));
-		_dynamicObjects->push_back(obj);
+		BoundingBox box = obj.get()->getBoundingBox();
+		if (type == bomb && collidesWith(box, type) == grass)
+			_dynamicObjects->push_back(obj);
+		else if (type != bomb)
+			_dynamicObjects->push_back(obj);
 	}
 }
 

@@ -23,7 +23,7 @@ Player::Player(Player const & src)
 	*this = src;
 }
 
-Player::Player(Model_Texture & texture, float x, float y): _speed(3.0f), VisibleGameObject(texture, x, y, true, false)
+Player::Player(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false), _speed(3.0f)
 {
 	init();
 }
@@ -94,6 +94,7 @@ void Player::placeBombX(float & bombX, float & bombY, float bombOffset, float mo
 		bombX = ceilf(bombX + bombOffset);
 	else
 		bombX = floor(bombX + bombOffset);
+
 	if (abs(bombX - pos) < 0.5)
 		Move(moveX, moveY);
 	bombY = round(bombY);
@@ -105,8 +106,10 @@ void Player::placeBombY(float & bombX, float & bombY, float bombOffset, float mo
 		bombY = ceilf(bombY + bombOffset);
 	else
 		bombY = floor(bombY + bombOffset);
-	if (abs(bombY - pos) < 0.5)
+	
+	if (abs(bombY - pos) < 0.3) // comparrison between player y and bomb y
 		Move(moveX, moveY);
+	
 	bombX = round(bombX);
 }
 
@@ -174,7 +177,7 @@ void Player::movement(float degree, float x, float y, float x1, float y1, float 
 	box.x2 += x;
 	box.y1 += y;
 	box.y2 += y;
-	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass || (collidesWith = GameObjectManager::collidesWith(box, _type)) == bomb)
+	if((collidesWith = GameObjectManager::collidesWith(box, _type)) == grass)
 	{
 		_totalElapsed += timeElapsed;
 		Game::_camera.Move(camX, camY);
@@ -211,7 +214,8 @@ void Player::checks(float &timeElapsed)
 void Player::Update(float & timeElapsed)
 {
 	checks(timeElapsed);
-
+	if (_isDying)
+		return;
 	float camDisplacement = timeElapsed * _speed;
 	BoundingBox box = this->getBoundingBox();
 	_prevIndex = _index;
@@ -237,15 +241,7 @@ void Player::Update(float & timeElapsed)
 	switch (collidesWith)
 	{
 		case fire:
-			std::cout << "fire" << std::endl;
-			aboutToDie();
-			break;
-		case goomba:
-			std::cout << "goomba" << std::endl;
-			aboutToDie();
-			break;
-		case koopaTroopa:
-			std::cout << "troopa" << std::endl;
+			std::cout << "Player - Fire\n";
 			aboutToDie();
 			break;
 		case gate:

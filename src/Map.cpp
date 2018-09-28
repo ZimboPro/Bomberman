@@ -21,7 +21,8 @@ char Map::at(int x, int y)
 
 void Map::removeAtPosition(int x, int y)
 {
-	_map[y][x] = '0';
+	if (_map[y][x] != 'G')
+		_map[y][x] = '0';
 }
 
 size_t Map::height()
