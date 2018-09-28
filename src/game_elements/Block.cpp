@@ -18,6 +18,10 @@ Block::Block(Model_Texture & texture, float x, float y, bool isBreakable): Visib
 		_type = unbreakableBlocks;
 }
 
+Block::~Block()
+{
+}
+
 void Block::dying(float & elapsedTime)
 {
 	if(_timeTodie > 0)
@@ -50,8 +54,4 @@ BoundingBox Block::getBoundingBox()
 	box.y2 = box.y1 + 0.82;
 
 	return box;
-}
-
-Block::~Block()
-{
 }

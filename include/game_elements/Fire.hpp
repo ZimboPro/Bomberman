@@ -12,13 +12,15 @@
 class Fire: public VisibleGameObject
 {
 public:
-	~Fire();
 	Fire();
-
+	Fire(Fire const & src);
 	Fire(Model_Texture & texture, float x, float y);
+	~Fire();
 
 	void Update(float & timeElapsed);
 	BoundingBox getBoundingBox();
+
+	Fire & operator=(Fire const & rhs);
 
 private:
 	float _burnTime;

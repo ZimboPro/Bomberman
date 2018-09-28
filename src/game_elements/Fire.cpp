@@ -13,6 +13,12 @@ Fire::Fire(): _burnTime(2.0)
 	_sound->setSoundLevel(Game::_settings.volume * 20);
 }
 
+Fire::Fire(Fire const & src)
+{
+	*this = src;
+}
+
+
 Fire::Fire(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false)
 {
 	_type = fire;
@@ -64,4 +70,13 @@ void Fire::Update(float & timeElapsed)
 	{
 		GameObjectManager::removeDynamicObject(this);
 	}
+}
+
+Fire & Fire::operator=(Fire const & rhs)
+{
+	if(this != &rhs)
+	{
+		*this = rhs;
+	}
+	return *this;
 }

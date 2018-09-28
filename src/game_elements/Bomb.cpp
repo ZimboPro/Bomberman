@@ -10,6 +10,11 @@ Bomb::Bomb(): _timeTillExplode(5.0)
 	_type = bomb;
 }
 
+Bomb::Bomb(Bomb const & src)
+{
+	*this = src;
+}
+
 Bomb::Bomb(Model_Texture & texture, float x, float y): VisibleGameObject(texture, x, y, true, false)
 {
 	_type = bomb;
@@ -44,4 +49,13 @@ void Bomb::Update(float & timeElapsed)
 	{
 		GameObjectManager::explodeBomb(this);
 	}
+}
+
+Bomb & Bomb::operator=(Bomb const & rhs)
+{
+	if(this != &rhs)
+	{
+		*this = rhs;
+	}
+	return *this;
 }
