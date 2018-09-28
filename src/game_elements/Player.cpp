@@ -227,7 +227,6 @@ void Player::Update(float & timeElapsed)
 
 	objectTypes collidesWith = grass;
 
-
 	if (Game::keyPressed() == eKeys::Up)
 		movement(270.0f, -displacement, alignY, 0.0f, 0.0f, -camDisplacement, 0.0f, box, collidesWith, timeElapsed);
 	else if (Game::keyPressed() == eKeys::Down)
@@ -312,4 +311,9 @@ void Player::fixCameraPosition()
 		Game::_camera.Position.z = 5.5f;
 	else if (posPlayer.z >= 25.0f || Game::_camera.Position.z > 25.0f)
 		Game::_camera.Position.z = 25.0f;
+}
+
+Rectangle Player::getBoundBox()
+{
+	return this->_models[0]->getBoundingRectangle();
 }

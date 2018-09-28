@@ -33,6 +33,7 @@ public:
 	static void killPlayer();
 	static void loadLevel(std::vector<std::vector<char>> map);
 	static void killItWithFire();
+	static void collidesWithPlayer();
 
 private:
 	static void changeLevel(int seed);

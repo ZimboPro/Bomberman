@@ -7,6 +7,8 @@ C++ project at WeThinkCode\_ to recreate a Bomberman game. The game has to be fu
 To get the game working on your Mac run the following commands to setup the directory
 and install all the requirements. 
 ```
+brew install cmake
+brew install boost
 git clone https://github.com/ZimboPro/Bomberman.git
 cd Bomberman && mkdir build && cd build
 cmake ..
@@ -29,27 +31,27 @@ When starting a game you can choose from levels 1-3 or pick a randomly generated
 
 ### Controls
 
-Movement:	
-	W & arrow up = UP
-	A & arrow left = LEFT
-	S & arrow down = DOWN
-	D & arrow right = RIGHT
-	SPACE = Place Bomb
-	ESC = pause game
-	Enter = select
+**Movement:**
+-	W & arrow up = UP  
+-	A & arrow left = LEFT  
+-	S & arrow down = DOWN  
+-	D & arrow right = RIGHT  
+-	SPACE = Place Bomb  
+-	ESC = pause game  
+-	Enter = select  
   
-Main menu:
-	W & arrow up = UP
-	A & arrow left = LEFT
-	S & arrow down = DOWN
-	D & arrow right = RIGHT
-	ESC = Back
-	Enter = select
+**Main menu:**
+-	W & arrow up = UP  
+-	A & arrow left = LEFT  
+-	S & arrow down = DOWN  
+-	D & arrow right = RIGHT  
+-	ESC = Back  
+-	Enter = select  
   
 ### Team
 
-<a href="https://github.com/ZimboPro">Leslie</a>  
-<a href="https://github.com/P-Russell">Patrick</a>  
-<a href="https://github.com/cdpauwels">Charl</a>  
-<a href="https://github.com/ChazniK">Chazni</a>  
-<a href="https://github.com/Moondog360">Marco</a>
+- <a href="https://github.com/ZimboPro">Leslie</a>  
+- <a href="https://github.com/P-Russell">Patrick</a>  
+- <a href="https://github.com/cdpauwels">Charl</a>  
+- <a href="https://github.com/ChazniK">Chazni</a>  
+- <a href="https://github.com/Moondog360">Marco</a>

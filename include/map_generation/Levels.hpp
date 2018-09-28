@@ -6,7 +6,7 @@
 /*   By: mafernan   <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 11/30/15 by mafernan          #+#    #+#             */
-/*   Updated: 2018/09/21 15:18:02 by mafernan         ###   ########.fr       */
+/*   Updated: 2018/09/27 12:56:01 by mafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ class Levels {
 		void				setScore(  int value );
 		void				setHealth(  int value );
 		void				setEnemiesKilled (  int value );		
+
+		bool			findGate(std::vector<std::vector<char> > map);
 
 	private:
 		bool			_gate = false;

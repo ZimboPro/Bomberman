@@ -32,11 +32,11 @@ BoundingBox Fire::getBoundingBox()
 	if (!isLoaded())
 		throw Error::AssetError("fire object not loaded");
 
-	float modelSize = 1;
+	float modelSize = 0.5;
 
-	_box.x1 = _model.GetPosition().x;
+	_box.x1 = _model.GetPosition().x - modelSize;
 	_box.x2 = _model.GetPosition().x + modelSize;
-	_box.y1 = _model.GetPosition().z;
+	_box.y1 = _model.GetPosition().z - modelSize;
 	_box.y2 = _model.GetPosition().z + modelSize;
 
 	return _box;
@@ -57,6 +57,8 @@ void Fire::Update(float & timeElapsed)
 		{
 			_model.Move(0, 0, -timeElapsed * _speed, rotationMultiplier * timeElapsed * _speed);
 		}
+		BoundingBox box = getBoundingBox();
+		GameObjectManager::collidesWithPlayer();
 	}
 	else
 	{
