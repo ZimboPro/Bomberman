@@ -328,6 +328,29 @@ void GameObjectManager::killItWithFire()
 	Map::destroyEverything();
 }
 
+void GameObjectManager::collidesWithPlayer()
+{
+	for (auto iter = _dynamicObjects->begin(); iter != _dynamicObjects->end(); iter++)
+	{
+		if ((*iter).get()->getType() == player)
+		{
+			Rectangle box = (*iter).get()->getBoundBox();
+			for (auto fireIter = _dynamicObjects->begin(); fireIter != _dynamicObjects->end(); fireIter++)
+			{
+				if ((*fireIter).get()->getType() == fire)
+				{
+					if ((*fireIter).get()->Collision(box))
+					{
+						(*iter).get()->kill();
+						return;
+					}
+				}
+			}
+			break;
+		}
+	}
+}
+
 std::vector<std::vector<std::shared_ptr<VisibleGameObject>>> GameObjectManager::_staticObjects;
 std::list<std::shared_ptr<VisibleGameObject> > * GameObjectManager::_dynamicObjects;
 std::list<std::shared_ptr<VisibleGameObject>> * GameObjectManager::_grass;

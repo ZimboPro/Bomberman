@@ -25,6 +25,7 @@ public:
 	void dropBomb();
 	void dying(float & timeElapsed);
 	void setCamera();
+	virtual Rectangle getBoundBox();
 
 private:
 	void Move(float x, float y, float z = 0);
