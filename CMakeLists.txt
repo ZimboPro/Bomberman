@@ -78,4 +78,4 @@ add_executable(
 add_dependencies(bomberman graphics)
 find_package(Boost REQUIRED COMPONENTS system serialization)
 include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(bomberman graphics ${Boost_LIBRARIES}) 
+target_link_libraries(bomberman graphics ${Boost_LIBRARIES})

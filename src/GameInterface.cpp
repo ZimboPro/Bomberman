@@ -61,7 +61,7 @@ void GameInterface::resetPostions()
     _postions.clear();
     _postions.push_back(glm::vec2(x * 1 - 60, y));
     _postions.push_back(glm::vec2(x * 2 - 60, y));
-    _postions.push_back(glm::vec2(x * 3 - 60, y));
+    _postions.push_back(glm::vec2(x * 3 - 80, y));
     _postions.push_back(glm::vec2(x * 4 + 30, y));
     _model->Reset();
     _model->Position(x - 90.0f, -20.0f, y);

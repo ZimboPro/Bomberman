@@ -321,7 +321,7 @@ Rectangle Player::getBoundBox()
     temp.x2 -= pos.x;
     temp.y1 -= pos.z;
     temp.y2 -= pos.z;
-	float percentage = 0.25f;
+	float percentage = 0.20f;
 	temp.x1 *= percentage;
     temp.x2 *= percentage;
     temp.y1 *= percentage;
